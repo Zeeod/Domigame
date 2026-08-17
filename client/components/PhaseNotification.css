@@ -1,0 +1,53 @@
+.phase-notification-v3 {
+    width: 140px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.p-notif-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(var(--phase-color-rgb, 255, 255, 255), 0.15);
+    padding: 6px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--phase-color);
+    box-shadow: 0 0 15px rgba(var(--phase-color-rgb, 255, 255, 255), 0.2);
+    cursor: default;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Color Mappings to RGB for transparency */
+.p-notif-pill[style*="#3498db"] {
+    --phase-color-rgb: 52, 152, 219;
+}
+
+.p-notif-pill[style*="#f1c40f"] {
+    --phase-color-rgb: 241, 196, 15;
+}
+
+.p-notif-pill[style*="#95a5a6"] {
+    --phase-color-rgb: 149, 165, 166;
+}
+
+.p-notif-pill[style*="#2ecc71"] {
+    --phase-color-rgb: 46, 204, 113;
+}
+
+.p-notif-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 4px var(--phase-color));
+}
+
+.p-notif-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px var(--phase-color);
+}

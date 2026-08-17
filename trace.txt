@@ -1,0 +1,47 @@
+TAP version 13
+1..1
+not ok 1 - server/tests/Interactions.test.ts # time=11.92ms {
+    1..1
+    not ok 1 - Advanced Mechanics & Interactions # time=11.40ms {
+        1..1
+        not ok 1 - Throne Room Chains # time=11.25ms {
+            1..2
+            not ok 1 - should handle Throne Room -> Throne Room -> Smithy (Triple Play) # time=9.15ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected { …(6) } to be null"
+                at: "D:/Jeux/Developpement/dominion/server/tests/Interactions.test.ts:128:43"
+                actual: "Object {
+  \"constraints\": Object {
+    \"filter\": Object {
+      \"cardTypes\": Array [
+        \"ACTION\",
+      ],
+    },
+    \"max\": 1,
+    \"min\": 0,
+    \"sourceZone\": \"hand\",
+  },
+  \"context\": Object {
+    \"destination\": \"play\",
+    \"next\": Array [
+      Object {
+        \"times\": 2,
+        \"type\": \"PLAY_ACTION_TWICE\",
+      },
+    ],
+    \"sourceCardInstanceId\": \"throne_room_1770495989809_2\",
+    \"specialAction\": \"ZONE_CHOICE\",
+  },
+  \"id\": \"choose_zone_1770495989812\",
+  \"message\": \"Choisissez une action à jouer deux fois\",
+  \"playerId\": \"p1\",
+  \"type\": \"CHOOSE_CARDS\",
+}"
+                expected: "null"
+                ...
+            ok 2 - should handle Throne Room -> Throne Room -> Smithy (Triple Play) WITH enough targets # time=1.52ms
+        }
+    }
+}

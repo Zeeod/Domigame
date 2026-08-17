@@ -1,0 +1,42 @@
+{
+    "name": "dominion-js",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "clean": "node scripts/clean_ports.js",
+        "dev": "node scripts/clean_ports.js 3000 && vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check-types": "tsc --noEmit",
+        "start": "node scripts/clean_ports.js 3005 && tsx server/index.ts",
+        "serve": "node scripts/clean_ports.js 3005 && tsx server/index.ts",
+        "test": "vitest"
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/react": "^16.3.2",
+        "@types/better-sqlite3": "^7.6.13",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.0.9",
+        "@types/react": "^19.2.8",
+        "@types/react-dom": "^19.2.3",
+        "@types/socket.io": "^3.0.1",
+        "@vitejs/plugin-react": "^5.1.2",
+        "jsdom": "^30.0.1",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
+        "typescript": "^5.9.3",
+        "vite": "^5.0.0",
+        "vitest": "^4.0.17"
+    },
+    "dependencies": {
+        "better-sqlite3": "^12.6.2",
+        "express": "^5.2.1",
+        "framer-motion": "^12.28.2",
+        "immer": "^11.1.4",
+        "socket.io": "^4.8.3",
+        "socket.io-client": "^4.8.3",
+        "tsx": "^4.21.0"
+    }
+}

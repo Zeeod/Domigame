@@ -1,0 +1,284 @@
+﻿
+> dominion-js@1.0.0 check-types
+> tsc --noEmit
+
+client/components/ChoiceModalV2.tsx(2,10): error TS6133: 'motion' is declared but its value is never read.
+client/components/LogView.tsx(23,115): error TS6133: 'onRequestRewind' is declared but its value is never read.
+client/hooks/usePromptInteraction.ts(3,27): error TS6133: 'SelectionState' is declared but its value is never read.
+client/hooks/useSound.ts(4,33): error TS6133: 'useEffect' is declared but its value is never read.
+server/tests/audit_conditional.ts(3,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/audit_duration.ts(6,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/BaseGame.test.ts(25,9): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/BaseGame.test.ts(26,9): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/BaseGame.test.ts(59,51): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/BaseGame.test.ts(93,57): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/BaseGame.test.ts(93,86): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/card_validation.ts(14,29): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/card_validation.ts(15,30): error TS6133: 'CardInstance' is declared but its value is never read.
+server/tests/DarkAgesSetup.test.ts(14,30): error TS6133: 'event' is declared but its value is never read.
+server/tests/DarkAgesSetup.test.ts(18,26): error TS6133: 'event' is declared but its value is never read.
+server/tests/DarkAgesTrash.test.ts(7,30): error TS6133: 'createCardInstances' is declared but its value is never read.
+server/tests/DarkAgesTrash.test.ts(76,17): error TS1117: An object literal cannot have multiple properties with the same name.
+server/tests/DarkAgesTrash.test.ts(149,19): error TS6133: 'duchyOption' is declared but its value is never read.
+server/tests/ExpansionMechanics.test.ts(61,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/harness.ts(2,38): error TS6133: 'LogEntry' is declared but its value is never read.
+server/tests/harness.ts(28,7): error TS6196: 'TestHarness' is declared but never used.
+server/tests/harness.ts(32,20): error TS2554: Expected 2-3 arguments, but got 1.
+server/tests/harness.ts(33,20): error TS2554: Expected 2-3 arguments, but got 1.
+server/tests/harness.ts(49,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/harness.ts(163,7): error TS6133: 'tests' is declared but its value is never read.
+server/tests/harness.ts(169,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(176,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(183,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(194,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(205,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(213,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(223,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(232,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(242,17): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(246,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(246,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(253,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(261,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(261,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(268,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(268,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(275,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(283,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(283,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(290,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(298,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(306,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(306,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(313,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(313,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(320,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(320,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(327,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(335,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(335,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(342,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(342,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(349,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(349,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(356,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(365,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(365,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(372,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(372,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(379,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(379,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(386,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(386,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/integration_tests.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/integration_tests.ts(40,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(41,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(42,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(43,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(44,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(45,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(46,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/integration_tests.ts(212,15): error TS6133: 'beforeCoins' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(2,41): error TS6133: 'createPlayer' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(4,1): error TS6133: 'ActionResolver' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(5,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(6,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/MechanicsB.test.ts(35,53): error TS2322: Type '{ type: string; count: number; }' is not assignable to type 'EffectDefinition'.
+  Type '{ type: string; count: number; }' is not assignable to type 'GainLootEffect'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"GAIN_LOOT"'.
+server/tests/MechanicsB.test.ts(45,60): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/MechanicsB.test.ts(58,68): error TS2322: Type '{ type: string; targetSize: number; maySkipActions: boolean; }' is not assignable to type 'EffectDefinition'.
+  Type '{ type: string; targetSize: number; maySkipActions: boolean; }' is not assignable to type 'DrawUntilHandSizeEffect'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"DRAW_UNTIL_HAND_SIZE"'.
+server/tests/MechanicsB.test.ts(77,53): error TS2322: Type '{ type: string; targetSize: number; maySkipActions: boolean; }' is not assignable to type 'EffectDefinition'.
+  Type '{ type: string; targetSize: number; maySkipActions: boolean; }' is not assignable to type 'DrawUntilHandSizeEffect'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"DRAW_UNTIL_HAND_SIZE"'.
+server/tests/MechanicsB.test.ts(83,19): error TS6133: 'decisionResult' is declared but its value is never read.
+server/tests/MechanicsB.test.ts(108,53): error TS2322: Type '{ type: string; sourceZone: string; action: string; min: number; max: number; }' is not assignable to type 'EffectDefinition'.
+  Type '{ type: string; sourceZone: string; action: string; min: number; max: number; }' is not assignable to type 'SelectAndApplyEffect'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"SELECT_AND_APPLY"'.
+server/tests/MechanicsB.test.ts(118,75): error TS2322: Type '{ type: string; sourceZone: string; destination: string; position: string; }' is not assignable to type 'EffectDefinition'.
+  Type '{ type: string; sourceZone: string; destination: string; position: string; }' is not assignable to type 'DrawEffect | AddActionEffect | AddBuyEffect | AddMoneyEffect | TrashEffect | ChoiceEffect | ... 131 more ... | TopdeckThisEffect'.
+    Property 'mat' is missing in type '{ type: string; sourceZone: string; destination: string; position: string; }' but required in type 'TakeFromMatEffect'.
+server/tests/promos/PromoMechanics.test.ts(6,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/promos/PromoMechanics.test.ts(34,19): error TS6133: 'villageInstanceId' is declared but its value is never read.
+server/tests/promos/PromoMechanics.test.ts(56,19): error TS6133: 'player' is declared but its value is never read.
+server/tests/promos/PromoMechanics.test.ts(93,19): error TS6133: 'res' is declared but its value is never read.
+server/tests/Prosperity.test.ts(137,26): error TS2551: Property 'handleOnGainTriggers' does not exist on type 'typeof EffectEngine'. Did you mean 'handleOnBuyTriggers'?
+server/tests/Prosperity_Specific.test.ts(6,29): error TS2307: Cannot find module '../../shared/engine/CardCosts.js' or its corresponding type declarations.
+server/tests/Prosperity_Specific.test.ts(88,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/repro_log_integrity.ts(6,1): error TS6133: 'LogEvent' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(6,10): error TS2305: Module '"../../shared/engine/GameState.js"' has no exported member 'LogEvent'.
+server/tests/repro_log_integrity.ts(16,7): error TS6133: 'originalLog' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(17,7): error TS6133: 'originalError' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(22,7): error TS6133: 'mockLogger' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(23,11): error TS6133: 'state' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(23,29): error TS6133: 'msg' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(92,15): error TS6133: 'effect' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(118,15): error TS6133: 'logEntry' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(118,52): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/repro_log_integrity.ts(118,89): error TS2339: Property 'sourceEffect' does not exist on type 'LogEntry'.
+server/tests/repro_log_integrity.ts(127,15): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/repro_log_integrity.ts(128,15): error TS2339: Property 'sourceEffect' does not exist on type 'LogEntry'.
+server/tests/repro_log_integrity.ts(134,37): error TS2339: Property 'sourceZone' does not exist on type 'LogPayload'.
+server/tests/repro_log_integrity.ts(136,37): error TS2551: Property 'targetIds' does not exist on type 'LogPayload'. Did you mean 'targets'?
+server/tests/repro_log_integrity.ts(153,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/repro_log_integrity.ts(168,51): error TS2339: Property 'actionType' does not exist on type 'LogEntry'.
+server/tests/RisingSunProphecies.test.ts(4,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/RisingSunProphecies.test.ts(5,1): error TS6192: All imports in import declaration are unused.
+server/tests/RisingSunProphecies.test.ts(6,19): error TS6133: 'mountain_shrine' is declared but its value is never read.
+server/tests/SeasideDuration.test.ts(8,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/SeasideMechanics.test.ts(6,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/SecretPassage.test.ts(20,9): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/SecretPassage.test.ts(21,9): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/SecretPassage.test.ts(22,9): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/SecretPassage.test.ts(36,28): error TS2820: Type '"HAND"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply"'. Did you mean '"hand"'?
+server/tests/SecretPassage.test.ts(73,28): error TS2820: Type '"HAND"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply"'. Did you mean '"hand"'?
+server/tests/selection_persistence.ts(2,27): error TS6133: 'GameState' is declared but its value is never read.
+server/tests/selection_persistence.ts(3,29): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/selection_persistence.ts(17,7): error TS6133: 'originalLog' is declared but its value is never read.
+server/tests/selection_persistence.ts(18,7): error TS6133: 'originalError' is declared but its value is never read.
+server/tests/selection_persistence.ts(43,15): error TS6133: 'action' is declared but its value is never read.
+server/tests/test_empires_simple.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/test_empires_simple.ts(35,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(36,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(37,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(38,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(39,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(40,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/test_empires_simple.ts(41,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/validate_all_cards.ts(145,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(146,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(147,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(148,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(149,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(150,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validate_all_cards.ts(151,13): error TS2741: Property 'cards' is missing in type '{ cardId: string; count: number; }' but required in type 'SupplyPile'.
+server/tests/validation/audit/ExpansionAudit.test.ts(4,20): error TS6133: 'CardReference' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(15,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(30,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(44,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(71,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(181,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(195,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(209,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart1.test.ts(85,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(14,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(23,15): error TS6133: 'p1' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(29,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(83,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(17,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(40,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(48,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(75,33): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(115,46): error TS2345: Argument of type 'string' is not assignable to parameter of type 'string[]'.
+server/tests/validation/BaseSetPart3.test.ts(137,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/CornucopiaGuildsPart1.test.ts(99,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/ProsperityPart1.test.ts(85,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(15,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(25,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(48,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(55,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(68,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(75,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(100,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(107,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/SeasidePart3.test.ts(98,15): error TS6133: 'silver' is declared but its value is never read.
+server/tests/validation/SeasidePart3.test.ts(129,50): error TS2339: Property 'processStack' does not exist on type 'TestEngine'.
+server/tests/validation/TestUtils.ts(2,10): error TS6133: 'describe' is declared but its value is never read.
+server/tests/validation/TestUtils.ts(2,28): error TS6133: 'test' is declared but its value is never read.
+server/tests/validation/TestUtils.ts(339,22): error TS2551: Property 'handleOnGainTriggers' does not exist on type 'typeof EffectEngine'. Did you mean 'handleOnBuyTriggers'?
+server/tests/validation/TreasureTransition.test.ts(57,43): error TS2554: Expected 1 arguments, but got 2.
+server/tests/verify_remaining_reg.ts(1,30): error TS2307: Cannot find module '../shared/cards/index.js' or its corresponding type declarations.
+server/tools/StressTest.ts(2,22): error TS6133: 'RoomPlayer' is declared but its value is never read.
+server/tools/StressTest.ts(2,34): error TS6133: 'GameEvents' is declared but its value is never read.
+server/tools/StressTest.ts(7,8): error TS6133: 'room' is declared but its value is never read.
+server/tools/StressTest.ts(8,10): error TS6133: 'event' is declared but its value is never read.
+server/tools/StressTest.ts(8,25): error TS6133: 'data' is declared but its value is never read.
+server/tools/StressTest.ts(9,8): error TS6133: 'room' is declared but its value is never read.
+server/tools/StressTest.ts(10,8): error TS6133: 'event' is declared but its value is never read.
+server/tools/StressTest.ts(10,23): error TS6133: 'cb' is declared but its value is never read.
+server/tools/StressTest.ts(74,14): error TS2425: Class 'GameRoomV2' defines instance member property 'broadcastRoomState', but extended class 'StressGameRoom' defines it as instance member function.
+shared/cards/adventures/events.ts(71,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply" | "linked"'.
+shared/cards/adventures/events.ts(107,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | undefined'.
+shared/cards/alchemy/alchemist.ts(22,13): error TS2820: Type '"CONDITIONAL"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'. Did you mean '"CONDITION"'?
+shared/cards/alchemy/apothecary.ts(23,13): error TS2322: Type '"revealed"' is not assignable to type '"discardPile" | "limbo" | undefined'.
+shared/cards/alchemy/apothecary.ts(27,21): error TS2322: Type '"revealed"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash"'.
+shared/cards/alchemy/apothecary.ts(33,21): error TS2322: Type '"revealed"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash"'.
+shared/cards/alchemy/familiar.ts(23,21): error TS2322: Type '"GAIN"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/herbalist.ts(15,13): error TS2322: Type '"ADD_COINS"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/herbalist.ts(22,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply" | "linked"'.
+shared/cards/alchemy/transmute.ts(12,13): error TS2322: Type '"TRASH_FROM_HAND"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/transmute.ts(22,41): error TS2322: Type '"GAIN"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/transmute.ts(26,41): error TS2322: Type '"GAIN"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/transmute.ts(30,41): error TS2322: Type '"GAIN"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/alchemy/university.ts(16,13): error TS2322: Type '"GAIN"' is not assignable to type '"PAY_DEBT" | "SPEND_COFFERS" | "MODIFY_TOKEN" | "DISCARD_DECK" | "ADD_MONEY_PER_UNUSED_ACTION" | "ADD_COST_REDUCTION" | "DISCARD_TO_DECK" | "TAKE_ARTIFACT" | "PLAY_THIS_CARD" | ... 145 more ... | "TOPDECK_THIS"'.
+shared/cards/allies/split_piles.ts(18,134): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | undefined'.
+shared/cards/allies/split_piles.ts(85,185): error TS2353: Object literal may only specify known properties, and 'type' does not exist in type 'EffectDefinition[]'.
+shared/cards/base/mine.ts(20,13): error TS2353: Object literal may only specify known properties, and 'onTrash' does not exist in type 'TrashEffect'.
+shared/cards/base/throneRoom.ts(20,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "trash" | undefined'.
+shared/cards/base/throneRoom.ts(22,46): error TS2353: Object literal may only specify known properties, and 'times' does not exist in type 'PlayActionTwiceEffect'.
+shared/cards/base/witch.ts(15,13): error TS2561: Object literal may only specify known properties, but 'attackEffect' does not exist in type 'AttackEffect'. Did you mean to write 'attackEffects'?
+shared/cards/DebugCaravan.test.ts(6,1): error TS6133: 'TurnMachine' is declared but its value is never read.
+shared/cards/DebugCaravan.test.ts(7,1): error TS6133: 'EffectEngine' is declared but its value is never read.
+shared/cards/DebugCaravan.test.ts(19,11): error TS2740: Type '{ id: string; name: string; hand: never[]; deck: never[]; discardPile: never[]; playArea: never[]; actions: number; buys: number; coins: number; turnNumber: number; projects: never[]; favors: number; villagers: number; ... 5 more ...; mats: {}; }' is missing the following properties from type 'PlayerState': color, isBot, isHost, isReady, and 25 more.
+shared/cards/DebugCaravan.test.ts(29,11): error TS2740: Type '{ id: string; name: string; hand: never[]; deck: never[]; discardPile: never[]; playArea: never[]; actions: number; buys: number; coins: number; turnNumber: number; projects: never[]; favors: number; villagers: number; ... 5 more ...; mats: {}; }' is missing the following properties from type 'PlayerState': color, isBot, isHost, isReady, and 25 more.
+shared/cards/hinterlands/scheme.ts(21,21): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply" | "linked"'.
+shared/cards/intrigue/trading_post.ts(9,56): error TS2353: Object literal may only specify known properties, and 'onTrash' does not exist in type 'TrashEffect'.
+shared/cards/intrigue/upgrade.ts(16,13): error TS2353: Object literal may only specify known properties, and 'onTrash' does not exist in type 'TrashEffect'.
+shared/cards/landscapes/Landscape.test.ts(7,1): error TS6133: 'TurnMachine' is declared but its value is never read.
+shared/cards/landscapes/Landscape.test.ts(10,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/cards/landscapes/LandscapeExamples.ts(2,1): error TS6133: 'EffectRegistry' is declared but its value is never read.
+shared/cards/nocturne/cards.ts(63,13): error TS2820: Type '"HAND"' is not assignable to type '"hand" | "discardPile" | "deck"'. Did you mean '"hand"'?
+shared/cards/prosperity/bishop.ts(17,13): error TS2353: Object literal may only specify known properties, and 'onTrash' does not exist in type 'TrashEffect'.
+shared/cards/prosperity/clerk.ts(21,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "limbo" | "trash" | "supply" | "linked"'.
+shared/cards/prosperity/kings_court.ts(25,13): error TS2322: Type '"play"' is not assignable to type '"hand" | "discardPile" | "deck" | "playArea" | "aside" | "trash" | undefined'.
+shared/engine/EffectRegistry.ts(30,44): error TS6133: 'e' is declared but its value is never read.
+shared/engine/EffectRegistry.ts(34,53): error TS6133: 'e' is declared but its value is never read.
+shared/engine/EffectRegistry.ts(35,49): error TS6133: 'e' is declared but its value is never read.
+shared/engine/EffectRegistry.ts(35,52): error TS6133: 'c' is declared but its value is never read.
+shared/engine/EffectRegistry.ts(38,46): error TS6133: 'c' is declared but its value is never read.
+shared/engine/EffectRegistry.ts(39,49): error TS6133: 'c' is declared but its value is never read.
+shared/engine/effects/ConditionEffectHandler.ts(3,1): error TS6133: 'EffectUtils' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,51): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,72): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,85): error TS6133: 'sourceCardInstanceId' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(45,50): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ExpansionEffectHandler.ts(18,72): error TS6133: 'sourceCardInstanceId' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(2,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(5,45): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(5,66): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/TokenEffectHandler.ts(4,1): error TS6133: 'Logger' is declared but its value is never read.
+shared/engine/effects/TrashEffectHandler.ts(9,89): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/TrashEffectHandler.ts(118,85): error TS6133: 'context' is declared but its value is never read.
+shared/engine/effects/TriggerEffectHandler.ts(2,1): error TS6133: 'EffectUtils' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(4,1): error TS6133: 'CardInstance' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(8,1): error TS6133: 'TokenManager' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(14,63): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(14,76): error TS6133: 'sourceCardInstanceId' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(58,46): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(59,15): error TS6133: 'matName' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(60,15): error TS6133: 'source' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(61,15): error TS6133: 'limit' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(68,48): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(69,15): error TS6133: 'matName' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(103,46): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(103,67): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/ZoneEffectHandler.ts(108,47): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/EffectUtils.ts(162,39): error TS6133: 'state' is declared but its value is never read.
+shared/engine/EffectUtils.ts(162,57): error TS6133: 'player' is declared but its value is never read.
+shared/engine/EffectUtils.ts(162,78): error TS6133: 'card' is declared but its value is never read.
+shared/engine/Logger.ts(3,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/engine/Logger.ts(9,83): error TS6133: 'privateMessage' is declared but its value is never read.
+shared/engine/Logger.ts(9,108): error TS6133: 'privateData' is declared but its value is never read.
+shared/engine/registerCoreEffects.ts(281,75): error TS6133: 'ctx' is declared but its value is never read.
+shared/engine/registerCoreEffects.ts(285,77): error TS6133: 'ctx' is declared but its value is never read.
+shared/engine/SupplyGenerator.Landscapes.test.ts(9,15): error TS6133: 'result' is declared but its value is never read.
+shared/engine/SupplyGenerator.Landscapes.test.ts(62,15): error TS6133: 'specific' is declared but its value is never read.
+shared/engine/TokenManager.ts(2,1): error TS6133: 'Logger' is declared but its value is never read.
+shared/engine/TokenManager.ts(6,21): error TS6133: 'state' is declared but its value is never read.

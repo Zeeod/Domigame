@@ -1,0 +1,66 @@
+.turn-notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+    /* Let clicks pass through */
+    transition: opacity 0.5s ease;
+}
+
+.turn-notification.enter {
+    opacity: 1;
+}
+
+.turn-notification.exit {
+    opacity: 0;
+}
+
+.notification-content {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 40px 80px;
+    border-radius: 20px;
+    text-align: center;
+    border: 3px solid #f1c40f;
+    box-shadow: 0 0 50px rgba(241, 196, 15, 0.3);
+    transform: scale(0.8);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.notification-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.notification-text {
+    font-size: 48px;
+    font-weight: 900;
+    color: #f1c40f;
+    text-transform: uppercase;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.notification-sub {
+    font-size: 24px;
+    color: #ecf0f1;
+    font-weight: 300;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

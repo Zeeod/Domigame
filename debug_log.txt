@@ -1,0 +1,14 @@
+START
+DEBUG: Test Start
+DEBUG: Registry Check: Found
+DEBUG: CG isReaction: true
+DEBUG: Witch effects count: 2
+DEBUG: Witch effect 0 type: DRAW
+DEBUG: Witch effect 1 type: ATTACK
+DEBUG: P1 plays Witch
+DEBUG: Pending Decision Type: CHOOSE_CARDS
+DEBUG: Effect Stack Length: 0
+DEBUG: Reacting with Caravan Guard
+DEBUG: Reaction Resolved
+DEBUG: CG in Play: false
+DEBUG: P2 Actions: 0

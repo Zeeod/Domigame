@@ -1,0 +1,81 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/BaseGame.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mWitch (Sorcière)[2m > [22m[2mshould draw 2 cards and give Curse to other players
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+[DrawEffectHandler] Drawing cards {
+  playerId: [32m'p1'[39m,
+  amount: [33m2[39m,
+  initialHand: [33m1[39m,
+  initialDeck: [33m2[39m,
+  initialDiscard: [33m0[39m
+}
+[DrawEffectHandler] Draw complete { drawnCount: [33m2[39m, finalHand: [33m3[39m }
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: [32m'p2'[39m, hasEffect: [33mtrue[39m, context: [32m'{"attackerId":"p1"}'[39m }
+DEBUG: processStack iteration 4, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mWitch (Sorcière)[2m > [22m[2mshould be blocked by Moat (Douves)
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+[DrawEffectHandler] Drawing cards {
+  playerId: [32m'p1'[39m,
+  amount: [33m2[39m,
+  initialHand: [33m1[39m,
+  initialDeck: [33m0[39m,
+  initialDiscard: [33m0[39m
+}
+[DrawEffectHandler] Empty deck and discard, stopping draw
+[DrawEffectHandler] Draw complete { drawnCount: [33m0[39m, finalHand: [33m1[39m }
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: [32m'p2'[39m, hasEffect: [33mtrue[39m, context: [32m'{"attackerId":"p1"}'[39m }
+DEBUG: processStack finished (empty stack)
+
+ [31m❯[39m server/tests/BaseGame.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m2 failed[39m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m       [31m×[31m should draw 2 cards and give Curse to other players[39m[32m 9[2mms[22m[39m
+[31m       [31m×[31m should be blocked by Moat (Douves)[39m[32m 3[2mms[22m[39m
+       [2m[90m↓[39m[22m should play an Action card twice
+       [2m[90m↓[39m[22m should force other players to discard down to 3 cards
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m server/tests/BaseGame.test.ts[2m > [22mBase Game Card Mechanics[2m > [22mWitch (Sorcière)[2m > [22mshould draw 2 cards and give Curse to other players
+[31m[1mAssertionError[22m: expected [ 'DRAW', 'TEXT', 'TEXT' ] to include 'ATTACK_START'[39m
+[36m [2m❯[22m server/tests/BaseGame.test.ts:[2m61:26[22m[39m
+    [90m 59| [39m            [35mconst[39m logs [33m=[39m state[33m.[39mhistory[33m.[39m[34mmap[39m(l [33m=>[39m l[33m.[39mtype)[33m;[39m
+    [90m 60| [39m            [34mexpect[39m(logs)[33m.[39m[34mtoContain[39m([32m'DRAW'[39m)[33m;[39m
+    [90m 61| [39m            [34mexpect[39m(logs)[33m.[39m[34mtoContain[39m([32m'ATTACK_START'[39m)[33m;[39m
+    [90m   | [39m                         [31m^[39m
+    [90m 62| [39m            [34mexpect[39m(logs)[33m.[39m[34mtoContain[39m([32m'GAIN'[39m)[33m;[39m
+    [90m 63| [39m        })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/BaseGame.test.ts[2m > [22mBase Game Card Mechanics[2m > [22mWitch (Sorcière)[2m > [22mshould be blocked by Moat (Douves)
+[31m[1mAssertionError[22m: expected 'CHOOSE_CARDS' to be 'SELECT_OPTION' // Object.is equality[39m
+
+Expected: [32m"SELECT_OPTION"[39m
+Received: [31m"CHOOSE_CARDS"[39m
+
+[36m [2m❯[22m server/tests/BaseGame.test.ts:[2m84:49[22m[39m
+    [90m 82| [39m
+    [90m 83| [39m            [34mexpect[39m(state[33m.[39mpendingDecision)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m 84| [39m            expect(state.pendingDecision?.type).toBe(PromptType.SELECT…
+    [90m   | [39m                                                [31m^[39m
+    [90m 85| [39m            expect(state.pendingDecision?.message).toContain('Réaction…
+    [90m 86| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[33m2 skipped[39m[90m (4)[39m
+[2m   Start at [22m 20:29:36
+[2m   Duration [22m 8.09s[2m (transform 1.90s, setup 0ms, import 7.24s, tests 13ms, environment 0ms)[22m
+

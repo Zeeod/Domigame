@@ -1,0 +1,74 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion
+
+stdout | server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play)
+handlePlayActionTwice: Card found in hand throne_room
+handlePlayActionTwice: Applying effects [33m2[39m times
+handlePlayActionTwice: Card found in hand smithy
+handlePlayActionTwice: Applying effects [33m2[39m times
+
+stdout | server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play) WITH enough targets
+handlePlayActionTwice: Card found in hand throne_room
+handlePlayActionTwice: Applying effects [33m2[39m times
+handlePlayActionTwice: Card found in hand smithy
+handlePlayActionTwice: Applying effects [33m2[39m times
+handlePlayActionTwice: Card found in hand village
+handlePlayActionTwice: Applying effects [33m2[39m times
+
+ ❯ server/tests/Interactions.test.ts (2 tests | 1 failed) 13ms
+       × should handle Throne Room -> Throne Room -> Smithy (Triple Play) 10ms
+       ✓ should handle Throne Room -> Throne Room -> Smithy (Triple Play) WITH enough targets 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play)
+AssertionError: expected { …(6) } to be null
+
+[32m- Expected:[39m 
+null
+
+[31m+ Received:[39m 
+{
+  "constraints": {
+    "filter": {
+      "cardTypes": [
+        "ACTION",
+      ],
+    },
+    "max": 1,
+    "min": 0,
+    "sourceZone": "hand",
+  },
+  "context": {
+    "destination": "play",
+    "next": [
+      {
+        "times": 2,
+        "type": "PLAY_ACTION_TWICE",
+      },
+    ],
+    "sourceCardInstanceId": "throne_room_1770495869014_2",
+    "specialAction": "ZONE_CHOICE",
+  },
+  "id": "choose_zone_1770495869017",
+  "message": "Choisissez une action à jouer deux fois",
+  "playerId": "p1",
+  "type": "CHOOSE_CARDS",
+}
+
+ ❯ server/tests/Interactions.test.ts:127:43
+    125|             // So pendingDecision should be null (or checkAutoEndActio…
+    126| 
+    127|             expect(state.pendingDecision).toBeNull();
+       |                                           ^
+    128|             expect(p1.hand.length).toBe(6);
+    129|         });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  15:24:25
+   Duration  3.61s (transform 1.67s, setup 0ms, import 3.35s, tests 13ms, environment 0ms)
+

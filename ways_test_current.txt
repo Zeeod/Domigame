@@ -1,0 +1,466 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+node.exe : [90mstderr[2m | shared/tests/MenagerieWays.test.ts
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node Js/node.exe" "D:\Applications\Node Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([90mstderr[2m...rieWays.test.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Butterfly: should return card to pile and gain one costing exactly 1 more
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the 
+Butterfly: should return card to pile and gain one costing exactly 1 more
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Butterfly: should return card to pile and gain one costing exactly 1 more
+[22m[39m[MenagerieLandscapes] Registered Menagerie landscapes.
+
+[90mstderr[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the 
+Chameleon: should swap +Cards and +Coins
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstderr[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the 
+Frog: should put card on deck during cleanup
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Butterfly: should return card to pile and gain one costing exactly 1 more
+[22m[39m[ActionResolver] resolve: type=PLAY_CARD, playerId=p1
+[ActionResolver] resolvePlayCard: player=Player 1, card=village_1778764130427_41, way=way_of_the_butterfly
+[ActionResolver] wayId=way_of_the_butterfly, wayDef=Voie du Papillon, onPlay=true
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=WAY_BUTTERFLY_EFFECT
+[EffectHandlerRegistry] Resolving WAY_BUTTERFLY_EFFECT
+[EffectEngine] item needs choice: WAY_BUTTERFLY_EFFECT
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[ActionResolver] resolve: type=CHOOSE, playerId=p1
+DEBUG: ActionResolver calling resolveDecision { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[PhaseEngine] ENTERING BUY PHASE for player Player 1 (id: p1)
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Chameleon: should swap +Cards and +Coins
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Chameleon: should swap +Cards and +Coins
+[22m[39m[MenagerieLandscapes] Registered Menagerie landscapes.
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Chameleon: should swap +Cards and +Coins
+[22m[39m[ActionResolver] resolve: type=PLAY_CARD, playerId=p1
+[ActionResolver] resolvePlayCard: player=Player 1, card=smithy_1778764130436_83, way=way_of_the_chameleon
+[ActionResolver] wayId=way_of_the_chameleon, wayDef=Voie du Cam├®l├®on, onPlay=true
+[ActionResolver] CHAMELEON SWAP for smithy
+[ActionResolver] Swapping effect: DRAW
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=ADD_MONEY
+[EffectHandlerRegistry] Resolving ADD_MONEY
+[BasicEffectHandler] modifying coins: 0 -> 3 (amount=3, op=add)
+[EffectEngine] processStack finished. remaining=0
+[PhaseEngine] ENTERING BUY PHASE for player Player 1 (id: p1)
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Frog: should put card on deck during cleanup
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Frog: should put card on deck during cleanup
+[22m[39m[MenagerieLandscapes] Registered Menagerie landscapes.
+
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Frog: should put card on deck during cleanup
+[22m[39m[ActionResolver] resolve: type=PLAY_CARD, playerId=p1
+[ActionResolver] resolvePlayCard: player=Player 1, card=village_1778764130440_124, way=way_of_the_frog
+[ActionResolver] wayId=way_of_the_frog, wayDef=Voie de la Grenouille, onPlay=true
+[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=ADD_ACTIONS
+[EffectHandlerRegistry] Resolving ADD_ACTIONS
+[BasicEffectHandler] modifying actions: 0 -> 1 (amount=1, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=TOPDECK_WHEN_DISCARDED
+[EffectHandlerRegistry] Resolving TOPDECK_WHEN_DISCARDED
+[EffectEngine] processStack finished. remaining=0
+[PhaseEngine] ENTERING BUY PHASE for player Player 1 (id: p1)
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[ActionResolver] resolve: type=END_PHASE, playerId=p1
+[ActionResolver] resolveEndPhase: currentPhase=BUY
+[ActionResolver] resolveEndPhase: nextPhase=CLEANUP
+[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=CHOOSE_OPTION
+[EffectHandlerRegistry] Resolving CHOOSE_OPTION
+[EffectEngine] item needs choice: CHOOSE_OPTION
+[ActionResolver] resolve: type=CHOOSE, playerId=p1
+DEBUG: ActionResolver calling resolveDecision { playerId: [32m'p1'[39m, type: [32m'OPTION'[39m }
+[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=MOVE_TO_ZONE
+[EffectHandlerRegistry] Resolving MOVE_TO_ZONE
+[EffectEngine] processing item: type=EFFECT, effect=FINALIZE_CLEANUP
+[EffectHandlerRegistry] Resolving FINALIZE_CLEANUP
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m5[39m, finalHand: [33m5[39m }
+[EffectEngine] processing item: type=EFFECT, effect=START_NEXT_TURN
+[EffectHandlerRegistry] Resolving START_NEXT_TURN
+[EffectEngine] processStack finished. remaining=0
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Turtle: should set aside and play next turn
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the 
+Turtle: should set aside and play next turn
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Turtle: should set aside and play next turn
+[22m[39m[MenagerieLandscapes] Registered Menagerie landscapes.
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Turtle: should set aside and play next turn
+[22m[39m[ActionResolver] resolve: type=PLAY_CARD, playerId=p1
+[ActionResolver] resolvePlayCard: player=Player 1, card=smithy_1778764130451_165, way=way_of_the_turtle
+[ActionResolver] wayId=way_of_the_turtle, wayDef=Voie de la Tortue, onPlay=true
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=SET_ASIDE_FOR_NEXT_TURN
+[EffectHandlerRegistry] Resolving SET_ASIDE_FOR_NEXT_TURN
+[EffectEngine] processStack finished. remaining=0
+[PhaseEngine] ENTERING BUY PHASE for player Player 1 (id: p1)
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[fullEndTurn] loop start: turnNumber=0, phase=BUY
+[ActionResolver] resolve: type=END_PHASE, playerId=p1
+[ActionResolver] resolveEndPhase: currentPhase=BUY
+[ActionResolver] resolveEndPhase: nextPhase=CLEANUP
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=FINALIZE_CLEANUP
+[EffectHandlerRegistry] Resolving FINALIZE_CLEANUP
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m5[39m, finalHand: [33m5[39m }
+[EffectEngine] processing item: type=EFFECT, effect=START_NEXT_TURN
+[EffectHandlerRegistry] Resolving START_NEXT_TURN
+[EffectEngine] processing item: type=EFFECT, effect=PLAY_FROM_MAT
+[EffectHandlerRegistry] Resolving PLAY_FROM_MAT
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m3[39m, finalHand: [33m8[39m }
+[EffectEngine] processStack finished. remaining=0
+[fullEndTurn] loop end: turnNumber=1, phase=ACTION
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Squirrel: should draw 2 cards at end of turn
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the 
+Squirrel: should draw 2 cards at end of turn
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Squirrel: should draw 2 cards at end of turn
+[22m[39m[MenagerieLandscapes] Registered Menagerie landscapes.
+
+[90mstdout[2m | shared/tests/MenagerieWays.test.ts[2m > [22m[2mMenagerie Way Mechanics[2m > [22m[2mWay of the Squirrel: should draw 2 cards at end of turn
+[22m[39m[ActionResolver] resolve: type=PLAY_CARD, playerId=p1
+[ActionResolver] resolvePlayCard: player=Player 1, card=village_1778764130459_206, way=way_of_the_squirrel
+[ActionResolver] wayId=way_of_the_squirrel, wayDef=Voie de l'├ëcureuil, onPlay=true
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=DRAW_AT_END_OF_TURN
+[EffectHandlerRegistry] Resolving DRAW_AT_END_OF_TURN
+[EffectEngine] processStack finished. remaining=0
+[PhaseEngine] ENTERING BUY PHASE for player Player 1 (id: p1)
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+[fullEndTurn] loop start: turnNumber=0, phase=BUY
+[ActionResolver] resolve: type=END_PHASE, playerId=p1
+[ActionResolver] resolveEndPhase: currentPhase=BUY
+[ActionResolver] resolveEndPhase: nextPhase=CLEANUP
+[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m2[39m, finalHand: [33m2[39m }
+[EffectEngine] processing item: type=EFFECT, effect=FINALIZE_CLEANUP
+[EffectHandlerRegistry] Resolving FINALIZE_CLEANUP
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m5[39m, finalHand: [33m7[39m }
+[EffectEngine] processing item: type=EFFECT, effect=START_NEXT_TURN
+[EffectHandlerRegistry] Resolving START_NEXT_TURN
+[EffectEngine] processStack finished. remaining=0
+[fullEndTurn] loop end: turnNumber=1, phase=ACTION
+
+ [32mÔ£ô[39m shared/tests/MenagerieWays.test.ts[2m > [22mMenagerie Way Mechanics[2m > [22mWay of the Butterfly: should return card to pile and gain one costing exactly 1 more[32m 10[2mms[22m[39m
+ [32mÔ£ô[39m shared/tests/MenagerieWays.test.ts[2m > [22mMenagerie Way Mechanics[2m > [22mWay of the Chameleon: should swap +Cards and +Coins[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m shared/tests/MenagerieWays.test.ts[2m > [22mMenagerie Way Mechanics[2m > [22mWay of the Frog: should put card on deck during cleanup[32m 11[2mms[22m[39m
+ [32mÔ£ô[39m shared/tests/MenagerieWays.test.ts[2m > [22mMenagerie Way Mechanics[2m > [22mWay of the Turtle: should set aside and play next turn[32m 8[2mms[22m[39m
+ [32mÔ£ô[39m shared/tests/MenagerieWays.test.ts[2m > [22mMenagerie Way Mechanics[2m > [22mWay of the Squirrel: should draw 2 cards at end of turn[32m 8[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 15:08:42
+[2m   Duration [22m 7.94s[2m (transform 2.08s, setup 6.83s, import 97ms, tests 41ms, environment 0ms)[22m
+

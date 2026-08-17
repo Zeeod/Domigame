@@ -1,0 +1,156 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/Alchemy.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mGolem (Golem)[2m > [22m[2mshould reveal cards until 2 Actions are found and play them
+[22m[39mDEBUG: processStack ENTRY depth: 1, stack size: 2
+DEBUG: processStack depth 1 iteration 1, item type: EFFECT, stack size: 1
+DEBUG: handleRevealUntil revealed copper, match: false
+DEBUG: handleRevealUntil revealed copper, match: false
+DEBUG: handleRevealUntil revealed smithy, match: true
+DEBUG: handleRevealUntil revealed silver, match: false
+DEBUG: handleRevealUntil revealed village, match: true
+DEBUG: processStack depth 1 applyEffect result needsChoice: false
+DEBUG: processStack depth 1 iteration 2, item type: EFFECT, stack size: 0
+DEBUG: handlePlayTarget sourceZone: aside, targets: 2
+DEBUG: processStack depth 1 applyEffect result needsChoice: true
+DEBUG: processStack depth 1 RETURNING with needsChoice: true
+DEBUG: processStack ENTRY depth: 1, stack size: 0
+DEBUG: processStack depth 1 finished (empty stack)
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mApprentice (Apprenti)[2m > [22m[2mshould trash a card and draw cards/coins
+[22m[39mDEBUG: processStack ENTRY depth: 1, stack size: 2
+DEBUG: processStack depth 1 iteration 1, item type: EFFECT, stack size: 1
+DEBUG: processStack depth 1 applyEffect result needsChoice: false
+DEBUG: processStack depth 1 iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack depth 1 applyEffect result needsChoice: true
+DEBUG: processStack depth 1 RETURNING with needsChoice: true
+DEBUG: processStack ENTRY depth: 1, stack size: 0
+DEBUG: processStack depth 1 finished (empty stack)
+
+ [31mÔØ»[39m server/tests/Alchemy.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m       [31m├ù[31m should reveal cards until 2 Actions are found and play them[39m[32m 6[2mms[22m[39m
+[31m       [31m├ù[31m should trash a card and draw cards/coins[39m[32m 3[2mms[22m[39m
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (:St  
+  ring) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[39m[1m[41m Failed Tests 
+2 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/Alchemy.test.ts
+[2m > [22mAlchemy 
+Mechanics[2m > [22mGolem 
+(Golem)[2m > [22mshould 
+reveal cards until 2 
+Actions are found and play 
+them
+[31m[1mAssertionError[22
+m: expected 1 to be 
+greater than or equal to 
+2[39m
+[36m [2mÔØ»[22m server/t
+ests/Alchemy.test.ts:[2m56
+:36[22m[39m
+    [90m 54| [39m        
+    // 2 Actions played: 
+Village (+1 Card), Smithy 
+(+3 Cards).ÔÇª
+    [90m 55| [39m        
+    [90m// p1.hand should 
+have 4 cards drawn from 
+deck.[39m
+    [90m 56| [39m        
+    [34mexpect[39m(p1[33
+m.[39mhand[33m.[39mlengt
+h)[33m.[39m[34mtoBeGreat
+erThanOrEqual[39m([34m2[
+39m)[33m;[39m
+    [90m   | [39m        
+                           
+[31m^[39m
+    [90m 57| [39m
+    [90m 58| [39m        
+    [35mconst[39m 
+playedNames [33m=[39m p1
+[33m.[39mplayArea[33m.[3
+9m[34mmap[39m((c[33m:[3
+9m any) [33m=>[39m 
+c[33m.[39mid)[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[1/2]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/Alchemy.test.ts
+[2m > [22mAlchemy 
+Mechanics[2m > 
+[22mApprentice 
+(Apprenti)[2m > 
+[22mshould trash a card 
+and draw cards/coins
+[31m[1mAssertionError[22
+m: expected false to be 
+true // Object.is 
+equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2mÔØ»[22m server/t
+ests/Alchemy.test.ts:[2m85
+:40[22m[39m
+    [90m 83| [39m
+    [90m 84| [39m        
+    [90m// Prompt to 
+trash[39m
+    [90m 85| [39m        
+    [34mexpect[39m(result
+[33m.[39mneedsChoice)[33
+m.[39m[34mtoBe[39m([35m
+true[39m)[33m;[39m
+    [90m   | [39m        
+                           
+    [31m^[39m
+    [90m 86| [39m        
+    [34mexpect[39m(result
+[33m.[39mstate[33m.[39m
+pendingDecision)[33m.[39m
+[34mtoBeDefined[39m()[33
+m;[39m
+    [90m 87| [39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[2/2]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 23:30:19
+[2m   Duration [22m 4.19s[2m (transform 2.01s, setup 0ms, import 4.00s, tests 10ms, environment 0ms)[22m
+

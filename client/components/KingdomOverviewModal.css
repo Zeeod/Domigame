@@ -1,0 +1,182 @@
+.kingdom-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5000;
+    /* Above HUD and most overlays */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.kingdom-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    pointer-events: auto;
+}
+
+.kingdom-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1400px;
+    height: 85vh;
+    background: linear-gradient(135deg, #1a1c2c 0%, #10111a 100%);
+    border: 2px solid #5d4037;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(93, 64, 55, 0.3);
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+.kingdom-modal-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid rgba(93, 64, 55, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.kingdom-modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: #d4af37;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 4px;
+}
+
+.header-decoration {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 0 30px;
+    max-width: 200px;
+}
+
+.kingdom-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: #8d6e63;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+}
+
+.kingdom-modal-close:hover {
+    color: #d4af37;
+    transform: scale(1.1);
+}
+
+.kingdom-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.kingdom-section {
+    margin-bottom: 50px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #8d6e63;
+    margin: 0;
+    min-width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #8d6e63, transparent);
+    margin-left: 20px;
+    opacity: 0.5;
+}
+
+.kingdom-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.kingdom-card-item {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kingdom-card-item:hover {
+    transform: scale(1.05) translateY(-5px);
+    z-index: 10;
+}
+
+.kingdom-modal-footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(93, 64, 55, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.kingdom-footer-close-btn {
+    background: linear-gradient(to bottom, #5d4037, #3e2723);
+    border: 1px solid #8d6e63;
+    color: #d7ccc8;
+    padding: 10px 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.kingdom-footer-close-btn:hover {
+    background: linear-gradient(to bottom, #6d4c41, #4e342e);
+    border-color: #d4af37;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5d4037;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #8d6e63;
+}

@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+    font-family: 'MedievalSharp', serif;
+    /* Medieval Font Global */
+}
+
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+}
+
+.join-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('./background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.join-screen h1 {
+    color: #ffd700;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.connecting {
+    color: #888;
+}
+
+.join-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+}
+
+.join-form input[type="text"] {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+}
+
+.join-form input[type="text"]::placeholder {
+    color: #888;
+}
+
+.join-form input[type="color"] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.join-form button {
+    padding: 1rem;
+    background: linear-gradient(135deg, #ffd700, #ffab00);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.join-form button:disabled {
+    background: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.join-form button:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.error-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+.error-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.loading {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    background: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 100%);
+}
+
+.loading-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 100%);
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 215, 0, 0.2);
+    border-top-color: #ffd700;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Leave Confirmation Modal */
+.confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000 !important;
+    pointer-events: all !important;
+    visibility: visible !important;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.confirm-modal {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a2a4e 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.confirm-modal h3 {
+    color: #ffd700;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.confirm-modal p {
+    color: #ccc;
+    margin: 0 0 1.5rem 0;
+    font-size: 1rem;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.confirm-buttons button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btn-confirm {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.btn-confirm:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+/* Reconnection Overlay */
+.reconnecting-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(13, 17, 23, 0.95);
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 2px solid #3498db;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 10001;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(52, 152, 219, 0.3);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+.reconnecting-overlay .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(52, 152, 219, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.reconnecting-overlay p {
+    color: #3498db;
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+@keyframes loot-glow {
+    from {
+        box-shadow: 0 0 5px rgba(241, 196, 15, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    to {
+        box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+}

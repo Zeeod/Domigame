@@ -1,0 +1,61 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion
+
+stdout | shared/engine/RisingSun.test.ts
+[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should remove a Sun token when gaining a Victory card
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stderr | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Custom Effects > should handle GAIN_TEA effect
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stderr | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Custom Effects > should handle GAIN_TEA effect
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+
+ ❯ shared/engine/RisingSun.test.ts (3 tests | 1 failed) 10ms
+       ✓ should remove a Sun token when gaining a Victory card 2ms
+       × should fulfill prophecy when last Sun token is removed 6ms
+       ✓ should handle GAIN_TEA effect 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+AssertionError: expected +0 to be 1 // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 0[39m
+
+ ❯ shared/engine/RisingSun.test.ts:72:40
+     70|             expect(state.landscapeState['panic'].tokens['sun']).toBe(0…
+     71|             // Panic fulfillment: +1 Card, +1 Action
+     72|             expect(player.hand.length).toBe(initialHandSize + 1);
+       |                                        ^
+     73|             expect(player.actions).toBe(1);
+     74|         });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  11:03:48
+   Duration  9.40s (transform 2.27s, setup 0ms, import 9.13s, tests 10ms, environment 0ms)
+

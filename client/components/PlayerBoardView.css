@@ -1,0 +1,70 @@
+.player-board {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.75rem;
+    border-left: 3px solid #888;
+    transition: all 0.2s ease;
+}
+
+.player-board.is-current {
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.player-name {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.current-badge {
+    font-size: 1rem;
+}
+
+.player-zones {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.zone {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.zone-count {
+    color: white;
+    font-weight: 500;
+}
+
+.player-resources {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #ffd700;
+}
+
+.player-play-area {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.played-card {
+    background: rgba(155, 89, 182, 0.3);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: #9b59b6;
+}

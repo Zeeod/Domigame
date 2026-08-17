@@ -1,0 +1,76 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/Knights.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/Knights.test.ts[2m > [22m[2mKnights Attack[2m > [22m[2mDEBUG: trace knight attack flow step by step
+[22m[39mCard def effects: [
+  {
+    "type": "TRASH",
+    "min": 0,
+    "max": 2,
+    "from": "hand",
+    "message": "├ëcartez jusqu'├á 2 cartes"
+  },
+  {
+    "type": "ATTACK",
+    "attackEffects": [
+      {
+        "type": "REVEAL_CARDS",
+        "amount": 2,
+        "source": "deck",
+        "destination": "limbo"
+      },
+      {
+        "type": "CHOOSE_FROM_ZONE",
+        "sourceZone": "limbo",
+        "destination": "trash",
+        "max": 1,
+        "optional": true,
+        "filter": {
+          "minCost": 3,
+          "maxCost": 6
+        },
+        "message": "Choisissez une carte ├á ├®carter (co├╗t 3-6)",
+        "effects": [
+          {
+            "type": "CONDITION",
+            "condition": "LAST_SELECTED_HAS_TYPE",
+            "value": "KNIGHT",
+            "trueEffects": [
+              {
+                "type": "TRASH_SELF"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MOVE_CARDS",
+        "source": "limbo",
+        "destination": "discardPile",
+        "count": "ALL"
+      }
+    ]
+  }
+]
+Knight attack effect type: ATTACK
+Knight attack effect keys: [ [32m'type'[39m, [32m'attackEffects'[39m ]
+After applyEffects:
+  effectStack length: [33m1[39m
+  effectStack types: [ [32m'EFFECT/MOVE_CARDS'[39m ]
+  pendingDecision: { type: [32m'CHOOSE_CARDS'[39m, playerId: [32m'p2'[39m, specialAction: [32m'ZONE_CHOICE'[39m }
+  p2.limbo: [33m2[39m [ [32m'silver'[39m, [32m'copper'[39m ]
+  p2.deck: [33m0[39m []
+trash: [33m0[39m []
+
+ [32mÔ£ô[39m server/tests/Knights.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 00:16:11
+[2m   Duration [22m 4.14s[2m (transform 1.92s, setup 0ms, import 3.95s, tests 4ms, environment 0ms)[22m
+
+

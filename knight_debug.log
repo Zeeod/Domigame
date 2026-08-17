@@ -1,0 +1,109 @@
+=== Card definition effects ===
+[
+  {
+    "type": "TRASH",
+    "min": 0,
+    "max": 2,
+    "from": "hand",
+    "message": "Écartez jusqu'à 2 cartes"
+  },
+  {
+    "type": "ATTACK",
+    "attackEffects": [
+      {
+        "type": "REVEAL_CARDS",
+        "amount": 2,
+        "source": "deck",
+        "destination": "limbo"
+      },
+      {
+        "type": "CHOOSE_FROM_ZONE",
+        "sourceZone": "limbo",
+        "destination": "trash",
+        "max": 1,
+        "optional": true,
+        "filter": {
+          "minCost": 3,
+          "maxCost": 6
+        },
+        "message": "Choisissez une carte à écarter (coût 3-6)",
+        "effects": [
+          {
+            "type": "CONDITION",
+            "condition": "LAST_SELECTED_HAS_TYPE",
+            "value": "KNIGHT",
+            "trueEffects": [
+              {
+                "type": "TRASH_SELF"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MOVE_CARDS",
+        "source": "limbo",
+        "destination": "discardPile",
+        "count": "ALL"
+      }
+    ]
+  }
+]
+=== Attack effect ===
+{
+  "type": "ATTACK",
+  "attackEffects": [
+    {
+      "type": "REVEAL_CARDS",
+      "amount": 2,
+      "source": "deck",
+      "destination": "limbo"
+    },
+    {
+      "type": "CHOOSE_FROM_ZONE",
+      "sourceZone": "limbo",
+      "destination": "trash",
+      "max": 1,
+      "optional": true,
+      "filter": {
+        "minCost": 3,
+        "maxCost": 6
+      },
+      "message": "Choisissez une carte à écarter (coût 3-6)",
+      "effects": [
+        {
+          "type": "CONDITION",
+          "condition": "LAST_SELECTED_HAS_TYPE",
+          "value": "KNIGHT",
+          "trueEffects": [
+            {
+              "type": "TRASH_SELF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "MOVE_CARDS",
+      "source": "limbo",
+      "destination": "discardPile",
+      "count": "ALL"
+    }
+  ]
+}
+=== After applyEffects ===
+effectStack length: 1
+  stack[0]: type=EFFECT effect.type=MOVE_CARDS playerId=p2
+pendingDecision: {"type":"CHOOSE_CARDS","playerId":"p2","specialAction":"ZONE_CHOICE","message":"Choisissez une carte à écarter (coût 3-6)"}
+p2.limbo: 2 ["silver","copper"]
+p2.deck: 0 []
+p2.discardPile: 0 []
+trash: 0 []
+=== Resolving decision for p2 ===
+=== After resolveDecision ===
+effectStack length: 0
+pendingDecision: null
+p2.limbo: 0 []
+p2.discardPile: 1 ["copper"]
+trash: 1 ["silver"]
+p1.playArea: 1 ["dame_anna"]

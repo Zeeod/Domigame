@@ -1,0 +1,145 @@
+/* Basic Reset & Font */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+    color: #ecf0f1;
+    background-color: #2c3e50;
+    overflow: hidden;
+    /* Prevent scrolling for full-screen feel */
+}
+
+/* Grid Layout */
+.game-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* Header, Main, Footer/Player */
+    height: 100vh;
+}
+
+/* Zones */
+.header-zone {
+    background-color: #34495e;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2c3e50;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-zone {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    /* Supply, Play Area, Logs/Chat */
+    gap: 15px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.player-zone {
+    background-color: #34495e;
+    padding: 15px 20px;
+    border-top: 2px solid #2c3e50;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Specific Areas */
+.supply-area {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.play-area {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+    padding: 20px;
+}
+
+.sidebar-area {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+/* HUD Styling */
+.hud-phase {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.phase-action {
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.phase-buy {
+    color: #f1c40f;
+    background: rgba(241, 196, 15, 0.1);
+}
+
+.phase-cleanup {
+    color: #e67e22;
+    background: rgba(230, 126, 34, 0.1);
+}
+
+.hud-resources {
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Card Visuals */
+.card-stack {
+    position: relative;
+    width: 60px;
+    height: 90px;
+    background: #bdc3c7;
+    border-radius: 4px;
+    border: 1px solid #7f8c8d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.card-stack:hover {
+    transform: scale(1.05);
+    border-color: #ecf0f1;
+}
+
+.hand-area {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding-top: 10px;
+}

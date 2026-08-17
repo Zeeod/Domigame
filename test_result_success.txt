@@ -1,0 +1,135 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/BaseGame.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mWitch (Sorcière)[2m > [22m[2mshould draw 2 cards and give Curse to other players
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+[DrawEffectHandler] Drawing cards {
+  playerId: [32m'p1'[39m,
+  amount: [33m2[39m,
+  initialHand: [33m1[39m,
+  initialDeck: [33m2[39m,
+  initialDiscard: [33m0[39m
+}
+[DrawEffectHandler] Draw complete { drawnCount: [33m2[39m, finalHand: [33m3[39m }
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: [32m'p2'[39m, hasEffect: [33mtrue[39m, context: [32m'{"attackerId":"p1"}'[39m }
+DEBUG: processStack iteration 4, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mWitch (Sorcière)[2m > [22m[2mshould be blocked by Moat (Douves)
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+[DrawEffectHandler] Drawing cards {
+  playerId: [32m'p1'[39m,
+  amount: [33m2[39m,
+  initialHand: [33m1[39m,
+  initialDeck: [33m0[39m,
+  initialDiscard: [33m0[39m
+}
+[DrawEffectHandler] Empty deck and discard, stopping draw
+[DrawEffectHandler] Draw complete { drawnCount: [33m0[39m, finalHand: [33m1[39m }
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: [32m'p2'[39m, hasEffect: [33mtrue[39m, context: [32m'{"attackerId":"p1"}'[39m }
+DEBUG: processStack finished (empty stack)
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p2'[39m, type: [90mundefined[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p2'[39m, reqPlayerId: [32m'p2'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'REACTION_DECISION'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [90mundefined[39m
+}
+DEBUG: processStack iteration 1, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+
+[90mstderr[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mWitch (Sorcière)[2m > [22m[2mshould be blocked by Moat (Douves)
+[22m[39mEffectEngine: Effect type 'undefined' not registered in EffectHandlerRegistry.
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mThrone Room (Salle du Trône)[2m > [22m[2mshould play an Action card twice
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 0
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: resolveDecision ZONE_CHOICE {
+  selected: [33m1[39m,
+  destination: [32m'playArea'[39m,
+  next: [ { type: [32m'PLAY_ACTION_TWICE'[39m } ]
+}
+DEBUG: processStack iteration 1, item type: EFFECT, stack size: 0
+DEBUG: handlePlayActionTwice called { times: [33m2[39m, lastResults: { cards: [ [36m[Object][39m ] } }
+DEBUG: processStack finished (empty stack)
+DEBUG: processStack finished (empty stack)
+DEBUG: processStack finished (empty stack)
+
+[90mstdout[2m | server/tests/BaseGame.test.ts[2m > [22m[2mBase Game Card Mechanics[2m > [22m[2mMilitia (Milice)[2m > [22m[2mshould force other players to discard down to 3 cards
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: [32m'p2'[39m, hasEffect: [33mtrue[39m, context: [32m'{"attackerId":"p1"}'[39m }
+DEBUG: processStack iteration 4, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p2'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p2'[39m, reqPlayerId: [32m'p2'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'DISCARD'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: processStack finished (empty stack)
+
+ [31m❯[39m server/tests/BaseGame.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 14[2mms[22m[39m
+       [32m✓[39m should draw 2 cards and give Curse to other players[32m 5[2mms[22m[39m
+[31m       [31m×[31m should be blocked by Moat (Douves)[39m[32m 4[2mms[22m[39m
+[31m       [31m×[31m should play an Action card twice[39m[32m 3[2mms[22m[39m
+       [32m✓[39m should force other players to discard down to 3 cards[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m server/tests/BaseGame.test.ts[2m > [22mBase Game Card Mechanics[2m > [22mWitch (Sorcière)[2m > [22mshould be blocked by Moat (Douves)
+[31m[1mAssertionError[22m: expected undefined to be defined[39m
+[36m [2m❯[22m server/tests/BaseGame.test.ts:[2m96:31[22m[39m
+    [90m 94| [39m            [90m// Verify Moat Log (It uses REVEAL action type currently)[39m
+    [90m 95| [39m            const revealLog = state.history.find(l => l.type === 'REAC…
+    [90m 96| [39m            [34mexpect[39m(revealLog)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m   | [39m                              [31m^[39m
+    [90m 97| [39m
+    [90m 98| [39m            [90m// P2 should NOT gain Curse[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/BaseGame.test.ts[2m > [22mBase Game Card Mechanics[2m > [22mThrone Room (Salle du Trône)[2m > [22mshould play an Action card twice
+[31m[1mAssertionError[22m: expected 1 to be 7 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 7[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m server/tests/BaseGame.test.ts:[2m134:36[22m[39m
+    [90m132| [39m            [33mEffectEngine[39m[33m.[39m[34mprocessStack[39m(state)[33m;[39m
+    [90m133| [39m
+    [90m134| [39m            expect(p1.hand.length).toBe(7); // 3 (first smithy) + 3 (s…
+    [90m   | [39m                                   [31m^[39m
+    [90m135| [39m        })[33m;[39m
+    [90m136| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 20:38:55
+[2m   Duration [22m 6.80s[2m (transform 1.79s, setup 0ms, import 6.62s, tests 14ms, environment 0ms)[22m
+

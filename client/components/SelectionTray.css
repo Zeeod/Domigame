@@ -1,0 +1,140 @@
+/* SelectionTray.css */
+.selection-tray-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 900px;
+    /* Match supply width approx */
+    margin: 0 auto;
+    background: rgba(13, 17, 23, 0.4);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.selection-tray-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+.selection-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.selection-count strong {
+    color: var(--accent-gold);
+    font-size: 14px;
+}
+
+.selection-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.tray-btn {
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-reset {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-reset:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.btn-confirm {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.3);
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.btn-confirm.valid {
+    background: #2ecc71;
+    color: white;
+    border-color: #27ae60;
+    pointer-events: auto;
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+}
+
+.selection-tray-items {
+    display: flex;
+    gap: 16px;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.tray-card-item {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.tray-card-item:hover {
+    transform: scale(1.05);
+}
+
+.tray-card-preview {
+    position: relative;
+    width: 120px;
+    height: 180px;
+}
+
+.tray-remove-hint {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 16px;
+    height: 16px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid #1a1a1a;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.tray-card-item:hover .tray-remove-hint {
+    opacity: 1;
+}
+
+.tray-card-placeholder {
+    width: 120px;
+    height: 180px;
+    border: 2px dashed rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+}

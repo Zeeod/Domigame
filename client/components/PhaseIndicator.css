@@ -1,0 +1,86 @@
+.phase-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.phase-indicator.my-turn {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.turn-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.turn-number {
+    color: #888;
+    font-size: 0.75rem;
+}
+
+.current-player {
+    color: white;
+    font-weight: 600;
+}
+
+.phase-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.phase-badge.phase-action {
+    background: linear-gradient(135deg, #9b59b633, #8e44ad33);
+    color: #9b59b6;
+    border: 1px solid #9b59b644;
+}
+
+.phase-badge.phase-buy {
+    background: linear-gradient(135deg, #f1c40f33, #e67e2233);
+    color: #f1c40f;
+    border: 1px solid #f1c40f44;
+}
+
+.phase-badge.phase-pregame {
+    background: rgba(255, 255, 255, 0.1);
+    color: #888;
+}
+
+.phase-badge.phase-game_over {
+    background: linear-gradient(135deg, #e74c3c33, #c0392b33);
+    color: #e74c3c;
+}
+
+.my-resources {
+    display: flex;
+    gap: 1rem;
+}
+
+.resource {
+    padding: 0.35rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.resource.actions {
+    background: #9b59b633;
+    color: #9b59b6;
+}
+
+.resource.buys {
+    background: #3498db33;
+    color: #3498db;
+}
+
+.resource.coins {
+    background: #f1c40f33;
+    color: #f1c40f;
+}

@@ -1,0 +1,118 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+ [31mÔØ»[39m server/tests/promos/PromoMechanics.test.ts [2m([22m[2m0 test[22m[2m)[22m
+node.exe : 
+Au caractère Ligne:1 
+: 1
++ & 
+"D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (:String) [   
+ ], RemoteExceptio    
+n
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»[39m[1m[41m 
+Failed Suites 1 [49m
+[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/promos/PromoMechanic
+s.test.ts[2m [ server
+/tests/promos/PromoMec
+hanics.test.ts ][22m
+[31m[1mError[22m: 
+Transform failed with 
+1 error:
+D:/Jeux/Developpement/
+dominion/shared/engine
+/EffectEngine.ts:485:1
+2: ERROR: Expected 
+";" but found 
+"static"[39m
+  Plugin: 
+[35mvite:esbuild[39m
+  File: [36mD:/Jeux/D
+eveloppement/dominion/
+shared/engine/EffectEn
+gine.ts[39m:485:12
+[33m  
+  [33mExpected ";" 
+but found 
+"static"[33m
+  483 |          }
+  484 |  
+  485 |      private 
+static handleBaneRevea
+lDecision(state: 
+GameState, playerId: 
+string, payload: 
+any): EffectResult {
+      |              ^
+  486 |          
+const player = 
+state.players.find(p 
+=> p.id === playerId);
+  487 |          if 
+(payload.type === 
+'CARDS' && payload.car
+dInstanceIds && payloa
+d.cardInstanceIds.leng
+th > 0) {
+  [39m
+[90m [2mÔØ»[22m 
+failureErrorWithLog no
+de_modules/vitest/node
+_modules/esbuild/lib/m
+ain.js:[2m1467:15[22
+m[39m
+[90m [2mÔØ»[22m nod
+e_modules/vitest/node_
+modules/esbuild/lib/ma
+in.js:[2m736:50[22m
+[39m
+[90m [2mÔØ»[22m res
+ponseCallbacks.<comput
+ed> node_modules/vites
+t/node_modules/esbuild
+/lib/main.js:[2m603:9
+[22m[39m
+[90m [2mÔØ»[22m 
+handleIncomingPacket n
+ode_modules/vitest/nod
+e_modules/esbuild/lib/
+main.js:[2m658:12[22
+m[39m
+[90m [2mÔØ»[22m 
+Socket.readFromStdout 
+node_modules/vitest/no
+de_modules/esbuild/lib
+/main.js:[2m581:7[22
+m[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/1]ÔÄ
+»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [2mno tests[22m
+[2m   Start at [22m 19:32:16
+[2m   Duration [22m 3.80s[2m (transform 1.90s, setup 0ms, import 0ms, tests 0ms, environment 0ms)[22m
+

@@ -1,0 +1,285 @@
+.log-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    color: #e0e0e0;
+    overflow: hidden;
+}
+
+.log-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-view h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.view-toggle {
+    display: flex;
+    gap: 0.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem;
+    border-radius: 6px;
+}
+
+.view-toggle button {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.view-toggle button.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.log-entries {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.log-entry {
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #888;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+.journal-entry {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.35rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid #888;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: background 0.2s;
+}
+
+.journal-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.entry-message {
+    display: block;
+    color: #e0e0e0;
+}
+
+.rewind-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.2s, transform 0.1s;
+    font-size: 0.9rem;
+}
+
+.rewind-btn:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.entry-meta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    opacity: 0.4;
+    font-family: monospace;
+}
+
+.meta-hash {
+    color: #f1c40f;
+}
+
+.log-header {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+    margin: 0.5rem 0 0.2rem 0;
+    padding-bottom: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.player-name-link {
+    font-weight: 600;
+}
+
+.indent-1 {
+    margin-left: 0.75rem;
+}
+
+.indent-2 {
+    margin-left: 1.5rem;
+}
+
+.indent-3 {
+    margin-left: 2.25rem;
+}
+
+/* Rewind Selection Mode Styles */
+.journal-entry.rewindable {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.journal-entry.rewindable:hover {
+    background: rgba(139, 195, 74, 0.15);
+    border-left-width: 3px;
+}
+
+.journal-entry.selected {
+    background: rgba(139, 195, 74, 0.25);
+    border-left-width: 4px;
+    border-left-color: #8bc34a !important;
+    box-shadow: 0 0 10px rgba(139, 195, 74, 0.3);
+}
+
+/* ============================================
+   Log Icons & Card Name
+   ============================================ */
+
+.log-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0.85em;
+    vertical-align: middle;
+    filter: saturate(0.85);
+}
+
+.log-card-name {
+    color: #ffd54f;
+    font-weight: 600;
+    text-shadow: 0 0 4px rgba(255, 213, 79, 0.25);
+    transition: all 0.2s;
+}
+
+.log-card-name.clickable {
+    cursor: help;
+    border-bottom: 1px dotted rgba(255, 213, 79, 0.4);
+}
+
+.log-card-name.clickable:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 213, 79, 0.6);
+    border-bottom-color: #ffd54f;
+}
+
+.log-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    vertical-align: middle;
+}
+
+.log-card-micro-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-card-micro-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.entry-content {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   Type-specific entry styling
+   ============================================ */
+
+.journal-entry.type-PLAY_CARD {
+    background: rgba(33, 150, 243, 0.08);
+}
+
+.journal-entry.type-BUY_CARD {
+    background: rgba(255, 193, 7, 0.10);
+}
+
+.journal-entry.type-GAIN_CARD {
+    background: rgba(76, 175, 80, 0.08);
+}
+
+.journal-entry.type-TRASH_CARD {
+    background: rgba(244, 67, 54, 0.08);
+}
+
+.journal-entry.type-ATTACK {
+    background: rgba(244, 67, 54, 0.12);
+}
+
+.journal-entry.type-REACTION {
+    background: rgba(3, 169, 244, 0.10);
+}
+
+.journal-entry.type-TURN_START {
+    background: rgba(255, 255, 255, 0.06);
+    border-left: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+}
+
+.journal-entry.type-PHASE_CHANGE {
+    background: transparent;
+    border-left: none;
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.15rem;
+}
+
+.journal-entry.type-GAME_OVER {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 152, 0, 0.10));
+    border-left-color: #ffc107 !important;
+    font-weight: 600;
+}
+
+.journal-entry.type-EFFECT_CHOICE {
+    background: rgba(156, 39, 176, 0.08);
+    font-style: italic;
+}

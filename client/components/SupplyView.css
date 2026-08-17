@@ -1,0 +1,104 @@
+.supply-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.supply-section h3 {
+    color: #888;
+    font-size: 0.85rem;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.supply-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.supply-row.kingdom {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+}
+
+.supply-pile {
+    width: 80px;
+    height: 100px;
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.supply-pile.treasure {
+    background: linear-gradient(135deg, #f1c40f33 0%, #e67e2233 100%);
+    border-color: #f1c40f44;
+}
+
+.supply-pile.victory {
+    background: linear-gradient(135deg, #2ecc7133 0%, #27ae6033 100%);
+    border-color: #2ecc7144;
+}
+
+.supply-pile.action {
+    background: linear-gradient(135deg, #9b59b633 0%, #8e44ad33 100%);
+    border-color: #9b59b644;
+}
+
+.supply-pile.empty {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.supply-pile.buyable {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.supply-pile.buyable:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.pile-cost {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: white;
+}
+
+.pile-name {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.pile-count {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+}

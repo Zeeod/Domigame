@@ -1,0 +1,79 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+ [32mÔ£ô[39m shared/engine/tests/CellarInteraction.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstdout[2m | shared/engine/SupplyGenerator.Landscapes.test.ts[2m > [22m[2mSupplyGenerator Landscapes[2m > [22m[2mshould generate landscapes based on instructions
+[22m[39m[SupplyGenerator] Identified 192 total landscapes, 54 valid for expansions.
+
+[90mstdout[2m | shared/engine/SupplyGenerator.Landscapes.test.ts[2m > [22m[2mSupplyGenerator Landscapes[2m > [22m[2mshould respect "random:type" directives
+[22m[39m[SupplyGenerator] Identified 192 total landscapes, 54 valid for expansions.
+
+[90mstdout[2m | shared/engine/SupplyGenerator.Landscapes.test.ts[2m > [22m[2mSupplyGenerator Landscapes[2m > [22m[2mshould respect "random:way" directives
+[22m[39m[SupplyGenerator] Identified 192 total landscapes, 39 valid for expansions.
+
+[90mstdout[2m | shared/engine/SupplyGenerator.Landscapes.test.ts[2m > [22m[2mSupplyGenerator Landscapes[2m > [22m[2mshould NOT include a Prophecy if Rising Sun is enabled but no Omens are present
+[22m[39m[SupplyGenerator] Identified 192 total landscapes, 25 valid for expansions.
+
+[90mstdout[2m | shared/engine/SupplyGenerator.Landscapes.test.ts[2m > [22m[2mSupplyGenerator Landscapes[2m > [22m[2mshould include a Prophecy if Rising Sun is enabled and Omens are present
+[22m[39m[SupplyGenerator] Identified 192 total landscapes, 25 valid for expansions.
+
+ [31mÔØ»[39m shared/engine/tests/SentryInteraction.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 13[2mms[22m[39m
+[31m     [31m├ù[31m should trigger SENTRY_INTERACTION prompt[39m[32m 8[2mms[22m[39m
+[31m     [31m├ù[31m should NOT have duplicate cards in limbo after SENTRY_INTERACTION[39m[32m 3[2mms[22m[39m
+[31m     [31m├ù[31m should handle Sentry decision correctly[39m[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m shared/engine/SupplyGenerator.Landscapes.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[90mstdout[2m | shared/engine/Debt.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/engine/Plunder.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/engine/Potion.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/engine/ActionResolver.Landscapes.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/engine/GenericEffectRefactor.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+ [31mÔØ»[39m shared/engine/ActionResolver.Landscapes.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m should resolve a buy landscape action (Event)[39m[32m 11[2mms[22m[39m
+     [32mÔ£ô[39m should fail if not enough buys[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m shared/engine/Debt.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [31mÔØ»[39m shared/engine/GenericEffectRefactor.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 25[2mms[22m[39m
+[31m     [31m├ù[31m Vassal: Should reveal top card and offer to play if Action[39m[32m 16[2mms[22m[39m
+[31m     [31m├ù[31m Patrol: Should put Victory/Curse in hand and reorder others[39m[32m 4[2mms[22m[39m
+[31m     [31m├ù[31m Golem: Should reveal until 2 non-Golem actions and play them[39m[32m 3[2mms[22m[39m
+ [31mÔØ»[39m shared/engine/Potion.test.ts [2m([22m[2m5 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 26[2mms[22m[39m
+[31m     [31m├ù[31m should add a potion when playing a Potion card[39m[32m 15[2mms[22m[39m
+     [32mÔ£ô[39m should allow buying a card with potion cost (Alchemist)[32m 2[2mms[22m[39m
+     [32mÔ£ô[39m should prevent buying a card if not enough potions[32m 1[2mms[22m[39m
+     [32mÔ£ô[39m should handle complex costs (coins + potion)[32m 1[2mms[22m[39m
+[31m     [31m├ù[31m should accumulate potions[39m[32m 5[2mms[22m[39m
+[90mstdout[2m | shared/engine/RisingSun.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+ [32mÔ£ô[39m shared/engine/Plunder.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+[90mstdout[2m | shared/engine/RisingSun.test.ts[2m > [22m[2mRising Sun Expansion Mechanics[2m > [22m[2mMountain Shrine[2m > [22m[2mshould give money based on unique types in play
+[22m[39m[DEBUG-ENGINE] Selected card: estate (e1)
+[DEBUG-ENGINE] Found and removed card: estate. Action: TRASH
+[DEBUG-ENGINE] Trashing card: estate
+
+[90mstdout[2m | shared/engine/RisingSun.test.ts[2m > [22m[2mRising Sun Expansion Mechanics[2m > [22m[2mRiver Shrine[2m > [22m[2mshould allow discarding to gain a card costing up to 3
+[22m[39m[DEBUG-ENGINE] Selected card: estate (e1)
+[DEBUG-ENGINE] Found and removed card: estate. Action: DISCARD
+
+ [32mÔ£ô[39m shared/engine/RisingSun.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[31m9 failed[39m[22m[2m | [22m[1m[32m25 passed[39m[22m[90m (34)[39m
+[2m   Start at [22m 01:12:13
+[2m   Duration [22m 5.13s[2m (transform 14.63s, setup 0ms, import 39.56s, tests 132ms, environment 2ms)[22m
+

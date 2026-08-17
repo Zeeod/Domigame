@@ -1,0 +1,231 @@
+/**
+ * SelectionDropZone.css
+ * Contextual overlay for Hand Selection (Mode A)
+ */
+
+.selection-drop-zone {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    /* Let clicks pass through if needed, but we catch them in content */
+}
+
+/* Glass Backdrop */
+.drop-zone-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    pointer-events: auto;
+    border-radius: 12px;
+}
+
+.drop-zone-content {
+    position: relative;
+    width: 95%;
+    /* Increased width */
+    height: 95%;
+    /* Increased height to use full space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* changed from space-between to control flow better */
+    pointer-events: auto;
+    padding: 10px;
+    z-index: 101;
+}
+
+.drop-zone-header {
+    text-align: center;
+    margin-bottom: 15px;
+    /* Reduced margin */
+    animation: slideDown 0.3s ease-out;
+    flex-shrink: 0;
+}
+
+.drop-instruction {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.drop-count {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+/* Cards Area */
+.drop-zone-cards {
+    flex: 1;
+    /* Take remaining space */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Allow wrapping if many stacks */
+    gap: 12px;
+    /* Slightly reduced gap */
+    padding: 10px;
+    /* Reduced padding */
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+    /* Minimal margin */
+    /* Greatly reduced bottom margin */
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    /* Removed max-height constraint to let flex grow fill the space */
+    position: relative;
+    /* Contain absolute children if any */
+}
+
+/* ... placeholder styles unchanged ... */
+
+/* Selected Card Item */
+.selected-card-item {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+    /* Remove fixed mini size */
+}
+
+.selected-card-item.full-size {
+    /* Scale down slightly if needed, or keep 1:1 */
+    transform-origin: center bottom;
+}
+
+.selected-card-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    /* Less aggressive pop to avoid clipping top */
+    z-index: 10;
+}
+
+.remove-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    /* Darker backdrop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4d4d;
+    /* Red cross */
+    font-size: 3rem;
+    /* Bigger cross */
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    /* Match card radius approx */
+    pointer-events: none;
+    /* Let clicks pass to item handler */
+    z-index: 20;
+}
+
+/* Ensure overlay shows on hover */
+.selected-card-item:hover .remove-overlay {
+    opacity: 1;
+}
+
+/* Buttons */
+.drop-zone-actions {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    animation: slideUp 0.3s ease-out;
+}
+
+.drop-btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-confirm {
+    background: linear-gradient(to bottom, #2ecc71, #27ae60);
+    color: white;
+    border: 1px solid #27ae60;
+    flex: 1;
+    max-width: 200px;
+}
+
+.btn-confirm:disabled {
+    background: #34495e;
+    color: #7f8c8d;
+    border-color: #2c3e50;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-confirm:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
+}
+
+.btn-pass {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+}
+
+.btn-pass:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}

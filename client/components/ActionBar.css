@@ -1,0 +1,344 @@
+.action-bar-v3 {
+    display: grid;
+    grid-template-columns: 240px 1fr 180px 200px;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(20, 25, 35, 0.8) 0%, rgba(10, 15, 20, 0.95) 100%);
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    align-items: center;
+    color: #e2e8f0;
+    font-family: 'Cinzel', serif;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-bar-v3.active-turn,
+.action-bar-v3.decision-active {
+    border-top: 2px solid #2ecc71;
+    /* Multi-layered glow for depth */
+    box-shadow:
+        0 -4px 15px rgba(46, 204, 113, 0.2),
+        0 -10px 30px rgba(46, 204, 113, 0.15),
+        inset 0 1px 10px rgba(46, 204, 113, 0.1);
+}
+
+.action-bar-v3.decision-active {
+    animation: pulse-aura 2s infinite alternate ease-in-out;
+    border-top-color: #39ff14;
+}
+
+@keyframes pulse-aura {
+    from {
+        box-shadow:
+            0 -4px 15px rgba(46, 204, 113, 0.3),
+            0 -10px 30px rgba(46, 204, 113, 0.2),
+            inset 0 1px 15px rgba(46, 204, 113, 0.15);
+        border-top-color: #2ecc71;
+    }
+
+    to {
+        box-shadow:
+            0 -8px 25px rgba(57, 255, 20, 0.5),
+            0 -15px 50px rgba(57, 255, 20, 0.3),
+            inset 0 1px 25px rgba(57, 255, 20, 0.25);
+        border-top-color: #39ff14;
+    }
+}
+
+.ab-section {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+/* --- RESOURCES --- */
+.resources {
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.res-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 8px;
+    min-width: unset;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 8px;
+}
+
+.res-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+}
+
+.res-label {
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    color: #8b949e;
+    font-weight: 500;
+}
+
+.res-group.coins {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.res-group.coins .res-value {
+    color: #ffd700;
+}
+
+.res-group.debt {
+    background: rgba(230, 126, 34, 0.15);
+    border-color: rgba(230, 126, 34, 0.4);
+}
+
+.res-group.debt .res-label {
+    color: #e67e22;
+}
+
+.debt-hexagon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: white;
+    font-weight: 800;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    line-height: 1;
+}
+
+.debt-hexagon.mini {
+    width: 22px;
+    height: 22px;
+    font-size: 0.9rem;
+}
+
+/* --- CENTER MODULE --- */
+.center-module {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.instruction-zone {
+    text-align: center;
+}
+
+.instruction-text {
+    font-size: 1.1rem;
+    color: #f1f5f9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.active-turn .instruction-text {
+    color: #fff;
+    font-weight: 600;
+}
+
+.decision-active .instruction-text {
+    color: #fbbf24;
+}
+
+.buttons-zone {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.decision-row,
+.standard-row {
+    display: flex;
+    gap: 15px;
+}
+
+/* --- PLAYER INFO --- */
+.player-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.player-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.player-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.turn-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* --- BUTTONS --- */
+.indicator-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:disabled {
+    background: #334155;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-phase-end {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+}
+
+.btn-treasure {
+    background: linear-gradient(135deg, #eab308 0%, #a16207 100%);
+    color: #0f172a;
+}
+
+.btn-debt-payoff {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+    border-color: #d35400;
+}
+
+.btn-debt-payoff:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+}
+
+/* --- OPTIONS HUB (Pawn, etc.) --- */
+.options-hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.options-grid {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.opt-btn {
+    padding: 6px 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e2e8f0;
+    font-family: 'Lato', sans-serif;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.opt-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    border-color: #fbbf24;
+}
+
+.opt-btn.selected {
+    background: #fbbf24;
+    color: #0c0a09;
+    font-weight: 900;
+}
+
+/* === Resource Pulse Animations === */
+.res-pulse {
+    animation: resPulse 0.5s ease-out;
+}
+
+.res-pulse-gold {
+    animation: resPulseGold 0.6s ease-out;
+}
+
+@keyframes resPulse {
+    0% {
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(34, 197, 94, 0.7);
+    }
+
+    100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes resPulseGold {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+    }
+
+    100% {
+        box-shadow: none;
+    }
+}
+
+/* === Button Glow Hover Enhancements === */
+.btn-phase-end:hover {
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+}
+
+.btn-treasure:hover {
+    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.5);
+}
+
+.btn-primary:not(:disabled):hover {
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.decision-wait-text {
+    font-style: italic;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
