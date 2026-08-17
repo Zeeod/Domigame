@@ -1,0 +1,30 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | shared/bot/SmartBot.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | shared/bot/SmartBot.test.ts[2m > [22m[2mSmartBot (MCTS)[2m > [22m[2mshould return a valid action in Action Phase
+[22m[39m[SmartBot] MCTS Complete. Iterations: 11507
+  - Option: {"type":"PLAY_CARD","cardInstanceId":"v1"} | Visits: 5754 | Avg Win: 0.0000
+  - Option: {"type":"END_PHASE"} | Visits: 5753 | Avg Win: 0.0000
+
+[90mstdout[2m | shared/bot/SmartBot.test.ts[2m > [22m[2mSmartBot (MCTS)[2m > [22m[2mshould prefer buying Province over Copper when rich
+[22m[39m[SmartBot] MCTS Complete. Iterations: 5413
+  - Option: {"type":"BUY_CARD","cardId":"copper"} | Visits: 1083 | Avg Win: 0.0000
+  - Option: {"type":"BUY_CARD","cardId":"silver"} | Visits: 1083 | Avg Win: 0.0000
+  - Option: {"type":"BUY_CARD","cardId":"gold"} | Visits: 1083 | Avg Win: 0.0000
+  - Option: {"type":"BUY_CARD","cardId":"province"} | Visits: 1082 | Avg Win: 0.0000
+  - Option: {"type":"END_PHASE"} | Visits: 1082 | Avg Win: 0.0000
+
+ [31mÔØ»[39m shared/bot/SmartBot.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 2014[2mms[22m[39m
+     [32mÔ£ô[39m should be named "smart"[32m 1[2mms[22m[39m
+     [33m[2mÔ£ô[22m[39m should return a valid action in Action Phase [33m 1003[2mms[22m[39m
+[31m     [31m├ù[31m should prefer buying Province over Copper when rich[39m[33m 1008[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 23:05:31
+[2m   Duration [22m 6.48s[2m (transform 2.10s, setup 0ms, import 4.23s, tests 2.01s, environment 0ms)[22m
+

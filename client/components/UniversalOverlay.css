@@ -1,0 +1,237 @@
+.universal-overlay {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    color: #f0f6fc;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+    background: rgba(13, 17, 23, 0.4);
+    border-radius: 8px;
+}
+
+.overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.overlay-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #3498db;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.overlay-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.875rem;
+    color: rgba(240, 246, 252, 0.6);
+}
+
+.selection-counter {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.overlay-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* GRID MODE */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 20px;
+    overflow-y: auto;
+    width: 100%;
+    max-height: 100%;
+    padding-right: 8px;
+}
+
+.grid-layout::-webkit-scrollbar {
+    width: 6px;
+}
+
+.grid-layout::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.group-item {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.group-item:hover {
+    transform: translateY(-5px);
+}
+
+.selection-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #3498db;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid #1a1a1a;
+    z-index: 10;
+}
+
+/* REORDER & INSERT MODES */
+.reorder-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+.direction-indicators {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+}
+
+.indicator.deep {
+    color: #e74c3c;
+}
+
+.indicator.surface {
+    color: #2ecc71;
+}
+
+.reorder-group {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: min-content;
+    align-items: center;
+    justify-content: center;
+    height: 240px;
+}
+
+.reorder-item {
+    cursor: grab;
+    position: relative;
+}
+
+.card-wrapper {
+    width: 140px;
+    height: 200px;
+    position: relative;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.highlight-target {
+    border: 3px solid #3498db;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.index-pill {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+.overlay-footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.confirm-btn-medieval {
+    padding: 12px 60px;
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transition: all 0.2s;
+}
+
+.confirm-btn-medieval:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+    filter: brightness(1.1);
+}
+
+.confirm-btn-medieval:active {
+    transform: scale(0.98);
+}
+
+/* REVEAL Mode specific styles */
+.reveal-mode .reveal-content {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.reveal-mode .card-grid {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.reveal-progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.reveal-progress-bar {
+    height: 100%;
+    background: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    transition: width 0.05s linear;
+}

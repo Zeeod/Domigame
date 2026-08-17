@@ -1,0 +1,68 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/Alchemy.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mGolem (Golem)[2m > [22m[2mshould reveal cards until 2 Actions are found and play them
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+DEBUG: processStack finished (empty stack)
+
+[90mstderr[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mGolem (Golem)[2m > [22m[2mshould reveal cards until 2 Actions are found and play them
+[22m[39mEffectEngine: Effect type 'GOLEM_EFFECT' not registered in EffectHandlerRegistry.
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mApprentice (Apprenti)[2m > [22m[2mshould trash a card and draw cards/coins
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision NO DECISION
+
+[90mstderr[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mApprentice (Apprenti)[2m > [22m[2mshould trash a card and draw cards/coins
+[22m[39mEffectEngine: Effect type 'APPRENTICE_EFFECT' not registered in EffectHandlerRegistry.
+
+ [31m❯[39m server/tests/Alchemy.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 10[2mms[22m[39m
+[31m       [31m×[31m should reveal cards until 2 Actions are found and play them[39m[32m 5[2mms[22m[39m
+[31m       [31m×[31m should trash a card and draw cards/coins[39m[32m 4[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m server/tests/Alchemy.test.ts[2m > [22mAlchemy Mechanics[2m > [22mGolem (Golem)[2m > [22mshould reveal cards until 2 Actions are found and play them
+[31m[1mAssertionError[22m: expected 1 to be greater than or equal to 2[39m
+[36m [2m❯[22m server/tests/Alchemy.test.ts:[2m88:36[22m[39m
+    [90m 86| [39m            [90m// If no shuffle, hand size 2 (Coppers).[39m
+    [90m 87| [39m            [90m// If shuffle, hand size 4.[39m
+    [90m 88| [39m            [34mexpect[39m(p1[33m.[39mhand[33m.[39mlength)[33m.[39m[34mtoBeGreaterThanOrEqual[39m([34m2[39m)[33m;[39m
+    [90m   | [39m                                   [31m^[39m
+    [90m 89| [39m
+    [90m 90| [39m            [90m// Verify Actions played[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/Alchemy.test.ts[2m > [22mAlchemy Mechanics[2m > [22mApprentice (Apprenti)[2m > [22mshould trash a card and draw cards/coins
+[31m[1mAssertionError[22m: expected 2 to be 6 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 6[39m
+[31m+ 2[39m
+
+[36m [2m❯[22m server/tests/Alchemy.test.ts:[2m115:36[22m[39m
+    [90m113| [39m
+    [90m114| [39m            [90m// Trash Gold -> +6 Cards[39m
+    [90m115| [39m            [34mexpect[39m(p1[33m.[39mhand[33m.[39mlength)[33m.[39m[34mtoBe[39m([34m6[39m)[33m;[39m
+    [90m   | [39m                                   [31m^[39m
+    [90m116| [39m            expect(state.trash.find((c: any) => c.instanceId === gold.…
+    [90m117| [39m        })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 21:17:29
+[2m   Duration [22m 3.77s[2m (transform 1.66s, setup 0ms, import 3.59s, tests 10ms, environment 0ms)[22m
+

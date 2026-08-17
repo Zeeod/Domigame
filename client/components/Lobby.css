@@ -1,0 +1,351 @@
+.lobby {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: url('/assets/lobby-background.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ============================================================================
+   Lobby Layout Structure (Two-Column)
+   ============================================================================ */
+
+.lobby-content-wrapper {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    /* Remove gap, we manage spacing via padding inside columns */
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.lobby-left-col {
+    flex: 1;
+    /* Takes all remaining space */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* Allow shrinking if needed, though usually grows */
+    padding: 2rem;
+    overflow-y: auto;
+    /* Scroll if content overflows vertically */
+    /* Add a subtle dark overlay to ensure text readability over background */
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.lobby-main {
+    flex: 0 0 500px;
+    /* Wider sidebar as requested */
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: rgba(44, 62, 80, 0.85);
+    border-radius: 0;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 0;
+    position: relative;
+    z-index: 10;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================================
+   Lobby Controls Row (Room Code & Add Bot)
+   ============================================================================ */
+
+.lobby-controls-row {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0;
+    /* Removed internal padding, clean look */
+    background: transparent;
+    /* Remove box background */
+    border: none;
+    border-radius: 0;
+}
+
+.room-code-inline {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.room-code-box-small {
+    position: relative;
+    padding: 0.6rem 1.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.room-code-box-small .room-id-text {
+    font-size: 1.25rem;
+    letter-spacing: 0.15rem;
+    margin: 0;
+    color: #ffd700;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+}
+
+.room-code-inline:hover .room-code-box-small {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.copy-status-small {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2ecc71;
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transform: translateY(100%);
+    transition: transform 0.2s ease;
+}
+
+.copy-status-small.visible {
+    transform: translateY(0);
+}
+
+.add-bot-button {
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-bot-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.4);
+}
+
+/* ============================================================================
+   Players List
+   ============================================================================ */
+
+.players-list {
+    flex: 1;
+    /* Allow to take available space */
+    margin-bottom: 2rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.players-list h2 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+    opacity: 0.8;
+}
+
+.player-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+    border-left: 4px solid #888;
+    transition: all 0.2s ease;
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    gap: 1rem;
+    /* Space elements out */
+}
+
+/* Ensure name takes available space but doesn't push controls off */
+.player-name-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    /* Allow text truncation */
+    gap: 0.5rem;
+}
+
+.player-name {
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-controls-section {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+.host-badge,
+.bot-badge {
+    margin-left: 0;
+    /* Reset margin as we use gap now */
+    flex-shrink: 0;
+}
+
+.ready-status {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+}
+
+/* ============================================================================
+   Action Areas
+   ============================================================================ */
+
+.lobby-primary-actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ready-button,
+.start-button {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-family: 'MedievalSharp', serif;
+}
+
+.ready-button {
+    background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    border: 2px solid #daa520;
+    box-shadow: 0 4px 0 #1e8449, 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ready-button.is-ready {
+    background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+    border-color: #b03a2e;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #f1c40f, #e67e22);
+    color: #1a1a2e;
+    border: 2px solid #daa520;
+    box-shadow: 0 4px 0 #935116, 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:disabled {
+    filter: grayscale(1);
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none !important;
+}
+
+.waiting-ready {
+    color: #888;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.lobby-secondary-actions {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+
+.leave-button {
+    padding: 0.7rem 1.4rem;
+    background: rgba(231, 76, 60, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.leave-button:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* ============================================================================
+   Color Picker
+   ============================================================================ */
+
+.player-color-container {
+    position: relative;
+    margin-right: 1rem;
+}
+
+.player-color-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.color-picker-popover {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 160px;
+    background: #2c3e50;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.color-option {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}

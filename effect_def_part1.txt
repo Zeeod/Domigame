@@ -1,0 +1,500 @@
+﻿/**
+ * EffectDefinition - Declarative effect types
+ * 
+ * Effects are pure data. No logic here.
+ * The EffectEngine interprets these definitions.
+ */
+
+// ============================================================================
+// Effect Union Type
+// ============================================================================
+
+export type EffectDefinition =
+    | DrawEffect
+    | AddActionEffect
+    | AddBuyEffect
+    | AddMoneyEffect
+    | AddPotionEffect
+    | ModifyResourceEffect
+    | GainCardEffect
+    | GainCardPlusCostEffect
+    | TrashEffect
+    | ChoiceEffect
+    | DiscardEffect
+    | AttackEffect
+    | ConditionEffect
+    | RevealAndPutInHandEffect
+    | MultiplyMoneyEffect
+    | PassToLeftEffect
+    | SwindlerAttackEffect
+    | ReplaceAttackEffect
+    | NameCardEffect
+    | MoveToPositionEffect
+    | AllOthersDrawEffect
+    | RevealVictoryToDeckEffect
+    | RevealUntilTreasuresEffect
+    | DrawUntilHandSizeEffect
+    | PlayActionTwiceEffect
+    | PlayActionThriceEffect
+    | SelectFromDiscardEffect
+    | TopdeckFromHandEffect
+    | RevealAndPlayActionEffect
+    | DiscardPerEmptySupplyEffect
+    | MerchantBonusEffect
+    | TopdeckFromDiscardEffect
+    | BanditAttackEffect
+    | SentryLookAtEffect
+    | RevealAndTrashTreasureEffect
+    | DiscardToHandSizeEffect
+    | DiscardThenDrawEffect
+    | ChooseOptionEffect
+    | ChooseFromZoneEffect
+    | ReduceCostsEffect
+    | AddCostReductionEffect
+    | ProcessMasqueradeFinishEffect
+    | TrashSelfEffect
+    | RevealCardsEffect
+    | MoveCardsEffect
+    | SelectAndApplyEffect
+    | ReorderEffect
+    | PlayTargetEffect
+    | SetAsideLinkedEffect
+    | ReturnLinkedCardsEffect
+    | MoveToMatEffect
+    | TakeFromMatEffect
+    | CheckPreviousTurnEffect
+    | RevealUntilEffect
+    | AddTokenEffect
+    | ScheduleExtraTurnEffect
+    | PeekBottomEffect
+    | RevealHandEffect
+    | ReturnToSupplyEffect
+    | IfEmptyPilesEffect
+    | SequenceEffect
+    | GainCardExactCostEffect
+    | GainCopyOfTargetEffect
+    | RevealAndApplyEffect
+    | OtherPlayersEffect
+    | AddVictoryTokensEffect
+    | KnightAttackEffect
+    | KnightAttackStepEffect
+    | SeaChartCheckEffect
+    | EachPlayerEffect
+    | PeekTopDeckEffect
+    | DiscardTopDeckEffect
+    // Guilds mechanics
+    | AddCoffersEffect
+    | SpendCoffersEffect
+    | OverpayEffect
+    // Adventures mechanics
+    | MoveToTavernEffect
+    | CallFromTavernEffect
+    | FlipJourneyTokenEffect
+    | TakeMinusCoinTokenEffect
+    | TakeMinusCardTokenEffect
+    | ExchangeTravellerEffect
+    | PermanentDurationEffect
+    // Empires mechanics
+    | TakeDebtEffect
+    | PayDebtEffect
+    | GatherVpEffect
+    | TakeVpFromPileEffect
+    | RevealTopDeckEffect
+    | CompareTopDeckWithNeighborEffect
+    | SwitchOnLastTrashedEffect
+    | DrawTreasuresEffect
+    | ReplaceActionInstructionsEffect
+    | PlayAsSupplyActionEffect
+    | RecursiveApplyEffect
+    | ChangePhaseEffect
+    | AddVpTokensEffect
+    | AddVpTokensPerMovedEffect
+    | AddCardsPerActionInPlayEffect
+    | GladiatorRevealResponseEffect
+    // Additional Adventures
+    | SetAsideEffect
+    | PutCopperOnTavernEffect
+    | ReturnSetAsideToHandEffect
+    | AddMoneyPerCopperOnTavernEffect
+    | DeckToDiscardEffect
+    | RevealTopOfDeckEffect
+    | AddVillagersEffect
+    | AddCoinsPerCardsEffect
+    | AddCoinsPerCardsEffect
+    | TakeArtifactEffect
+    | RecruiterEffect
+    | DiscardHandEffect
+    | MoveGainedToHandEffect
+    | ReorderRemainingRevealedEffect
+    | ChooseFromRevealedEffect
+    | MonasteryEffect
+    | ExorcistEffect
+    | ReceiveHexEffect
+    | ReceiveBoonEffect
+    | ModifyTokenEffect
+    | DiscardDeckEffect
+    | AddMoneyPerUnusedActionEffect
+    | CostReductionEffect
+    | DiscardToDeckEffect
+    | PlayThisCardEffect
+    | GainThisCardEffect
+    | DiscardWithConditionEffect
+    | AddMoneyPerCardInHandEffect
+    | GainCopyOfSelfEffect
+    | TopdeckWhenDiscardedEffect
+    | GainCopyOfSelfEffect
+    | TopdeckWhenDiscardedEffect
+    | GainCardRelativeToDiscardEffect
+    | GainStatsByCostEffect
+    // Alchemy Effects
+    | AddMoneyPotionEffect
+    | SetupAlchemistReactionEffect
+    | ApothecaryEffect
+    | ScryingPoolAttackEffect
+    | ScryingPoolDrawEffect
+    | GainCurseToOthersEffect
+    // Allies mechanics
+    | AddFavorsEffect
+    | SpendFavorsEffect
+    | RotatePileEffect
+    | SetupHerbalistReactionEffect
+    | PhilosophersStoneEffect
+    | PossessionEffect
+    | TransmuteEffect
+    | GainCardFromSupplyEffect
+    | ReturnToPileEffect
+    | GainLootEffect
+    | ShadowEffect
+    | RemoveSunTokenEffect
+    | FulfillProphecyEffect
+    | RegisterTriggerEffect
+    // Promo mechanics
+    | BlackMarketEffect
+    | EnvoyEffect
+    | PrinceEffect
+    | CaptainEffect
+    | DismantlingEffect
+    | MarchlandEffect
+    | TopdeckThisEffect
+    | SentryInteractionEffect
+    | BuyCardFromZoneEffect
+    | PlayLastSelectedEffect
+    | BuyLastSelectedEffect;
+
+export interface SentryInteractionEffect {
+    type: 'SENTRY_INTERACTION';
+    amount: number;
+    message?: string;
+}
+
+
+export interface ModifyTokenEffect {
+    type: 'MODIFY_TOKEN';
+    /** 'vp', 'debt', 'coffers', 'villagers', 'favors', etc. */
+    token: string;
+    amount: EffectAmount;
+}
+
+export interface DiscardDeckEffect {
+    type: 'DISCARD_DECK';
+}
+
+export interface AddMoneyPerUnusedActionEffect {
+    type: 'ADD_MONEY_PER_UNUSED_ACTION';
+    amount: number;
+}
+
+export interface CostReductionEffect {
+    type: 'ADD_COST_REDUCTION';
+    amount: number;
+}
+
+export interface DiscardToDeckEffect {
+    type: 'DISCARD_TO_DECK';
+}
+
+export interface TakeArtifactEffect {
+    type: 'TAKE_ARTIFACT';
+    artifact: 'flag' | 'treasure_chest' | 'key' | 'horn' | 'lantern';
+}
+
+export interface PlayThisCardEffect {
+    type: 'PLAY_THIS_CARD';
+    optional?: boolean;
+}
+
+export interface GainThisCardEffect {
+    type: 'GAIN_THIS_CARD';
+    destination?: 'hand' | 'discardPile' | 'deck';
+}
+
+export interface DiscardWithConditionEffect {
+    type: 'DISCARD_WITH_CONDITION';
+    min: number;
+    max: number;
+    condition: ConditionEffect['condition'] | { type: string, [key: string]: any };
+    cardType?: string;
+    trueEffects: EffectDefinition[];
+    falseEffects?: EffectDefinition[];
+}
+
+export interface GladiatorRevealResponseEffect {
+    type: 'GLADIATOR_REVEAL_RESPONSE';
+}
+
+export interface RevealCardsEffect {
+    type: 'REVEAL_CARDS';
+    amount: EffectAmount;
+    source?: 'deck' | 'hand' | 'limbo';
+    destination?: 'hand' | 'discardPile' | 'deck' | 'limbo' | 'aside';
+    private?: boolean;
+    /** Apply to cards that match the filter */
+    onMatches?: EffectDefinition[];
+    /** Apply to the rest */
+    onRest?: EffectDefinition[];
+    filter?: CardFilter;
+    next?: EffectDefinition[];
+}
+
+export interface RevealUntilEffect {
+    type: 'REVEAL_UNTIL';
+    condition: CardFilter;
+    /** Number of matches to find */
+    amount?: number | EffectAmount;
+    limit?: number;
+    destination?: 'hand' | 'discardPile' | 'deck' | 'limbo' | 'aside';
+    failDestination?: 'hand' | 'discardPile' | 'deck' | 'limbo' | 'aside';
+    /** Apply to matching cards */
+    onMatch?: EffectDefinition[];
+    /** Apply to non-matching cards */
+    onFail?: EffectDefinition[];
+}
+
+export interface GainLootEffect {
+    type: 'GAIN_LOOT';
+    count?: number;
+    destination?: 'discardPile' | 'hand' | 'deck';
+}
+
+export interface ShadowEffect {
+    type: 'SHADOW_EFFECT';
+    /** Sub-type of shadow effect */
+    trigger: 'START_DRAW' | 'DURING_DRAW';
+    effects: EffectDefinition[];
+}
+
+export interface RemoveSunTokenEffect {
+    type: 'REMOVE_SUN_TOKEN';
+    amount?: number;
+}
+
+export interface FulfillProphecyEffect {
+    type: 'FULFILL_PROPHECY';
+    prophecyId: string;
+}
+
+export type EffectAmount =
+    | number
+    | { type: 'COUNT_UNIQUE_CARDS_IN_TRASH' }
+    | { type: 'COUNT_DISCARDED' }
+    | { type: 'COUNT_CARDS_IN_HAND', filter: { types?: string[] } }
+    | { type: 'COUNT_CARDS_IN_PLAY', filter: { types?: string[] } }
+    | { type: 'DYNAMIC', metric: 'HAND_SIZE' | 'COINS' | 'ACTIONS' | 'BUYS' | 'PLAY_AREA_COUNT' | 'DISCARD_PILE_COUNT' | 'DECK_COUNT' | 'TOTAL_CARDS' | 'DISTINCT_CARDS_IN_PLAY' | 'VICTORY_CARDS_IN_HAND' | 'ACTIONS_IN_PLAY' | 'TREASURES_IN_PLAY' | 'EMPTY_PILES', multiplier?: number }
+    | 'HALF_LAST_TRASHED_COST'
+    | 'COUNT_GAINED_THIS_TURN';
+
+export interface GainCardRelativeToDiscardEffect {
+    type: 'GAIN_CARD_RELATIVE_TO_DISCARD';
+    costBonus: number;
+    destination?: 'discardPile' | 'hand' | 'deck';
+}
+
+export interface GainCardExactCostEffect {
+    type: 'GAIN_CARD_EXACT_COST';
+    useTotalTrashedCost?: boolean;
+    exactCost?: number;
+    destination: 'discardPile' | 'hand' | 'deck';
+}
+
+export interface GainCopyOfTargetEffect {
+    type: 'GAIN_COPY_OF_TARGET';
+}
+
+export interface RevealAndApplyEffect {
+    type: 'REVEAL_AND_APPLY';
+    amount: number;
+    from: 'deck';
+    onActionsTreasures: { action: 'DISCARD' | 'TRASH' };
+    onOthers: { action: 'TOPDECK_ORDER' | 'DISCARD' };
+}
+
+export interface BuyCardFromZoneEffect {
+    type: 'BUY_CARD_FROM_ZONE';
+    sourceZone: string;
+}
+
+export interface PlayLastSelectedEffect {
+    type: 'PLAY_LAST_SELECTED';
+}
+
+export interface BuyLastSelectedEffect {
+    type: 'BUY_LAST_SELECTED';
+}
+
+export interface OtherPlayersEffect {
+    type: 'OTHER_PLAYERS_EFFECT';
+    effect: EffectDefinition;
+}
+
+export interface IfEmptyPilesEffect {
+    type: 'IF_EMPTY_PILES';
+    minPiles: number;
+    effect: EffectDefinition;
+}
+
+export interface SequenceEffect {
+    type: 'SEQUENCE';
+    effects: EffectDefinition[];
+}
+
+// ============================================================================
+// Effect Types
+// ============================================================================
+
+export interface AddVictoryTokensEffect {
+    type: 'ADD_VICTORY_TOKENS';
+    amount: EffectAmount;
+}
+
+// ============================================================================
+// Effect Types
+// ============================================================================
+
+export interface ChooseOptionEffect {
+    type: 'CHOOSE_OPTION';
+    options: { label: string; effects: EffectDefinition[] }[];
+    count?: number;
+    message?: string;
+    /** For cards like Pawn: choices must be different */
+    different?: boolean;
+    /** For cards like Courtier: count is based on revealed card types */
+    variableCount?: 'REVEAL_TYPES';
+    /** Min options to choose (defaults to count) */
+    min?: number;
+    /** Max options to choose (defaults to count) */
+    max?: number;
+    /** For Kitsune and others */
+    minChoices?: number;
+    maxChoices?: number;
+}
+
+export interface ConditionEffect {
+    type: 'CONDITION';
+    condition: 'HAND_SIZE' | 'ACTIONS_PLAYED' | 'NO_ACTIONS_IN_HAND' | 'IS_VICTORY' | 'IS_ACTION' | 'IS_TREASURE' | 'FIRST_TIME_PLAYED_THIS_TURN' | 'FIRST_SILVER_OF_TURN' | 'LAST_SELECTED_HAS_TYPE' | 'PHASE' | 'PILE_HAS_VP' | 'CARDS_IN_PLAY_COUNT' | 'DISCARD_COUNT' | 'COFFERS' | 'COUNT_GAINED_THIS_TURN' | 'HAS_CARD_TYPE_IN_PLAY' | 'DISCARDED_TYPE_COUNT' | 'LAST_SELECTED_COST_AT_LEAST';
+    comparator?: '<=' | '>=' | '==';
+    value?: number | string;
+    cardType?: string;
+    pileId?: string;
+    filter?: CardFilter;
+    trueEffects: EffectDefinition[];
+    falseEffects?: EffectDefinition[];
+}
+
+// Alchemy custom effects
+export interface AddCoinsPerCardsEffect {
+    type: 'ADD_COINS_PER_CARDS';
+    sources: ('deck' | 'discard')[];
+    divisor: number;
+}
+
+export interface GainStatsByCostEffect {
+    type: 'GAIN_STATS_BY_COST';
+    resource: 'cards' | 'actions' | 'coins' | 'buys';
+    stats: {
+        moneyMultiplier?: number;
+        potionMultiplier?: number;
+    };
+}
+
+export interface RecruiterEffect {
+    type: 'RECRUITER_EFFECT';
+}
+
+export interface RevealAndPutInHandEffect {
+    type: 'REVEAL_AND_PUT_IN_HAND';
+    count: number;
+    filter: { cardTypes?: string[]; minCost?: number; maxCost?: number };
+    onOthers?: 'DISCARD' | 'DECK';
+}
+
+export interface DiscardHandEffect {
+    type: 'DISCARD_HAND';
+}
+
+export interface MoveGainedToHandEffect {
+    type: 'MOVE_GAINED_TO_HAND';
+}
+
+export interface ReorderRemainingRevealedEffect {
+    type: 'REORDER_REMAINING_REVEALED';
+    destination: 'deck' | 'discardPile';
+}
+
+export interface ChooseFromRevealedEffect {
+    type: 'CHOOSE_FROM_REVEALED';
+    message?: string;
+    min?: number;
+    max?: number;
+    destination: 'discardPile' | 'deck' | 'hand' | 'playArea';
+    filter?: { cardTypes?: string[]; cardIds?: string[] };
+    next?: EffectDefinition[];
+}
+
+export interface MonasteryEffect {
+    type: 'MONASTERY_EFFECT';
+}
+
+export interface ExorcistEffect {
+    type: 'EXORCIST_EFFECT';
+}
+
+export interface ReceiveHexEffect {
+    type: 'RECEIVE_HEX';
+}
+
+export interface ReceiveBoonEffect {
+    type: 'RECEIVE_BOON';
+}
+
+export interface MultiplyMoneyEffect {
+    type: 'MULTIPLY_MONEY';
+    multiplier: number;
+}
+
+export interface PassToLeftEffect {
+    type: 'PASS_TO_LEFT';
+}
+
+export interface SwindlerAttackEffect {
+    type: 'SWINDLER_ATTACK';
+}
+
+export interface ReplaceAttackEffect {
+    type: 'REPLACE_ATTACK';
+    trashedCardId: string;
+}
+
+export interface NameCardEffect {
+    type: 'NAME_CARD';
+}
+
+export interface SelectAndApplyEffect {
+    type: 'SELECT_AND_APPLY';
+    message?: string;
+    min?: number;
+    max?: number;
+    filter?: { cardIds?: string[]; cardTypes?: string[] };
+    next?: EffectDefinition | EffectDefinition[];
+    /** Source zone to select from */
+    source?: 'hand' | 'deck' | 'discard' | 'play' | 'aside';
+    /** @deprecated Use source */

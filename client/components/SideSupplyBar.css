@@ -1,0 +1,78 @@
+/**
+ * SideSupplyBar Styles
+ */
+
+.side-supply-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background: linear-gradient(180deg, rgba(30, 30, 35, 0.95) 0%, rgba(20, 20, 25, 0.98) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    min-width: 80px;
+}
+
+.side-supply-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 215, 0, 0.6);
+    text-align: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.side-supply-pile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 6px;
+    background: linear-gradient(135deg, rgba(50, 50, 55, 0.8) 0%, rgba(35, 35, 40, 0.9) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.side-supply-pile:hover {
+    background: linear-gradient(135deg, rgba(70, 70, 75, 0.9) 0%, rgba(50, 50, 55, 0.95) 100%);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.side-supply-pile.empty {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.side-supply-icon {
+    font-size: 20px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.side-supply-name {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.side-supply-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 4px;
+    min-width: 24px;
+    text-align: center;
+}

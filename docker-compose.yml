@@ -1,0 +1,25 @@
+services:
+  dominion-server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: dominion-app
+    restart: unless-stopped
+    
+    # Map the NAS port 3005 to the Container port 3005
+    ports:
+      - "3005:3005"
+    
+    environment:
+      - NODE_ENV=production
+      - PORT=3005
+      
+      # For Synology Reverse Proxy, this should be your public URL
+      - CLIENT_URL=https://dominion.zeeod.fr
+      
+      # Leave as default unless you have specific routing needs
+      - SOCKET_PATH=/socket.io/
+
+    # Optional: ensure log persistence if your server writes to files
+    # volumes:
+    #   - ./logs:/app/logs

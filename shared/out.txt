@@ -1,0 +1,25 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion/shared
+
+ ❯ tests/BanditBureaucrat.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/BanditBureaucrat.test.ts [ tests/BanditBureaucrat.test.ts ]
+Error: Cannot find module '../engine/Engine.js' imported from 'D:/Jeux/Developpement/dominion/shared/tests/BanditBureaucrat.test.ts'
+ ❯ tests/BanditBureaucrat.test.ts:3:1
+      1| import { describe, it, expect } from 'vitest';
+      2| import { GameState } from '../engine/GameState.js';
+      3| import { Engine } from '../engine/Engine.js';
+       | ^
+      4| import { CardRegistry } from '../cards/index.js';
+      5| import { createPlayer } from '../engine/PlayerState.js';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  20:03:45
+   Duration  337ms (transform 64ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

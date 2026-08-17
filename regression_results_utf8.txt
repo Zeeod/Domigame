@@ -1,0 +1,11 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+ [32mÔ£ô[39m server/tests/MechanicsAudit.test.ts[2m > [22mDetailed Mechanic Verification[2m > [22mRats should gain a Rats and trash a non-Rats card[32m 11[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAudit.test.ts[2m > [22mDetailed Mechanic Verification[2m > [22mHovel (Taudi) should be trashable when buying a Victory card[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 23:41:27
+[2m   Duration [22m 4.29s[2m (transform 1.90s, setup 0ms, import 4.05s, tests 16ms, environment 0ms)[22m
+

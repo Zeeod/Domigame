@@ -1,0 +1,196 @@
+﻿
+shared\cards\adventures\eve
+nts.ts:70:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\adventures\eve
+nts.ts:243:            
+type: 'REORDER',
+shared\cards\alchemy\herbal
+ist.ts:23:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\base\artisan.t
+s:16:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\base\bandit.ts
+:20:                    
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\base\bureaucra
+t.ts:19:                   
+ type: 'CHOOSE_FROM_ZONE',
+shared\cards\base\sentry.ts
+:22:                    
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\base\sentry.ts
+:30:                    
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\base\sentry.ts
+:38:                    
+type: 'REORDER',
+shared\cards\base\throneRoo
+m.ts:14:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\base\vassal.ts
+:22:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\dark_ages\cult
+ist.ts:18:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\dark_ages\Knig
+hts.ts:14:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\dark_ages\rats
+.ts:16:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\dark_ages\Ruin
+s.ts:74:                   
+     { type: 'REORDER', 
+sourceZone: 'limbo', 
+destination: 'deck', 
+position: 'TOP', message: 
+'Replacez les cartes sur 
+votre deck' }
+shared\cards\empires\archiv
+e.ts:26:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\empires\archiv
+e.ts:36:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\empires\castle
+s.ts:52:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\empires\castle
+s.ts:86:                   
+ type: 'CHOOSE_FROM_ZONE',
+shared\cards\empires\castle
+s.ts:109:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\empires\crown.
+ts:21:                    
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\empires\crown.
+ts:30:                    
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\empires\events
+.ts:34:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\empires\gladia
+tor.ts:18:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\guilds\doctor.
+ts:20:        { type: 
+'REORDER_AND_RETURN', 
+destination: 'deck' }
+shared\cards\hinterlands\in
+n.ts:18:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\hinterlands\sc
+heme.ts:20:                
+    type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\hinterlands\sp
+ice_merchant.ts:13:        
+    type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\intrigue\court
+ier.ts:10:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\intrigue\court
+yard.ts:10:        { type: 
+'CHOOSE_FROM_ZONE', 
+sourceZone: 'hand', min: 
+1, max: 1, destination: 
+'deck', message: 'Mettez 
+une carte de votre main 
+sur votre deck' }
+shared\cards\intrigue\lurke
+r.ts:16:                   
+     type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\intrigue\lurke
+r.ts:26:                   
+     type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\intrigue\patro
+l.ts:24:            type: 
+'REORDER',
+shared\cards\intrigue\secre
+t_passage.ts:12:           
+ type: 'CHOOSE_FROM_ZONE',
+shared\cards\intrigue\swind
+ler.ts:16:                 
+   type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\menagerie\card
+s.ts:235:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\nocturne\night
+_watchman.ts:27:           
+         next: [{ type: 'RE
+ORDER_REMAINING_REVEALED', 
+destination: 'deck' }]
+shared\cards\plunder\kingdo
+m.ts:165:        { type: 
+'CHOOSE_FROM_ZONE', 
+sourceZone: 'hand', min: 
+0, max: 3, destination: 
+'aside', message: 'Mettre 
+de côté pour le prochain 
+tour' }
+shared\cards\plunder\loot.t
+s:98:    effects: [{ type: 
+'ADD_MONEY', amount: 3 }, 
+{ type: 
+'CHOOSE_FROM_ZONE', 
+sourceZone: 'hand', max: 
+1, destination: 'aside' }],
+shared\cards\promos\kingdom
+.ts:14:                
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\promos\kingdom
+.ts:59:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\promos\kingdom
+.ts:87:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\promos\kingdom
+.ts:96:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\promos\kingdom
+.ts:114:        { type: 
+'CHOOSE_FROM_ZONE', 
+sourceZone: 'hand', min: 
+0, max: 3, destination: 
+'aside', message: 'Mettre 
+de côté pour le prochain 
+tour' }
+shared\cards\promos\kingdom
+.ts:161:                   
+ type: 'CHOOSE_FROM_ZONE',
+shared\cards\prosperity\cle
+rk.ts:20:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\prosperity\kin
+gs_court.ts:19:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\prosperity\min
+t.ts:20:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\prosperity\tia
+ra.ts:22:            type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\prosperity\war
+_chest.ts:27:              
+      type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\renaissance\ci
+ty_gate.ts:15:            
+type: 'CHOOSE_FROM_ZONE',
+shared\cards\renaissance\tr
+easurer.ts:32:             
+               type: 
+'CHOOSE_FROM_ZONE',
+shared\cards\seaside\treasu
+re_map.ts:10:            
+type: 'CHOOSE_FROM_ZONE',
+
+

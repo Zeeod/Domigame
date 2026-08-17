@@ -1,0 +1,7426 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [artisan] with correct French name "Artisan"[32m 4[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Artisan' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [bandit] with correct French name "Bandit"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Bandit' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [bureaucrat] with correct French name "Bureaucrate"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Bureaucrate' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [cellar] with correct French name "Cave"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Cave' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [chapel] with correct French name "Chapelle"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Chapelle' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [council_room] with correct French name "Salle du Conseil"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Salle du Conseil' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [festival] with correct French name "Festival"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Festival' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [gardens] with correct French name "Jardins"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Jardins' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [harbinger] with correct French name "Pr├®sage"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Pr├®sage' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [laboratory] with correct French name "Laboratoire"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Laboratoire' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [library] with correct French name "Biblioth├¿que"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Biblioth├¿que' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [market] with correct French name "March├®"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'March├®' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [merchant] with correct French name "Marchand"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Marchand' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [militia] with correct French name "Milice"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Milice' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [mine] with correct French name "Mine"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Mine' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [moat] with correct French name "Douves"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Douves' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [moneylender] with correct French name "Argentier"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Argentier' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [poacher] with correct French name "Braconnier"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Braconnier' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [remodel] with correct French name "R├®novation"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'R├®novation' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [sentry] with correct French name "Sentinelle"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Sentinelle' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [smithy] with correct French name "Forgeron"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Forgeron' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [throne_room] with correct French name "Tr├┤ne"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tr├┤ne' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [vassal] with correct French name "Vassal"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Vassal' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [village] with correct French name "Village"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Village' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [witch] with correct French name "Sorci├¿re"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Sorci├¿re' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [workshop] with correct French name "Atelier"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Atelier' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [copper] with correct French name "Cuivre"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Cuivre' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [silver] with correct French name "Argent"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Argent' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [gold] with correct French name "Or"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Or' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [estate] with correct French name "Domaine"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Domaine' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [duchy] with correct French name "Duch├®"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Duch├®' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [province] with correct French name "Province"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Province' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: base[2m > [22mshould implement [curse] with correct French name "Mal├®diction"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Mal├®diction' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [baron] with correct French name "Baron"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Baron' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [bridge] with correct French name "Pont"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Pont' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [conspirator] with correct French name "Conspirateur"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Conspirateur' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [courtier] with correct French name "Courtisan"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Courtisan' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [courtyard] with correct French name "Place du march├®"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Place du march├®' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [diplomat] with correct French name "Diplomate"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Diplomate' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [duke] with correct French name "Duc"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Duc' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [farm] with correct French name "Ferme"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Ferme' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [ironworks] with correct French name "Fonderie"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Fonderie' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [lurker] with correct French name "R├┤deur"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'R├┤deur' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [masquerade] with correct French name "Mascarade"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Mascarade' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [mill] with correct French name "Moulin"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Moulin' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [mining_village] with correct French name "Exploitation mini├¿re"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Exploitation mini├¿re' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [minion] with correct French name "Larbin"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Larbin' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [nobles] with correct French name "Nobles"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Nobles' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [patrol] with correct French name "Patrouille"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Patrouille' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [pawn] with correct French name "Pion"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Pion' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [remplacement] with correct French name "Remplacement"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Remplacement' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [secret_passage] with correct French name "Passage secret"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Passage secret' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [shanty_town] with correct French name "Bidonville"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Bidonville' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [steward] with correct French name "Intendant"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Intendant' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [swindler] with correct French name "Escroc"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Escroc' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [torturer] with correct French name "Tortureur"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tortureur' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [trading_post] with correct French name "Poste de traite"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Poste de traite' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [upgrade] with correct French name "Am├®lioration"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Am├®lioration' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: intrigue[2m > [22mshould implement [wishing_well] with correct French name "Puits aux souhaits"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Puits aux souhaits' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [astrolabe] with correct French name "Astrolabe"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Astrolabe' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [bazaar] with correct French name "Bazar"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Bazar' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [blockade] with correct French name "Blocus"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Blocus' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [caravan] with correct French name "Caravane"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Caravane' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [corsair] with correct French name "Corsaire"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Corsaire' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [cutpurse] with correct French name "Coupeur de bourses"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Coupeur de bourses' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [fishing_village] with correct French name "Village de p├¬cheurs"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Village de p├¬cheurs' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [haven] with correct French name "Havre"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Havre' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [island] with correct French name "├Äle"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be '├Äle' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [lighthouse] with correct French name "Gardien de phare"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Gardien de phare' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [lookout] with correct French name "Vigie"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Vigie' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [merchant_ship] with correct French name "Navire marchand"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Navire marchand' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [monkey] with correct French name "Singe"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Singe' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [native_village] with correct French name "Village indig├¿ne"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Village indig├¿ne' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [outpost] with correct French name "Avant-poste"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Avant-poste' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [pirate] with correct French name "Pirate"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Pirate' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [sailor] with correct French name "Marin"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Marin' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [salvager] with correct French name "Chasseur de tr├®sors"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Chasseur de tr├®sors' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [sea_chart] with correct French name "Carte marine"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Carte marine' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [sea_witch] with correct French name "Sorci├¿re des mers"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Sorci├¿re des mers' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [smugglers] with correct French name "Contrebandier"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Contrebandier' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [tactician] with correct French name "Tacticien"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tacticien' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [tide_pools] with correct French name "Piscines ├á mar├®e"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Piscines ├á mar├®e' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [treasure_map] with correct French name "Carte au tr├®sor"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Carte au tr├®sor' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [treasury] with correct French name "Tr├®sorerie"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tr├®sorerie' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [warehouse] with correct French name "Entrep├┤t"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Entrep├┤t' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: seaside[2m > [22mshould implement [wharf] with correct French name "Quai"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Quai' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [anvil] with correct French name "Enclume"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Enclume' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [bank] with correct French name "Banque"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Banque' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [bishop] with correct French name "├ëv├¬que"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be '├ëv├¬que' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [charlatan] with correct French name "Charlatan"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Charlatan' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [city] with correct French name "Ville"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Ville' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [clerk] with correct French name "Clerc"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Clerc' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [collection] with correct French name "Collection"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Collection' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [colony] with correct French name "Colonie"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Colonie' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [crystal_ball] with correct French name "Boule de cristal"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Boule de cristal' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [expand] with correct French name "Agrandissement"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Agrandissement' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [forge] with correct French name "Forge"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Forge' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [grand_market] with correct French name "Grand March├®"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Grand March├®' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [hoard] with correct French name "Tr├®sor cach├®"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tr├®sor cach├®' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [investment] with correct French name "Investissement"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Investissement' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [kings_court] with correct French name "Roi de la cour"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Roi de la cour' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [magnate] with correct French name "Magnat"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Magnat' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [mint] with correct French name "Monnaie"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Monnaie' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [monument] with correct French name "Monument"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Monument' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [peddler] with correct French name "Colporteur"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Colporteur' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [platinum] with correct French name "Platine"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Platine' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [quarry] with correct French name "Carri├¿re"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Carri├¿re' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [rabble] with correct French name "Cohue"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Cohue' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [tiara] with correct French name "Diad├¿me"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Diad├¿me' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [vault] with correct French name "Chambre forte"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Chambre forte' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [war_chest] with correct French name "Tr├®sor de guerre"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tr├®sor de guerre' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [watchtower] with correct French name "Tour de guet"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Tour de guet' // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mExpansion: prosperity[2m > [22mshould implement [workers_village] with correct French name "Village ouvrier"[32m 0[2mms[22m[39m
+[31m   ÔåÆ expected undefined to be 'Village ouvrier' // Object.is equality[39m
+ [32mÔ£ô[39m server/tests/validation/audit/ExpansionAudit.test.ts[2m > [22mDominion Expansion Audit (2nd Edition - FR)[2m > [22mshould not have duplicate IDs in registry[32m 0[2mms[22m[39m
+node.exe : 
+Au caractère Ligne:1 
+: 1
++ & 
+"D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (:String) [   
+ ], RemoteExceptio    
+n
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»[39m[1m[41m 
+Failed Tests 113 [49m
+[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[artisan] with 
+correct French name 
+"Artisan"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Artisan' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Artisan"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[1/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[bandit] with correct 
+French name "Bandit"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Bandit' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Bandit"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[2/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[bureaucrat] with 
+correct French name 
+"Bureaucrate"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Bureaucrate' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Bureaucrate"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[3/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[cellar] with correct 
+French name "Cave"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Cave' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Cave"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[4/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[chapel] with correct 
+French name "Chapelle"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Chapelle' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Chapelle"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[5/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[council_room] with 
+correct French name 
+"Salle du Conseil"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Salle du Conseil' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Salle du Conseil"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[6/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[festival] with 
+correct French name 
+"Festival"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Festival' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Festival"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[7/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[gardens] with 
+correct French name 
+"Jardins"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Jardins' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Jardins"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[8/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[harbinger] with 
+correct French name 
+"Pr├®sage"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Pr├®sage' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Pr├®sage"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»[9/113]ÔÄ»[2
+2m[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[laboratory] with 
+correct French name 
+"Laboratoire"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Laboratoire' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Laboratoire"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[10/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[library] with 
+correct French name 
+"Biblioth├¿que"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Biblioth├¿que' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Biblioth├¿que"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[11/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[market] with correct 
+French name "March├®"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'March├®' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"March├®"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[12/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[merchant] with 
+correct French name 
+"Marchand"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Marchand' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Marchand"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[13/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[militia] with 
+correct French name 
+"Milice"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Milice' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Milice"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[14/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[mine] with correct 
+French name "Mine"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Mine' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Mine"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[15/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[moat] with correct 
+French name "Douves"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Douves' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Douves"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[16/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[moneylender] with 
+correct French name 
+"Argentier"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Argentier' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Argentier"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[17/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[poacher] with 
+correct French name 
+"Braconnier"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Braconnier' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Braconnier"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[18/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[remodel] with 
+correct French name 
+"R├®novation"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'R├®novation' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"R├®novation"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[19/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[sentry] with correct 
+French name 
+"Sentinelle"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Sentinelle' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Sentinelle"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[20/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[smithy] with correct 
+French name "Forgeron"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Forgeron' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Forgeron"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[21/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[throne_room] with 
+correct French name 
+"Tr├┤ne"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tr├┤ne' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tr├┤ne"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[22/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[vassal] with correct 
+French name "Vassal"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Vassal' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Vassal"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[23/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[village] with 
+correct French name 
+"Village"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Village' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Village"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[24/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[witch] with correct 
+French name 
+"Sorci├¿re"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Sorci├¿re' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Sorci├¿re"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[25/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[workshop] with 
+correct French name 
+"Atelier"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Atelier' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Atelier"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[26/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[copper] with correct 
+French name "Cuivre"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Cuivre' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Cuivre"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[27/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[silver] with correct 
+French name "Argent"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Argent' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Argent"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[28/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[gold] with correct 
+French name "Or"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 'Or' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Or"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[29/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[estate] with correct 
+French name "Domaine"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Domaine' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Domaine"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[30/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[duchy] with correct 
+French name "Duch├®"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Duch├®' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Duch├®"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[31/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[province] with 
+correct French name 
+"Province"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Province' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Province"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[32/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+base[2m > 
+[22mshould implement 
+[curse] with correct 
+French name 
+"Mal├®diction"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Mal├®diction' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Mal├®diction"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[33/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[baron] with correct 
+French name "Baron"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Baron' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Baron"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[34/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[bridge] with correct 
+French name "Pont"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Pont' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Pont"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[35/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[conspirator] with 
+correct French name 
+"Conspirateur"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Conspirateur' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Conspirateur"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[36/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[courtier] with 
+correct French name 
+"Courtisan"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Courtisan' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Courtisan"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[37/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[courtyard] with 
+correct French name 
+"Place du march├®"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Place du march├®' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Place du march├®"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[38/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[diplomat] with 
+correct French name 
+"Diplomate"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Diplomate' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Diplomate"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[39/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[duke] with correct 
+French name "Duc"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 'Duc' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Duc"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[40/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[farm] with correct 
+French name "Ferme"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Ferme' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Ferme"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[41/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[ironworks] with 
+correct French name 
+"Fonderie"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Fonderie' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Fonderie"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[42/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[lurker] with correct 
+French name "R├┤deur"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'R├┤deur' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"R├┤deur"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[43/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[masquerade] with 
+correct French name 
+"Mascarade"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Mascarade' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Mascarade"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[44/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[mill] with correct 
+French name "Moulin"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Moulin' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Moulin"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[45/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[mining_village] with 
+correct French name 
+"Exploitation 
+mini├¿re"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Exploitation 
+mini├¿re' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Exploitation 
+mini├¿re"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[46/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[minion] with correct 
+French name "Larbin"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Larbin' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Larbin"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[47/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[nobles] with correct 
+French name "Nobles"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Nobles' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Nobles"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[48/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[patrol] with correct 
+French name 
+"Patrouille"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Patrouille' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Patrouille"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[49/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[pawn] with correct 
+French name "Pion"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Pion' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Pion"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[50/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[remplacement] with 
+correct French name 
+"Remplacement"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Remplacement' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Remplacement"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[51/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[secret_passage] with 
+correct French name 
+"Passage secret"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Passage secret' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Passage secret"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[52/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[shanty_town] with 
+correct French name 
+"Bidonville"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Bidonville' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Bidonville"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[53/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[steward] with 
+correct French name 
+"Intendant"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Intendant' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Intendant"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[54/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[swindler] with 
+correct French name 
+"Escroc"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Escroc' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Escroc"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[55/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[torturer] with 
+correct French name 
+"Tortureur"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tortureur' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tortureur"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[56/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[trading_post] with 
+correct French name 
+"Poste de traite"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Poste de traite' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Poste de traite"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[57/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[upgrade] with 
+correct French name 
+"Am├®lioration"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Am├®lioration' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Am├®lioration"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[58/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+intrigue[2m > 
+[22mshould implement 
+[wishing_well] with 
+correct French name 
+"Puits aux souhaits"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Puits aux souhaits' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Puits aux souhaits"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[59/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[astrolabe] with 
+correct French name 
+"Astrolabe"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Astrolabe' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Astrolabe"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[60/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[bazaar] with correct 
+French name "Bazar"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Bazar' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Bazar"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[61/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[blockade] with 
+correct French name 
+"Blocus"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Blocus' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Blocus"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[62/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[caravan] with 
+correct French name 
+"Caravane"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Caravane' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Caravane"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[63/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[corsair] with 
+correct French name 
+"Corsaire"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Corsaire' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Corsaire"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[64/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[cutpurse] with 
+correct French name 
+"Coupeur de bourses"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Coupeur de bourses' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Coupeur de bourses"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[65/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[fishing_village] 
+with correct French 
+name "Village de 
+p├¬cheurs"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Village de 
+p├¬cheurs' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Village de p├¬cheurs"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[66/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[haven] with correct 
+French name "Havre"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Havre' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Havre"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[67/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[island] with correct 
+French name "├Äle"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'├Äle' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"├Äle"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[68/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[lighthouse] with 
+correct French name 
+"Gardien de phare"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Gardien de phare' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Gardien de phare"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[69/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[lookout] with 
+correct French name 
+"Vigie"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Vigie' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Vigie"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[70/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[merchant_ship] with 
+correct French name 
+"Navire marchand"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Navire marchand' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Navire marchand"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[71/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[monkey] with correct 
+French name "Singe"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Singe' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Singe"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[72/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[native_village] with 
+correct French name 
+"Village indig├¿ne"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Village indig├¿ne' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Village indig├¿ne"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[73/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[outpost] with 
+correct French name 
+"Avant-poste"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Avant-poste' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Avant-poste"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[74/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[pirate] with correct 
+French name "Pirate"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Pirate' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Pirate"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[75/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[sailor] with correct 
+French name "Marin"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Marin' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Marin"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[76/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[salvager] with 
+correct French name 
+"Chasseur de tr├®sors"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Chasseur de 
+tr├®sors' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Chasseur de tr├®sors"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[77/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[sea_chart] with 
+correct French name 
+"Carte marine"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Carte marine' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Carte marine"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[78/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[sea_witch] with 
+correct French name 
+"Sorci├¿re des mers"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Sorci├¿re des mers' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Sorci├¿re des mers"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[79/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[smugglers] with 
+correct French name 
+"Contrebandier"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Contrebandier' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Contrebandier"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[80/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[tactician] with 
+correct French name 
+"Tacticien"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tacticien' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tacticien"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[81/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[tide_pools] with 
+correct French name 
+"Piscines ├á mar├®e"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Piscines ├á mar├®e' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Piscines ├á mar├®e"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[82/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[treasure_map] with 
+correct French name 
+"Carte au tr├®sor"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Carte au tr├®sor' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Carte au tr├®sor"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[83/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[treasury] with 
+correct French name 
+"Tr├®sorerie"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tr├®sorerie' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tr├®sorerie"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[84/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[warehouse] with 
+correct French name 
+"Entrep├┤t"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Entrep├┤t' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Entrep├┤t"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[85/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+seaside[2m > 
+[22mshould implement 
+[wharf] with correct 
+French name "Quai"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Quai' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Quai"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[86/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[anvil] with correct 
+French name "Enclume"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Enclume' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Enclume"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[87/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[bank] with correct 
+French name "Banque"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Banque' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Banque"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[88/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[bishop] with correct 
+French name "├ëv├¬que"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'├ëv├¬que' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"├ëv├¬que"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[89/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[charlatan] with 
+correct French name 
+"Charlatan"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Charlatan' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Charlatan"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[90/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[city] with correct 
+French name "Ville"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Ville' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Ville"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[91/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[clerk] with correct 
+French name "Clerc"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Clerc' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Clerc"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[92/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[collection] with 
+correct French name 
+"Collection"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Collection' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Collection"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[93/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[colony] with correct 
+French name "Colonie"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Colonie' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Colonie"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[94/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[crystal_ball] with 
+correct French name 
+"Boule de cristal"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Boule de cristal' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Boule de cristal"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[95/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[expand] with correct 
+French name 
+"Agrandissement"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Agrandissement' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Agrandissement"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[96/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[forge] with correct 
+French name "Forge"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Forge' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Forge"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[97/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[grand_market] with 
+correct French name 
+"Grand March├®"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Grand March├®' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Grand March├®"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[98/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[hoard] with correct 
+French name "Tr├®sor 
+cach├®"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tr├®sor cach├®' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tr├®sor cach├®"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»[99/113]ÔÄ»[22m
+[39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[investment] with 
+correct French name 
+"Investissement"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Investissement' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Investissement"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[100/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[kings_court] with 
+correct French name 
+"Roi de la cour"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 'Roi 
+de la cour' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Roi de la cour"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[101/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[magnate] with 
+correct French name 
+"Magnat"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Magnat' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Magnat"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[102/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[mint] with correct 
+French name "Monnaie"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Monnaie' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Monnaie"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[103/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[monument] with 
+correct French name 
+"Monument"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Monument' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Monument"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[104/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[peddler] with 
+correct French name 
+"Colporteur"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Colporteur' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Colporteur"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[105/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[platinum] with 
+correct French name 
+"Platine"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Platine' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Platine"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[106/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[quarry] with correct 
+French name 
+"Carri├¿re"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Carri├¿re' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Carri├¿re"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[107/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[rabble] with correct 
+French name "Cohue"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Cohue' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Cohue"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[108/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[tiara] with correct 
+French name "Diad├¿me"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Diad├¿me' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Diad├¿me"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[109/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[vault] with correct 
+French name "Chambre 
+forte"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Chambre forte' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Chambre forte"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m113 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (114)[39m
+[2m   Start at [22m 23:11:56
+[2m   Duration [22m 3.14s[2m (transform 1.40s, setup 0ms, import 2.88s, tests 31ms, environment 0ms)[22m
+
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[110/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[war_chest] with 
+correct French name 
+"Tr├®sor de guerre"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Tr├®sor de guerre' 
+// Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tr├®sor de guerre"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[111/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[watchtower] with 
+correct French name 
+"Tour de guet"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 'Tour 
+de guet' // Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Tour de guet"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[112/113]ÔÄ»[22m[
+39m
+
+[41m[1m FAIL 
+[22m[49m server/test
+s/validation/audit/Exp
+ansionAudit.test.ts[2
+m > [22mDominion 
+Expansion Audit (2nd 
+Edition - FR)[2m > 
+[22mExpansion: 
+prosperity[2m > 
+[22mshould implement 
+[workers_village] 
+with correct French 
+name "Village ouvrier"
+[31m[1mAssertionErro
+r[22m: expected 
+undefined to be 
+'Village ouvrier' // 
+Object.is 
+equality[39m
+
+[32m- Expected:[39m 
+"Village ouvrier"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2mÔØ»[22m ser
+ver/tests/validation/a
+udit/ExpansionAudit.te
+st.ts:[2m26:46[22m[
+39m
+    [90m 24| [39m   
+                 
+[90m// 2. Check 
+Display Name[39m
+    [90m 25| [39m   
+                 // 
+Normalize comparison 
+to be safe with some 
+subtlÔÇª
+    [90m 26| [39m   
+                 [34m
+expect[39m(card[33m.
+[39mdisplayName)[33m
+.[39m[34mtoBe[39m(r
+ef[33m.[39mname)[33
+m;[39m
+    [90m   | [39m   
+                      
+                    
+[31m^[39m
+    [90m 27| [39m
+    [90m 28| [39m   
+                 // 
+3. Check Expansion 
+tag (if present on 
+card defiÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ
+»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»[113/113]ÔÄ»[22m[
+39m
+

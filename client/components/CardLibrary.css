@@ -1,0 +1,169 @@
+.card-library-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 15, 20, 0.95);
+    z-index: 2000;
+    display: flex;
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.library-sidebar {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.library-header {
+    margin-bottom: 2rem;
+}
+
+.library-header h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    color: #e0e0e0;
+}
+
+.close-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: #c62828;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background: #d32f2f;
+}
+
+.search-box {
+    margin-bottom: 1rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: white;
+}
+
+.expansion-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.expansion-item {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.expansion-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.expansion-item.active {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border-left: 3px solid #3498db;
+}
+
+.library-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.library-content-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.library-content-header h3 {
+    margin: 0;
+    font-size: 2rem;
+    color: #ffd700;
+}
+
+/* Category Sections */
+.library-scroll-area {
+    flex: 1;
+    /* Allow it to take available space */
+    overflow-y: auto;
+    /* Allow scrolling within content */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.library-category {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.category-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffd700;
+    /* Gold */
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 8px;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
+    padding-left: 10px;
+    border-radius: 4px 0 0 4px;
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    align-content: start;
+}
+
+.library-card-wrapper {
+    display: flex;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.library-card-wrapper:hover {
+    transform: translateY(-5px);
+    z-index: 10;
+}
+
+/* Ensure CardFrame scales properly if needed, but 'full' variant has fixed size usually. */
+/* Override specific CardFrame styles if necessary for the grid */
+.library-card-wrapper .card-frame.full {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}

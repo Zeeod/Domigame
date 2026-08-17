@@ -1,0 +1,74 @@
+﻿node.exe : file:///D:/
+Jeux/Developpement/dom
+inion/node_modules/vit
+est/dist/chunks/cac.jR
+CLJDDc.js:404
+Au caractère Ligne:1 
+: 1
++ & 
+"D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : 
+NotSpecified: (fil    
+e:///D:/Jeux...jRCLJDD
+    c.js:404:String) 
+[], R    
+emoteException
+    + 
+FullyQualifiedErrorI  
+  d : 
+NativeCommandError
+ 
+          throw new 
+CACError(`Unknown 
+option 
+\`${name.length > 1 ? 
+`--${name}` : 
+`-${name}`}\``);
+                ^
+
+CACError: Unknown 
+option `--threads`
+    at Command.checkUn
+knownOptions (file:///
+D:/Jeux/Developpement/
+dominion/node_modules/
+vitest/dist/chunks/cac
+.jRCLJDDc.js:404:17)
+    at 
+CAC.runMatchedCommand 
+(file:///D:/Jeux/Devel
+oppement/dominion/node
+_modules/vitest/dist/c
+hunks/cac.jRCLJDDc.js:
+604:13)
+    at CAC.parse (file
+:///D:/Jeux/Developpem
+ent/dominion/node_modu
+les/vitest/dist/chunks
+/cac.jRCLJDDc.js:545:1
+2)
+    at file:///D:/Jeux
+/Developpement/dominio
+n/node_modules/vitest/
+dist/cli.js:28:13
+    at ModuleJob.run (
+node:internal/modules/
+esm/module_job:413:25)
+    at async onImport.
+tracePromise.__proto__
+ (node:internal/module
+s/esm/loader:660:26)
+    at async asyncRunE
+ntryPointWithESMLoader
+ (node:internal/module
+s/run_main:101:5)
+
+Node.js v24.13.0

@@ -1,0 +1,120 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mBlack Market (March├® Noir)[2m > [22m[2mshould reveal 3 cards from Black Market deck and allow buying one
+[22m[39mDEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=true
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mEnvoy (D├®l├®gu├®)[2m > [22m[2mshould draw 4, then reveal top 5 and opponent chooses one to discard
+[22m[39mDEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=true
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mCaptain (Capitaine)[2m > [22m[2mshould allow playing a non-Duration Action from Supply costing up to 4
+[22m[39mDEBUG: applyEffect result needsChoice=true
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mPrince[2m > [22m[2mshould trash itself and prompt to set aside an Action costing up to 4
+[22m[39mDEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=true
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mMarchland (Fronti├¿re)[2m > [22m[2mshould give coins based on Victory cards in hand and discard hand
+[22m[39mDEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=true
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'OPTION'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'CHOOSE_OPTION'[39m,
+  decisionType: [32m'SELECT_OPTION'[39m,
+  payloadType: [32m'OPTION'[39m
+}
+DEBUG: applyEffect result needsChoice=false
+DEBUG: applyEffect result needsChoice=false
+
+ [32mÔ£ô[39m server/tests/promos/PromoMechanics.test.ts[2m > [22mPromo Mechanics[2m > [22mBlack Market (March├® Noir)[2m > [22mshould reveal 3 cards from Black Market deck and allow buying one[32m 3[2mms[22m[39m
+ [31m├ù[39m server/tests/promos/PromoMechanics.test.ts[2m > [22mPromo Mechanics[2m > [22mEnvoy (D├®l├®gu├®)[2m > [22mshould draw 4, then reveal top 5 and opponent chooses one to discard[32m 6[2mms[22m[39m
+[31m   ÔåÆ expected +0 to be 4 // Object.is equality[39m
+ [32mÔ£ô[39m server/tests/promos/PromoMechanics.test.ts[2m > [22mPromo Mechanics[2m > [22mCaptain (Capitaine)[2m > [22mshould allow playing a non-Duration Action from Supply costing up to 4[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/promos/PromoMechanics.test.ts[2m > [22mPromo Mechanics[2m > [22mPrince[2m > [22mshould trash itself and prompt to set aside an Action costing up to 4[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/promos/PromoMechanics.test.ts[2m > [22mPromo Mechanics[2m > [22mMarchland (Fronti├¿re)[2m > [22mshould give coins based on Victory cards in hand and discard hand[32m 1[2mms[22m[39m
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (:St  
+  ring) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[39m[1m[41m Failed Tests 
+1 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/promos/PromoMec
+hanics.test.ts[2m > 
+[22mPromo Mechanics[2m > 
+[22mEnvoy 
+(D├®l├®gu├®)[2m > 
+[22mshould draw 4, then 
+reveal top 5 and opponent 
+chooses one to discard
+[31m[1mAssertionError[22
+m: expected +0 to be 4 // 
+Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 4[39m
+[31m+ 0[39m
+
+[36m [2mÔØ»[22m server/t
+ests/promos/PromoMechanics.
+test.ts:[2m51:40[22m[39m
+    [90m 49| [39m        
+    const res = EffectEngin
+e.applyEffects(state, 
+'p1', envoy.eÔÇª
+    [90m 50| [39m
+    [90m 51| [39m        
+    [34mexpect[39m(player
+[33m.[39mhand[33m.[39ml
+ength)[33m.[39m[34mtoBe
+[39m([34m4[39m)[33m;[39
+m
+    [90m   | [39m        
+                           
+    [31m^[39m
+    [90m 52| [39m        
+    [34mexpect[39m(res[3
+3m.[39mneedsChoice)[33m.
+[39m[34mtoBe[39m([35mtru
+e[39m)[33m;[39m
+    [90m 53| [39m        
+    [34mexpect[39m(state
+[33m.[39mpendingDecision[
+33m?.[39mplayerId)[33m.[
+39m[34mtoBe[39m(opponent
+[33m.[39mid)[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[1/1]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m4 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 12:20:09
+[2m   Duration [22m 3.46s[2m (transform 1.58s, setup 0ms, import 3.27s, tests 13ms, environment 0ms)[22m
+

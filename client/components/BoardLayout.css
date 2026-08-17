@@ -1,0 +1,1023 @@
+/**
+ * BoardLayout.css - Grid-based Game Layout (Fixed & Centered Version)
+ */
+
+:root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --bg-zone: rgba(255, 255, 255, 0.03);
+
+    --accent-gold: #ffd700;
+    --accent-green: #2ecc71;
+    --accent-blue: #3498db;
+    --accent-red: #e74c3c;
+
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+
+    --font-heading: 'Segoe UI', sans-serif;
+
+    --sidebar-left-width: 300px;
+    --sidebar-right-width: 340px;
+
+    --layout-scale: 1.0;
+}
+
+/* ============================================================================
+   GLOBAL LAYOUT
+   ============================================================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    /* Prevent global scroll */
+}
+
+/* ============================================================================
+   GLOBAL LAYOUT (17-ZONE GRID)
+   ============================================================================ */
+.board-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
+    grid-template-rows: 100vh;
+    grid-template-areas: "left center right";
+    width: calc(100vw / var(--layout-scale));
+    height: calc(100vh / var(--layout-scale));
+    transform: scale(var(--layout-scale));
+    transform-origin: top center;
+    background: radial-gradient(circle at center, #1a1f26 0%, #0d1117 100%);
+    color: #f0f6fc;
+    font-family: 'Cinzel', 'Trajan Pro', serif;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* ============================================================================
+   CENTER COLUMN (The Hub) - MODIFIED GRID
+   ============================================================================ */
+.layout-col-center {
+    grid-area: center;
+    display: grid;
+    /* --- VERTICAL STACK (Top to Bottom) --- */
+    /* 1. Opponent Hands: 80px */
+    /* 2. Kingdom Supply (Selection Tray lives here): 1fr */
+    /* 3. Game Area (Play Area): 220px */
+    /* 4. Action Bar (Decision Zone): 80px */
+    /* 5. Player Hand: 200px */
+    grid-template-rows: 80px 1fr 220px 80px 200px;
+    grid-template-areas:
+        "opponent-header"
+        "kingdom"
+        "play-area"
+        "action-bar"
+        "player-hand";
+
+    padding: 10px;
+    gap: 8px;
+    overflow-y: auto;
+    /* Strict viewport anchoring */
+    height: 100vh;
+    position: relative;
+    /* Added for absolute anchoring of Duration Stack */
+}
+
+.zone-11-kingdom {
+    grid-area: kingdom;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* Ensure Kingdom doesn't overflow if screen is small */
+    min-height: 0;
+}
+
+/* Zone 13: Action Bar (Decision Zone) */
+.action-bar-zone {
+    grid-area: action-bar;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(13, 17, 23, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    z-index: 100;
+}
+
+
+
+
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.player-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.phase-pill {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+
+/* Zone 12: Play Area - UPDATED */
+.zone-12-play-area {
+    grid-area: play-area;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Allow wrapping for many cards */
+    gap: 8px;
+    padding: 12px;
+    border: 1px dashed rgba(212, 175, 55, 0.2);
+    background: rgba(245, 222, 179, 0.03);
+    border-radius: 12px;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    /* Handle overflow if many cards are played */
+}
+
+/* Zone 14: Player Hand - UPDATED */
+.zone-14-hand {
+    grid-area: player-hand;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* CENTRE VERTICALEMENT les cartes */
+    gap: 12px;
+    height: 100%;
+    /* Remplit les 200px alloués */
+    padding-bottom: 10px;
+    /* Petit espace de sécurité en bas */
+    margin: 0;
+}
+
+/* ============================================================================
+   SIDEBARS & HEADER (No Major Changes Needed Here)
+   ============================================================================ */
+
+/* Zones 1 (Opponents) & 5 (Trash Header) */
+.center-header {
+    grid-area: opponent-header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.zone-1-opponents {
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.opponent-score-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.opponent-vp-score {
+    color: #ffd700;
+}
+
+.opponents-hands-header {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.opponent-game-state {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+}
+
+.opponent-piles {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.opponent-mini-pile {
+    position: relative;
+    width: 48px;
+    height: 72px;
+}
+
+.card-back-mini {
+    width: 100%;
+    height: 100%;
+    background-image: url('../card_back.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+.opponent-discard-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.opponent-discard-preview .card-frame.mini {
+    width: 48px !important;
+    height: 72px !important;
+    border-width: 1px !important;
+}
+
+.mini-pile-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.zone-5-trash {
+    margin-left: auto;
+    background: rgba(231, 76, 60, 0.15);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.zone-5-trash:hover {
+    background: rgba(231, 76, 60, 0.25);
+    transform: scale(1.05);
+}
+
+/* ============================================================================
+   ACTION BAR ELEMENTS
+   ============================================================================ */
+.action-bar-resources {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.resource-pill {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    /* Slightly larger for the bigger bar */
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.resource-pill .label {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-right: 6px;
+    text-transform: uppercase;
+}
+
+.resource-pill.gold {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+}
+
+.resource-pill.gold .label {
+    opacity: 1;
+    font-size: 14px;
+}
+
+.action-bar-instruction {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    /* Larger font */
+    font-weight: 500;
+    color: #f0f6fc;
+}
+
+.action-bar-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Decision Buttons */
+.confirm-btn-central {
+    background: #34495e;
+    color: #95a5a6;
+    border: none;
+    padding: 10px 40px;
+    /* Larger button */
+    border-radius: 6px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: not-allowed;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confirm-btn-central.active {
+    background: #2ecc71;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+    transform: scale(1.05);
+}
+
+.pass-btn-central {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.treasure-btn-central {
+    background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.treasure-btn-central:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
+
+/* ============================================================================
+   CARD STYLES
+   ============================================================================ */
+/* Card Selection Auras */
+.card-aura-blue {
+    box-shadow: 0 0 15px 5px rgba(52, 152, 219, 0.6) !important;
+}
+
+.card-aura-red {
+    box-shadow: 0 0 15px 5px rgba(231, 76, 60, 0.6) !important;
+}
+
+.card-dimmed {
+    opacity: 0.4;
+    filter: grayscale(0.8);
+}
+
+.card-frame.playable {
+    cursor: pointer;
+    box-shadow: 0 0 10px 2px rgba(52, 152, 219, 0.5) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.card-frame.playable:hover {
+    box-shadow: 0 0 20px 6px rgba(52, 152, 219, 0.8) !important;
+    transform: translateY(-5px) scale(1.02);
+    z-index: 50;
+}
+
+.selection-stack-count {
+    position: absolute;
+    bottom: 30px;
+    right: 5px;
+    background: #3498db;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+/* ============================================================================
+   SIDEBAR RIGHT & LEFT DETAILS
+   ============================================================================ */
+.layout-col-left {
+    background: #111418;
+    border-right: 1px solid #30363d;
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-left-width);
+}
+
+.zone-8-profile-area {
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-piles {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px 0;
+}
+
+.profile-pile-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+}
+
+.pile-count-overlay {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #444;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.layout-col-right {
+    grid-area: right;
+    background: #111418;
+    border-left: 1px solid #30363d;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px;
+    z-index: 50;
+    /* Ensure right column is above potential center overflows */
+    position: relative;
+}
+
+.zone-15-log {
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.zone-17-menu {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+    gap: 10px;
+}
+
+.zone-17-menu button {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ccc;
+    white-space: nowrap;
+}
+
+.zone-17-menu button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+}
+
+.zone-17-menu button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.zone-17-menu .rewind-mode-btn.active {
+    background: rgba(139, 195, 74, 0.2);
+    border-color: #8bc34a;
+    color: #8bc34a;
+}
+
+.zone-17-menu .confirm-rewind-btn {
+    background: #8bc34a;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+.zone-17-menu .confirm-rewind-btn:hover {
+    background: #a2cf6e;
+}
+
+.zone-17-menu .quit-btn {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+}
+
+.zone-17-menu .quit-btn:hover {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: #e74c3c;
+    color: #fff;
+}
+
+.quit-btn {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    pointer-events: auto;
+    /* Force clickable */
+}
+
+.quit-btn:hover {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: #e74c3c;
+}
+
+.volume-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.volume-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================================================
+   VISUAL UTILS & OVERRIDES
+   ============================================================================ */
+/* Ensure cards scale */
+.card-frame {
+    height: 100%;
+    aspect-ratio: 2/3;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* PREGAME / READY STYLES */
+.pregame-ready-zone-12 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.ready-btn-medieval {
+    background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+    border: 2px solid #daa520;
+    color: #fff;
+    font-family: 'MedievalSharp', serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding: 14px 40px;
+    border-radius: 6px;
+    box-shadow: 0 4px 0 #1e8449, 0 5px 15px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
+    transition: all 0.1s ease;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ready-btn-medieval:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #1e8449, 0 3px 10px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
+}
+
+.ready-btn-medieval:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.waiting-msg-medieval {
+    margin-top: 16px;
+    font-family: 'Cinzel', serif;
+    color: #ffd700;
+    font-size: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    opacity: 0.8;
+}
+
+/* Opponent Hand Visuals */
+.opponent-hand-visual {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding-right: 15px;
+    height: 20px;
+}
+
+.opponent-hand-card {
+    width: 48px;
+    height: 72px;
+    background-image: url('../card_back.png');
+    background-size: 140%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.4);
+    border: none;
+    transform-origin: bottom center;
+}
+
+.opponent-hand-card:not(:first-child) {
+    margin-left: -35px;
+}
+
+.opponent-hand-badge {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mini-pile-count {
+    position: absolute;
+    top: -4px;
+    left: -5px;
+    right: auto;
+    background: #e74c3c;
+    color: white;
+    font-size: 11px;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 0 10px 0;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.menu-btn-medieval {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #ffd700;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-btn-medieval:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Choice Options */
+.choice-option-btn {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #e2e8f0;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-option-btn:hover {
+    background: linear-gradient(135deg, rgba(51, 65, 85, 0.95) 0%, rgba(30, 41, 59, 0.98) 100%);
+    border-color: rgba(255, 215, 0, 0.8);
+    transform: translateX(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.choice-option-btn.selected {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: #2ecc71;
+    box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+}
+
+.option-index-badge {
+    background: #e74c3c;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+
+/* Custom Modal */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.custom-modal-content.medieval {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    border: 2px solid #daa520;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    color: #f0f6fc;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    font-family: 'Cinzel', serif;
+    white-space: nowrap;
+}
+
+/* ============================================================================
+   DURATION UI ELEMENTS
+   ============================================================================ */
+/* DURATION = YELLOW/GOLD (User Request) */
+.player-duration-pill {
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    font-size: 0.9rem;
+    font-family: 'Cinzel', serif;
+    white-space: nowrap;
+}
+
+.player-duration-pill .pill-content,
+.player-set-aside-pill .pill-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-duration-pill:hover,
+.player-duration-pill.active {
+    background: rgba(255, 215, 0, 0.3);
+    border-color: #ffd700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.player-duration-pill .pill-count {
+    background: #ffd700;
+    color: #0d1117;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* SET ASIDE = ORANGE (User Request) */
+.player-set-aside-pill {
+    background: rgba(230, 126, 34, 0.15);
+    border: 1px solid rgba(230, 126, 34, 0.4);
+    color: #e67e22;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    font-size: 0.9rem;
+    font-family: 'Cinzel', serif;
+    white-space: nowrap;
+}
+
+.player-set-aside-pill:hover,
+.player-set-aside-pill.active {
+    background: rgba(230, 126, 34, 0.3);
+    border-color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.2);
+    text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+}
+
+.player-set-aside-pill .pill-count {
+    background: #e67e22;
+    color: #0d1117;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.opponent-duration-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1;
+    gap: 4px;
+    transition: all 0.2s ease;
+    height: 100%;
+    /* Match parent height */
+    min-height: 40px;
+}
+
+.opponent-duration-badge:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.opponent-duration-badge .vert-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: -2px;
+    font-size: 9px;
+    opacity: 0.8;
+}
+
+.opponent-duration-badge .badge-count {
+    background: currentColor;
+    color: #000;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 9px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================================
+   SIDE SUPPLY BAR LAYOUT
+   ============================================================================ */
+.kingdom-with-side-supply {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================================================
+   PROFILE & STATS TOGGLE
+   ============================================================================ */
+.profile-main-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.profile-main-info:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.stats-toggle-icon {
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.profile-main-info:hover .stats-toggle-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}

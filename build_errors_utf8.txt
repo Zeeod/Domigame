@@ -1,0 +1,180 @@
+﻿
+> dominion-js@1.0.0 check-types
+> tsc --noEmit
+
+client/components/ChoiceModalV2.test.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+client/components/ChoiceModalV2.test.tsx(2,43): error TS2307: Cannot find module '@testing-library/react' or its corresponding type declarations.
+client/components/LogView.tsx(23,115): error TS6133: 'onRequestRewind' is declared but its value is never read.
+client/hooks/useSound.ts(4,33): error TS6133: 'useEffect' is declared but its value is never read.
+server/tests/audit_conditional.ts(3,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/audit_duration.ts(6,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/audit_duration.ts(76,20): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/audit_duration.ts(76,29): error TS7006: Parameter 'l' implicitly has an 'any' type.
+server/tests/audit_duration.ts(77,34): error TS7006: Parameter 'm' implicitly has an 'any' type.
+server/tests/audit_duration.ts(78,34): error TS7006: Parameter 'm' implicitly has an 'any' type.
+server/tests/card_validation.ts(14,29): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/card_validation.ts(15,30): error TS6133: 'CardInstance' is declared but its value is never read.
+server/tests/DarkAgesSetup.test.ts(14,30): error TS6133: 'event' is declared but its value is never read.
+server/tests/DarkAgesSetup.test.ts(18,26): error TS6133: 'event' is declared but its value is never read.
+server/tests/DarkAgesTrash.test.ts(7,30): error TS6133: 'createCardInstances' is declared but its value is never read.
+server/tests/DarkAgesTrash.test.ts(144,19): error TS6133: 'duchyOption' is declared but its value is never read.
+server/tests/harness.ts(2,38): error TS6133: 'LogEntry' is declared but its value is never read.
+server/tests/harness.ts(28,7): error TS6196: 'TestHarness' is declared but never used.
+server/tests/harness.ts(49,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/harness.ts(62,37): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/harness.ts(62,50): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/harness.ts(145,32): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/harness.ts(145,69): error TS7006: Parameter 'l' implicitly has an 'any' type.
+server/tests/harness.ts(163,7): error TS6133: 'tests' is declared but its value is never read.
+server/tests/harness.ts(169,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(176,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(183,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(194,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(205,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(213,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(223,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(232,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(242,17): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(246,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(246,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(253,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(261,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(261,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(268,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(268,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(275,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(283,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(283,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(290,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(298,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(306,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(306,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(313,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(313,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(320,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(320,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(327,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(335,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(335,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(342,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(342,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(349,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(349,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(356,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(365,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(365,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(372,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(372,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(379,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(379,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/harness.ts(386,18): error TS6133: 'state' is declared but its value is never read.
+server/tests/harness.ts(386,25): error TS6133: 'player' is declared but its value is never read.
+server/tests/integration_tests.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/integration_tests.ts(212,15): error TS6133: 'beforeCoins' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(2,41): error TS6133: 'createPlayer' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(4,1): error TS6133: 'ActionResolver' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(5,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/MechanicsAuditV2.test.ts(6,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/MechanicsB.test.ts(83,19): error TS6133: 'decisionResult' is declared but its value is never read.
+server/tests/MixedPiles.test.ts(3,1): error TS6133: 'createGameState' is declared but its value is never read.
+server/tests/Nocturne.test.ts(6,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/Nocturne.test.ts(7,10): error TS6133: 'createCardInstance' is declared but its value is never read.
+server/tests/promos/PromoMechanics.test.ts(4,51): error TS6133: 'CardInstance' is declared but its value is never read.
+server/tests/Prosperity.test.ts(83,26): error TS2339: Property 'handleOnBuyTriggers' does not exist on type 'typeof EffectEngine'.
+server/tests/Prosperity.test.ts(97,26): error TS2339: Property 'handleOnBuyTriggers' does not exist on type 'typeof EffectEngine'.
+server/tests/Prosperity.test.ts(137,26): error TS2339: Property 'handleOnGainTriggers' does not exist on type 'typeof EffectEngine'.
+server/tests/repro_log_integrity.ts(17,7): error TS6133: 'originalLog' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(18,7): error TS6133: 'originalError' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(23,7): error TS6133: 'mockLogger' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(24,11): error TS6133: 'state' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(24,29): error TS6133: 'msg' is declared but its value is never read.
+server/tests/repro_log_integrity.ts(93,15): error TS6133: 'effect' is declared but its value is never read.
+server/tests/RisingSunProphecies.test.ts(4,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+server/tests/RisingSunProphecies.test.ts(5,1): error TS6192: All imports in import declaration are unused.
+server/tests/RisingSunProphecies.test.ts(6,19): error TS6133: 'mountain_shrine' is declared but its value is never read.
+server/tests/SeasideAdvanced.test.ts(271,53): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/SeasideDuration.test.ts(8,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/SeasideMechanics.test.ts(6,1): error TS6133: 'PromptType' is declared but its value is never read.
+server/tests/selection_persistence.ts(2,27): error TS6133: 'GameState' is declared but its value is never read.
+server/tests/selection_persistence.ts(3,29): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/selection_persistence.ts(17,7): error TS6133: 'originalLog' is declared but its value is never read.
+server/tests/selection_persistence.ts(18,7): error TS6133: 'originalError' is declared but its value is never read.
+server/tests/selection_persistence.ts(43,15): error TS6133: 'action' is declared but its value is never read.
+server/tests/test_empires_simple.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/validate_all_cards.ts(7,10): error TS6133: 'PlayerState' is declared but its value is never read.
+server/tests/validation/audit/ExpansionAudit.test.ts(4,20): error TS6133: 'CardReference' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(15,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(30,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(44,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(71,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(181,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(195,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSet.test.ts(209,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart1.test.ts(85,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(14,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(23,15): error TS6133: 'p1' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(29,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(83,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart2.test.ts(91,35): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/validation/BaseSetPart2.test.ts(91,44): error TS7006: Parameter 'l' implicitly has an 'any' type.
+server/tests/validation/BaseSetPart3.test.ts(17,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(40,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(48,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(75,33): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/BaseSetPart3.test.ts(137,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/CornucopiaGuildsPart1.test.ts(99,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/Prosperity_Intrigue_2nd_Edition.test.ts(22,29): error TS2339: Property 'logs' does not exist on type 'GameState'.
+server/tests/validation/Prosperity_Intrigue_2nd_Edition.test.ts(22,39): error TS7006: Parameter 'l' implicitly has an 'any' type.
+server/tests/validation/ProsperityPart1.test.ts(85,15): error TS6133: 'p2' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(15,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(25,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(48,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(55,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(68,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(75,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(100,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/Seaside.test.ts(107,29): error TS6133: 'state' is declared but its value is never read.
+server/tests/validation/SeasidePart3.test.ts(98,15): error TS6133: 'silver' is declared but its value is never read.
+server/tests/validation/TestUtils.ts(2,10): error TS6133: 'describe' is declared but its value is never read.
+server/tests/validation/TestUtils.ts(2,28): error TS6133: 'test' is declared but its value is never read.
+server/tests/validation/TestUtils.ts(232,21): error TS2339: Property 'performCleanup' does not exist on type 'typeof TurnMachine'.
+server/tests/validation/TestUtils.ts(326,22): error TS2339: Property 'handleOnBuyTriggers' does not exist on type 'typeof EffectEngine'.
+server/tests/validation/TestUtils.ts(344,22): error TS2339: Property 'handleOnGainTriggers' does not exist on type 'typeof EffectEngine'.
+server/tests/validation/TurnSkip.test.ts(2,32): error TS6133: 'vi' is declared but its value is never read.
+server/tools/StressTest.ts(7,8): error TS6133: 'room' is declared but its value is never read.
+server/tools/StressTest.ts(8,10): error TS6133: 'event' is declared but its value is never read.
+server/tools/StressTest.ts(8,25): error TS6133: 'data' is declared but its value is never read.
+server/tools/StressTest.ts(9,8): error TS6133: 'room' is declared but its value is never read.
+server/tools/StressTest.ts(10,8): error TS6133: 'event' is declared but its value is never read.
+server/tools/StressTest.ts(10,23): error TS6133: 'cb' is declared but its value is never read.
+shared/bot/DeckEvaluator.ts(127,56): error TS6133: 'state' is declared but its value is never read.
+shared/cards/ComplexCards.test.ts(137,21): error TS2339: Property 'finalizeCleanup' does not exist on type 'typeof TurnMachine'.
+shared/cards/ComplexCards.test.ts(252,21): error TS2339: Property 'finalizeCleanup' does not exist on type 'typeof TurnMachine'.
+shared/cards/DebugCaravan.test.ts(4,21): error TS6133: 'PlayerState' is declared but its value is never read.
+shared/cards/DebugCaravan.test.ts(6,1): error TS6133: 'TurnMachine' is declared but its value is never read.
+shared/cards/DebugCaravan.test.ts(7,1): error TS6133: 'EffectEngine' is declared but its value is never read.
+shared/cards/landscapes/Landscape.test.ts(7,1): error TS6133: 'TurnMachine' is declared but its value is never read.
+shared/cards/landscapes/Landscape.test.ts(10,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/engine/effects/CleanupEffectHandler.ts(3,1): error TS6133: 'EffectUtils' is declared but its value is never read.
+shared/engine/effects/CleanupEffectHandler.ts(211,28): error TS6133: 'p' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,51): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,72): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(5,85): error TS6133: 'sourceCardInstanceId' is declared but its value is never read.
+shared/engine/effects/DurationEffectHandler.ts(45,50): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(2,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(5,45): error TS6133: 'player' is declared but its value is never read.
+shared/engine/effects/ReactionEffectHandler.ts(5,66): error TS6133: 'effect' is declared but its value is never read.
+shared/engine/effects/TokenEffectHandler.ts(4,1): error TS6133: 'Logger' is declared but its value is never read.
+shared/engine/GenericEffectRefactor.test.ts(4,10): error TS6133: 'PlayerState' is declared but its value is never read.
+shared/engine/tests/CellarInteraction.test.ts(4,1): error TS6133: 'EffectEngine' is declared but its value is never read.
+shared/engine/TurnMachine.ts(1,21): error TS6133: 'getCurrentPlayer' is declared but its value is never read.
+shared/engine/TurnMachine.ts(4,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/engine/TurnMachine.ts(5,1): error TS6133: 'resetTurnResources' is declared but its value is never read.
+shared/engine/TurnMachine.ts(53,20): error TS6133: 'log' is declared but its value is never read.
+shared/engine/TurnMachine.ts(57,20): error TS6133: 'logEvent' is declared but its value is never read.
+shared/tests/DoubleEconomyRepro.test.ts(7,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/tests/GameStateView.test.ts(3,27): error TS6133: 'PlayerState' is declared but its value is never read.
+shared/tests/MarchlandRepro.test.ts(2,27): error TS6133: 'GameState' is declared but its value is never read.
+shared/tests/Reproduction.test.ts(3,1): error TS6133: 'ActionResolver' is declared but its value is never read.
+shared/tests/Reproduction.test.ts(4,1): error TS6133: 'CardRegistry' is declared but its value is never read.
+shared/tests/SimultaneousResolution.test.ts(5,1): error TS6133: 'TurnMachine' is declared but its value is never read.

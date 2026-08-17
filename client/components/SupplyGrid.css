@@ -1,0 +1,148 @@
+/**
+ * SupplyGrid.css - Grid layout for supply piles
+ */
+
+.supply-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    /* Reduced from 4px */
+    padding: 0px;
+    /* Reduced from 2px */
+    align-items: center;
+    /* Center rows globally */
+    width: 100%;
+}
+
+.supply-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.supply-row.basic-supply {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.supply-group {
+    display: flex;
+    gap: 6px;
+}
+
+.kingdom-and-landscapes {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    /* Reduced to minimum possible as requested */
+    width: 100%;
+}
+
+.kingdom-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: fit-content;
+    /* Remove fixed max-width to prevent stretching */
+    flex-shrink: 0;
+}
+
+/* Landscape column - sits to the RIGHT of the kingdom grid */
+.landscape-column {
+    display: grid;
+    /* Auto-fit: makes 1 or 2 columns based on available space, never overflows */
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    max-width: 248px; /* 2 × 112px + 1 × 24px gap = 248px max */
+    gap: 8px;
+    align-items: flex-start;
+    flex-shrink: 0;
+    justify-content: flex-start;
+    padding-top: 0;
+    overflow: hidden;
+}
+
+/* Hide legacy selectors */
+.landscape-bar,
+.landscape-title {
+    display: none;
+}
+
+/* Landscape cards match kingdom card size */
+.landscape-column .card-frame.mini {
+    width: 112px;
+    height: 112px;
+}
+
+.supply-row.kingdom-row,
+.supply-row.kingdom-row-unified {
+    display: grid;
+    grid-template-columns: repeat(5, 112px);
+    justify-content: flex-start;
+    /* Ensure cards are tightly packed to the left */
+    gap: 12px;
+    width: fit-content;
+}
+
+/* Specific resize for Kingdom cards (Removed overrides, use global mini size) */
+.kingdom-row .card-frame.mini {
+    width: 112px;
+    height: 112px;
+}
+
+/* Adjust text sizes for smaller cards */
+.kingdom-row .card-frame.mini .top-banner {
+    font-size: 10px;
+    padding: 1px 4px;
+    min-height: 16px;
+}
+
+.kingdom-row .card-frame.mini .bottom-banner {
+    font-size: 9px;
+    padding-left: 20px;
+    min-height: 18px;
+    width: 100%;
+    z-index: 10;
+}
+
+.kingdom-row .card-frame.mini .card-cost-coin {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    left: -4px;
+    bottom: -4px;
+    z-index: 20;
+    /* Ensure on top of banner */
+    border-width: 2px;
+}
+
+/* Sidebar Split (2 columns) */
+.sidebar-split {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Stop cards from stretching vertically */
+    width: 100%;
+    gap: 0px;
+    /* Visually half of the previous ~40px gap */
+}
+
+.sidebar-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    flex: 1;
+}
+
+/* Sidebar cards unified with kingdom cards */
+.sidebar-col .card-frame.mini {
+    width: 112px;
+    height: 112px;
+}
+
+/* Specific alignments if needed */
+/* End of SupplyGrid styling */

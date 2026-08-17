@@ -1,0 +1,280 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mBlack Market (March├® Noir)[2m > [22m[2mshould reveal 3 cards from Black Market deck and allow buying one
+[22m[39mDEBUG: processStack LOOP START, stackSize=3
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'ADD_MONEY'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'REVEAL_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'CHOOSE_FROM_ZONE'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'MOVE_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'MOVE_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'BUY_LAST_SELECTED'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mEnvoy (D├®l├®gu├®)[2m > [22m[2mshould draw 4, then reveal top 5 and opponent chooses one to discard
+[22m[39mDEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'REVEAL_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'OTHER_PLAYERS_EFFECT'[39m }
+DEBUG: OTHER_PLAYERS_EFFECT { player: [32m'p1'[39m, otherCount: [33m1[39m, hasEffect: [33mtrue[39m }
+DEBUG: OTHER_PLAYERS_EFFECT pushing to stack { count: [33m1[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p2'[39m, effectType: [32m'CHOOSE_FROM_ZONE'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p2'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p2'[39m, reqPlayerId: [32m'p2'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'MOVE_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mPrince (Le Prince)[2m > [22m[2mshould move card to aside and play it every turn
+[22m[39mDEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'MOVE_CARDS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'SELECT_AND_APPLY'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'SELECT_AND_APPLY'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: handleSelectAndApplyDecision {
+  selectedIds: [ [32m'village_1771113020751_18'[39m ],
+  found: [33m1[39m,
+  destination: [90mundefined[39m,
+  hasNext: [33mtrue[39m
+}
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'REGISTER_TRIGGER'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mCaptain (Le Capitaine)[2m > [22m[2mshould play an action from supply costing up to 4
+[22m[39mDEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'CHOOSE_FROM_ZONE'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'PLAY_THIS_CARD'[39m }
+DEBUG: handlePlayThisCard applying effects { cardId: [32m'village'[39m, effectCount: [33m2[39m }
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'DRAW'[39m }
+[DrawEffectHandler] Empty deck and discard, stopping draw
+[DrawEffectHandler] Draw complete { drawnCount: [33m0[39m, finalHand: [33m0[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'MODIFY_RESOURCE'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+
+[90mstdout[2m | server/tests/promos/PromoMechanics.test.ts[2m > [22m[2mPromo Mechanics[2m > [22m[2mMarchland (Marche-fronti├¿re)[2m > [22m[2mshould gain coins based on victory cards in hand and discard hand
+[22m[39mDEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'ADD_ACTIONS'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'CHOOSE_OPTION'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'OPTION'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'CHOOSE_OPTION'[39m,
+  decisionType: [32m'SELECT_OPTION'[39m,
+  payloadType: [32m'OPTION'[39m
+}
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'ADD_MONEY'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'DISCARD_HAND'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+
+ [31mÔØ»[39m server/tests/promos/PromoMechanics.test.ts [2m([22m[2m5 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 16[2mms[22m[39m
+[31m       [31m├ù[31m should reveal 3 cards from Black Market deck and allow buying one[39m[32m 10[2mms[22m[39m
+       [32mÔ£ô[39m should draw 4, then reveal top 5 and opponent chooses one to discard[32m 2[2mms[22m[39m
+[31m       [31m├ù[31m should move card to aside and play it every turn[39m[32m 1[2mms[22m[39m
+       [32mÔ£ô[39m should play an action from supply costing up to 4[32m 1[2mms[22m[39m
+       [32mÔ£ô[39m should gain coins based on victory cards in hand and discard hand[32m 1[2mms[22m[39m
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (:St  
+  ring) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[39m[1m[41m Failed Tests 
+2 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/promos/PromoMec
+hanics.test.ts[2m > 
+[22mPromo Mechanics[2m > 
+[22mBlack Market (March├® 
+Noir)[2m > [22mshould 
+reveal 3 cards from Black 
+Market deck and allow 
+buying one
+[31m[1mAssertionError[22
+m: expected 2 to be +0 // 
+Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 2[39m
+
+[36m [2mÔØ»[22m server/t
+ests/promos/PromoMechanics.
+test.ts:[2m41:55[22m[39m
+    [90m 39| [39m
+    [90m 40| [39m        
+    expect(player.discardPi
+le.some(c => c.instanceId 
+=== buyIdÔÇª
+    [90m 41| [39m        
+    [34mexpect[39m(state
+[33m.[39mblackMarketReveal
+ed[33m?.[39mlength)[33m.
+[39m[34mtoBe[39m([34m0
+[39m)[33m;[39m
+    [90m   | [39m        
+                           
+                   
+[31m^[39m
+    [90m 42| [39m        
+    [34mexpect[39m(state
+[33m.[39mblackMarketDeck[
+33m.[39mlength)[33m.[39m
+[34mtoBe[39m([34m0[39m)
+[33m;[39m
+    [90m 43| [39m        
+})[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[1/2]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/promos/PromoMec
+hanics.test.ts[2m > 
+[22mPromo Mechanics[2m > 
+[22mPrince (Le 
+Prince)[2m > [22mshould 
+move card to aside and 
+play it every turn
+[31m[1mAssertionError[22
+m: expected +0 to be 2 // 
+Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 0[39m
+
+[36m [2mÔØ»[22m server/t
+ests/promos/PromoMechanics.
+test.ts:[2m84:41[22m[39m
+    [90m 82| [39m        
+    EffectEngine.resolveDec
+ision(state, 'p1', { type: 
+'CARDS',ÔÇª
+    [90m 83| [39m
+    [90m 84| [39m        
+    [34mexpect[39m(player
+[33m.[39maside[33m.[39m
+length)[33m.[39m[34mtoBe
+[39m([34m2[39m)[33m;[3
+9m [90m// Prince + 
+Village[39m
+    [90m   | [39m        
+                           
+     [31m^[39m
+    [90m 85| [39m        
+    expect(state.triggers?.
+some(t => t.type === 
+'START_TURN'))ÔÇª
+    [90m 86| [39m        
+})[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[2/2]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 18:50:17
+[2m   Duration [22m 3.41s[2m (transform 1.57s, setup 0ms, import 3.22s, tests 16ms, environment 0ms)[22m
+

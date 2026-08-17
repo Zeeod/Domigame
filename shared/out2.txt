@@ -1,0 +1,68 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion/shared
+
+stdout | tests/BanditBureaucrat.test.ts
+[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+stdout | tests/BanditBureaucrat.test.ts > Bandit & Bureaucrat min constraint handling > should not lock the game when Bandit victim has no valid treasures in limbo
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'GAIN_CARD'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'ATTACK'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'RESOLVE_ATTACK'[39m, playerId: [32m'p2'[39m, effectType: [90mundefined[39m }
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=3
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p2'[39m, effectType: [32m'REVEAL_CARDS'[39m }
+DEBUG: removeCardFromPlayer FAILED TO FIND e1
+DEBUG: removeCardFromPlayer FAILED TO FIND c1
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p2'[39m, effectType: [32m'CHOOSE_FROM_ZONE'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+Bandit Decision type: CHOOSE_CARDS
+Bandit constraints: {
+  min: [33m0[39m,
+  max: [33m1[39m,
+  sourceZone: [32m'limbo'[39m,
+  filter: { cardTypes: [ [32m'TREASURE'[39m ], excludeIds: [ [32m'copper'[39m ] }
+}
+
+stdout | tests/BanditBureaucrat.test.ts > Bandit & Bureaucrat min constraint handling > should not lock the game when Bureaucrat victim has no Victory cards in hand
+DEBUG: processStack LOOP START, stackSize=2
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'GAIN_CARD'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p1'[39m, effectType: [32m'ATTACK'[39m }
+DEBUG: applyEffect result needsChoice=false
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'RESOLVE_ATTACK'[39m, playerId: [32m'p2'[39m, effectType: [90mundefined[39m }
+DEBUG: processStack result { needsChoice: [33mfalse[39m }
+DEBUG: processStack LOOP START, stackSize=1
+DEBUG: processStack item { type: [32m'EFFECT'[39m, playerId: [32m'p2'[39m, effectType: [32m'CHOOSE_FROM_ZONE'[39m }
+DEBUG: applyEffect result needsChoice=true
+DEBUG: processStack result { needsChoice: [33mtrue[39m }
+Bureaucrat Decision type: CHOOSE_CARDS
+Bureaucrat constraints: {
+  min: [33m1[39m,
+  max: [33m1[39m,
+  sourceZone: [32m'hand'[39m,
+  filter: { cardTypes: [ [32m'VICTORY'[39m ] }
+}
+
+ ✓ tests/BanditBureaucrat.test.ts (2 tests) 11ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:04:39
+   Duration  8.43s (transform 2.24s, setup 0ms, import 8.23s, tests 11ms, environment 0ms)
+

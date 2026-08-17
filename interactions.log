@@ -1,0 +1,113 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion
+
+stdout | server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play)
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+Resolving decision: Executing next effects [{"type":"PLAY_ACTION_TWICE","times":2}]
+processStack: popped {"type":"PLAY_ACTION_TWICE","times":2}
+handlePlayActionTwice: lastSelected throne_room
+handlePlayActionTwice: Card found in hand throne_room
+handlePlayActionTwice: Applying effects [33m2[39m times
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}]}
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+Resolving decision: Executing next effects [{"type":"PLAY_ACTION_TWICE","times":2}]
+processStack: popped {"type":"PLAY_ACTION_TWICE","times":2}
+handlePlayActionTwice: lastSelected smithy
+handlePlayActionTwice: Card found in hand smithy
+handlePlayActionTwice: Applying effects [33m2[39m times
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":3}]}
+processStack: popped {"type":"DRAW","amount":3}
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":3}]}
+processStack: popped {"type":"DRAW","amount":3}
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}]}
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+
+stdout | server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play) WITH enough targets
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+Resolving decision: Executing next effects [{"type":"PLAY_ACTION_TWICE","times":2}]
+processStack: popped {"type":"PLAY_ACTION_TWICE","times":2}
+handlePlayActionTwice: lastSelected throne_room
+handlePlayActionTwice: Card found in hand throne_room
+handlePlayActionTwice: Applying effects [33m2[39m times
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}]}
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+Resolving decision: Executing next effects [{"type":"PLAY_ACTION_TWICE","times":2}]
+processStack: popped {"type":"PLAY_ACTION_TWICE","times":2}
+handlePlayActionTwice: lastSelected smithy
+handlePlayActionTwice: Card found in hand smithy
+handlePlayActionTwice: Applying effects [33m2[39m times
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":3}]}
+processStack: popped {"type":"DRAW","amount":3}
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":3}]}
+processStack: popped {"type":"DRAW","amount":3}
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}]}
+processStack: popped {"type":"CHOOSE_FROM_ZONE","sourceZone":"hand","min":1,"max":1,"filter":{"cardTypes":["ACTION"]},"message":"Choisissez une action à jouer deux fois","destination":"play","effects":[{"type":"PLAY_ACTION_TWICE","times":2}],"optional":true}
+Resolving decision: Executing next effects [{"type":"PLAY_ACTION_TWICE","times":2}]
+processStack: popped {"type":"PLAY_ACTION_TWICE","times":2}
+handlePlayActionTwice: lastSelected village
+handlePlayActionTwice: Card found in hand village
+handlePlayActionTwice: Applying effects [33m2[39m times
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":1},{"type":"ADD_ACTIONS","amount":2}]}
+processStack: popped {"type":"DRAW","amount":1}
+processStack: popped {"type":"ADD_ACTIONS","amount":2}
+processStack: popped {"type":"RECURSIVE_APPLY","effects":[{"type":"DRAW","amount":1},{"type":"ADD_ACTIONS","amount":2}]}
+processStack: popped {"type":"DRAW","amount":1}
+processStack: popped {"type":"ADD_ACTIONS","amount":2}
+
+ ❯ server/tests/Interactions.test.ts (2 tests | 1 failed) 12ms
+       × should handle Throne Room -> Throne Room -> Smithy (Triple Play) 9ms
+       ✓ should handle Throne Room -> Throne Room -> Smithy (Triple Play) WITH enough targets 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  server/tests/Interactions.test.ts > Advanced Mechanics & Interactions > Throne Room Chains > should handle Throne Room -> Throne Room -> Smithy (Triple Play)
+AssertionError: expected { …(6) } to be null
+
+[32m- Expected:[39m 
+null
+
+[31m+ Received:[39m 
+{
+  "constraints": {
+    "filter": {
+      "cardTypes": [
+        "ACTION",
+      ],
+    },
+    "max": 1,
+    "min": 0,
+    "sourceZone": "hand",
+  },
+  "context": {
+    "destination": "play",
+    "next": [
+      {
+        "times": 2,
+        "type": "PLAY_ACTION_TWICE",
+      },
+    ],
+    "sourceCardInstanceId": "throne_room_1770495203935_2",
+    "specialAction": "ZONE_CHOICE",
+  },
+  "id": "choose_zone_1770495203938",
+  "message": "Choisissez une action à jouer deux fois",
+  "playerId": "p1",
+  "type": "CHOOSE_CARDS",
+}
+
+ ❯ server/tests/Interactions.test.ts:127:43
+    125|             // So pendingDecision should be null (or checkAutoEndActio…
+    126| 
+    127|             expect(state.pendingDecision).toBeNull();
+       |                                           ^
+    128|             expect(p1.hand.length).toBe(6);
+    129|         });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  15:13:20
+   Duration  3.25s (transform 1.50s, setup 0ms, import 3.04s, tests 12ms, environment 0ms)
+

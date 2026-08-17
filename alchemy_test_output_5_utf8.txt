@@ -1,0 +1,109 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/Alchemy.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mGolem (Golem)[2m > [22m[2mshould reveal cards until 2 Actions are found and play them
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+DEBUG: handleRevealUntil revealed copper, match: false
+DEBUG: handleRevealUntil revealed copper, match: false
+DEBUG: handleRevealUntil revealed smithy, match: true
+DEBUG: handleRevealUntil revealed silver, match: false
+DEBUG: handleRevealUntil revealed village, match: true
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: handlePlayTarget sourceZone: aside, targets: 2
+DEBUG: processStack finished (empty stack)
+
+[90mstdout[2m | server/tests/Alchemy.test.ts[2m > [22m[2mAlchemy Mechanics[2m > [22m[2mApprentice (Apprenti)[2m > [22m[2mshould trash a card and draw cards/coins
+[22m[39mDEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p1'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p1'[39m, reqPlayerId: [32m'p1'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'TRASH'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+[DrawEffectHandler] Draw complete { drawnCount: [33m6[39m, finalHand: [33m6[39m }
+DEBUG: processStack finished (empty stack)
+DEBUG: processStack finished (empty stack)
+DEBUG: Apprentice hand size: [33m6[39m
+DEBUG: Trash size: [33m1[39m
+DEBUG: Gold instanceId: gold_1771040615497_9
+DEBUG: Trash instanceIds: [ [32m'gold_1771040615497_9'[39m ]
+
+ [31mÔØ»[39m server/tests/Alchemy.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+[31m       [31m├ù[31m should reveal cards until 2 Actions are found and play them[39m[32m 8[2mms[22m[39m
+       [32mÔ£ô[39m should trash a card and draw cards/coins[32m 3[2mms[22m[39m
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (:St  
+  ring) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[39m[1m[41m Failed Tests 
+1 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»Ô
+Ä»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m s
+erver/tests/Alchemy.test.ts
+[2m > [22mAlchemy 
+Mechanics[2m > [22mGolem 
+(Golem)[2m > [22mshould 
+reveal cards until 2 
+Actions are found and play 
+them
+[31m[1mAssertionError[22
+m: expected 1 to be 
+greater than or equal to 
+2[39m
+[36m [2mÔØ»[22m server/t
+ests/Alchemy.test.ts:[2m95
+:36[22m[39m
+    [90m 93| [39m        
+    [90m// If no shuffle, 
+hand size 2 (Coppers).[39m
+    [90m 94| [39m        
+    [90m// If shuffle, 
+hand size 4.[39m
+    [90m 95| [39m        
+    [34mexpect[39m(p1[33
+m.[39mhand[33m.[39mlengt
+h)[33m.[39m[34mtoBeGreat
+erThanOrEqual[39m([34m2[
+39m)[33m;[39m
+    [90m   | [39m        
+                           
+[31m^[39m
+    [90m 96| [39m
+    [90m 97| [39m        
+    [90m// Verify Actions 
+played[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»
+[1/1]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 22:43:26
+[2m   Duration [22m 8.92s[2m (transform 2.20s, setup 0ms, import 8.73s, tests 12ms, environment 0ms)[22m
+

@@ -1,0 +1,34 @@
+
+export const black_market: CardDefinition = {
+    id: 'black_market',
+    name: 'Marché Noir',
+    cost: 3,
+    types: ['ACTION'],
+    description: "+2 💰. Vous pouvez regarder les 3 premières cartes de la pioche du Marché Noir. Vous pouvez en acheter une. Remettez les autres sous la pioche du Marché Noir.",
+    effects: [
+        { type: 'ADD_MONEY', amount: 2 },
+        {
+            type: 'CHOOSE_OPTION',
+            message: 'Acheter une carte du Marché Noir ?',
+            options: [
+                {
+                    label: 'Acheter une carte',
+                    effects: [
+                        { type: 'REVEAL_CARDS', amount: 3, source: 'blackMarketDeck' as any, destination: 'blackMarketRevealed' as any },
+                        {
+                            type: 'CHOOSE_FROM_ZONE',
+                            sourceZone: 'blackMarketRevealed' as any,
+                            message: 'Choisissez une carte à acheter',
+                            min: 0,
+                            max: 1,
+                            effects: [{ type: 'BUY_LAST_SELECTED' as any }]
+                        },
+                        { type: 'MOVE_CARDS', source: 'blackMarketRevealed' as any, destination: 'blackMarketDeck' as any, count: 'ALL', toBottom: true }
+                    ]
+                },
+                { label: 'Rien acheter', effects: [] }
+            ]
+        }
+    ],
+    expansion: 'promos'
+};

@@ -1,0 +1,39 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | shared/cards/ComplexCards.test.ts
+[22m[39m[RisingSun] Effects registered.
+[Promo] Effects registered.
+[ExpansionRegistry] All expansions initialized.
+
+[90mstdout[2m | shared/cards/ComplexCards.test.ts[2m > [22m[2mComplex Cards QA[2m > [22m[2mProcession: Should play action twice, trash it, and gain card +1 cost
+[22m[39mProcession PendingDecision: {
+  id: [32m'procession_1770588512504'[39m,
+  playerId: [32m'p1'[39m,
+  type: [32m'CHOOSE_CARDS'[39m,
+  message: [32m'Choisissez une carte Action (non-Dur├®e) ├á jouer deux fois'[39m,
+  constraints: {
+    min: [33m0[39m,
+    max: [33m1[39m,
+    sourceZone: [32m'hand'[39m,
+    filter: { cardTypes: [36m[Array][39m, excludeTypes: [36m[Array][39m }
+  },
+  context: {
+    specialAction: [32m'PROCESSION'[39m,
+    next: [ [36m[Object][39m, [36m[Object][39m, [36m[Object][39m ]
+  }
+}
+
+[90mstdout[2m | shared/cards/ComplexCards.test.ts[2m > [22m[2mComplex Cards QA[2m > [22m[2mEnchantress: Should be duration and neutralize attacks
+[22m[39mActive Enchantresses: [ [32m'p1'[39m ]
+
+ [31mÔØ»[39m shared/cards/ComplexCards.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 18[2mms[22m[39m
+[31m     [31m├ù[31m Procession: Should play action twice, trash it, and gain card +1 cost[39m[32m 11[2mms[22m[39m
+[31m     [31m├ù[31m Enchantress: Should be duration and neutralize attacks[39m[32m 4[2mms[22m[39m
+[31m     [31m├ù[31m Graverobber: Should offer modal choice[39m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[90m (3)[39m
+[2m   Start at [22m 17:08:26
+[2m   Duration [22m 5.74s[2m (transform 3.12s, setup 0ms, import 5.44s, tests 18ms, environment 0ms)[22m
+

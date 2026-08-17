@@ -1,0 +1,109 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/Knights.test.ts
+[22m[39m[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/Knights.test.ts[2m > [22m[2mKnights Attack[2m > [22m[2mshould force victim to trash a card costing 3-6 and NOT trash the attacker if it is not a Knight
+[22m[39mDEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p2'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p2'[39m, reqPlayerId: [32m'p2'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: resolveDecision ZONE_CHOICE {
+  selected: [33m1[39m,
+  destination: [32m'trash'[39m,
+  next: [
+    {
+      type: [32m'CONDITION'[39m,
+      condition: [32m'LAST_SELECTED_HAS_TYPE'[39m,
+      value: [32m'KNIGHT'[39m,
+      trueEffects: [36m[Array][39m
+    }
+  ]
+}
+
+[90mstdout[2m | server/tests/Knights.test.ts[2m > [22m[2mKnights Attack[2m > [22m[2mshould trash the attacker if victim trashes a Knight
+[22m[39mDEBUG: EffectEngine.resolveDecision ENTRY { playerId: [32m'p2'[39m, type: [32m'CARDS'[39m }
+DEBUG: resolveDecision FOUND DECISION { decisionPlayerId: [32m'p2'[39m, reqPlayerId: [32m'p2'[39m }
+DEBUG: resolveDecision CLEARING PENDING
+DEBUG: resolveDecision routing {
+  specialAction: [32m'ZONE_CHOICE'[39m,
+  decisionType: [32m'CHOOSE_CARDS'[39m,
+  payloadType: [32m'CARDS'[39m
+}
+DEBUG: resolveDecision ZONE_CHOICE {
+  selected: [33m1[39m,
+  destination: [32m'trash'[39m,
+  next: [
+    {
+      type: [32m'CONDITION'[39m,
+      condition: [32m'LAST_SELECTED_HAS_TYPE'[39m,
+      value: [32m'KNIGHT'[39m,
+      trueEffects: [36m[Array][39m
+    }
+  ]
+}
+
+ [31m├ù[39m server/tests/Knights.test.ts[2m > [22mKnights Attack[2m > [22mshould force victim to trash a card costing 3-6 and NOT trash the attacker if it is not a Knight[32m 10[2mms[22m[39m
+[31m   ÔåÆ expected false to be true // Object.is equality[39m
+ [31m├ù[39m server/tests/Knights.test.ts[2m > [22mKnights Attack[2m > [22mshould trash the attacker if victim trashes a Knight[32m 2[2mms[22m[39m
+[31m   ÔåÆ expected 1 to be 2 // Object.is equality[39m
+node.exe : 
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node Js/node.exe" "D:\Applications\Node Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo              : NotSpeci    fied: (:String) [    ], RemoteExceptio    n
+    + FullyQualifiedE    rrorId : NativeCo    mmandError
+ 
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m[1m[41m Failed Tests 2 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m server/tests/Knights.test.ts[2m > [22mKnights Attack[2m > [22mshould force victim to trash a card costing 3-6 and NOT trash the attacker if it is not a Knight
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2mÔØ»[22m server/tests/Knights.test.ts:[2m55:89[22m[39m
+    [90m 53| [39m        [34mexpect[39m(p2[33m.[39mlimbo[33m.[39mlength)[33m.[39m[34mtoBe[39m([34m0[39m)[33m;[39m
+    [90m 54| [39m        expect(p2.discardPile.some((c: CardInstance) => c.id === 'coppÔÇª
+    [90m 55| [39m        expect(p1.playArea.some((c: CardInstance) => c.instanceId === ÔÇª
+    [90m   | [39m                                                                                        [31m^[39m
+    [90m 56| [39m    })[33m;[39m
+    [90m 57| [39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/2]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/Knights.test.ts[2m > [22mKnights Attack[2m > [22mshould trash the attacker if victim trashes a Knight
+[31m[1mAssertionError[22m: expected 1 to be 2 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 1[39m
+
+[36m [2mÔØ»[22m server/tests/Knights.test.ts:[2m77:36[22m[39m
+    [90m 75| [39m        })[33m;[39m
+    [90m 76| [39m
+    [90m 77| [39m        [34mexpect[39m(state[33m.[39mtrash[33m.[39mlength)[33m.[39m[34mtoBe[39m([34m2[39m)[33m;[39m
+    [90m   | [39m                                   [31m^[39m
+    [90m 78| [39m        expect(state.trash.some((c: CardInstance) => c.id === 'dame_joÔÇª
+    [90m 79| [39m        expect(state.trash.some((c: CardInstance) => c.id === 'dame_anÔÇª
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/2]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 00:14:39
+[2m   Duration [22m 4.08s[2m (transform 1.92s, setup 0ms, import 3.89s, tests 13ms, environment 0ms)[22m
+
+

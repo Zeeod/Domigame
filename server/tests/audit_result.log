@@ -1,0 +1,43 @@
+﻿--- INITIALIZING AUDIT ---
+Setup: P1 played Wharf & Haven. Haven set aside Copper (ID: copper_1770165963614_9)
+
+--- ENDING P1 TURN 1 ---
+[PASS] Wharf persisted in Play Area
+[PASS] Haven persisted in Play Area
+[PASS] P1 drew 5 cards (Actual: 5)
+
+--- ENDING P2 TURN (Skipping P2 actions) ---
+
+--- STARTING P1 TURN 2 (Triggers) ---
+[PASS] Wharf trigger logged
+[PASS] Haven trigger logged
+node.exe : [FAIL] P1 Hand 
+Size is 8 (5 + 2 Wharf + 1 
+Haven). Actual: 7
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node 
+Js/node.exe" 
+"D:\Applications\Node 
+Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: ([FA  
+  IL] P1 Hand ...ven). A   
+ ctual: 7:String) [], R    
+emoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[PASS] P1 Buys is 2 (1 Base + 1 Wharf). Actual: 2
+[PASS] Set-aside Copper returned to hand
+
+--- ENDING P1 TURN 2 (Cleanup) ---
+[PASS] Wharf discarded from Play Area
+[PASS] Haven discarded from Play Area
+[FAIL] Wharf is in Discard 
+Pile
+[FAIL] Haven is in Discard 
+Pile
+--- AUDIT COMPLETE ---

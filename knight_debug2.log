@@ -1,0 +1,23 @@
+AFTER_APPLY
+stack=1
+pending=YES
+pending.player=p2
+pending.type=CHOOSE_CARDS
+pending.action=ZONE_CHOICE
+p2.limbo=2
+  limbo: silver
+  limbo: copper
+p2.deck=0
+p2.discard=0
+trash=0
+RESOLVING_SILVER
+AFTER_RESOLVE
+stack=0
+pending=NO
+p2.limbo=0
+p2.discard=1
+  discard: copper
+trash=1
+  trash: silver
+p1.play=1
+  play: dame_anna

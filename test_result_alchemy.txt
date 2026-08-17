@@ -1,0 +1,9 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[31mNo test files found, exiting with code 1
+[39m
+[2mfilter: [22m[33mserver/tests/Alchemy.test.ts[39m
+[2minclude: [22m[33m**/*.{test,spec}.?(c|m)[jt]s?(x)[39m
+[2mexclude:  [22m[33m**/node_modules/**[2m, [22m**/.git/**[39m
+

@@ -1,0 +1,8 @@
+﻿shared/cards/alchemy/apothecary.ts(24,13): error TS2353: Object literal may only specify known properties, and 'next' does not exist in type 'RevealCardsEffect'.
+shared/cards/allies/split_piles.ts(85,204): error TS2353: Object literal may only specify known properties, and 'next' does not exist in type 'RevealCardsEffect'.
+shared/cards/base/sentry.ts(41,21): error TS2820: Type '"TOP"' is not assignable to type '"top" | "bottom"'. Did you mean '"top"'?
+shared/cards/dark_ages/Ruins.ts(74,86): error TS2820: Type '"TOP"' is not assignable to type '"top" | "bottom"'. Did you mean '"top"'?
+shared/cards/empires/legionary.ts(27,29): error TS2353: Object literal may only specify known properties, and 'next' does not exist in type 'RevealCardsEffect'.
+shared/cards/intrigue/patrol.ts(27,13): error TS2820: Type '"TOP"' is not assignable to type '"top" | "bottom"'. Did you mean '"top"'?
+shared/cards/intrigue/swindler.ts(21,31): error TS2322: Type 'string' is not assignable to type 'number | number[]'.
+shared/cards/plunder/kingdom.ts(398,60): error TS2353: Object literal may only specify known properties, and 'next' does not exist in type 'RevealCardsEffect'.

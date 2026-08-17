@@ -1,0 +1,17 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mGATHER_VP and TAKE_VP_FROM_PILE should work correctly[32m 4[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mTAKE_DEBT and PAY_DEBT should work correctly[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mADD_FAVORS and SPEND_FAVORS should work correctly[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mCHANGE_PHASE should switch between Action and Buy phases[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mROTATE_PILE should rotate mixed supply piles[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mADD_MONEY_PER_CARD_IN_HAND should count correctly[32m 0[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mPLAY_THIS_CARD should re-execute effects[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/MechanicsAuditV2.test.ts[2m > [22mExpanded Mechanic Verification[2m > [22mGAIN_THIS_CARD should move the card instance[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m8 passed[39m[22m[90m (8)[39m
+[2m   Start at [22m 23:33:10
+[2m   Duration [22m 4.68s[2m (transform 2.19s, setup 0ms, import 4.48s, tests 10ms, environment 0ms)[22m
+

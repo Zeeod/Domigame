@@ -1,0 +1,36 @@
+!!! STARTING COMPREHENSIVE STRESS TEST !!!
+[T20] Player: Bot 1 Phase: ACTION
+  - Bot 1 plays market_1786984314142_36
+  - Bot 1 plays market_1786984314142_36
+  - Bot 2 plays rats_1786984314333_44
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["estate_1786984313547_18"]} for decision
+  - Bot 2 plays rats_1786984314333_44
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["estate_1786984313547_20"]} for decision
+  - Bot 2 plays rats_1786984314575_50
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["copper_1786984313547_16"]} for decision
+  - Bot 1 plays market_1786984314535_49
+  - Bot 1 plays market_1786984314142_36
+[T40] Player: Bot 1 Phase: ACTION
+  - Bot 2 plays market_1786984314496_48
+  - Bot 2 plays rats_1786984314333_44
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["estate_1786984313547_19"]} for decision
+  - Bot 1 plays market_1786984314535_49
+  - Bot 1 plays market_1786984314142_36
+  - Bot 2 plays rats_1786984314575_50
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["copper_1786984313547_11"]} for decision
+  - Bot 2 plays rats_1786984314892_58
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["copper_1786984313547_17"]} for decision
+  - Bot 2 plays market_1786984314496_48
+  - Bot 2 plays rats_1786984314790_55
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["copper_1786984313547_13"]} for decision
+  - Bot 1 plays market_1786984314142_36
+  - Bot 2 plays rats_1786984314790_55
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["copper_1786984313547_15"]} for decision
+  - Bot 2 plays rats_1786984315585_65
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["silver_1786984313924_27"]} for decision
+  - Bot 2 plays rats_1786984315965_74
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["rats_1786984316103_77"]} for decision
+  - Bot 2 plays rats_1786984314892_58
+  - Bot 2 chose {"type":"CARDS","cardInstanceIds":["silver_1786984313737_23"]} for decision
+Exiting loop at Turn 55. GameOver: true. Iterations: 187
+Final Results: Bot 1: 49 | Bot 2: 48

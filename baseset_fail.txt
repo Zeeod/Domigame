@@ -1,0 +1,841 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mD:/Jeux/Developpement/dominion[39m
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+node.exe : [90mstderr[2m | server/tests/validation/BaseSet.test.ts
+Au caractère Ligne:1 : 1
++ & "D:\Applications\Node Js/node.exe" "D:\Applications\Node Js/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([90mstderr[2m...BaseSet.test.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mVillage (+1 Card, +2 Actions)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mVillage 
+(+1 Card, +2 Actions)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mVillage (+1 Card, +2 Actions)
+[22m[39m[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m1[39m, finalHand: [33m1[39m }
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying actions: 0 -> 2 (amount=2, op=add)
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mSmithy (+3 Cards)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mSmithy (+3 
+Cards)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mSmithy (+3 Cards)
+[22m[39m[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m3[39m, finalHand: [33m3[39m }
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMarket (+1 Card, +1 Action, +1 Buy, +1 Coin)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMarket (+1 
+Card, +1 Action, +1 Buy, +1 Coin)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMarket (+1 Card, +1 Action, +1 Buy, +1 Coin)
+[22m[39m[EffectEngine] processStack: stack size=4
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m1[39m, finalHand: [33m1[39m }
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying actions: 0 -> 1 (amount=1, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying buys: 1 -> 2 (amount=1, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying coins: 0 -> 1 (amount=1, op=add)
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mCellar (+1 Action, Discard for Cards)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mCellar (+1 
+Action, Discard for Cards)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mCellar (+1 Action, Discard for Cards)
+[22m[39m[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=ADD_ACTIONS
+[EffectHandlerRegistry] Resolving ADD_ACTIONS
+[BasicEffectHandler] modifying actions: 0 -> 1 (amount=1, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=DISCARD_THEN_DRAW
+[EffectHandlerRegistry] Resolving DISCARD_THEN_DRAW
+[EffectEngine] item needs choice: DISCARD_THEN_DRAW
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+FULL GAME LOGS ON FAILURE:
+[system] Player 1 joue un(e) Village
+[Player1] Player 1 pioche 1 carte.
+[Player1] Player 1 pioche 1 carte.
+[Player1] Player 1 obtient +2 Action.
+[Player1] Player 1 obtient +2 Action.
+[system] Player 1 joue un(e) Forgeron
+[Player1] Player 1 pioche 3 cartes.
+[Player1] Player 1 pioche 3 cartes.
+[system] Player 1 joue un(e) March├®
+[Player1] Player 1 pioche 1 carte.
+[Player1] Player 1 pioche 1 carte.
+[Player1] Player 1 obtient +1 Actions.
+[Player1] Player 1 obtient +1 Actions.
+[Player1] Player 1 obtient +1 Achat.
+[Player1] Player 1 obtient +1 Achat.
+[Player1] Player 1 obtient +1 ­ƒÆ░.
+[Player1] Player 1 obtient +1 ­ƒÆ░.
+[system] Player 1 joue un(e) Cave
+[Player1] Player 1 obtient +1 Actions.
+[Player1] Player 1 obtient +1 Actions.
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMilitia (+2 Coins, Opponent Discards to 3)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMilitia 
+(+2 Coins, Opponent Discards to 3)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMilitia (+2 Coins, Opponent Discards to 3)
+[22m[39m[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=ADD_MONEY
+[EffectHandlerRegistry] Resolving ADD_MONEY
+[BasicEffectHandler] modifying coins: 0 -> 2 (amount=2, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=ATTACK
+[EffectHandlerRegistry] Resolving ATTACK
+[EffectEngine] processing item: type=EFFECT, effect=RESOLVE_ATTACK
+[EffectEngine] processing item: type=EFFECT, effect=DISCARD_TO_HAND_SIZE
+[EffectHandlerRegistry] Resolving DISCARD_TO_HAND_SIZE
+[EffectEngine] item needs choice: DISCARD_TO_HAND_SIZE
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mChapel (Trash up to 4)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mChapel 
+(Trash up to 4)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mChapel (Trash up to 4)
+[22m[39m[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=TRASH
+[EffectHandlerRegistry] Resolving TRASH
+[EffectEngine] item needs choice: TRASH
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=TRASH
+[EffectHandlerRegistry] Resolving TRASH
+[EffectEngine] item needs choice: TRASH
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMoneylender (Trash Copper -> +3 Coins)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > 
+[22m[2mMoneylender (Trash Copper -> +3 Coins)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mMoneylender (Trash Copper -> +3 Coins)
+[22m[39m[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=TRASH
+[EffectHandlerRegistry] Resolving TRASH
+[EffectEngine] item needs choice: TRASH
+[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=TRASH
+[EffectHandlerRegistry] Resolving TRASH
+[EffectEngine] item needs choice: TRASH
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWorkshop (Gain card <= 4)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWorkshop 
+(Gain card <= 4)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWorkshop (Gain card <= 4)
+[22m[39m[EffectEngine] processStack: stack size=1
+[EffectEngine] processing item: type=EFFECT, effect=GAIN_CARD
+[EffectHandlerRegistry] Resolving GAIN_CARD
+[EffectEngine] item needs choice: GAIN_CARD
+[EffectEngine] processStack: stack size=0
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mFestival (+2 Actions, +1 Buy, +2 Coins)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mFestival 
+(+2 Actions, +1 Buy, +2 Coins)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mFestival (+2 Actions, +1 Buy, +2 Coins)
+[22m[39m[EffectEngine] processStack: stack size=3
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying actions: 0 -> 2 (amount=2, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying buys: 1 -> 2 (amount=1, op=add)
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying coins: 0 -> 2 (amount=2, op=add)
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mLaboratory (+2 Cards, +1 Action)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mLaboratory 
+(+2 Cards, +1 Action)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mLaboratory (+2 Cards, +1 Action)
+[22m[39m[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m2[39m, finalHand: [33m2[39m }
+[EffectEngine] processing item: type=EFFECT, effect=MODIFY_RESOURCE
+[EffectHandlerRegistry] Resolving MODIFY_RESOURCE
+[BasicEffectHandler] modifying actions: 0 -> 1 (amount=1, op=add)
+[EffectEngine] processStack finished. remaining=0
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWitch (+2 Cards, Curse others)
+[22m[39m[RisingSunLandscapes] Registered Rising Sun prophecies.
+[LandscapeExamples] Registered sample landscapes.
+[RisingSunLandscapes] Registered Rising Sun prophecies.
+[AdventuresLandscapes] Registered Adventures events.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[RisingSun] Module loaded.
+[MenagerieLandscapes] Registered Menagerie landscapes.
+[Promo] Module loaded.
+
+[90mstdout[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWitch (+2 Cards, Curse others)
+[22m[39m[EffectEngine] processStack: stack size=2
+[EffectEngine] processing item: type=EFFECT, effect=DRAW
+[EffectHandlerRegistry] Resolving DRAW
+[DrawEffectHandler] Draw complete { drawnCount: [33m2[39m, finalHand: [33m2[39m }
+[EffectEngine] processing item: type=EFFECT, effect=ATTACK
+[EffectHandlerRegistry] Resolving ATTACK
+[EffectEngine] processing item: type=EFFECT, effect=RESOLVE_ATTACK
+[EffectEngine] processing item: type=EFFECT, effect=GAIN_CARD
+[EffectHandlerRegistry] Resolving GAIN_CARD
+[EffectEngine] processStack finished. remaining=0
+
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+[90mstderr[2m | server/tests/validation/BaseSet.test.ts[2m > [22m[2mBase Set Validation[2m > [22m[2mWitch (+2 
+Cards, Curse others)
+[22m[39m[LandscapeRegistry] Overwriting landscape: approaching_armies
+[LandscapeRegistry] Overwriting landscape: biding_time
+[LandscapeRegistry] Overwriting landscape: bureaucracy_prophecy
+[LandscapeRegistry] Overwriting landscape: divine_wind
+[LandscapeRegistry] Overwriting landscape: enlightenment
+[LandscapeRegistry] Overwriting landscape: flourishing_trade
+[LandscapeRegistry] Overwriting landscape: good_harvest
+[LandscapeRegistry] Overwriting landscape: great_leader
+[LandscapeRegistry] Overwriting landscape: growth
+[LandscapeRegistry] Overwriting landscape: harsh_winter
+[LandscapeRegistry] Overwriting landscape: kind_emperor
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: progress
+[LandscapeRegistry] Overwriting landscape: rapid_expansion
+[LandscapeRegistry] Overwriting landscape: sickness
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_butterfly
+[LandscapeRegistry] Overwriting landscape: way_of_the_camel
+[LandscapeRegistry] Overwriting landscape: way_of_the_chameleon
+[LandscapeRegistry] Overwriting landscape: way_of_the_frog
+[LandscapeRegistry] Overwriting landscape: way_of_the_goat
+[LandscapeRegistry] Overwriting landscape: way_of_the_horse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mole
+[LandscapeRegistry] Overwriting landscape: way_of_the_monkey
+[LandscapeRegistry] Overwriting landscape: way_of_the_mouse
+[LandscapeRegistry] Overwriting landscape: way_of_the_mule
+[LandscapeRegistry] Overwriting landscape: way_of_the_otter
+[LandscapeRegistry] Overwriting landscape: way_of_the_owl
+[LandscapeRegistry] Overwriting landscape: way_of_the_ox
+[LandscapeRegistry] Overwriting landscape: way_of_the_pig
+[LandscapeRegistry] Overwriting landscape: way_of_the_rat
+[LandscapeRegistry] Overwriting landscape: way_of_the_seal
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+[LandscapeRegistry] Overwriting landscape: way_of_the_squirrel
+[LandscapeRegistry] Overwriting landscape: way_of_the_turtle
+[LandscapeRegistry] Overwriting landscape: way_of_the_worm
+
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mVillage (+1 Card, +2 Actions)[32m 5[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mSmithy (+3 Cards)[32m 1[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mMarket (+1 Card, +1 Action, +1 Buy, +1 Coin)[32m 1[2mms[22m[39m
+ [31m├ù[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mCellar (+1 Action, Discard for Cards)[32m 11[2mms[22m[39m
+[31m   ÔåÆ expected [] to have a length of 2 but got +0[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mMilitia (+2 Coins, Opponent Discards to 3)[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mChapel (Trash up to 4)[32m 1[2mms[22m[39m
+ [31m├ù[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mMoneylender (Trash Copper -> +3 Coins)[32m 2[2mms[22m[39m
+[31m   ÔåÆ expected +0 to be 3 // Object.is equality[39m
+ [31m├ù[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mWorkshop (Gain card <= 4)[32m 2[2mms[22m[39m
+[31m   ÔåÆ expected [] to have a length of 1 but got +0[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mFestival (+2 Actions, +1 Buy, +2 Coins)[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mLaboratory (+2 Cards, +1 Action)[32m 2[2mms[22m[39m
+ [32mÔ£ô[39m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mWitch (+2 Cards, Curse others)[32m 2[2mms[22m[39m
+
+[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m[1m[41m Failed Tests 3 [49m[22m[31mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[39m
+
+[41m[1m FAIL [22m[49m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mCellar (+1 
+Action, Discard for Cards)
+[31m[1mAssertionError[22m: expected [] to have a length of 2 but got +0[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 0[39m
+
+[36m [2mÔØ»[22m server/tests/validation/BaseSet.test.ts:[2m72:33[22m[39m
+    [90m 70| [39m
+    [90m 71| [39m        engine[33m.[39m[34mexpectState[39m((state[33m,[39m player) [33m=>[39m {
+    [90m 72| [39m            expect(player.hand).toHaveLength(2); // Drew 2 new cards (ÔÇª
+    [90m   | [39m                                [31m^[39m
+    [90m 73| [39m            expect(player.discardPile).toHaveLength(2); // Discarded cÔÇª
+    [90m 74| [39m            
+[34mexpect[39m(player[33m.[39mactions)[33m.[39m[34mtoBe[39m([34m1[39m)[33m;[39m
+[90m [2mÔØ»[22m TestEngine.expectState server/tests/validation/TestUtils.ts:[2m400:13[22m[39m
+[90m [2mÔØ»[22m server/tests/validation/BaseSet.test.ts:[2m71:16[22m[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[1/3]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > 
+[22mMoneylender (Trash Copper -> +3 Coins)
+[31m[1mAssertionError[22m: expected +0 to be 3 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 3[39m
+[31m+ 0[39m
+
+[36m [2mÔØ»[22m server/tests/validation/BaseSet.test.ts:[2m153:42[22m[39m
+    [90m151| [39m        })[33m;[39m
+    [90m152| [39m
+    [90m153| [39m        [34mexpect[39m(engine[33m.[39m[34mgetPlayer[39m()[33m.[39mcoins)[33m.[39m[34mtoBe
+[39m([34m3[39m)[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m154| [39m        
+[34mexpect[39m(engine[33m.[39mstate[33m.[39mtrash)[33m.[39m[34mtoHaveLength[39m([34m1[39m)[33m;[39m
+    [90m155| [39m        [34mexpect[39m(engine[33m.[39mstate[33m.[39mtrash[[34m0[39m][33m.[39mid)[33m.[39
+m[34mtoBe[39m([32m'copper'[39m)[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[2/3]ÔÄ»[22m[39m
+
+[41m[1m FAIL [22m[49m server/tests/validation/BaseSet.test.ts[2m > [22mBase Set Validation[2m > [22mWorkshop 
+(Gain card <= 4)
+[31m[1mAssertionError[22m: expected [] to have a length of 1 but got +0[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 0[39m
+
+[36m [2mÔØ»[22m server/tests/validation/BaseSet.test.ts:[2m171:31[22m[39m
+    [90m169| [39m        [35mconst[39m p [33m=[39m engine[33m.[39m[34mgetPlayer[39m()[33m;[39m
+    [90m170| [39m        [90m// Check discard for silver[39m
+    [90m171| [39m        
+[34mexpect[39m(p[33m.[39mdiscardPile)[33m.[39m[34mtoHaveLength[39m([34m1[39m)[33m;[39m
+    [90m   | [39m                              [31m^[39m
+    [90m172| [39m        [34mexpect[39m(p[33m.[39mdiscardPile[[34m0[39m][33m.[39mid)[33m.[39m[34mtoBe[39m
+([32m'silver'[39m)[33m;[39m
+    [90m173| [39m    })[33m;[39m
+
+[31m[2mÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»ÔÄ»[3/3]ÔÄ»[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m8 passed[39m[22m[90m (11)[39m
+[2m   Start at [22m 22:27:55
+[2m   Duration [22m 3.95s[2m (transform 2.02s, setup 3.62s, import 109ms, tests 34ms, environment 0ms)[22m
+

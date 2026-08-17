@@ -1,0 +1,42 @@
+
+ RUN  v4.0.17 D:/Jeux/Developpement/dominion
+
+stdout | shared/engine/RisingSun.test.ts
+[RisingSun] Module loaded.
+[Promo] Module loaded.
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should remove a Sun token when gaining a Victory card
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stderr | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Prophecy: Panic > should fulfill prophecy when last Sun token is removed
+[EffectEngine] Applying effect: SEQUENCE for player p1
+[EffectEngine] Applying effect: DRAW for player p1
+[DrawEffectHandler] Draw complete { drawnCount: [33m1[39m, finalHand: [33m1[39m }
+[EffectEngine] Applying effect: ADD_ACTIONS for player p1
+
+stdout | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Custom Effects > should handle GAIN_TEA effect
+[RisingSunLandscapes] Registered Rising Sun landscapes.
+[LandscapeExamples] Registered sample landscapes.
+
+stderr | shared/engine/RisingSun.test.ts > Rising Sun Mechanics > Custom Effects > should handle GAIN_TEA effect
+[LandscapeRegistry] Overwriting landscape: panic
+[LandscapeRegistry] Overwriting landscape: alms
+[LandscapeRegistry] Overwriting landscape: way_of_the_sheep
+
+ ✓ shared/engine/RisingSun.test.ts (3 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  11:11:45
+   Duration  8.51s (transform 2.04s, setup 0ms, import 8.31s, tests 6ms, environment 0ms)
+

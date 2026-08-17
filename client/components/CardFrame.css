@@ -1,0 +1,1656 @@
+/**
+ * CardFrame.css - Dominion card styling
+ * 
+ * Two variants:
+ * - full: Hand cards (larger, with description)
+ * - mini: Supply cards (smaller, no description)
+ * 
+ * Image ratio: 3:2 (1800×1200)
+ */
+
+/* ============================================================================
+   CSS Variables
+   ============================================================================ */
+
+:root {
+    /* Card Colors by Type */
+    --card-bg-treasure: linear-gradient(180deg, #fff8dc 0%, #f5deb3 100%);
+    --card-bg-victory: linear-gradient(180deg, #e8f5e9 0%, #a5d6a7 100%);
+    --card-bg-action: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+    --card-bg-attack: linear-gradient(180deg, #ffebee 0%, #ef9a9a 100%);
+    --card-bg-reaction: linear-gradient(180deg, #e3f2fd 0%, #90caf9 100%);
+    --card-bg-curse: linear-gradient(180deg, #f3e5f5 0%, #ce93d8 100%);
+    --card-bg-duration: linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
+
+    --card-border-treasure: #d4a017;
+    --card-border-victory: #388e3c;
+    --card-border-action: #d0d0d0;
+    --card-border-attack: #d32f2f;
+    --card-border-reaction: #1976d2;
+    --card-border-curse: #7b1fa2;
+    --card-border-duration: #e67e22;
+
+    --card-banner-treasure: linear-gradient(180deg, #ffd700 0%, #daa520 100%);
+    --card-banner-victory: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
+    --card-banner-action: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+    --card-banner-attack: linear-gradient(180deg, #ef5350 0%, #c62828 100%);
+    --card-banner-reaction: linear-gradient(180deg, #42a5f5 0%, #1565c0 100%);
+    --card-banner-curse: linear-gradient(180deg, #ab47bc 0%, #6a1b9a 100%);
+    --card-banner-duration: linear-gradient(180deg, #ff9800 0%, #e67e22 100%);
+
+    /* Landscape Colors (Opaque) */
+    --card-bg-event: #bdc3c7;
+    --card-bg-project: #f1948a;
+    --card-bg-landmark: #82e0aa;
+    --card-bg-way: #f7dc6f;
+    --card-bg-trait: #85c1e9;
+    --card-bg-prophecy: #a3e4d7;
+    /* Light Blue-Green / Teal */
+}
+
+/* ============================================================================
+   Base Card Frame
+   ============================================================================ */
+
+.card-frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Glue banners to top and bottom */
+    border-radius: 10px;
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* overflow: hidden; Removed to allow coin to overlap */
+    user-select: none;
+}
+
+.card-frame.mini {
+    justify-content: space-between;
+}
+
+/* Full Card (Hand) */
+.card-frame.full {
+    width: 120px;
+    height: 180px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #000000 !important;
+    /* Force black border as requested */
+}
+
+.card-frame.mini {
+    width: 100px;
+    height: auto;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* ============================================================================
+   Landscape Cards (Events, Projects, Landmarks, Ways) - Horizontal Format
+   ============================================================================ */
+
+.card-frame.mini.landscape {
+    width: 172px;
+    height: 112px;
+    flex-direction: row;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-frame.mini.landscape .top-banner {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    width: 22px;
+    min-height: unset;
+    height: 100%;
+    padding: 4px 2px;
+    border-radius: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: -1;
+}
+
+.card-frame.mini.landscape .top-banner .card-name {
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.card-frame.mini.landscape .top-banner .card-count-badge {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    writing-mode: horizontal-tb;
+}
+
+.card-frame.mini.landscape .card-image-area {
+    flex: 1;
+    height: 100%;
+    border-radius: 0;
+}
+
+.card-frame.mini.landscape .card-image-area .card-illustration {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.card-frame.mini.landscape .landscape-type-badge {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 8px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.card-frame.mini.landscape .card-cost-coin {
+    position: absolute;
+    bottom: 4px;
+    left: 26px;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+}
+
+.card-frame.mini.landscape .bottom-banner {
+    display: none;
+}
+
+/* Landscape card in the column */
+.landscape-column .card-frame.mini.landscape {
+    width: 172px;
+    height: 112px;
+}
+
+/* ============================================================================
+   Type-based Backgrounds
+   ============================================================================ */
+
+.card-frame.type-treasure {
+    background: var(--card-bg-treasure);
+    border-color: var(--card-border-treasure);
+}
+
+.card-frame.type-treasure .card-banner {
+    background: var(--card-banner-treasure);
+}
+
+.card-frame.type-victory {
+    background: var(--card-bg-victory);
+    border-color: var(--card-border-victory);
+}
+
+.card-frame.type-victory .card-banner {
+    background: var(--card-banner-victory);
+}
+
+.card-frame.type-action {
+    background: var(--card-bg-action);
+    border-color: var(--card-border-action);
+}
+
+.card-frame.type-action .card-banner {
+    background: var(--card-banner-action);
+    color: #333;
+    text-shadow: none;
+}
+
+.card-frame.type-attack {
+    background: var(--card-bg-attack);
+    border-color: var(--card-border-attack);
+}
+
+.card-frame.type-attack .card-banner {
+    background: var(--card-banner-attack);
+}
+
+.card-frame.type-reaction {
+    background: var(--card-bg-reaction);
+    border-color: var(--card-border-reaction);
+}
+
+.card-frame.type-reaction .card-banner {
+    background: var(--card-banner-reaction);
+}
+
+.card-frame.type-curse {
+    background: var(--card-bg-curse);
+    border-color: var(--card-border-curse);
+}
+
+.card-frame.type-curse .card-banner {
+    background: var(--card-banner-curse);
+}
+
+.card-frame.type-duration {
+    background: var(--card-bg-duration);
+    border-color: var(--card-border-duration);
+}
+
+.card-frame.type-duration .card-banner {
+    background: var(--card-banner-duration);
+}
+
+.card-frame.type-event {
+    background: var(--card-bg-event);
+    border-color: #7f8c8d;
+}
+
+.card-frame.type-project {
+    background: var(--card-bg-project);
+    border-color: #c0392b;
+}
+
+.card-frame.type-landmark {
+    background: var(--card-bg-landmark);
+    border-color: #27ae60;
+}
+
+.card-frame.type-way {
+    background: var(--card-bg-way);
+    border-color: #f39c12;
+}
+
+.card-frame.type-trait {
+    background: var(--card-bg-trait);
+    border-color: #2980b9;
+}
+
+.card-frame.type-prophecy {
+    background: var(--card-bg-prophecy);
+    border-color: #d35400;
+}
+
+/* ============================================================================
+   Card Banners (Name & Type)
+   ============================================================================ */
+
+.card-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+}
+
+.top-banner {
+    position: relative;
+    justify-content: center;
+    border-radius: 6px 6px 0 0;
+    min-height: 20px;
+    /* Reduced from 32px */
+    padding: 2px 4px;
+    /* Reduced padding */
+}
+
+.bottom-banner {
+    position: relative;
+    border-radius: 0 0 6px 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-height: 24px;
+    padding: 0 4px;
+    /* Reduced side padding to allow more space for text, specific padding handled by modifiers */
+}
+
+/* Full card banners */
+/* Full card banners */
+.card-frame.full .top-banner {
+    padding: 2px 6px;
+    font-size: 13px;
+    min-height: 20px;
+    /* Reduced from 24px */
+}
+
+.card-frame.full .bottom-banner {
+    padding: 2px 10px;
+    font-size: 10px;
+    min-height: 22px;
+    /* Increased to contain coin */
+    display: flex;
+    align-items: center;
+    /* Center content vertically */
+}
+
+/* Mini card banners - Slimmer for supply */
+.card-frame.mini .top-banner {
+    padding: 1px 4px;
+    font-size: 10px;
+    min-height: 16px;
+}
+
+.card-frame.mini .bottom-banner {
+    padding: 0 6px;
+    font-size: 10px;
+    min-height: 14px;
+    /* Slightly slimmer for squat format */
+    width: 100%;
+    z-index: 10;
+}
+
+.card-frame.mini {
+    width: 112px;
+    height: 112px;
+    /* Square-ish format to avoid art cropping */
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* Card name */
+.card-name {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 4px;
+    /* Default small padding */
+    font-weight: 700;
+}
+
+/* Offset title only when badge is present */
+.card-frame.has-count .card-name {
+    margin-left: 20px;
+}
+
+.card-frame.opponent-hand-card:not(:first-child) {
+    margin-left: -28px;
+    /* Reduced overlap for better visibility */
+}
+
+/* Offset bottom banner text to center with cost coin */
+/* Offset bottom banner text to center with cost coin */
+.card-frame.full.has-cost .bottom-banner {
+    /* 
+       Left padding: Space for Cost Icon (~20px) + Gap
+       Right padding: Space for Expansion Icon (~20px) + Gap
+       We set them equal to keep text perfectly centered relative to the card 
+    */
+    padding-left: 30px;
+    /* Increased from 28px for extra safety */
+    padding-right: 30px;
+}
+
+/* Ensure expansion icon sits to the right correctly */
+.expansion-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+}
+
+.card-frame.mini.has-cost .bottom-banner {
+    padding-left: 26px;
+    /* Reduced slightly for mini */
+}
+
+/* Dynamic Scaling */
+.card-name.scale-sm {
+    font-size: 0.9em;
+    /* 90% size */
+    letter-spacing: -0.2px;
+    /* Tighten slightly */
+}
+
+.card-name.scale-xs {
+    font-size: 0.8em;
+    /* 80% size */
+    letter-spacing: -0.4px;
+    /* Tighten more */
+}
+
+
+
+/* Card cost coin (Circular & Overlapping) */
+.card-cost-coin {
+    position: absolute;
+    left: -2px;
+    bottom: -2px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.2s ease;
+}
+
+/* Scale down coin in Big Card View (Zoom) */
+.big-card-container .card-cost-coin {
+    transform: scale(0.8);
+    transform-origin: bottom left;
+}
+
+.card-frame.mini .card-cost-coin {
+    width: 18px;
+    height: 18px;
+    left: 0;
+    bottom: 0;
+}
+
+/* Standardized cost symbols for full cards to match banner height (22px) */
+.card-frame.full .card-cost-coin,
+.card-frame.full .card-cost-debt,
+.card-frame.full .card-cost-potion {
+    width: 22px;
+    height: 22px;
+    left: 0;
+    bottom: 0;
+}
+
+/* Adjust container padding for centering */
+.card-frame.full.has-cost .bottom-banner {
+    padding-left: 54px;
+    /* Space for up to 2 symbols + gap */
+    padding-right: 30px;
+}
+
+
+/* Old .card-cost removal (not needed anymore) */
+
+/* Card type label */
+.card-type {
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: visible;
+    display: block;
+}
+
+/* Full cards: single line with aggressive font scaling */
+.card-frame.full .card-type {
+    white-space: nowrap;
+    overflow: visible;
+    font-size: 8px;
+}
+
+/* Dynamic Scaling for Type Labels */
+.card-type.scale-sm {
+    font-size: 0.85em;
+}
+
+.card-type.scale-xs {
+    font-size: 0.7em;
+    letter-spacing: -0.3px;
+}
+
+.card-type.scale-xxs {
+    font-size: 0.6em;
+    letter-spacing: -0.4px;
+}
+
+.card-type.scale-tiny {
+    font-size: 0.5em;
+    letter-spacing: -0.5px;
+}
+
+.card-type.scale-micro {
+    font-size: 0.45em;
+    letter-spacing: -0.6px;
+}
+
+.card-type.scale-nano {
+    font-size: 0.38em;
+    /* Was 0.4em */
+    letter-spacing: -0.7px;
+    padding-top: 1px;
+}
+
+.card-type.scale-atomic {
+    font-size: 0.32em;
+    /* Was 0.35em */
+    padding-top: 2px;
+    /* Optical alignment for tiny text */
+    letter-spacing: -0.8px;
+}
+
+/* Coin Symbols */
+.coin-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 30% 30%, #ffd700 0%, #daa520 100%);
+    color: #1a1a2e;
+    font-weight: 800;
+    border-radius: 50%;
+    border: 1px solid #daa520;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    vertical-align: middle;
+    margin: 0 1px;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.coin-symbol.sm {
+    width: 12px;
+    height: 12px;
+    font-size: 8px;
+}
+
+.coin-symbol.md {
+    width: 17px;
+    height: 17px;
+    font-size: 11px;
+}
+
+.coin-symbol.inline {
+    width: 1.25em;
+    height: 1.25em;
+    font-size: 0.9em;
+    /* Slightly larger for center optical weight */
+    border-width: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+    transform: translateY(-0.15em);
+    /* Raised more as per user feedback */
+    margin: 0 0.15em;
+}
+
+.coin-symbol.lg {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.debt-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    /* Vertical Hexagon */
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.debt-symbol.sm {
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+}
+
+.debt-symbol.md {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+}
+
+.debt-symbol.lg {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+}
+
+.debt-symbol.inline {
+    width: 1.25em;
+    height: 1.25em;
+    font-size: 0.9em;
+    vertical-align: middle;
+    transform: translateY(-0.15em);
+    /* Align with coin */
+    margin: 0 0.15em;
+}
+
+.potion-symbol {
+    display: inline-block;
+    position: relative;
+    /* Base is 16px circle, neck is 6px rect = 22px total */
+    width: 22px;
+    height: 22px;
+    user-select: none;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.potion-symbol::before {
+    /* The neck */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    /* Reduced from 8px */
+    height: 9px;
+    /* Increased from 6px to maintain 22px total height with smaller base */
+    background: linear-gradient(to right, #2980b9, #3498db, #2980b9);
+    border-radius: 1px 1px 0 0;
+}
+
+.potion-symbol::after {
+    /* The round base */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    /* Reduced from 18px (~25% reduction) */
+    height: 14px;
+    /* Reduced from 18px */
+    background: radial-gradient(circle at 30% 30%, #3498db 0%, #2980b9 100%);
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.sun-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #f1c40f;
+    user-select: none;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.sun-symbol.sm {
+    width: 14px;
+    height: 14px;
+}
+
+.sun-symbol.md {
+    width: 20px;
+    height: 20px;
+}
+
+.sun-symbol.lg {
+    width: 48px;
+    height: 48px;
+}
+
+.sun-symbol.inline {
+    width: 1.3em;
+    height: 1.3em;
+    transform: translateY(-0.15em);
+    margin: 0 0.1em;
+}
+
+.sun-symbol::before {
+    content: '';
+    position: absolute;
+    width: 45%;
+    /* Increased from 35% */
+    height: 45%;
+    background: #f1c40f;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 10px #f39c12;
+}
+
+.sun-ring {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.sun-ray {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32%;
+    /* Wider rays */
+    height: 50%;
+    background: #f1c40f;
+    /* Solid yellow core for rays */
+    transform-origin: bottom center;
+    margin-left: -16%;
+    /* Half of width */
+    margin-top: -50%;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 0 2px #f39c12;
+}
+
+.sun-value {
+    position: relative;
+    z-index: 3;
+    color: #2c3e50;
+    font-weight: 900;
+    font-family: 'Outfit', sans-serif;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
+    line-height: 1;
+}
+
+.sun-symbol.inline .sun-value {
+    font-size: 0.7em;
+}
+
+.sun-symbol.md .sun-value {
+    font-size: 10px;
+}
+
+.sun-symbol.lg .sun-value {
+    font-size: 22px;
+}
+
+/* VP Token Badge on Supply Piles (e.g. Farmer's Market, Gathering cards) */
+.pile-vp-token-badge {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 15;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+/* Prophecy Sun Overlay */
+.prophecy-sun-overlay {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+}
+
+.card-frame.type-prophecy {
+    --card-banner-prophecy: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);
+}
+
+.potion-symbol.sm {
+    width: 14px;
+    height: 14px;
+    transform: scale(0.65);
+    transform-origin: center;
+}
+
+.potion-symbol.md {
+    width: 18px;
+    height: 18px;
+    transform: scale(0.85);
+    transform-origin: center;
+}
+
+.potion-symbol.lg {
+    width: 22px;
+    height: 22px;
+}
+
+.potion-symbol.inline {
+    width: 16px;
+    height: 16px;
+    transform: scale(0.7) translateY(2px);
+    display: inline-flex;
+}
+
+.card-cost-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    gap: 2px;
+    /* Tighter gap for multiple symbols */
+    align-items: center;
+    z-index: 50;
+    height: 22px;
+    /* Match banner height */
+}
+
+.card-cost-coin,
+.card-cost-debt,
+.card-cost-potion {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+.card-frame.mini .card-cost-container {
+    bottom: 4px;
+    left: 4px;
+    gap: 2px;
+}
+
+.card-frame.mini.landscape .card-cost-container {
+    bottom: 4px;
+    left: 26px;
+}
+
+/* Image Area (4:3 aspect ratio) */
+.card-image-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2 !important;
+    /* Enforced 3:2 ratio (1800x1200) */
+    flex: none;
+    /* Keep the ratio fixed */
+    background: #2c3e50;
+    /* Solid dark background for images */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: flex 0.2s ease, aspect-ratio 0.2s ease;
+}
+
+.card-image-area.is-full-art {
+    flex: 1 !important;
+    aspect-ratio: auto !important;
+    border-bottom: none;
+}
+
+.card-image-area.is-card-back {
+    background: none;
+    padding: 0;
+    border: none;
+    aspect-ratio: auto !important;
+    height: 100%;
+}
+
+.card-back-pattern {
+    width: 100%;
+    height: 100%;
+    background-image: url('../card_back.png');
+    background-size: cover;
+    /* Zoomed in slightly to hide borders */
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    /* Match internal radius */
+}
+
+.card-illustration {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    /* Soften corners inside frame */
+}
+
+.card-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    background: #1e1e32;
+    /* Fully opaque placeholder */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+    opacity: 0.6;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.card-frame:hover .placeholder-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.placeholder-text {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card-frame.mini .placeholder-text {
+    font-size: 11px;
+}
+
+/* Mini card illustrations - show full image (cover to avoid bars) */
+.card-frame.mini .card-image-area {
+    flex: 1;
+    aspect-ratio: auto !important;
+}
+
+.card-frame.mini .card-illustration,
+.card-frame.is-full-art .card-illustration {
+    object-fit: cover;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+/* Card Description (Full cards only) */
+.card-description {
+    padding: 1px 4px;
+    /* Tighter padding */
+    font-size: 9.5px;
+    /* Slightly smaller base font */
+    line-height: 1.1;
+    text-align: center;
+    white-space: pre-wrap;
+    color: #333;
+    background: rgba(255, 255, 255, 0.85);
+    /* Slightly more opaque for readability */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex: 1;
+    /* Take all available space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Hide overflow */
+    width: 100%;
+}
+
+.card-frame.landscape .card-description {
+    background: rgba(255, 255, 255, 1);
+    /* Fully opaque for landscape cards */
+}
+
+.card-description.fit-text {
+    word-break: break-word;
+}
+
+/* ============================================================================
+   Badges
+   ============================================================================ */
+
+.card-count-badge {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 32px;
+    /* Enlarged */
+    height: 32px;
+    background: #e74c3c;
+    /* Red square */
+    color: white;
+    border-radius: 10px 0 10px 0;
+    /* Hugging the card corner radius */
+    font-size: 16px;
+    /* Larger font */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-frame.type-reaction .card-count-badge {
+    background: #e74c3c;
+    /* Force red for deck count */
+}
+
+.card-frame.mini .card-count-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+}
+
+.card-count-badge.empty {
+    background: #c0392b;
+    opacity: 0.8;
+}
+
+/* Purchasable Badge (+ Blue) */
+.purchasable-badge {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 24px;
+    /* Increased 20% from 20px */
+    height: 24px;
+    background: #3498db;
+    color: white;
+    font-size: 18px;
+    /* Larger + sign */
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 0 10px 0;
+    /* Leaf shape hugging corner */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    line-height: 1;
+    z-index: 110;
+}
+
+.card-frame.mini .purchasable-badge {
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+}
+
+.purchasable-badge.selectable-pulse {
+    animation: badgePulseBlue 1.5s infinite;
+    background: #2980b9;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+}
+
+@keyframes badgePulseBlue {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 6px rgba(52, 152, 219, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+    }
+}
+
+.selection-indicator {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+    z-index: 101;
+}
+
+.selection-index-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    /* Same position as indicator, will overlap or replace */
+    background: #e74c3c;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 102;
+    border: 2px solid white;
+}
+
+.mini .selection-indicator,
+.mini .selection-index-badge {
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    border-width: 1.5px;
+}
+
+/* ============================================================================
+   States
+   ============================================================================ */
+
+/* Playable */
+.card-frame.playable {
+    cursor: pointer;
+    box-shadow:
+        0 0 0 3px rgba(52, 152, 219, 0.5),
+        0 0 15px 5px rgba(52, 152, 219, 0.4),
+        /* Blue Halo */
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: bluePulse 2s infinite ease-in-out;
+}
+
+@keyframes bluePulse {
+    0% {
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5), 0 0 10px 2px rgba(52, 152, 219, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.7), 0 0 20px 8px rgba(52, 152, 219, 0.5), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5), 0 0 10px 2px rgba(52, 152, 219, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.card-frame.playable:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 0 0 4px rgba(52, 152, 219, 0.8),
+        0 0 25px 12px rgba(52, 152, 219, 0.6),
+        0 12px 24px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Selectable (Soft Blue Glow) */
+.card-frame.selectable {
+    cursor: pointer;
+    box-shadow:
+        0 0 0 3px rgba(52, 152, 219, 0.4),
+        0 0 10px 2px rgba(52, 152, 219, 0.2);
+    animation: bluePulseSoft 2s infinite ease-in-out;
+}
+
+@keyframes bluePulseSoft {
+    0% {
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4), 0 0 10px 2px rgba(52, 152, 219, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.5), 0 0 15px 4px rgba(52, 152, 219, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4), 0 0 10px 2px rgba(52, 152, 219, 0.2);
+    }
+}
+
+.card-frame.selectable:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 0 0 4px rgba(52, 152, 219, 0.6),
+        0 0 20px 8px rgba(52, 152, 219, 0.4);
+}
+
+
+/* Selected (Blue) */
+.card-frame.selected {
+    box-shadow:
+        0 0 0 4px #f1c40f,
+        0 20px 40px rgba(241, 196, 15, 0.3);
+    z-index: 50;
+    pointer-events: auto;
+}
+
+/* Selected (Red/Trash) */
+.card-frame.selected-red {
+    box-shadow:
+        0 0 0 4px #e74c3c,
+        0 20px 40px rgba(231, 76, 60, 0.4);
+    z-index: 50;
+    pointer-events: auto;
+}
+
+/* Selection Indicator for Red */
+.card-frame.selected-red .selection-indicator {
+    background: #e74c3c;
+}
+
+/* Disabled / Empty */
+.card-frame.disabled {
+    filter: grayscale(1) opacity(0.6);
+    cursor: not-allowed;
+}
+
+.card-frame.card-dimmed {
+    opacity: 0.5;
+    filter: grayscale(0.3);
+    /* Keep cursor interactive to allow deselecting if needed? 
+       Actually toggleHandSelection handles deselection logic. */
+}
+
+.card-frame.disabled:not(.is-card-back):not(.type-treasure):not(.type-victory) {
+    opacity: 0.5;
+}
+
+/* Ensure piles and card backs are always vibrant */
+.card-frame.is-card-back,
+.card-frame.type-treasure,
+.card-frame.type-victory {
+    opacity: 1 !important;
+}
+
+.card-frame.empty::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: inherit;
+}
+
+/* Hover for mini cards (non-disabled) */
+.card-frame.mini:not(.disabled):not(.empty):hover {
+    transform: scale(1.05);
+    z-index: 5;
+}
+
+/* Dimmed (Non-selectable in current context) */
+.card-frame.card-dimmed {
+    opacity: 0.3 !important;
+    filter: grayscale(80%);
+    /* pointer-events: none; REMOVED to allow right-click inspection */
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================================================
+   Special Pile States
+   ============================================================================ */
+
+/* Card Back Frame - No borders/bg from type */
+.card-frame.card-back-frame {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    /* Deep shadow for deck */
+}
+
+/* Empty Pile Outline */
+.card-frame.empty-pile-outline {
+    background: rgba(245, 222, 179, 0.15);
+    /* Warm yellow/parchment tint */
+    border: 2px dashed rgba(245, 222, 179, 0.4);
+    /* Matching warm border */
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-pile-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Floating Count is removed in favor of standard badge */
+
+/* Specific Override for Empty Discard (Défausse) - Match Deck Dark Theme */
+.card-frame[data-card-id="Défausse"].empty-pile-outline {
+    background: rgba(20, 20, 30, 0.85);
+    /* Dark background similar to deck */
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    /* Light dashed border to differentiate */
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.card-frame[data-card-id="Défausse"].empty-pile-outline .empty-pile-text {
+    color: rgba(255, 255, 255, 0.6);
+    /* Lighter text for contrast on dark bg */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Remove inner artifacts for Empty Discard */
+.card-frame[data-card-id="Défausse"].empty-pile-outline .card-image-area {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Expansion Icons */
+.expansion-icon {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    /* 2x smaller than 14px */
+    line-height: 1;
+    z-index: 20;
+    pointer-events: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.has-expansion-icon .card-type {
+    /* Padding removed to allow text to use full banner width (banner padding handles clearing) */
+    font-size: 0.9em;
+}
+
+.has-expansion-icon .card-type.scale-sm {
+    font-size: 0.8em;
+}
+
+.has-expansion-icon .card-type.scale-xs {
+    font-size: 0.7em;
+}
+
+.has-expansion-icon .card-type.scale-xxs {
+    font-size: 0.6em;
+    letter-spacing: -0.3px;
+}
+
+.has-expansion-icon .card-type.scale-tiny {
+    letter-spacing: -0.4px;
+}
+
+/* ============================================================================
+   Visual Stacking Effect
+   ============================================================================ */
+
+.card-frame.has-count::before,
+.card-frame.has-count::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Simulate card background manually since we can't inherit complex gradients cleanly across pseudo-elements often */
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: inherit;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    z-index: -1;
+    display: none;
+    /* Hidden by default until we check variants */
+}
+
+/* Enable for full cards primarily in hand */
+.card-frame.full.has-count::before,
+.card-frame.full.has-count::after {
+    display: block;
+}
+
+.card-frame.has-count::before {
+    transform: translate(4px, 1px) rotate(2deg);
+}
+
+.card-frame.has-count::after {
+    transform: translate(8px, 2px) rotate(4deg);
+    z-index: -2;
+    opacity: 0.8;
+}
+
+/* Match background colors roughly or just use white borders */
+.card-frame.type-treasure.has-count::before,
+.card-frame.type-treasure.has-count::after {
+    background: var(--card-bg-treasure);
+    border-color: var(--card-border-treasure);
+}
+
+.card-frame.type-victory.has-count::before,
+.card-frame.type-victory.has-count::after {
+    background: var(--card-bg-victory);
+    border-color: var(--card-border-victory);
+}
+
+.card-frame.type-action.has-count::before,
+.card-frame.type-action.has-count::after {
+    background: var(--card-bg-action);
+    border-color: var(--card-border-action);
+}
+
+.card-frame.type-reaction.has-count::before,
+.card-frame.type-reaction.has-count::after {
+    background: var(--card-bg-reaction);
+    border-color: var(--card-border-reaction);
+}
+
+.card-frame.type-attack.has-count::before,
+.card-frame.type-attack.has-count::after {
+    background: var(--card-bg-attack);
+    border-color: var(--card-border-attack);
+}
+
+.card-frame.type-curse.has-count::before,
+.card-frame.type-curse.has-count::after {
+    background: var(--card-bg-curse);
+    border-color: var(--card-border-curse);
+}
+
+.card-frame.type-duration.has-count::before,
+.card-frame.type-duration.has-count::after {
+    background: var(--card-bg-duration);
+    border-color: var(--card-border-duration);
+}
+
+/* ============================================================================
+   Landscape Cards (Events, Projects, Landmarks, Ways)
+   ============================================================================ */
+
+.card-frame.landscape {
+    /* Swap dimensions (approx simple landscape ratio) */
+    width: 170px;
+    height: 115px;
+    /* Slightly squatter */
+    border-width: 2px;
+}
+
+.card-frame.landscape.mini {
+    width: 172px;
+    height: 112px;
+    /* Unify with standard mini for consistent horizontal layout */
+    aspect-ratio: auto;
+}
+
+.card-frame.landscape.mini .top-banner,
+.card-frame.landscape.mini .bottom-banner {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    border-radius: 0;
+}
+
+/* Float Cost to Top Left */
+.card-frame.landscape .card-cost-coin {
+    top: -8px;
+    left: -8px;
+    bottom: auto;
+    z-index: 200;
+}
+
+/* Float Type Badge to Top Right */
+.landscape-type-badge {
+    position: absolute;
+    top: 6px;
+    right: 2px;
+    /* User said "petit symbole en haut à droite" */
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Center Top Banner (Name) */
+.card-frame.landscape .top-banner {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    min-width: 80px;
+    max-width: 80%;
+    border-radius: 0 0 6px 6px;
+    padding: 2px 10px;
+    z-index: 150;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-frame.landscape .card-name {
+    font-size: 0.85em;
+    /* Slightly smaller name */
+}
+
+/* Image Area */
+.card-frame.landscape .card-image-area {
+    width: 100%;
+    height: 100%;
+    /* Fill container, mapped under other elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    border: none;
+    border-radius: 8px;
+    /* Match frame radius */
+}
+
+/* Description (Large Bottom Banner) */
+.card-frame.landscape .card-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 38%;
+    /* Takes up bottom ~1/3 */
+    background: rgb(255, 255, 255);
+    /* Fully opaque */
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+    padding: 4px 8px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 9px;
+}
+
+/* Mini Variants for Landscape */
+.card-frame.landscape.mini .landscape-type-badge {
+    font-size: 6px;
+    padding: 1px 4px;
+    top: 4px;
+    right: 4px;
+}
+
+.card-frame.landscape.mini .top-banner {
+    font-size: 8px;
+    padding: 1px 6px;
+    min-width: 50px;
+}
+
+.card-frame.landscape.mini .card-cost-coin {
+    top: -5px;
+    left: -5px;
+    transform: scale(0.8);
+}
+
+/* Micro card frame for very small UI elements (selectors) */
+.card-frame.micro {
+    width: 60px;
+    height: auto;
+    border-width: 1px;
+    border-style: solid;
+    justify-content: flex-start;
+}
+
+.card-frame.micro .top-banner {
+    padding: 1px 2px;
+    font-size: 8px;
+    min-height: 12px;
+}
+
+.card-frame.micro .card-name {
+    font-size: 8px;
+    padding: 0 2px;
+    text-overflow: clip;
+    /* show as much as possible, truncate if needed */
+}
+
+.card-frame.micro .card-image-area {
+    aspect-ratio: 3/2 !important;
+}
+
+.card-frame.micro .bottom-banner {
+    display: none;
+    /* Hide bottom banner for micro cards to save space */
+}
+
+.card-frame.micro .card-cost-coin {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    bottom: -4px;
+    left: -4px;
+}
+
+/* Overlays - Absolute positioning to avoid breaking flex layout */
+.selection-indicator,
+.selection-index-badge,
+.playable-glow,
+.selected-glow {
+    position: absolute;
+    pointer-events: none;
+    z-index: 150;
+}
+
+.selection-indicator {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 100, 255, 0.4);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection-index-badge {
+    top: -8px;
+    right: -8px;
+    background: #2563eb;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

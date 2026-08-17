@@ -1,0 +1,46 @@
+[RisingSun] Module loaded.
+[Promo] Module loaded.
+--- Testing Witch Logic (Exact Test Setup) ---
+State initialized.
+Applying Witch effects... [
+  {
+    "type": "DRAW",
+    "amount": 2
+  },
+  {
+    "type": "ATTACK",
+    "attackEffects": [
+      {
+        "type": "GAIN_CARD",
+        "cardId": "curse",
+        "destination": "discardPile"
+      }
+    ]
+  }
+]
+DEBUG: processStack iteration 1, item type: EFFECT, stack size: 1
+[DrawEffectHandler] Drawing cards {
+  playerId: 'p1',
+  amount: 2,
+  initialHand: 1,
+  initialDeck: 2,
+  initialDiscard: 0
+}
+[DrawEffectHandler] Draw complete { drawnCount: 2, finalHand: 3 }
+DEBUG: processStack iteration 2, item type: EFFECT, stack size: 0
+DEBUG: processStack iteration 3, item type: RESOLVE_ATTACK, stack size: 0
+DEBUG: processStack RESOLVE_ATTACK { playerId: 'p2', hasEffect: true, context: '{"attackerId":"p1"}' }
+DEBUG: processStack iteration 4, item type: EFFECT, stack size: 0
+DEBUG: processStack finished (empty stack)
+P1 Hand Size: 3
+P1 Hand: witch, copper, copper
+P2 Discard Size: 1
+P2 Discard: curse
+PASS: P1 Hand Size
+PASS: P2 gained Curse
+TypeError: Cannot read properties of undefined (reading 'map')
+    at testWitch (D:\Jeux\Developpement\dominion\scripts\repro_witch.ts:76:32)
+    at <anonymous> (D:\Jeux\Developpement\dominion\scripts\repro_witch.ts:80:1)
+    at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)

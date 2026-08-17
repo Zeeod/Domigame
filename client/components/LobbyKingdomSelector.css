@@ -1,0 +1,941 @@
+/* LobbyKingdomSelector.css */
+
+.kingdom-selector-container {
+    display: flex;
+    flex-direction: column;
+    /* Use full height of the parent */
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    color: #ecf0f1;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Layout --- */
+
+.kingdom-main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    padding-right: 4px;
+    padding: 1rem;
+    align-items: center;
+    /* Center the combined-cards-area within the column */
+}
+
+/* --- Presets --- */
+.presets-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+}
+
+.presets-label {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.presets-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.preset-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #eee;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.preset-btn:hover {
+    background: rgba(241, 196, 15, 0.15);
+    border-color: #f1c40f;
+    transform: translateY(-2px);
+    color: #f1c40f;
+}
+
+.preset-icon {
+    font-size: 1rem;
+}
+
+.combined-cards-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    /* Enforce top alignment for Kingdom and Special columns */
+}
+
+.kingdom-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.landscape-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+    min-width: 250px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+    height: 40px;
+    /* Force consistent height regardless of content */
+    box-sizing: border-box;
+}
+
+.section-header.small {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+}
+
+.section-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #f1c40f;
+    font-family: 'MedievalSharp', serif;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.section-header.small h4 {
+    font-size: 1rem;
+}
+
+.count-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #ccc;
+    font-family: sans-serif;
+}
+
+.header-subtitle {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+/* --- Grids & Lists --- */
+
+.kingdom-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 112px) !important;
+    gap: 12px !important;
+    width: fit-content !important;
+    padding-top: 0;
+}
+
+.landscape-list {
+    display: grid;
+    grid-template-columns: repeat(2, 172px);
+    gap: 12px;
+    width: fit-content;
+    padding-top: 0;
+}
+
+/* --- Card Slots (Unified) --- */
+
+.card-slot {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.slot-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.plus-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 200;
+    line-height: 1;
+}
+
+.card-slot>*:not(.remove-btn) {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.kingdom-slot {
+    width: 112px;
+    height: 112px;
+}
+
+.landscape-slot {
+    width: 172px;
+    height: 112px;
+    margin: 0;
+}
+
+/* Force landscape card-frames to fill their slot container */
+.landscape-slot .card-frame.mini.landscape {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Redesign Styles */
+
+.landscape-list.redesign {
+    display: grid;
+    grid-template-columns: repeat(2, 172px);
+    grid-auto-rows: 112px;
+    gap: 12px;
+    width: fit-content;
+    align-content: start;
+}
+
+.landscape-slot-container {
+    position: relative;
+    width: 172px;
+    height: 112px;
+    z-index: 1;
+}
+
+.landscape-slot-container:not(.empty):hover {
+    z-index: 100;
+}
+
+.landscape-slot-controls {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.landscape-slot-container:hover .landscape-slot-controls {
+    opacity: 1;
+}
+
+.slot-control-btn {
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.slot-control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.slot-control-btn.random-toggle.active {
+    background: #f1c40f;
+    color: #000;
+    border-color: #d35400;
+}
+
+.slot-control-btn.remove-slot-btn {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.slot-control-btn.remove-slot-btn:hover {
+    background: rgba(231, 76, 60, 0.8);
+}
+
+.corner-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.landscape-slot-container.empty:hover .corner-remove {
+    opacity: 1;
+}
+
+.landscape-types-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 2px 2px 2px;
+    /* Space for X button at top */
+    gap: 1px;
+    width: 100%;
+    height: 100%;
+}
+
+.landscape-type-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+}
+
+.landscape-slot-container:not(:hover) .landscape-type-line:not(.active) {
+    display: none;
+}
+
+.landscape-type-line:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.landscape-type-line.active {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.type-icon {
+    font-size: 0.8rem;
+}
+
+.personalize-line {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2px;
+    background: rgba(52, 152, 219, 0.2) !important;
+    display: none;
+}
+
+.landscape-slot-container:hover .personalize-line {
+    display: flex;
+}
+
+.personalize-line:hover {
+    background: rgba(52, 152, 219, 0.4) !important;
+}
+
+.personalize-overlay {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background: #3498db;
+    border: 2px solid #1e272e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0;
+}
+
+.landscape-slot-container:hover .personalize-overlay {
+    opacity: 1;
+}
+
+.personalize-overlay:hover {
+    transform: scale(1.1);
+    background: #2980b9;
+}
+
+.pencil-icon {
+    font-size: 14px;
+}
+
+.landscape-card-display {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.landscape-add-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 172px;
+}
+
+.landscape-add-options.disabled-options {
+    opacity: 0.5;
+    pointer-events: none;
+    /* Optional: double safety */
+}
+
+.small-add {
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px;
+}
+
+.card-slot:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card-slot.filled {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.card-slot.editing {
+    border: 2px solid #f1c40f;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
+    z-index: 5;
+}
+
+.card-slot.read-only {
+    cursor: default;
+}
+
+/* Placeholders */
+
+.slot-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    height: 100%;
+    width: 100%;
+}
+
+.plus-icon {
+    font-size: 2rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+}
+
+.card-slot:hover .plus-icon {
+    color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.landscape-slot.empty-add {
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landscape-slot-container.empty:hover .landscape-slot.empty-add {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.add-icon {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+}
+
+.landscape-slot-container.empty:hover .add-icon {
+    color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+/* Add New Slot Button Styles */
+.add-new-slot {
+    cursor: pointer;
+}
+
+.add-btn-slot {
+    border: 2px dashed rgba(46, 204, 113, 0.2);
+    background: rgba(46, 204, 113, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    color: rgba(46, 204, 113, 0.6);
+    transition: all 0.2s;
+}
+
+.add-new-slot:hover .add-btn-slot {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: rgba(46, 204, 113, 0.5);
+    color: #2ecc71;
+    transform: scale(1.02);
+}
+
+.add-icon-small {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.add-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Random Content */
+
+.slot-random-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+}
+
+.slot-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.slot-sub {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+    font-weight: bold;
+}
+
+.random-landscape-visual {
+    width: 100%;
+    height: 100%;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.random-icon {
+    font-size: 1.8rem;
+}
+
+.landscape-card-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.random-label {
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.random-label.small {
+    font-size: 0.65rem;
+}
+
+/* Remove Button */
+
+.remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.card-slot:hover .remove-btn {
+    opacity: 1;
+}
+
+
+/* --- Controls Section --- */
+
+.expansions-bar {
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+}
+
+.expansions-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.exp-toggle {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+}
+
+.exp-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.exp-toggle.active {
+    background: #3498db;
+    border-color: #2980b9;
+    color: white;
+}
+
+.exp-toggle.all.active {
+    background: #e67e22;
+    border-color: #d35400;
+}
+
+
+/* Bottom Controls */
+
+.bottom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.8rem;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mode-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mode-selector-group label {
+    font-size: 0.85rem;
+    color: #aeaeae;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mode-options {
+    display: flex;
+    gap: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.mode-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.mode-option:hover {
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-option.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.mode-option.active .mode-label {
+    color: #f1c40f;
+}
+
+.mode-visual {
+    display: flex;
+    gap: -20px;
+    position: relative;
+    height: 70px;
+    width: 90px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Simulate pile look */
+.mode-visual .card-frame.micro {
+    position: absolute;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.mode-visual .card-frame.micro:first-child {
+    transform: rotate(-5deg) translateX(-10px);
+    z-index: 1;
+}
+
+.mode-visual .card-frame.micro:last-child {
+    transform: rotate(5deg) translateX(10px);
+    z-index: 2;
+}
+
+.mode-visual .card-frame.micro:only-child {
+    transform: rotate(0);
+    z-index: 1;
+}
+
+.mode-visual.dice {
+    font-size: 2.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 60px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.mode-label {
+    font-size: 0.75rem;
+    color: #888;
+    text-align: center;
+}
+
+.read-only .mode-option {
+    cursor: default;
+    pointer-events: none;
+}
+
+.fill-random-container {
+    display: flex;
+}
+
+.fill-random-btn {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.fill-random-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* --- Picker Modal --- */
+
+.picker-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.picker-modal {
+    background: #1e272e;
+    width: 90%;
+    height: 90%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.picker-header {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.picker-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #f1c40f;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+.picker-controls {
+    padding: 0.8rem;
+    display: flex;
+    gap: 0.8rem;
+    background: rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.picker-controls input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+}
+
+.picker-controls select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.4rem;
+    border-radius: 4px;
+}
+
+.picker-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    /* Adaptive grid */
+    gap: 0.8rem;
+}
+
+.picker-random-types-grid {
+    display: contents;
+    /* Treat children as direct grid items of picker-results */
+}
+
+.picker-card-option {
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.picker-card-option:hover {
+    transform: scale(1.05);
+    z-index: 5;
+}
+
+.random-choice {
+    aspect-ratio: 200/320;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-placeholder-visual {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-name-visual {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+}
