@@ -4,6 +4,13 @@ dist
 .env
 .env.local
 *.log
+logs
+archive
+docs
+tests
+scripts
+data
 README.md
+CONTEXT.md
 Dockerfile
 docker-compose.yml

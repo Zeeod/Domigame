@@ -1,1 +1,0 @@
-                                coins={currentPlayer?.coins ?? 0}

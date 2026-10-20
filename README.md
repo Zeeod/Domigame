@@ -1,128 +1,67 @@
-# Dominion Clone - Production Ready
+# Dominion JS
 
-A professional-grade, server-authoritative Dominion-style card game built with TypeScript, Socket.IO, and React.
+Implémentation multijoueur en ligne du jeu de cartes Dominion (22 extensions), en TypeScript.
+Le serveur fait autorité : toute la logique de jeu tourne côté serveur, le client React ne fait qu'afficher.
 
-## Quick Start
+> Pour le détail de l'architecture et des conventions, lire [CONTEXT.md](CONTEXT.md).
 
-### Prerequisites
-- Node.js 18+
-- npm
+## Démarrage rapide
 
-### Installation
+Prérequis : Node.js 18+
 
 ```bash
 npm install
+
+npm run start   # Serveur de jeu (port 3005)
+npm run dev     # Client Vite (port 3000), dans un 2e terminal
 ```
 
-### Development
+## Commandes
 
-```bash
-# Start server (port 3005)
-npm run start
+| Commande | Rôle |
+| --- | --- |
+| `npm run dev` | Client en développement (port 3000, proxy vers le serveur) |
+| `npm run start` | Serveur de jeu (port 3005) |
+| `npm run build` | Build de production du client dans `dist/` |
+| `npm run check-types` | Vérification TypeScript (client, serveur, moteur, tests) |
+| `npm test` | Tous les tests Vitest |
+| `npx vitest run tests/cards` | Les tests d'un seul dossier |
+| `docker compose up -d --build` | Déploiement Docker (voir `docs/deployment/`) |
 
-# Start client (separate terminal)
-cd client && npm run dev
-```
-
-### Testing
-
-```bash
-# Run all tests
-npm run test
-
-# Run stress tests (50+ bot games)
-npx vitest run shared/tests/StressTest.test.ts
-```
-
-## Architecture
+## Structure
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                      CLIENT (React)                      │
-│  - Passive renderer (no game logic)                      │
-│  - Socket.IO connection                                  │
-│  - Component-based UI                                    │
-└──────────────────────────┬──────────────────────────────┘
-                           │ Socket.IO
-┌──────────────────────────▼──────────────────────────────┐
-│                      SERVER (Node.js)                    │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐  │
-│  │ GameRoomV2  │  │SocketHandler│  │StateSerializer │  │
-│  └──────┬──────┘  └──────┬──────┘  └────────┬────────┘  │
-│         │                │                   │           │
-│         ▼                ▼                   ▼           │
-│  ┌─────────────────────────────────────────────────────┐│
-│  │              SHARED ENGINE                          ││
-│  │  RulesValidator → ActionResolver → EffectEngine     ││
-│  │  TurnMachine → CardRegistry → GameState             ││
-│  └─────────────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────┘
+client/        Frontend React (composants, hooks, contextes, styles)
+server/        Backend Express + Socket.IO (salles, sérialisation, SQLite)
+shared/        Moteur de jeu partagé
+  engine/        Cœur du moteur (effets, phases, règles, économie)
+  cards/         Définitions déclaratives des cartes, par extension
+  bot/           IA (RandomBot, GreedyBot, SmartBot MCTS)
+  types/, view/  Types et vue publique envoyée aux clients
+tests/         Tous les tests
+  engine/        Moteur
+  cards/         Cartes par extension (+ validation/ par set)
+  bot/           IA
+  integration/   Parties complètes (stabilité, stress)
+  regression/    Reproductions de bugs
+  client/        Composants React
+  helpers/       TestEngine et outils de test
+scripts/       Outils hors jeu (tools/, audit/, debug/)
+docs/          Roadmaps, rapports d'audit, déploiement, règles PDF
+logs/          Sorties des tests et scripts (ignoré par git)
+data/          Base SQLite (ignorée par git, créée au démarrage)
 ```
 
-## Key Features
+## Ajouter une carte
 
-- **Server Authoritative**: All game logic runs server-side
-- **26 Base Cards**: Complete Dominion base set
-- **Bot System**: RandomBot and GreedyBot for testing/solo play
-- **Declarative Effects**: Cards are pure data, engine interprets them
-- **Extension Ready**: Add new cards without engine changes
+1. Créer la définition dans `shared/cards/<extension>/` (effets déclaratifs, pas de logique impérative).
+2. L'enregistrer dans le registre de l'extension.
+3. Ajouter un test dans `tests/cards/`.
 
-## Cards Implemented
+## Avancement
 
-| Category | Cards |
-|----------|-------|
-| Treasures | Copper, Silver, Gold |
-| Victory | Estate, Duchy, Province, Gardens, Curse |
-| Actions | Village, Smithy, Market, Militia, Chapel, Cellar, Moat, Woodcutter, Workshop, Moneylender, Witch, Festival, Laboratory, Bureaucrat, Council Room, Remodel, Throne Room, Adventurer, Library |
+Voir [docs/roadmap/ProEngineRoadmap.md](docs/roadmap/ProEngineRoadmap.md).
 
-## Adding New Cards
-
-1. Create card file in `shared/cards/base/`:
-
-```typescript
-import { CardDefinition } from '../../types/CardDefinition.js';
-
-export const myCard: CardDefinition = {
-    id: 'my_card',
-    name: 'My Card',
-    cost: 4,
-    types: ['ACTION'],
-    effects: [
-        { type: 'DRAW', amount: 2 },
-        { type: 'ADD_ACTIONS', amount: 1 }
-    ],
-    description: '+2 Cards, +1 Action'
-};
-```
-
-2. Register in `shared/cards/index.ts`
-3. Run tests to verify
-
-## Project Structure
-
-```
-├── client/             # React frontend
-│   ├── components/     # UI components
-│   └── index.tsx       # Entry point
-├── server/             # Node.js backend
-│   ├── GameRoomV2.ts   # Room management
-│   └── SocketHandler.ts# Socket events
-├── shared/             # Shared code
-│   ├── cards/          # Card definitions
-│   ├── engine/         # Game engine
-│   ├── bot/            # AI players
-│   ├── types/          # TypeScript types
-│   └── tests/          # Test suites
-└── package.json
-```
-
-## Testing Strategy
-
-- **Unit Tests**: Individual engine components
-- **Simulation Tests**: Full games with bots
-- **Stress Tests**: 50+ games to verify stability
-- **Invariant Checks**: Runtime validation in dev mode
-
-## License
+## Licence
 
 MIT

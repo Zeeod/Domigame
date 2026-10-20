@@ -13,7 +13,7 @@
 - **Frontend** : React 19 + Vite + TypeScript (CSS Vanilla, pas de Tailwind)
 - **Backend** : Node.js + Express 5 + Socket.IO (WebSockets temps-réel)
 - **Moteur de jeu** : TypeScript pur dans `shared/`, 100% déterministe et sans effets de bord
-- **Tests** : Vitest — 251 tests, 100% verts
+- **Tests** : Vitest — 458 tests dans `tests/` (401 OK, 57 en échec au 20/10/2026)
 - **Déploiement** : Docker multi-stage, port 3005, servi sur `dominion.zeeod.fr`
 - **Langage** : Interface et logs en **français**
 
@@ -74,11 +74,37 @@ dominion/
 │   │   └── ...           # (toutes les extensions)
 │   ├── types/            # Types TypeScript (EffectDefinition, CardDefinition...)
 │   └── view/             # Types de vue publique (PublicGameView)
-├── style.css             # CSS global principal (50KB)
+├── tests/                # TOUS les tests (Vitest) — jamais de test dans client/server/shared
+│   ├── setup.ts          # Setup global (registres réinitialisés avant chaque test)
+│   ├── helpers/          # TestEngine (TestUtils.ts), harness, références d'audit
+│   ├── engine/           # Moteur : phases, économie, cleanup, interactions...
+│   ├── cards/            # Cartes par extension (+ validation/ : audits par set)
+│   ├── bot/              # IA (SmartBot, DeckEvaluator, simulations)
+│   ├── integration/      # Parties complètes (Stability, StressTest)
+│   ├── regression/       # Reproductions de bugs
+│   └── client/           # Composants React
+├── scripts/              # Outils hors jeu (non inclus dans le build)
+│   ├── clean_ports.js    # Utilisé par npm run dev/start
+│   ├── tools/            # Génération de sons, extraction de cartes...
+│   ├── audit/            # Scripts d'audit des cartes (tsx scripts/audit/X.ts)
+│   └── debug/            # Scripts de debug ponctuels
+├── docs/                 # Documentation
+│   ├── roadmap/          # Roadmaps (ProEngineRoadmap.md = roadmap active)
+│   ├── reports/          # Rapports d'audit (cartes, moteur, comparaison Steam)
+│   ├── deployment/       # Déploiement Synology/Docker
+│   ├── rules/            # Règles officielles (PDF) par extension
+│   └── archive/          # Anciennes notes de travail
+├── logs/                 # Sorties des tests/scripts (ignoré par git)
+├── data/                 # Base SQLite (ignorée par git, créée au démarrage)
+├── archive/              # Ancien code et anciens logs — à supprimer quand validé
+├── client/styles/global.css  # CSS global principal (50KB)
 ├── Dockerfile            # Multi-stage build
 ├── docker-compose.yml    # Config déploiement (port 3005)
-└── tsconfig.json         # TypeScript strict
+└── tsconfig.json         # TypeScript strict (inclut tests/)
 ```
+
+**Règle de rangement** : rien ne doit être écrit à la racine. Les logs vont dans `logs/`,
+les tests dans `tests/`, les scripts ponctuels dans `scripts/debug/`.
 
 ---
 
@@ -361,11 +387,12 @@ Les `tokens` des piles supply sont inclus (ex: jetons PV sur Marché Fermier).
 ## 7. TESTS
 
 ```bash
-npm test                                           # Tous les tests (251)
-npx vitest run server/tests/validation/X.test.ts   # Un fichier
+npm test                                  # Tous les tests (458 — 401 OK / 57 KO au 20/10/2026)
+npx vitest run tests/cards/X.test.ts      # Un fichier
+npx vitest run tests/engine               # Un dossier
 ```
 
-### TestEngine API (server/tests/validation/TestUtils.ts)
+### TestEngine API (tests/helpers/TestUtils.ts)
 ```typescript
 const engine = new TestEngine({
     playerCount: 2,
@@ -400,7 +427,7 @@ npm run dev          # Vite dev server (port 3000)
 npm run start        # Serveur de jeu (port 3005)
 npm run build        # Build production (dist/)
 npm run check-types  # TypeScript strict (0 erreur)
-npm test             # Vitest (251 tests)
+npm test             # Vitest (458 tests)
 
 docker compose up -d --build   # Build et run Docker
 docker compose logs -f         # Logs en temps réel
@@ -431,9 +458,9 @@ docker compose logs -f         # Logs en temps réel
 | `server/GameRoomV2.ts` | Logique salle multijoueur | ~69KB |
 | `shared/cards/index.ts` | Registre de toutes les cartes | ~34KB |
 | `client/components/BoardLayout.tsx` | Layout principal | ~88KB |
-| `style.css` | CSS global | ~50KB |
+| `client/styles/global.css` | CSS global | ~50KB |
 | `server/StateSerializerV2.ts` | Serialisation etat | ~21KB |
 
 ---
 
-*Dominion JS — 22 extensions — 251 tests verts — 0 erreur TypeScript*
+*Dominion JS — 22 extensions — 458 tests (57 en échec à corriger) — 0 erreur TypeScript*
