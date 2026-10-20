@@ -234,7 +234,7 @@ export const voyage: CardDefinition = {
     description: "+1 Action. Prenez un tour supplémentaire après celui-ci, durant lequel vous ne pouvez jouer que 3 cartes.",
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'SCHEDULE_EXTRA_TURN' as any, cardLimit: 3 }
+        { type: 'SCHEDULE_EXTRA_TURN', turnType: 'VOYAGE', cardLimit: 3 } as any
     ],
     expansion: 'allies',
     isSubCard: true

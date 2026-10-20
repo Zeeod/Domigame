@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { CardRegistry } from '../../shared/cards/index.js';
-import { UNFINISHED_CARDS } from '../../shared/cards/unfinished.js';
+import { UNFINISHED_CARDS, SHELL_CARDS } from '../../shared/cards/unfinished.js';
 import { SupplyGenerator } from '../../shared/engine/SupplyGenerator.js';
 
 const hasEffects = (id: string): boolean => {
@@ -16,7 +16,7 @@ describe('Cartes non finies (shared/cards/unfinished.ts)', () => {
     });
 
     it('aucune carte listée n\'a déjà des effets (sinon la retirer de la liste)', () => {
-        const done = [...UNFINISHED_CARDS].filter(hasEffects);
+        const done = [...SHELL_CARDS].filter(hasEffects);
         expect(done).toEqual([]);
     });
 

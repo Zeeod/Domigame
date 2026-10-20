@@ -45,16 +45,16 @@ describe('Seaside Advanced Mechanics', () => {
                 targets: 'TOP_OF_DECK'
             } as const);
 
-            expect(player.nativeVillageMat).toHaveLength(1);
+            expect(player.mats.nativeVillage).toHaveLength(1);
             expect(player.deck).toHaveLength(initialDeckSize - 1);
-            expect(player.nativeVillageMat[0].id).toBe('copper');
+            expect(player.mats.nativeVillage[0].id).toBe('copper');
         });
 
         it('should take all cards from Native Village mat to hand', () => {
             const player = gameState.players[0];
 
             // Put cards on mat
-            player.nativeVillageMat = [
+            player.mats.nativeVillage = [
                 { id: 'copper', instanceId: 'c1' },
                 { id: 'silver', instanceId: 's1' },
                 { id: 'gold', instanceId: 'g1' }
@@ -68,7 +68,7 @@ describe('Seaside Advanced Mechanics', () => {
                 mat: 'nativeVillage'
             } as const);
 
-            expect(player.nativeVillageMat).toHaveLength(0);
+            expect(player.mats.nativeVillage).toHaveLength(0);
             expect(player.hand).toHaveLength(initialHandSize + 3);
             expect(player.hand.some(c => c.id === 'copper')).toBe(true);
             expect(player.hand.some(c => c.id === 'silver')).toBe(true);
@@ -77,14 +77,14 @@ describe('Seaside Advanced Mechanics', () => {
 
         it('should handle empty Native Village mat gracefully', () => {
             const player = gameState.players[0];
-            player.nativeVillageMat = [];
+            player.mats.nativeVillage = [];
 
             const result = EffectEngine.applyEffect(gameState, player.id, {
                 type: 'TAKE_FROM_MAT',
                 mat: 'nativeVillage'
             });
 
-            expect(player.nativeVillageMat).toHaveLength(0);
+            expect(player.mats.nativeVillage).toHaveLength(0);
             expect(result.needsChoice).toBe(false);
         });
     });
@@ -111,7 +111,7 @@ describe('Seaside Advanced Mechanics', () => {
             }, 'i1');
 
             // Island should move from play area to Island mat
-            expect(player.islandMat.length).toBeGreaterThan(0);
+            expect(player.mats.island.length).toBeGreaterThan(0);
             expect(player.playArea.some(c => c.instanceId === 'i1')).toBe(false);
         });
 
@@ -119,17 +119,17 @@ describe('Seaside Advanced Mechanics', () => {
             const player = gameState.players[0];
 
             // Set up Island mat with some VP cards
-            player.islandMat = [
+            player.mats.island = [
                 { id: 'island', instanceId: 'i1' },
                 { id: 'estate', instanceId: 'e1' },
                 { id: 'duchy', instanceId: 'd1' }
             ];
 
             // Island mat cards should be accessible for scoring
-            expect(player.islandMat).toHaveLength(3);
-            expect(player.islandMat.some(c => c.id === 'island')).toBe(true);
-            expect(player.islandMat.some(c => c.id === 'estate')).toBe(true);
-            expect(player.islandMat.some(c => c.id === 'duchy')).toBe(true);
+            expect(player.mats.island).toHaveLength(3);
+            expect(player.mats.island.some(c => c.id === 'island')).toBe(true);
+            expect(player.mats.island.some(c => c.id === 'estate')).toBe(true);
+            expect(player.mats.island.some(c => c.id === 'duchy')).toBe(true);
         });
     });
 
@@ -138,9 +138,7 @@ describe('Seaside Advanced Mechanics', () => {
             const player = gameState.players[0];
 
             // Apply the SCHEDULE_EXTRA_TURN effect
-            EffectEngine.applyEffect(gameState, player.id, {
-                type: 'SCHEDULE_EXTRA_TURN'
-            });
+            EffectEngine.applyEffect(gameState, player.id, { type: 'SCHEDULE_EXTRA_TURN', turnType: 'OUTPOST' } as any);
 
             expect(gameState.extraTurns).toHaveLength(1);
             expect(gameState.extraTurns[0].playerId).toBe(player.id);
@@ -208,121 +206,4 @@ describe('Seaside Advanced Mechanics', () => {
         });
     });
 
-    describe('Treasure Map', () => {
-        it('should gain 4 Gold when both Treasure Maps are trashed', () => {
-            const player = gameState.players[0];
-
-            // Set up player with 2 Treasure Maps
-            player.hand = [
-                { id: 'treasure_map', instanceId: 'tm1' },
-                { id: 'treasure_map', instanceId: 'tm2' },
-                { id: 'copper', instanceId: 'c1' }
-            ];
-            player.playArea = [];
-            player.deck = [];
-
-            const initialDeckSize = player.deck.length;
-
-            // Simulate playing one Treasure Map and trashing the other
-            // First, move one to play area (simulating play)
-            const playedCard = player.hand.shift()!;
-            player.playArea.push(playedCard);
-
-            // Apply CHOOSE_FROM_ZONE effect (player selects second Treasure Map)
-            // Use applyEffects to ensure the stack is processed (important for onNoMatch which pushes new effects)
-            const result = EffectEngine.applyEffects(gameState, player.id, [{
-                type: 'CHOOSE_FROM_ZONE',
-                sourceZone: 'hand',
-                min: 0,
-                max: 1,
-                filter: { cardIds: ['treasure_map'] },
-                destination: 'trash',
-                optional: true,
-                onNoMatch: [{ type: 'TRASH_SELF' }],
-                context: {
-                    specialAction: 'TREASURE_MAP_TRASH',
-                    onSuccess: [
-                        { type: 'TRASH_SELF' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' }
-                    ]
-                }
-            }], false, playedCard.instanceId) as any;
-
-            // Should create a pending decision
-            expect(result.needsChoice).toBe(true);
-            expect(gameState.pendingDecision).toBeTruthy();
-
-            // Simulate user selecting the second Treasure Map
-            const secondTreasureMap = player.hand.find(c => c.id === 'treasure_map');
-            expect(secondTreasureMap).toBeTruthy();
-
-            EffectEngine.resolveDecision(gameState, player.id, {
-                cardInstanceIds: [secondTreasureMap!.instanceId]
-            });
-
-            // Both Treasure Maps should be trashed
-            expect(gameState.trash.filter(c => c.id === 'treasure_map').length).toBe(2);
-
-            // 4 Gold should be added to deck
-            expect(player.deck.filter(c => c.id === 'gold').length).toBe(4);
-            expect(player.deck.length).toBe(initialDeckSize + 4);
-        });
-
-        it('should not gain Gold when no second Treasure Map available', () => {
-            const player = gameState.players[0];
-
-            // Set up player with only 1 Treasure Map
-            player.hand = [
-                { id: 'treasure_map', instanceId: 'tm1' },
-                { id: 'copper', instanceId: 'c1' },
-                { id: 'estate', instanceId: 'e1' }
-            ];
-            player.playArea = [];
-            player.deck = [];
-
-            const initialDeckSize = player.deck.length;
-            const initialTrashSize = gameState.trash.length;
-
-            // Simulate playing the Treasure Map
-            const playedCard = player.hand.shift()!;
-            player.playArea.push(playedCard);
-
-            // Apply CHOOSE_FROM_ZONE effect (no second copy available)
-            // Use applyEffects to ensure stack processing
-            const result = EffectEngine.applyEffects(gameState, player.id, [{
-                type: 'CHOOSE_FROM_ZONE',
-                sourceZone: 'hand',
-                min: 0,
-                max: 1,
-                filter: { cardIds: ['treasure_map'] },
-                destination: 'trash',
-                optional: true,
-                onNoMatch: [{ type: 'TRASH_SELF' }],
-                context: {
-                    specialAction: 'TREASURE_MAP_TRASH',
-                    onSuccess: [
-                        { type: 'TRASH_SELF' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' },
-                        { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' }
-                    ]
-                }
-            }], false, playedCard.instanceId) as any;
-
-            // Should NOT create a pending decision (no targets found)
-            expect(result.needsChoice).toBe(false);
-
-            // No Gold should be gained
-            expect(player.deck.filter(c => c.id === 'gold').length).toBe(0);
-            expect(player.deck.length).toBe(initialDeckSize);
-
-            // Self should be trashed (via onNoMatch)
-            expect(gameState.trash.length).toBe(initialTrashSize + 1);
-            expect(gameState.trash[gameState.trash.length - 1].id).toBe('treasure_map');
-        });
-    });
 });

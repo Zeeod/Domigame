@@ -1,3 +1,4 @@
+import { getMat } from '../../../shared/engine/Mats.js';
 
 import { describe, test, expect } from 'vitest';
 import { TestEngine } from '../../helpers/TestUtils';
@@ -132,7 +133,7 @@ describe('Adventures Validation - Part 1', () => {
         engine.expectState((_state: GameState, player: PlayerState) => {
             expect(player.actions).toBe(1);
             expect(player.hand).toHaveLength(3); // 3-1+1 = 3
-            expect(player.tavernMat.some(c => c.id === 'guide')).toBe(true);
+            expect(player.mats.tavern.some(c => c.id === 'guide')).toBe(true);
         });
     });
 
@@ -235,7 +236,7 @@ describe('Adventures Validation - Part 1', () => {
         engine.chooseOption(0); // Put copper on Tavern
 
         engine.expectState((_state: GameState, player: PlayerState) => {
-            expect(player.tavernMat.some(c => c.id === 'copper')).toBe(true);
+            expect(player.mats.tavern.some(c => c.id === 'copper')).toBe(true);
             expect(player.hand.some(c => c.id === 'copper')).toBe(false);
         });
     });
@@ -246,7 +247,7 @@ describe('Adventures Validation - Part 1', () => {
         engine.setDeck(new Array(20).fill('copper'));
         // Manually put 2 coppers on tavern
         const p1 = engine.getPlayer();
-        p1.tavernMat.push({ id: 'copper', instanceId: 'c1' } as any, { id: 'copper', instanceId: 'c2' } as any);
+        getMat(p1, 'tavern').push({ id: 'copper', instanceId: 'c1' } as any, { id: 'copper', instanceId: 'c2' } as any);
 
         engine.playCard('miser');
         engine.chooseOption(1); // +1 Money per copper on tavern mat

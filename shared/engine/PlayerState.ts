@@ -148,11 +148,7 @@ export interface PlayerState {
     coinTokens: number;
     potions: number;
 
-    // Mats
-    islandMat: CardInstance[];
-    nativeVillageMat: CardInstance[];
-    tavernMat: CardInstance[];
-    exileMat: CardInstance[];
+    // Mats live in `mats` only (see Mats.ts): nativeVillage, island, tavern, exile…
 
     // Valid for all expansions
     projects: string[];
@@ -239,14 +235,6 @@ export function createPlayerState(id: string, name: string, color: string = '#ff
         vpTokens: 0,
         coinTokens: 0,
         potions: 0,
-        get islandMat() { return this.mats.island; },
-        set islandMat(v) { if (this.mats) this.mats.island = v; },
-        get nativeVillageMat() { return this.mats.nativeVillage; },
-        set nativeVillageMat(v) { if (this.mats) this.mats.nativeVillage = v; },
-        get tavernMat() { return this.mats.tavern; },
-        set tavernMat(v) { if (this.mats) this.mats.tavern = v; },
-        get exileMat() { return this.mats.exile; },
-        set exileMat(v) { if (this.mats) this.mats.exile = v; },
 
         projects: [],
         artifacts: [],

@@ -169,18 +169,25 @@ export class CleanupEffectHandler {
             state.triggers = state.triggers.filter(t => t.expires !== 'END_OF_TURN');
         }
 
+        const endingPlayerId = state.players[state.currentPlayerIndex]?.id;
+        state.currentExtraTurn = null;
+
         if (state.extraTurns && state.extraTurns.length > 0) {
             const extraTurnInfo = state.extraTurns.shift();
             if (extraTurnInfo) {
                 const idx = state.players.findIndex(p => p.id === extraTurnInfo.playerId);
                 if (idx !== -1) {
                     state.currentPlayerIndex = idx;
-                    this.log(state, extraTurnInfo.type === 'OUTPOST' ? `--- Tour Supplémentaire (Avant-poste) ---` : `--- Tour Supplémentaire ---`);
+                    state.currentExtraTurn = extraTurnInfo;
+                    const label: Record<string, string> = { OUTPOST: 'Avant-poste', MISSION: 'Mission', VOYAGE: 'Voyage' };
+                    this.log(state, `--- Tour Supplémentaire${extraTurnInfo.type && label[extraTurnInfo.type] ? ` (${label[extraTurnInfo.type]})` : ''} ---`);
                 }
             }
         } else {
             state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
         }
+        state.previousTurnPlayerId = endingPlayerId;
+        state.cardsPlayedFromHandThisTurn = 0;
 
         // "Until your next turn" triggers end when their owner's turn starts
         const startingPlayerId = state.players[state.currentPlayerIndex]?.id;
@@ -203,10 +210,7 @@ export class CleanupEffectHandler {
             zones.forEach(zone => {
                 zone.forEach(c => { if (c.shy) c.shy = undefined; });
             });
-            // Also check mats if they exist
-            if (nextPlayer.islandMat) nextPlayer.islandMat.forEach(c => { if (c.shy) c.shy = undefined; });
-            if (nextPlayer.tavernMat) nextPlayer.tavernMat.forEach(c => { if (c.shy) c.shy = undefined; });
-            if (nextPlayer.exileMat) nextPlayer.exileMat.forEach(c => { if (c.shy) c.shy = undefined; });
+            // Also check mats
             if (nextPlayer.mats) {
                 for (const k in nextPlayer.mats) {
                     nextPlayer.mats[k].forEach(c => { if (c.shy) c.shy = undefined; });

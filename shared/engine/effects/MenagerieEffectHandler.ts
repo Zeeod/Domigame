@@ -11,6 +11,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { Logger } from '../Logger.js';
 import { createCardInstance } from '../CardInstance.js';
 import { EconomyEngine } from '../EconomyEngine.js';
+import { addToMat, getMat, peekMat } from '../Mats.js';
 
 export class MenagerieEffectHandler {
     static register() {
@@ -54,8 +55,7 @@ export class MenagerieEffectHandler {
             const idx = player.playArea.findIndex(c => c.instanceId === sourceId);
             if (idx !== -1) {
                 const card = player.playArea.splice(idx, 1)[0];
-                if (!player.exileMat) player.exileMat = [];
-                player.exileMat.push(card);
+                addToMat(player, 'exile', card);
                 Logger.log(state, `${player.name} exile ${CardRegistry.get(card.id)?.name || card.id}.`, player.id);
             }
             return { state, needsChoice: false };
@@ -70,14 +70,14 @@ export class MenagerieEffectHandler {
                 // Exile a curse
                 cursePile.count--;
                 const curseCard = createCardInstance('curse');
-                if (!player.exileMat) player.exileMat = [];
-                player.exileMat.push(curseCard);
+                addToMat(player, 'exile', curseCard);
                 Logger.log(state, `${player.name} exile une Malédiction.`, player.id);
             } else {
                 // No curses left in supply: discard all exiled curses
-                if (player.exileMat && player.exileMat.length > 0) {
-                    const exiledCurses = player.exileMat.filter(c => c.id === 'curse');
-                    player.exileMat = player.exileMat.filter(c => c.id !== 'curse');
+                if (peekMat(player, 'exile').length > 0) {
+                    const exileMat = getMat(player, 'exile');
+                    const exiledCurses = exileMat.filter(c => c.id === 'curse');
+                    player.mats['exile'] = exileMat.filter(c => c.id !== 'curse');
                     for (const curse of exiledCurses) {
                         player.discardPile.push(curse);
                     }
@@ -317,7 +317,7 @@ export class MenagerieEffectHandler {
             const card = state.lastTrashedCard;
             if (!card) return { state, needsChoice: false };
 
-            const exiledNames = (player.exileMat || []).map(c => CardRegistry.get(c.id)?.name);
+            const exiledNames = peekMat(player, 'exile').map(c => CardRegistry.get(c.id)?.name);
             const trashedName = CardRegistry.get(card.id)?.name;
 
             if (trashedName && !exiledNames.includes(trashedName)) {
@@ -329,8 +329,7 @@ export class MenagerieEffectHandler {
                 if (pile && pile.count > 0) {
                     pile.count--;
                     const copy = createCardInstance(card.id);
-                    if (!player.exileMat) player.exileMat = [];
-                    player.exileMat.push(copy);
+                    addToMat(player, 'exile', copy);
                     Logger.log(state, `${player.name} exile ${trashedName} depuis la Réserve.`, player.id);
                 }
             }

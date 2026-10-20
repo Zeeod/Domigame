@@ -7,6 +7,7 @@ import { EffectUtils } from '../EffectUtils.js';
 import { Logger } from '../Logger.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { TrashEffectHandler } from './TrashEffectHandler.js';
+import { matName, matName as canonicalMat, getMat, addToMat } from '../Mats.js';
 
 export class ZoneEffectHandler {
 
@@ -36,123 +37,82 @@ export class ZoneEffectHandler {
         return { state, needsChoice: false };
     }
 
+    /**
+     * MOVE_TO_MAT — put card(s) on a player mat.
+     *   targets: 'TOP_OF_DECK'  → the top card of the deck (Native Village)
+     *            'SELF'         → the source card
+     *            'BOTH'         → the source card, then a card chosen from hand (Island)
+     *   targetCardInstanceId    → that specific card
+     *   otherwise               → the player chooses a card from hand
+     * Reserve cards moving themselves to the Tavern (no message/from) behave like 'SELF'.
+     */
     static handleMoveToMat(state: GameState, player: PlayerState, effect: any, ctx: any = {}): EffectResult {
-        const matName = effect.mat;
-        if (!matName) return { state, needsChoice: false };
+        if (!effect.mat) return { state, needsChoice: false };
+        const mat = matName(effect.mat);
+        const put = (card: CardInstance) => {
+            addToMat(player, mat, card);
+            EffectUtils.log(state, `${player.name} place ${CardRegistry.get(card.id)?.name || card.id} sur son plateau ${mat}.`, player.id);
+        };
 
-        if (!player.mats) player.mats = {};
-        if (!player.mats[matName]) player.mats[matName] = [];
-
-        // Alias legacy fields
-        if (matName === 'island') player.islandMat = player.mats[matName];
-        if (matName === 'tavern') player.tavernMat = player.mats[matName];
-        if (matName === 'exile') player.exileMat = player.mats[matName];
-        if (matName.startsWith('nativeVillage')) {
-            player.nativeVillageMat = player.mats[matName];
-            player.mats['nativeVillageMat'] = player.mats[matName];
-            player.mats['nativeVillage'] = player.mats[matName];
-        }
-
-        // If targets is BOTH, move source card immediately before choice prompt
-        if (effect.targets === 'BOTH' && ctx.sourceCardInstanceId) {
-            const sourceCard = EffectUtils.removeCardFromPlayer(state, player, ctx.sourceCardInstanceId);
-            if (sourceCard) {
-                player.mats[matName].push(sourceCard);
-                EffectUtils.log(state, `${player.name} place ${CardRegistry.get(sourceCard.id)?.name || sourceCard.id} sur son plateau ${matName}.`, player.id);
+        if (effect.targets === 'TOP_OF_DECK') {
+            if (player.deck.length === 0 && player.discardPile.length > 0) {
+                player.deck = EffectUtils.shuffle(player.discardPile, state);
+                player.discardPile = [];
             }
+            const top = player.deck.shift();
+            if (top) put(top);
+            return { state, needsChoice: false };
         }
 
-        // If this is a reserve card moving itself to tavern mat (e.g. Guide, Coin of the Realm)
-        if (matName === 'tavern' && effect.targets !== 'BOTH' && (!effect.message && !effect.from) && ctx.sourceCardInstanceId) {
+        const reserveSelfMove = mat === 'tavern' && !effect.targets && !effect.message && !effect.from;
+        if ((effect.targets === 'SELF' || effect.targets === 'BOTH' || reserveSelfMove) && ctx.sourceCardInstanceId) {
             const sourceCard = EffectUtils.removeCardFromPlayer(state, player, ctx.sourceCardInstanceId);
-            if (sourceCard) {
-                player.mats[matName].push(sourceCard);
-                EffectUtils.log(state, `${player.name} place ${CardRegistry.get(sourceCard.id)?.name || sourceCard.id} sur son plateau ${matName}.`, player.id);
-                return { state, needsChoice: false };
-            }
+            if (sourceCard) put(sourceCard);
+            if (effect.targets !== 'BOTH') return { state, needsChoice: false };
         }
 
-        let cards: CardInstance[] = [];
-        if (state.lastDecisionResults?.cards) {
-            cards = state.lastDecisionResults.cards;
-        } else if (effect.targetCardInstanceId) {
+        if (effect.targetCardInstanceId) {
             const card = EffectUtils.removeCardFromPlayer(state, player, effect.targetCardInstanceId);
-            if (card) cards = [card];
+            if (card) put(card);
+            return { state, needsChoice: false };
         }
 
-        if (cards.length === 0) {
-            // Prompt player to choose a card to move to the mat
-            state.pendingDecision = {
-                id: `move_to_mat_${Date.now()}`,
-                playerId: player.id,
-                type: 'CHOOSE_CARDS' as any,
-                message: effect.message || `Choisissez une carte à placer sur votre plateau ${matName}`,
-                constraints: {
-                    min: 1,
-                    max: 1,
-                    sourceZone: 'hand'
-                },
-                context: {
-                    ...ctx,
-                    specialAction: 'MOVE_TO_MAT',
-                    matName: matName,
-                    targets: effect.targets,
-                    sourceCardInstanceId: ctx.sourceCardInstanceId
-                }
-            } as any;
-            return { state, needsChoice: true };
-        }
-
-        for (const card of cards) {
-            // Ensure card is removed from current zone
-            player.mats[matName].push(card);
-            EffectUtils.log(state, `${player.name} place ${CardRegistry.get(card.id)?.name || card.id} sur son plateau ${matName}.`, player.id);
-        }
-
-        return { state, needsChoice: false };
+        // Choose a card from hand
+        if (player.hand.length === 0) return { state, needsChoice: false };
+        state.pendingDecision = {
+            id: `move_to_mat_${Date.now()}`,
+            playerId: player.id,
+            type: 'CHOOSE_CARDS' as any,
+            message: effect.message || `Choisissez une carte à placer sur votre plateau ${mat}`,
+            constraints: { min: effect.min ?? 1, max: effect.max ?? 1, sourceZone: 'hand', filter: effect.filter },
+            context: {
+                ...ctx,
+                specialAction: 'MOVE_TO_MAT',
+                matName: mat,
+                targets: effect.targets,
+                sourceCardInstanceId: ctx.sourceCardInstanceId
+            }
+        } as any;
+        return { state, needsChoice: true };
     }
 
+    /** TAKE_FROM_MAT — move all cards (or those listed in targetCardIds) from a mat to `destination` (hand by default). */
     static handleTakeFromMat(state: GameState, player: PlayerState, effect: any): EffectResult {
-        const matName = effect.mat;
+        if (!effect.mat) return { state, needsChoice: false };
+        const mat = getMat(player, effect.mat);
         const destination = effect.destination || 'hand';
-        if (!matName) return { state, needsChoice: false };
+        const ids: string[] | undefined = effect.targetCardIds
+            ? (Array.isArray(effect.targetCardIds) ? effect.targetCardIds : [effect.targetCardIds])
+            : undefined;
 
-        let matCards: CardInstance[] | undefined = player.mats?.[matName] || (player as any)[matName];
-        if (!matCards && matName.startsWith('nativeVillage')) {
-            matCards = player.nativeVillageMat || player.mats?.['nativeVillageMat'] || player.mats?.['nativeVillage'];
-        }
-        if (!matCards) return { state, needsChoice: false };
-
-        let cardsToMove: CardInstance[] = [];
-
-        if (effect.targetCardIds) {
-            // Move specific card types from mat
-            const ids = Array.isArray(effect.targetCardIds) ? effect.targetCardIds : [effect.targetCardIds];
-            cardsToMove = matCards.filter(c => ids.includes(c.id));
-        } else {
-            // Move all cards from mat
-            cardsToMove = [...matCards];
-        }
-
-        if (cardsToMove.length === 0) return { state, needsChoice: false };
-
-        for (const card of cardsToMove) {
-            // Remove from mat safely
-            if (player.mats?.[matName]) {
-                player.mats[matName] = player.mats[matName].filter(c => c.instanceId !== card.instanceId);
-            }
-            if ((player as any)[matName]) {
-                (player as any)[matName] = (player as any)[matName].filter((c: any) => c.instanceId !== card.instanceId);
-            }
-            if (player.nativeVillageMat) {
-                player.nativeVillageMat = player.nativeVillageMat.filter(c => c.instanceId !== card.instanceId);
-            }
-
-            // Add to destination
+        const toMove = mat.filter(c => !ids || ids.includes(c.id));
+        for (const card of toMove) {
+            mat.splice(mat.indexOf(card), 1);
             EffectUtils.addCardToZone(player, card, destination, state);
-            EffectUtils.log(state, `${player.name} retire ${CardRegistry.get(card.id)?.name || card.id} de son plateau ${matName} vers ${destination}.`, player.id);
         }
-
+        if (toMove.length > 0) {
+            EffectUtils.log(state, `${player.name} prend ${toMove.length} carte(s) de son plateau ${matName(effect.mat)}.`, player.id);
+        }
         return { state, needsChoice: false };
     }
 
@@ -325,7 +285,11 @@ export class ZoneEffectHandler {
     }
 
     static handlePlayFromMat(state: GameState, player: PlayerState, effect: any): EffectResult {
-        const matName = effect.mat;
+        const matKey: string = effect.mat === 'aside' ? 'aside' : canonicalMat(effect.mat);
+        return this.playFromMat(state, player, effect, matKey);
+    }
+
+    private static playFromMat(state: GameState, player: PlayerState, effect: any, matName: string): EffectResult {
         let cards: any[] = [];
         let isRootZone = false;
 

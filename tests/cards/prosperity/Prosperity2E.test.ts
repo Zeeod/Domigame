@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { makeGame, cards, player, play, chooseCards, choose, chooseOption, endPhase, buy } from '../../helpers/play.js';
+import { makeGame, cards, player, play, chooseCards, choose, chooseOption, chooseSupply, endPhase, buy } from '../../helpers/play.js';
 
 describe('Enclume (Anvil)', () => {
     it('is a Treasure: +1 coin, may discard a Treasure to gain a card costing up to 4', () => {
@@ -16,7 +16,7 @@ describe('Enclume (Anvil)', () => {
 
         // Then choose a card costing up to 4 from the supply
         expect(state.pendingDecision).toBeTruthy();
-        state = choose(state, { type: 'CARDS', cardIds: ['smithy'], cardId: 'smithy' });
+        state = chooseSupply(state, 'smithy');
         expect(player(state).discardPile.map(c => c.id)).toContain('smithy');
     });
 

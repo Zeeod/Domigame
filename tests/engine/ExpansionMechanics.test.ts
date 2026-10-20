@@ -111,18 +111,6 @@ describe('Expansion Mechanics', () => {
         });
     });
 
-    describe('Treasure Map', () => {
-        it('should gain 4 Golds when trashing two Treasure Maps', () => {
-            // Verify definition correctness
-            const mapDef = CardRegistry.get('treasure_map');
-            expect(mapDef).toBeDefined();
-
-            const trashEffect = mapDef?.effects?.find((e: any) => e.type === 'CHOOSE_FROM_ZONE') as any;
-            expect(trashEffect).toBeDefined();
-            expect(trashEffect.context).toMatchObject({ specialAction: 'TREASURE_MAP_TRASH' });
-        });
-    });
-
     describe('Durations', () => {
         it('Caravan should have duration effects', () => {
             const caravan = CardRegistry.get('caravan');

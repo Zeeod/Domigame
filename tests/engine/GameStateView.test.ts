@@ -58,7 +58,7 @@ describe('GameStateView', () => {
     it('should mask Native Village mat for non-owners', () => {
         const state = createGameState('test-game');
         const p1 = createPlayerState('p1', 'Player 1', '#ff0000');
-        p1.nativeVillageMat = [createCardInstance('gold')];
+        p1.mats.nativeVillage = [createCardInstance('gold')];
 
         const p2 = createPlayerState('p2', 'Player 2', '#00ff00');
 
@@ -67,10 +67,10 @@ describe('GameStateView', () => {
         // View from P2 perspective
         const viewP2 = GameStateView.createPlayerView(state, 'p2');
 
-        expect(viewP2.players[0].nativeVillageMat?.[0].id).toBe('back');
+        expect(viewP2.players[0].mats.nativeVillage?.[0].id).toBe('back');
 
         // View from P1 perspective
         const viewP1 = GameStateView.createPlayerView(state, 'p1');
-        expect(viewP1.players[0].nativeVillageMat?.[0].id).toBe('gold');
+        expect(viewP1.players[0].mats.nativeVillage?.[0].id).toBe('gold');
     });
 });

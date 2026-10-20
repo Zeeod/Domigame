@@ -2,6 +2,7 @@ import { GameState, PlayerState, CardInstance } from './GameState.js';
 import { Logger } from './Logger.js';
 import { CardRegistry } from '../cards/index.js';
 import { EconomyEngine } from './EconomyEngine.js';
+import { isMatZone, addToMat } from './Mats.js';
 
 export class EffectUtils {
     public static log(state: GameState, message: string, playerId?: string, privateMessage?: string, privateData?: any) {
@@ -232,29 +233,11 @@ export class EffectUtils {
         else if (zone === 'limbo') (player.limbo = player.limbo || []).push(card);
         else if (zone === 'blackMarketDeck') (state.blackMarketDeck = state.blackMarketDeck || []).push(card);
         else if (zone === 'blackMarketRevealed') (state.blackMarketRevealed = state.blackMarketRevealed || []).push(card);
-        else if (['island', 'islandMat', 'mats.island'].includes(zone)) {
-            if (!player.mats) player.mats = {} as any;
-            if (!player.mats.island) player.mats.island = [];
-            player.mats.island.push(card);
-            player.islandMat = player.mats.island;
-        }
-        else if (['nativeVillage', 'nativeVillageMat', 'mats.nativeVillage', 'mats.nativeVillageMat'].includes(zone)) {
-            if (!player.mats) player.mats = {} as any;
-            if (!player.mats.nativeVillage) player.mats.nativeVillage = [];
-            player.mats.nativeVillage.push(card);
-            player.nativeVillageMat = player.mats.nativeVillage;
-        }
-        else if (['tavern', 'tavernMat', 'mats.tavern'].includes(zone)) {
-            if (!player.mats) player.mats = {} as any;
-            if (!player.mats.tavern) player.mats.tavern = [];
-            player.mats.tavern.push(card);
-            player.tavernMat = player.mats.tavern;
-        }
-        else if (['exile', 'exileMat', 'mats.exile'].includes(zone)) {
-            if (!player.mats) player.mats = {} as any;
-            if (!player.mats.exile) player.mats.exile = [];
-            player.mats.exile.push(card);
-            player.exileMat = player.mats.exile;
+        else if (isMatZone(zone)) addToMat(player, zone, card);
+        else {
+            // Never lose a card: unknown zone → discard pile
+            console.warn(`[EffectUtils.addCardToZone] Unknown zone "${zone}" for ${card.id}, discarding it`);
+            (player.discardPile = player.discardPile || []).push(card);
         }
     }
 

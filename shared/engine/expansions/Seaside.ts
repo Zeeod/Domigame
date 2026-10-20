@@ -9,13 +9,49 @@
 import { ExpansionModule } from '../ExpansionLoader.js';
 import { GameState, getCurrentPlayer } from '../GameState.js';
 import { Logger } from '../Logger.js';
+import { EffectUtils } from '../EffectUtils.js';
+import { TrashEffectHandler } from '../effects/TrashEffectHandler.js';
 
 export const SeasideModule: ExpansionModule = {
     id: 'seaside',
     name: 'Rivages',
 
     // Declare custom zones/mats this expansion introduces
-    zones: ['nativeVillageMat', 'islandMat'],
+    zones: ['nativeVillage', 'island'],
+
+    effectHandlers: [
+        {
+            // Treasure Map: trash this and a Treasure Map from your hand.
+            // If you trashed two Treasure Maps, gain 4 Golds onto your deck.
+            type: 'TREASURE_MAP',
+            handler: (state, player, _effect, ctx) => {
+                let trashed = 0;
+                const selfId = ctx?.sourceCardInstanceId;
+                const self = selfId && player.playArea.some(c => c.instanceId === selfId)
+                    ? EffectUtils.removeCardFromPlayer(state, player, selfId) : undefined;
+                if (self) { TrashEffectHandler.trashCard(state, player, self); trashed++; }
+
+                // All Treasure Maps are identical: no need to ask which one
+                const other = player.hand.find(c => c.id === 'treasure_map');
+                if (other) {
+                    EffectUtils.removeCardFromPlayer(state, player, other.instanceId);
+                    TrashEffectHandler.trashCard(state, player, other);
+                    trashed++;
+                }
+
+                if (trashed === 2) {
+                    for (let i = 0; i < 4; i++) {
+                        state.effectStack.push({
+                            type: 'EFFECT', playerId: player.id,
+                            effect: { type: 'GAIN_CARD', cardId: 'gold', destination: 'deck' } as any,
+                            context: {}
+                        });
+                    }
+                }
+                return { state, needsChoice: false };
+            }
+        }
+    ],
 
     eventHooks: [
         {

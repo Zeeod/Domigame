@@ -269,6 +269,7 @@ export class ActionResolver {
         const card = player.hand.splice(cardIndex, 1)[0];
         card.turnPlayed = state.turnNumber; // Track when it was played (Global turn)
         player.playArea.push(card);
+        state.cardsPlayedFromHandThisTurn = (state.cardsPlayedFromHandThisTurn || 0) + 1;
 
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) return state;
@@ -731,10 +732,16 @@ export class ActionResolver {
 
         if (state.phase !== 'BUY') return { success: false, state, error: 'Can only play all treasures in Buy phase' };
 
-        const treasures = player.hand.filter(c => {
+        let treasures = player.hand.filter(c => {
             const def = CardRegistry.get(c.id);
             return def && def.types.includes('TREASURE');
         });
+
+        // Voyage: only a limited number of cards may be played from hand this turn
+        const limit = state.currentExtraTurn?.playerId === playerId ? state.currentExtraTurn.cardLimit : undefined;
+        if (limit !== undefined) {
+            treasures = treasures.slice(0, Math.max(0, limit - (state.cardsPlayedFromHandThisTurn || 0)));
+        }
 
         if (treasures.length === 0) return { success: true, state };
 

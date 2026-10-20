@@ -11,6 +11,7 @@
 import { GameState } from '../shared/engine/GameState.js';
 import { PlayerState } from '../shared/engine/PlayerState.js';
 import { CardInstance } from '../shared/engine/CardInstance.js';
+import { peekMat } from '../shared/engine/Mats.js';
 import { CardRegistry } from '../shared/cards/index.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { DeckEvaluator } from '../shared/bot/DeckEvaluator.js';
@@ -93,7 +94,7 @@ export class StateSerializerV2 {
             trash: state.trash.map(c => this.serializeCard(c)),
             landscapes: state.landscapes || [],
             landscapeState: JSON.parse(JSON.stringify(state.landscapeState || {})), // Deep copy to be safe
-            players: state.players.map(p => this.serializePublicPlayer(p)),
+            players: state.players.map(p => this.serializePublicPlayer(p, forPlayerId)),
 
             pendingDecision: state.pendingDecision ? (() => {
                 const decision = state.pendingDecision;
@@ -362,7 +363,7 @@ export class StateSerializerV2 {
     /**
      * Serialize a single player's public data
      */
-    private static serializePublicPlayer(player: PlayerState): PublicPlayerState {
+    private static serializePublicPlayer(player: PlayerState, viewerId?: string): PublicPlayerState {
         const topDiscard = player.discardPile.length > 0
             ? this.serializeCard(player.discardPile[player.discardPile.length - 1])
             : undefined;
@@ -400,7 +401,7 @@ export class StateSerializerV2 {
             // Guilds
             coffers: player.coffers || 0,
             // Adventures
-            tavernMat: (player.tavernMat || []).map(c => this.serializeCard(c)),
+            tavernMat: peekMat(player, 'tavern').map(c => this.serializeCard(c)),
             journeyTokenFaceUp: player.journeyTokenFaceUp || false,
             minusCoinToken: player.minusCoinToken || false,
             minusCardToken: player.minusCardToken || false,
@@ -417,7 +418,7 @@ export class StateSerializerV2 {
             boons: player.boons || [],
             hexes: player.hexes || [],
             // Menagerie
-            exileMat: (player.exileMat || []).map(c => this.serializeCard(c)),
+            exileMat: peekMat(player, 'exile').map(c => this.serializeCard(c)),
             // Allies
             favors: player.favors || 0,
             // Rising Sun
@@ -427,7 +428,10 @@ export class StateSerializerV2 {
             mats: Object.fromEntries(
                 Object.entries(player.mats || {}).map(([key, cards]) => [
                     key,
-                    cards.map(c => this.serializeCard(c))
+                    // The Native Village mat is face down: only its owner sees the cards
+                    (key === 'nativeVillage' && viewerId !== player.id)
+                        ? cards.map(c => ({ id: 'back', instanceId: c.instanceId, name: 'back' } as SerializedCard))
+                        : cards.map(c => this.serializeCard(c))
                 ])
             ),
             tokens: { ...(player.tokens || {}) }

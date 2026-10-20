@@ -84,11 +84,6 @@ export class GameStateView {
             }
         }
 
-        // Legacy mats sync (for backward compatibility during Phase 2)
-        if (!isViewer && sanitized.nativeVillageMat) {
-            sanitized.nativeVillageMat = sanitized.nativeVillageMat.map((c: any) => this.createHiddenCard(c.instanceId));
-        }
-
         // Shared public data (Artifacts, Projects, Tokens) are kept on sanitized object
         return sanitized;
     }

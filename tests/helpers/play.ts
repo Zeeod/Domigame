@@ -7,6 +7,7 @@ import { createGameState, GameState } from '../../shared/engine/GameState.js';
 import { createPlayerState, resetTurnResources } from '../../shared/engine/PlayerState.js';
 import { createCardInstance } from '../../shared/engine/CardInstance.js';
 import { ActionResolver } from '../../shared/engine/ActionResolver.js';
+import { RulesValidator } from '../../shared/engine/RulesValidator.js';
 import { PhaseEngine } from '../../shared/engine/PhaseEngine.js';
 import { CardInstance } from '../../shared/engine/GameState.js';
 
@@ -44,7 +45,10 @@ export function player(state: GameState, id = 'p1') {
     return state.players.find(p => p.id === id)!;
 }
 
+/** Validate then resolve, exactly like the server (GameRoomV2). Throws on an illegal action. */
 function apply(state: GameState, playerId: string, action: any): GameState {
+    const validation = RulesValidator.validate(state, playerId, action);
+    if (!validation.valid) throw new Error(`Invalid ${action.type}: ${validation.error}`);
     const res = ActionResolver.resolve(state, playerId, action);
     if (!res.success) throw new Error(`Action ${action.type} failed: ${res.error}`);
     return res.state;
@@ -92,4 +96,9 @@ export function buy(state: GameState, cardId: string, playerId = 'p1'): GameStat
 
 export function playAllTreasures(state: GameState, playerId = 'p1'): GameState {
     return apply(state, playerId, { type: 'PLAY_ALL_TREASURES' });
+}
+
+/** Pick a card from the supply for the pending decision (same payload as the client). */
+export function chooseSupply(state: GameState, cardId: string): GameState {
+    return choose(state, { type: 'SUPPLY', cardId });
 }

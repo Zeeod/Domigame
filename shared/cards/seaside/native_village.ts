@@ -1,38 +1,32 @@
 import { CardDefinition } from '../../types/CardDefinition';
 
+/**
+ * Native Village (Village indigène) — Seaside
+ * +2 Actions. Choose one: Put the top card of your deck face down on your Native Village mat
+ * (you may look at those cards at any time); or put all the cards from your mat into your hand.
+ */
 export const nativeVillage: CardDefinition = {
     id: 'native_village',
     name: 'Village indigène',
     types: ['ACTION'],
     cost: 2,
-    description: '+2 Actions\nChoisissez : Mettez la carte du dessus de votre deck sur le plateau Village Indigène ; ou prenez les cartes du plateau en main.',
+    description: '+2 Actions\nChoisissez : placez la carte du dessus de votre pioche face cachée sur votre plateau Village indigène ; ou prenez en main toutes les cartes de ce plateau.',
     expansion: 'seaside',
     effects: [
         { type: 'ADD_ACTIONS', amount: 2 },
         {
             type: 'CHOOSE_OPTION',
-            message: 'Choisissez une option :',
+            message: 'Village indigène : choisissez une option',
             options: [
                 {
-                    label: 'Mettre une carte de la main sur le village',
-                    effects: [
-                        {
-                            type: 'MOVE_CARDS',
-                            source: 'deck',
-                            destination: 'nativeVillageMat' as any,
-                            count: 1
-                        }
-                    ]
+                    label: 'Placer la carte du dessus de la pioche sur le plateau',
+                    effects: [{ type: 'MOVE_TO_MAT', mat: 'nativeVillage', targets: 'TOP_OF_DECK' } as any]
                 },
                 {
-                    label: 'Prendre les cartes du village',
-                    effects: [
-                        { type: 'TAKE_FROM_MAT', mat: 'nativeVillageMat' }
-                    ]
+                    label: 'Prendre en main les cartes du plateau',
+                    effects: [{ type: 'TAKE_FROM_MAT', mat: 'nativeVillage' }]
                 }
             ]
         }
     ]
-    // Note: We need to ensure 'native_village' mat exists on PlayerState or is handled by generic 'mats'.
-    // EffectEngine matches 'nativeVillageMat'.
 };
