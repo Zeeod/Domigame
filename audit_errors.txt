@@ -1,6 +1,0 @@
-Starting Manual Audit...
---- Summary ---
-Total Checked: 113
-Success: 113
-Missing: 0
-Name Mismatch: 0

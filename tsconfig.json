@@ -33,6 +33,8 @@
         "client/**/*.ts",
         "client/**/*.tsx",
         "shared/**/*.ts",
-        "server/**/*.ts"
+        "server/**/*.ts",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
     ]
 }
