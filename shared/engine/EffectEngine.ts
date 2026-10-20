@@ -9,6 +9,7 @@ import { addToMat } from './Mats.js';
 import { markPlayed } from './Play.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
+import { debugLog } from './debug.js';
 
 /**
  * EffectEngine - Core engine for resolving card effects and game rules
@@ -45,7 +46,7 @@ export class EffectEngine {
         let iterations = 0;
         const MAX_ITERATIONS = 5000;
 
-        console.log(`[EffectEngine] processStack: stack size=${state.effectStack.length}`);
+        debugLog(`[EffectEngine] processStack: stack size=${state.effectStack.length}`);
 
         while (state.effectStack.length > 0 && !state.pendingDecision) {
             iterations++;
@@ -58,15 +59,15 @@ export class EffectEngine {
             const item = state.effectStack.pop();
             if (!item) continue;
 
-            console.log(`[EffectEngine] processing item: type=${item.type}, effect=${(item.effect as any)?.type}`);
+            debugLog(`[EffectEngine] processing item: type=${item.type}, effect=${(item.effect as any)?.type}`);
             const result = this.processStackItem(state, item);
             if (result.needsChoice) {
-                console.log(`[EffectEngine] item needs choice: ${(item.effect as any)?.type}`);
+                debugLog(`[EffectEngine] item needs choice: ${(item.effect as any)?.type}`);
                 return result;
             }
         }
 
-        console.log(`[EffectEngine] processStack finished. remaining=${state.effectStack.length}`);
+        debugLog(`[EffectEngine] processStack finished. remaining=${state.effectStack.length}`);
         return { state, needsChoice: !!state.pendingDecision };
     }
 

@@ -5,6 +5,7 @@ import { EffectUtils } from '../EffectUtils.js';
 import { DrawEffectHandler } from './DrawEffectHandler.js';
 import { CardRegistry } from '../../cards/index.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { debugLog } from '../debug.js';
 
 export class BasicEffectHandler {
     static handleDraw(state: GameState, player: PlayerState, effect: EffectDefinition): EffectResult {
@@ -30,7 +31,7 @@ export class BasicEffectHandler {
         else if (operation === 'remove') newValue -= amount;
         else if (operation === 'set') newValue = amount;
 
-        console.log(`[BasicEffectHandler] modifying ${resource}: ${oldValue} -> ${newValue} (amount=${amount}, op=${operation})`);
+        debugLog(`[BasicEffectHandler] modifying ${resource}: ${oldValue} -> ${newValue} (amount=${amount}, op=${operation})`);
         (player as any)[resource] = newValue;
 
         const diff = newValue - oldValue;

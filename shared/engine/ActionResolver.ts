@@ -28,6 +28,7 @@ import { SupplyGenerator } from './SupplyGenerator.js';
 // Bootstrap: register all expansion modules (cost modifiers, hooks, phases)
 import './registerExpansions.js';
 import { markPlayed } from './Play.js';
+import { debugLog } from './debug.js';
 
 // ============================================================================
 // Resolution Result
@@ -49,7 +50,7 @@ export class ActionResolver {
      * Uses Immer to ensure immutability and handle structural sharing.
      */
     static resolve(state: GameState, playerId: string, action: GameAction): ActionResult {
-        console.log(`[ActionResolver] resolve: type=${action.type}, playerId=${playerId}`);
+        debugLog(`[ActionResolver] resolve: type=${action.type}, playerId=${playerId}`);
         let actionResult: any = { success: false };
 
         const nextState = produce(state, draft => {
@@ -166,10 +167,10 @@ export class ActionResolver {
     private static resolvePlayCard(state: GameState, _playerId: string, cardInstanceId: string, wayId?: string): ActionResult {
         const player = getCurrentPlayer(state);
         if (!player) {
-            console.log('[ActionResolver] FAILED: No current player');
+            debugLog('[ActionResolver] FAILED: No current player');
             return { success: false, state, error: 'No current player' };
         }
-        console.log(`[ActionResolver] resolvePlayCard: player=${player.name}, card=${cardInstanceId}, way=${wayId}`);
+        debugLog(`[ActionResolver] resolvePlayCard: player=${player.name}, card=${cardInstanceId}, way=${wayId}`);
 
         // Find and move card
         const cardIndex = player.hand.findIndex(c => c.instanceId === cardInstanceId);
@@ -257,13 +258,13 @@ export class ActionResolver {
     private static executePlayCard(state: GameState, playerId: string, cardInstanceId: string, wayId?: string, logTreasurePlay?: boolean): GameState {
         const player = state.players.find(p => p.id === playerId);
         if (!player) {
-            console.log(`[ActionResolver] executePlayCard FAILED: Player ${playerId} not found`);
+            debugLog(`[ActionResolver] executePlayCard FAILED: Player ${playerId} not found`);
             return state;
         }
 
         const cardIndex = player.hand.findIndex(c => c.instanceId === cardInstanceId);
         if (cardIndex === -1) {
-            console.log(`[ActionResolver] executePlayCard FAILED: Card ${cardInstanceId} not in hand of ${player.name}. Hand:`, player.hand.map(c => c.instanceId));
+            debugLog(`[ActionResolver] executePlayCard FAILED: Card ${cardInstanceId} not in hand of ${player.name}. Hand:`, player.hand.map(c => c.instanceId));
             return state;
         }
 
@@ -328,13 +329,13 @@ export class ActionResolver {
         }
         else if (wayId) {
             const wayDef = LandscapeRegistry.get(wayId);
-            console.log(`[ActionResolver] wayId=${wayId}, wayDef=${wayDef?.name}, onPlay=${!!wayDef?.onPlay}`);
+            debugLog(`[ActionResolver] wayId=${wayId}, wayDef=${wayDef?.name}, onPlay=${!!wayDef?.onPlay}`);
             if (wayDef && wayDef.onPlay) {
                 if (wayId === 'way_of_the_chameleon') {
-                    console.log(`[ActionResolver] CHAMELEON SWAP for ${cardDef.id}`);
+                    debugLog(`[ActionResolver] CHAMELEON SWAP for ${cardDef.id}`);
                     // Chameleon: swap +Cards and +Coins in the card's native effects
                     finalEffects = (cardDef.effects || []).map(e => {
-                        console.log(`[ActionResolver] Swapping effect: ${e.type}`);
+                        debugLog(`[ActionResolver] Swapping effect: ${e.type}`);
                         if (e.type === 'DRAW') return { ...e, type: 'ADD_MONEY' } as any;
                         if ((e.type as string) === 'ADD_MONEY' || (e.type as string) === 'ADD_COINS') return { ...e, type: 'DRAW' } as any;
                         return e;
@@ -345,7 +346,7 @@ export class ActionResolver {
                     this.log(state, `${player.name} utilise la ${wayDef.name}.`, player.id);
                 }
             } else {
-                console.log(`[ActionResolver] wayId=${wayId} has NO onPlay or wayDef is missing!`);
+                debugLog(`[ActionResolver] wayId=${wayId} has NO onPlay or wayDef is missing!`);
             }
         }
 
@@ -683,7 +684,7 @@ export class ActionResolver {
         const player = getCurrentPlayer(state);
         if (!player) return { success: false, state, error: 'No current player' };
 
-        console.log(`[ActionResolver] resolveEndPhase: currentPhase=${state.phase}`);
+        debugLog(`[ActionResolver] resolveEndPhase: currentPhase=${state.phase}`);
         if (state.phase === 'ACTION') {
             TurnMachine.endActionPhase(state);
         } else if (state.phase === 'BUY') {
@@ -691,7 +692,7 @@ export class ActionResolver {
         } else if (state.phase === 'NIGHT') {
             TurnMachine.endNightPhase(state);
         }
-        console.log(`[ActionResolver] resolveEndPhase: nextPhase=${state.phase}`);
+        debugLog(`[ActionResolver] resolveEndPhase: nextPhase=${state.phase}`);
 
         return { success: true, state };
     }
@@ -713,7 +714,7 @@ export class ActionResolver {
             payload: { choice: payload }
         });
 
-        console.log('DEBUG: ActionResolver calling resolveDecision', { playerId, type: payload.type });
+        debugLog('DEBUG: ActionResolver calling resolveDecision', { playerId, type: payload.type });
         const result = EffectEngine.resolveDecision(state, playerId, payload);
 
         // After resolving a choice, check if we should auto-skip to BUY phase

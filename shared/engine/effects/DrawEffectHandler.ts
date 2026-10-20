@@ -4,6 +4,7 @@ import { EffectUtils } from '../EffectUtils.js';
 import { PromptType } from '../prompts/Prompt.js';
 import { EffectDefinition } from '../../types/EffectDefinition.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { debugLog } from '../debug.js';
 
 export class DrawEffectHandler {
     public static handleDraw(state: GameState, player: PlayerState, amountInput: any, _suppressLog: boolean = false): EffectResult {
@@ -18,24 +19,24 @@ export class DrawEffectHandler {
         for (let i = 0; i < amount; i++) {
             if (player.deck.length === 0) {
                 if (player.discardPile.length === 0) {
-                    console.log('[DrawEffectHandler] Empty deck and discard, stopping draw');
+                    debugLog('[DrawEffectHandler] Empty deck and discard, stopping draw');
                     break;
                 }
                 EffectUtils.log(state, `${player.name} mélange sa pioche.`, player.id);
                 player.deck = EffectUtils.shuffle(player.discardPile, state);
                 player.discardPile = [];
-                console.log('[DrawEffectHandler] Shuffled discard into deck', { newDeckSize: player.deck.length });
+                debugLog('[DrawEffectHandler] Shuffled discard into deck', { newDeckSize: player.deck.length });
             }
             const card = player.deck.shift();
             if (card) {
                 player.hand.push(card);
                 drawnCards.push(card);
             } else {
-                console.log('[DrawEffectHandler] Deck shift returned undefined despite length > 0');
+                debugLog('[DrawEffectHandler] Deck shift returned undefined despite length > 0');
             }
         }
 
-        console.log('[DrawEffectHandler] Draw complete', {
+        debugLog('[DrawEffectHandler] Draw complete', {
             drawnCount: drawnCards.length,
             finalHand: player.hand.length
         });
