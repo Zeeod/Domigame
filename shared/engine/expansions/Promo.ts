@@ -2,6 +2,7 @@ import { Logger } from '../Logger.js';
 import { CardRegistry } from '../../cards/index.js';
 import { EffectEngine } from '../EffectEngine.js';
 import { createCardInstance } from '../CardInstance.js';
+import { TrashEffectHandler } from '../effects/TrashEffectHandler.js';
 import { ExpansionModule } from '../ExpansionLoader.js';
 
 export const PromoModule: ExpansionModule = {
@@ -20,9 +21,9 @@ export const PromoModule: ExpansionModule = {
                     pile.count--;
                     const card = CardRegistry.get(cardId) ? createCardInstance(cardId) : null;
                     if (card) {
-                        state.trash.push(card);
                         const def = CardRegistry.get(cardId);
                         Logger.log(state, `${player.name} écarte ${def ? def.name : cardId} de la réserve (Lurker).`, player.id);
+                        TrashEffectHandler.trashCard(state, player, card, { suppressLog: true });
                     }
                 }
                 return { state, needsChoice: false };

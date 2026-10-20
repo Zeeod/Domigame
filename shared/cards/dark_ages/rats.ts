@@ -12,15 +12,14 @@ export const rats: CardDefinition = {
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'GAIN_CARD', cardId: 'rats', destination: 'discardPile' },
         {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            filter: { excludeIds: ['rats'] },
+            // If the hand only has Rats, nothing is trashed (the player reveals their hand)
+            type: 'TRASH',
             min: 1,
             max: 1,
-            message: 'Choisissez une carte à écarter (autre que Rats)',
-            context: { specialAction: 'TRASH' },
-            effects: [{ type: 'TRASH', min: 1, max: 1, from: 'hand' } as any]
-        }
+            source: 'hand',
+            filter: { excludeIds: ['rats'] },
+            message: 'Écartez une carte de votre main (autre que Rats)'
+        } as any
     ],
     onTrash: [
         { type: 'DRAW', amount: 1 }

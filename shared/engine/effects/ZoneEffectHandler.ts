@@ -6,40 +6,11 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { Logger } from '../Logger.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { TrashEffectHandler } from './TrashEffectHandler.js';
 
 export class ZoneEffectHandler {
 
-    // Core Zone Operations (Trash, Discard, etc.)
-
-    static handleTrash(state: GameState, player: PlayerState, _effect: any, _sourceCardInstanceId?: string): EffectResult {
-        // Simple logic (trash from hand/play usually handled by specific source instructions, 
-        // e.g. "Trash a card from your hand")
-        // This handler handles the direct "TRASH" effect if target is known or general instruction
-
-        // If effect has 'target' (e.g. from context of selection)
-        if (state.lastDecisionResults?.cards) {
-            const cardsToTrash = state.lastDecisionResults.cards; // CardInstances
-            // Remove from source zones
-            // Assuming cards are already found in player state
-
-            const trashedNames: string[] = [];
-
-            for (const c of cardsToTrash) {
-                // Remove from wherever it is (Hand, Play, Discard)
-                EffectUtils.removeCardFromPlayer(state, player, c.instanceId);
-                state.trash.push(c);
-                const def = CardRegistry.get(c.id);
-                trashedNames.push(def ? def.name : c.id);
-
-                // Triggers
-                EffectUtils.handleTrashTriggers(state, player, c);
-            }
-
-            Logger.log(state, `${player.name} écarte : ${trashedNames.join(', ')}.`, player.id);
-        }
-
-        return { state, needsChoice: false };
-    }
+    // Core Zone Operations
 
     static handleTrashSelf(state: GameState, player: PlayerState, sourceCardInstanceId?: string): EffectResult {
         let owner: PlayerState = player;
@@ -60,10 +31,7 @@ export class ZoneEffectHandler {
 
         if (card) {
             EffectUtils.removeCardFromPlayer(state, owner, card.instanceId);
-            state.trash.push(card);
-            const def = CardRegistry.get(card.id);
-            Logger.log(state, `${owner.name} écarte ${def?.name}.`, owner.id);
-            EffectUtils.handleTrashTriggers(state, owner, card);
+            TrashEffectHandler.trashCard(state, owner, card);
         }
         return { state, needsChoice: false };
     }
