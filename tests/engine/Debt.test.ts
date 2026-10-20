@@ -15,7 +15,7 @@ describe('Debt Mechanics', () => {
         ];
         state.phase = 'BUY';
         state.players[0].actions = 1;
-        state.players[0].buys = 1;
+        state.players[0].buys = 2; // keep the turn open after one buy (no auto end of turn)
         state.players[0].coins = 10;
         state.players[0].tokens.debt = 0;
         state.players[0].debt = 0; // Legacy sync
@@ -65,7 +65,7 @@ describe('Debt Mechanics', () => {
         state.players[0].tokens.debt = 4;
         state.players[0].debt = 4;
         state.players[0].coins = 10;
-        state.players[0].buys = 1;
+        state.players[0].buys = 2; // keep the turn open after one buy (no auto end of turn)
 
         // Pay all debt
         let result = ActionResolver.resolve(state, p1, { type: 'PAY_DEBT', amount: 4 });

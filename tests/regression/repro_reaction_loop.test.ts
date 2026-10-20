@@ -62,14 +62,13 @@ describe('Reaction Loop Reproduction', () => {
 
     it('should allow chaining reactions (Diplomat then Moat)', () => {
         // 1. Setup Attack
-        const attackEffect = { type: 'GAIN_CURSE' };
-        const resolveAttackEffect = {
-            type: 'RESOLVE_ATTACK',
+        const attackEffect = { type: 'GAIN_CARD', cardId: 'curse' };
+        state.effectStack.push({
+            type: 'EFFECT',
             playerId: defender.id,
-            effect: attackEffect,
+            effect: { type: 'RESOLVE_ATTACK', attackEffect },
             context: { attackerId: attacker.id, sourceCardInstanceId: 'w1' }
-        };
-        state.effectStack.push(resolveAttackEffect as any);
+        } as any);
 
         console.log('--- Initial processStack ---');
         EffectEngine.processStack(state);
@@ -93,12 +92,9 @@ describe('Reaction Loop Reproduction', () => {
         console.log('SUCCESS: Discard prompt after Diplomat');
 
         // 3. Simulate Handling Discard (completes Diplomat, triggers REACTION loop)
-        const toDiscard = defender.hand.slice(0, 3);
-        state.lastDecisionResults = { cards: toDiscard };
-        state.pendingDecision = null;
-
-        console.log('--- processStack after Discard ---');
-        EffectEngine.processStack(state);
+        const toDiscard = defender.hand.filter(c => c.id === 'copper').slice(0, 3);
+        EffectEngine.resolveDecision(state, defender.id, { type: 'CARDS', cardInstanceIds: toDiscard.map(c => c.instanceId) } as any);
+        expect(defender.hand.length).toBe(4); // 5 + 2 drawn - 3 discarded
 
         // Should return to reaction loop
         expect((state.pendingDecision as any)?.context.specialAction).toBe('REACTION_DECISION');
@@ -118,5 +114,25 @@ describe('Reaction Loop Reproduction', () => {
         const curses = defender.discardPile.filter(c => c.id === 'curse');
         expect(curses.length).toBe(0);
         console.log('SUCCESS: Attack blocked by Moat');
+    });
+
+    it('declining to reveal a Reaction still applies the attack', () => {
+        state.effectStack.push({
+            type: 'EFFECT',
+            playerId: defender.id,
+            effect: { type: 'RESOLVE_ATTACK', attackEffect: { type: 'GAIN_CARD', cardId: 'curse' } },
+            context: { attackerId: attacker.id, sourceCardInstanceId: 'w1' }
+        } as any);
+        EffectEngine.processStack(state);
+        expect((state.pendingDecision as any)?.context.specialAction).toBe('REACTION_DECISION');
+
+        // Reveal nothing
+        EffectEngine.resolveDecision(state, defender.id, { type: 'CARDS', cardInstanceIds: [] } as any);
+
+        expect(state.pendingDecision).toBeFalsy();
+        expect(defender.discardPile.filter(c => c.id === 'curse').length).toBe(1);
+        // Moat and Diplomat stay in hand
+        expect(defender.hand.some(c => c.id === 'moat')).toBe(true);
+        expect(defender.hand.some(c => c.id === 'diplomat')).toBe(true);
     });
 });

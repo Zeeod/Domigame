@@ -733,18 +733,27 @@ export function registerCoreEffects(): void {
         return TriggerEffectHandler.handleRegisterTrigger(state, player, trigger);
     });
 
-    // PLAY_THIS_CARD: Play the gained card (for Buried Treasure onGain)
+    // PLAY_THIS_CARD: play the source card from wherever it is (discard after a gain,
+    // hand for reactions like Caravan Guard, deck for Shadows, aside…).
+    // If it is already in play, its effects are simply executed again.
     EffectHandlerRegistry.register('PLAY_THIS_CARD', (state, player, _effect, ctx) => {
         const cardInstanceId = ctx.sourceCardInstanceId;
         if (!cardInstanceId) return { state, needsChoice: false };
 
-        // Find in discard pile (most likely location after gain)
-        const idx = player.discardPile.findIndex(c => c.instanceId === cardInstanceId);
-        if (idx === -1) return { state, needsChoice: false };
-
-        const card = player.discardPile.splice(idx, 1)[0];
+        let card = player.playArea.find(c => c.instanceId === cardInstanceId);
+        if (!card) {
+            const zones = [player.discardPile, player.hand, player.deck, player.aside].filter(Boolean);
+            for (const zone of zones) {
+                const idx = zone.findIndex(c => c.instanceId === cardInstanceId);
+                if (idx !== -1) {
+                    card = zone.splice(idx, 1)[0];
+                    player.playArea.push(card);
+                    break;
+                }
+            }
+        }
+        if (!card) return { state, needsChoice: false };
         card.turnPlayed = state.turnNumber;
-        player.playArea.push(card);
 
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) return { state, needsChoice: false };
@@ -930,8 +939,11 @@ export function registerCoreEffects(): void {
         ZoneEffectHandler.handleMoveCards(state, player, effect)
     );
 
-    EffectHandlerRegistry.register('TRASH_SELF', (state, player, _effect, ctx) =>
-        ZoneEffectHandler.handleTrashSelf(state, player, ctx.sourceCardInstanceId)
+    // TRASH_SELF: trash the source card. With `target: 'ORIGIN'`, trash the card that
+    // started the chain (e.g. the attacking Knight) rather than the card being processed.
+    EffectHandlerRegistry.register('TRASH_SELF', (state, player, effect, ctx) =>
+        ZoneEffectHandler.handleTrashSelf(state, player,
+            (effect as any).target === 'ORIGIN' ? (ctx.originSourceCardInstanceId || ctx.sourceCardInstanceId) : ctx.sourceCardInstanceId)
     );
 
     EffectHandlerRegistry.register('SEQUENCE', (state, player, effect, ctx) => {

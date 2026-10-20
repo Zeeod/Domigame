@@ -163,7 +163,12 @@ export class PhaseEngine {
      * Calls onExit() on the current phase and onEnter() on the new one.
      */
     static advancePhase(state: GameState): void {
-        if (!state.phasePipeline || state.phasePipeline.length === 0) return;
+        if (!state.phasePipeline || state.phasePipeline.length === 0) {
+            // State built without a pipeline (tests, old saves): start from the current phase
+            this.initTurnPipeline(state);
+            const idx = state.phasePipeline!.indexOf(state.phase as any);
+            state.phaseIndex = idx === -1 ? 0 : idx;
+        }
 
         // Exit current phase
         const currentPhaseId = state.phasePipeline[state.phaseIndex];

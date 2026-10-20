@@ -123,7 +123,7 @@ describe('Prophecy Logic & Fulfillment', () => {
         ProphecyManager.fulfillProphecy(state); // Ensure triggers are registered
         console.log('Registered triggers after Progress fulfill:', state.triggers);
         state.phase = 'BUY';
-        p1.buys = 1;
+        p1.buys = 2; // keep the turn open after the buy
         p1.coins = 3;
 
         const initialDeckSize = p1.deck.length;

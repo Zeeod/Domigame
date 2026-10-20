@@ -23,7 +23,7 @@ const KNIGHT_ATTACK_EFFECT: EffectDefinition = {
                     type: 'CONDITION',
                     condition: 'LAST_SELECTED_HAS_TYPE',
                     value: 'KNIGHT',
-                    trueEffects: [{ type: 'TRASH_SELF' }]
+                    trueEffects: [{ type: 'TRASH_SELF', target: 'ORIGIN' } as any]
                 }
             ]
         },

@@ -15,7 +15,7 @@ describe('Potion Mechanics', () => {
         ];
         state.phase = 'BUY';
         state.players[0].actions = 1;
-        state.players[0].buys = 1;
+        state.players[0].buys = 2; // keep the turn open after one buy
         state.players[0].coins = 10;
         state.players[0].potions = 0;
 

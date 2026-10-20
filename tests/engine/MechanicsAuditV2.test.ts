@@ -109,8 +109,9 @@ describe('Expanded Mechanic Verification', () => {
         player.actions = 0;
 
         EffectEngine.applyEffect(state, player.id, { type: 'PLAY_THIS_CARD' } as any, village.instanceId);
+        EffectEngine.processStack(state);
 
-        // Village is: +1 Card, +2 Actions. 
+        // Village is: +1 Card, +2 Actions.
         // We should have +2 Actions (recursive apply adds them).
         expect(player.actions).toBe(2);
     });

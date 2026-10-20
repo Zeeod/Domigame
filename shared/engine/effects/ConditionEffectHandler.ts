@@ -12,7 +12,12 @@ export class ConditionEffectHandler {
                 type: 'EFFECT' as const,
                 playerId: player.id,
                 effect: e,
-                context: { sourceCardInstanceId: ctx.sourceCardInstanceId }
+                context: {
+                    sourceCardInstanceId: ctx.sourceCardInstanceId,
+                    originSourceCardInstanceId: ctx.originSourceCardInstanceId,
+                    attackerId: ctx.attackerId,
+                    isAttack: ctx.isAttack
+                }
             }));
             state.effectStack.push(...effectObjs.reverse());
         }
@@ -96,6 +101,12 @@ export class ConditionEffectHandler {
                 if (!state.lastTrashedCard) return false;
                 const def = CardRegistry.get(state.lastTrashedCard.id);
                 return def?.types.includes(effect.value?.toUpperCase()) || false;
+            }
+            case 'LAST_SELECTED_HAS_TYPE': {
+                const selected = state.lastDecisionResults?.cards?.[0];
+                if (!selected) return false;
+                const def = CardRegistry.get(selected.id);
+                return def?.types.includes(String(effect.value).toUpperCase() as any) || false;
             }
             case 'EMPTY_PILES':
                 const emptyCount = Object.values(state.supply).filter(p => p.count <= 0).length;

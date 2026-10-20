@@ -77,6 +77,10 @@ describe('Bug Reproduction: Buy Mechanics', () => {
 
         const result = ActionResolver.resolve(state, 'p1', action as any);
         expect(result.success).toBe(true);
-        expect(result.state.players[0].discardPile.some(c => c.id === 'province')).toBe(true);
+        // With no buys left the turn ends automatically (cleanup may reshuffle the Province into the new hand/deck)
+        const p = result.state.players[0];
+        const allCards = [...p.discardPile, ...p.deck, ...p.hand, ...p.playArea];
+        expect(allCards.some(c => c.id === 'province')).toBe(true);
+        expect(result.state.supply['province'].count).toBe(7);
     });
 });
