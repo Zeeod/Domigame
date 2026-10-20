@@ -1,3 +1,4 @@
+import { getMat } from '../../../shared/engine/Mats.js';
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import { TestEngine } from '../../helpers/TestUtils';
@@ -26,7 +27,7 @@ describe('Seaside Expansion Part 2', () => {
 
         // Island should have moved itself to Mat.
         // And Prompt for 1 card to move to Mat.
-        const islandMat = (p as any).islandMat;
+        const islandMat = getMat(p, 'island');
         // Verify Island is already there?
         // If handleMoveToMat executed immediately for 'BOTH', Island is there.
         // If it waits for decision, maybe not.
@@ -72,7 +73,7 @@ describe('Seaside Expansion Part 2', () => {
             choiceIndex: 0
         });
 
-        const mat = (p as any).nativeVillageMat;
+        const mat = getMat(p, 'nativeVillage');
         expect(mat.length).toBe(1);
         expect(mat[0].id).toBe('silver'); // Top card (first in array for setDeck usually treated as top? TestUtils setDeck: [top, ..., bottom] usually? No, [0] is drawn first usually? shift() takes 0. Yes.)
 
@@ -84,11 +85,11 @@ describe('Seaside Expansion Part 2', () => {
         const p = engine.findPlayer('Player 1');
         engine.setHand(p, ['native_village']);
         // Pre-populate mat
-        (p as any).nativeVillageMat = []; // Clear
+        getMat(p, 'nativeVillage').length = 0; // Clear
         // Cannot easily push to mat without helper or using effect. 
         // We can manually push for test setup if we cast.
         const gold = engine.createCard('gold');
-        (p as any).nativeVillageMat.push(gold);
+        getMat(p, 'nativeVillage').push(gold);
 
         engine.playCard('native_village');
 
@@ -97,7 +98,7 @@ describe('Seaside Expansion Part 2', () => {
             choiceIndex: 1 // Take cards
         });
 
-        const mat = (p as any).nativeVillageMat;
+        const mat = getMat(p, 'nativeVillage');
         expect(mat.length).toBe(0);
         expect(p.hand.some(c => c.id === 'gold')).toBe(true);
         expect(p.actions).toBe(2);

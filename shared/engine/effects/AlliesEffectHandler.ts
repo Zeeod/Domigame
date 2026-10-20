@@ -501,18 +501,7 @@ export class AlliesEffectHandler {
             return ChoiceEffectHandler.handleChooseFromZone(state, player, chooseEffect, ctx);
         });
 
-        // VOYAGE: +1 Action (already handled) + Schedule Extra Turn with 3 cards limit
-        EffectHandlerRegistry.register('SCHEDULE_EXTRA_TURN', (state: GameState, player, effect) => {
-            const eff = effect as any;
-            state.extraTurns = state.extraTurns || [];
-            state.extraTurns.push({
-                playerId: player.id,
-                type: 'VOYAGE' as any,
-                // The actual logic to enforce card limit would be in the Turn Manager / EffectEngine
-            } as any);
-            Logger.log(state, `${player.name} gagne un tour supplémentaire (Voyage).`);
-            return { state, needsChoice: false };
-        });
+        // VOYAGE uses the core SCHEDULE_EXTRA_TURN (registerCoreEffects) with cardLimit: 3.
 
         // STRONGHOLD / SCHEDULE_NEXT_TURN: +3 Cards at start of next turn
         EffectHandlerRegistry.register('SCHEDULE_NEXT_TURN', (state: GameState, player, effect, ctx) => {

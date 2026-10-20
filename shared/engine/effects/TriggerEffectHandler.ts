@@ -3,6 +3,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectManager } from '../EffectManager.js';
 import { EconomyEngine } from '../EconomyEngine.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { peekMat } from '../Mats.js';
 
 export class TriggerEffectHandler {
     static handleRegisterTrigger(state: GameState, player: PlayerState, effect: any, sourceCardInstanceId?: string): EffectResult {
@@ -73,7 +74,7 @@ export class TriggerEffectHandler {
         // 1. Permanent/Static Triggers from cards in play & Hand & Tavern Mat (Reserve)
         const inPlay = player.playArea || [];
         const inHand = player.hand || [];
-        const onTavern = player.tavernMat || player.mats?.['tavern'] || [];
+        const onTavern = peekMat(player, 'tavern');
         const triggerSources = [...inPlay, ...inHand, ...onTavern];
 
         for (const card of triggerSources) {
@@ -283,7 +284,7 @@ export class TriggerEffectHandler {
         }
 
         // Menagerie — Exile: when you gain a card, you may discard its copies from your Exile mat
-        const exiled = (player.mats?.['exile'] || player.exileMat || []).filter(c => c.id === gainedCardId);
+        const exiled = peekMat(player, 'exile').filter(c => c.id === gainedCardId);
         if (exiled.length > 0) {
             const name = gainedDef?.name || gainedCardId;
             state.effectStack.push({

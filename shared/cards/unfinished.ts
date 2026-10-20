@@ -10,7 +10,8 @@
  *
  * Suivi : docs/roadmap/PlanFinalisation.md (phase 2.3).
  */
-export const UNFINISHED_CARDS: ReadonlySet<string> = new Set([
+/** Cards with a text but no effect at all. */
+export const SHELL_CARDS: ReadonlySet<string> = new Set([
     // Empires — Landmarks + King's Castle
     'aqueduct', 'arena', 'bandit_fort', 'basilica', 'baths', 'battlefield', 'colonnade',
     'defiled_shrine', 'fountain', 'keep', 'labyrinth', 'mountain_pass', 'museum', 'obelisk',
@@ -45,5 +46,16 @@ export const UNFINISHED_CARDS: ReadonlySet<string> = new Set([
     // Nocturne
     'crypt', 'devils_workshop', 'fool', 'necromancer', 'pooka', 'vampire',
 ]);
+
+/**
+ * Cards that have effects but do not follow their rules yet (need engine work).
+ * Listed here so that a game never uses them in a broken state.
+ */
+export const BROKEN_CARDS: ReadonlySet<string> = new Set([
+    // Alchemy — needs "control another player's turn" support
+    'possession',
+]);
+
+export const UNFINISHED_CARDS: ReadonlySet<string> = new Set([...SHELL_CARDS, ...BROKEN_CARDS]);
 
 export const isUnfinishedCard = (id: string): boolean => UNFINISHED_CARDS.has(id);

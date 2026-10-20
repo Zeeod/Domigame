@@ -1,5 +1,7 @@
 import { GameState, EffectResult } from '../GameState.js';
 import { PlayerState } from '../PlayerState.js';
+import { CardRegistry } from '../../cards/index.js';
+import { Logger } from '../Logger.js';
 
 export class DurationEffectHandler {
     static handleSetAsideLinked(state: GameState, player: PlayerState, effect: any, sourceCardInstanceId?: string): EffectResult {
@@ -63,8 +65,23 @@ export class DurationEffectHandler {
         return { state, needsChoice: false };
     }
 
+    /**
+     * Sea Chart: the card just revealed (in limbo) goes to hand if a copy of it is in play,
+     * otherwise back on top of the deck.
+     */
     static handleSeaChartCheck(state: GameState, player: PlayerState): EffectResult {
-        // Sea Chart specific logic
+        const revealed = player.limbo?.[player.limbo.length - 1];
+        if (!revealed) return { state, needsChoice: false };
+        player.limbo.pop();
+
+        const copyInPlay = player.playArea.some(c => c.id === revealed.id);
+        const name = CardRegistry.get(revealed.id)?.name || revealed.id;
+        if (copyInPlay) {
+            player.hand.push(revealed);
+            Logger.log(state, `${player.name} prend ${name} en main (Carte marine).`, player.id);
+        } else {
+            player.deck.unshift(revealed);
+        }
         return { state, needsChoice: false };
     }
 }

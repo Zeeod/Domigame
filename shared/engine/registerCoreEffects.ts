@@ -32,6 +32,7 @@ import { DurationManager } from './DurationManager.js';
 import { EffectUtils } from './EffectUtils.js';
 import { PhaseEngine } from './PhaseEngine.js';
 import { EconomyEngine } from './EconomyEngine.js';
+import { addToMat, peekMat } from './Mats.js';
 
 
 export function registerCoreEffects(): void {
@@ -716,6 +717,24 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
+    // SCHEDULE_EXTRA_TURN: take an extra turn after this one (Outpost, Voyage, Mission, Seize the Day…)
+    // Never a 3rd turn in a row, and at most one pending extra turn per player.
+    EffectHandlerRegistry.register('SCHEDULE_EXTRA_TURN', (state, player, effect) => {
+        const e = effect as any;
+        const type = e.turnType || (e.cardLimit ? 'VOYAGE' : 'EXTRA');
+        if (state.previousTurnPlayerId === player.id) {
+            Logger.log(state, `${player.name} ne peut pas jouer un 3e tour d'affilée.`);
+            return { state, needsChoice: false };
+        }
+        state.extraTurns = state.extraTurns || [];
+        if (state.extraTurns.some(t => t.playerId === player.id)) {
+            return { state, needsChoice: false };
+        }
+        state.extraTurns.push({ playerId: player.id, type, cardLimit: e.cardLimit });
+        Logger.log(state, `${player.name} jouera un tour supplémentaire.`);
+        return { state, needsChoice: false };
+    });
+
     EffectHandlerRegistry.register('SPEND_FAVORS', (state, player, effect) => {
         const amount = Math.min(EffectUtils.getAmount(state, player, (effect as any).amount ?? 1), player.favors || 0);
         player.favors = (player.favors || 0) - amount;
@@ -927,10 +946,7 @@ export function registerCoreEffects(): void {
         const copperIdx = player.hand.findIndex(c => c.id === 'copper');
         if (copperIdx !== -1) {
             const copper = player.hand.splice(copperIdx, 1)[0];
-            if (!player.mats) player.mats = {};
-            if (!player.mats.tavern) player.mats.tavern = [];
-            player.mats.tavern.push(copper);
-            player.tavernMat = player.mats.tavern;
+            addToMat(player, 'tavern', copper);
             EffectUtils.log(state, `${player.name} place un Cuivre sur son plateau Taverne (Avare).`, player.id);
         }
         return { state, needsChoice: false };
@@ -938,7 +954,7 @@ export function registerCoreEffects(): void {
 
     // Miser: +1 coin per Copper on Tavern mat
     EffectHandlerRegistry.register('ADD_MONEY_PER_COPPER_ON_TAVERN', (state, player, _effect, _ctx) => {
-        const copperCount = ((player.mats?.tavern || player.tavernMat) || []).filter(c => c.id === 'copper').length;
+        const copperCount = peekMat(player, 'tavern').filter(c => c.id === 'copper').length;
         player.coins += copperCount;
         EffectUtils.log(state, `${player.name} obtient +${copperCount} 💰 (Avare, ${copperCount} Cuivre(s) sur Taverne).`, player.id);
         return { state, needsChoice: false };

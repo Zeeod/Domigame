@@ -5,6 +5,7 @@ import { EffectManager } from './EffectManager.js';
 import { EffectUtils } from './EffectUtils.js';
 import { GainEffectHandler } from './effects/GainEffectHandler.js';
 import { TrashEffectHandler } from './effects/TrashEffectHandler.js';
+import { addToMat } from './Mats.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 
@@ -599,22 +600,13 @@ export class EffectEngine {
             });
         }
 
-        if (!player.mats) player.mats = {};
-        if (!player.mats[matName]) player.mats[matName] = [];
-
-        // Sync legacy alias arrays to mats[matName] (same reference)
-        if (matName === 'island') player.islandMat = player.mats[matName];
-        if (matName === 'tavern') player.tavernMat = player.mats[matName];
-        if (matName === 'exile') player.exileMat = player.mats[matName];
-
         // NOTE: The source card (for targets === 'BOTH') was already moved to the mat
         // by ZoneEffectHandler.handleMoveToMat BEFORE the choice prompt was displayed.
         // We only process the player-selected cards here.
-
         for (const selectedCard of selectedCards) {
             const card = EffectUtils.removeCardFromPlayer(state, player, selectedCard.instanceId);
             if (card) {
-                player.mats[matName].push(card);
+                addToMat(player, matName, card);
                 EffectUtils.log(state, `${player.name} place ${CardRegistry.get(card.id)?.name || card.id} sur son plateau ${matName}.`, player.id);
             }
         }

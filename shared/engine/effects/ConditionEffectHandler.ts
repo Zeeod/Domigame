@@ -1,6 +1,7 @@
 import { GameState, PlayerState, EffectResult } from '../GameState.js';
 import { CardRegistry } from '../../cards/index.js';
 import { EconomyEngine } from '../EconomyEngine.js';
+import { peekMat } from '../Mats.js';
 
 export class ConditionEffectHandler {
     static handleCondition(state: GameState, player: PlayerState, effect: any, ctx: any = {}): EffectResult {
@@ -121,7 +122,7 @@ export class ConditionEffectHandler {
             case 'EXILE_NEW_CARD': {
                 if (!state.lastDecisionResults?.cards || state.lastDecisionResults.cards.length === 0) return false;
                 const card = state.lastDecisionResults.cards[0];
-                const count = (player.exileMat || []).filter(c => c.id === card.id).length;
+                const count = peekMat(player, 'exile').filter(c => c.id === card.id).length;
                 // If count is 1, it means this was the first one (since it was just added)
                 return count === 1;
             }

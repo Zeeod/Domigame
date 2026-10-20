@@ -22,7 +22,10 @@ export type Phase = 'PREGAME' | 'START' | 'ACTION' | 'BUY' | 'NIGHT' | 'CLEANUP'
 
 export interface ExtraTurnInfo {
     playerId: string;
-    type?: 'OUTPOST';
+    /** OUTPOST: draw 3 for this turn's hand · MISSION: no buying cards · VOYAGE: card limit */
+    type?: 'OUTPOST' | 'MISSION' | 'VOYAGE' | 'EXTRA';
+    /** Max cards that may be played from hand during the turn (Voyage: 3) */
+    cardLimit?: number;
 }
 
 export interface StateSnapshot {
@@ -150,6 +153,12 @@ export interface GameState {
     currentPlayerIndex: number;
     /** Queue of extra turns with metadata (Outpost, etc) */
     extraTurns: ExtraTurnInfo[];
+    /** The extra turn being played right now (null on a normal turn) */
+    currentExtraTurn?: ExtraTurnInfo | null;
+    /** Player whose turn came right before the current one ("not a 3rd turn in a row") */
+    previousTurnPlayerId?: string;
+    /** Cards played from hand this turn (Voyage limit) */
+    cardsPlayedFromHandThisTurn?: number;
     phase: Phase;
     /** Dynamic phase pipeline for the current turn */
     phasePipeline: string[];

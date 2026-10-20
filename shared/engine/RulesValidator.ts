@@ -106,6 +106,11 @@ export class RulesValidator {
             return { valid: false, error: "Ce n'est pas votre tour" };
         }
 
+        const limit = state.currentExtraTurn?.playerId === playerId ? state.currentExtraTurn.cardLimit : undefined;
+        if (limit !== undefined && (state.cardsPlayedFromHandThisTurn || 0) >= limit) {
+            return { valid: false, error: `Vous ne pouvez jouer que ${limit} cartes de votre main ce tour-ci` };
+        }
+
         // If playing as a Way
         if (wayId) {
             const way = LandscapeRegistry.get(wayId);
@@ -161,6 +166,10 @@ export class RulesValidator {
 
         if (state.phase !== 'BUY') {
             return { valid: false, error: "Vous n'êtes pas en phase Achat" };
+        }
+
+        if (state.currentExtraTurn?.type === 'MISSION' && state.currentExtraTurn.playerId === playerId) {
+            return { valid: false, error: "Pendant le tour de la Mission, vous ne pouvez pas acheter de cartes" };
         }
 
         if (currentPlayer.buys <= 0) {
