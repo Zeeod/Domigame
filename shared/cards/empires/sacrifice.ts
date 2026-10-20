@@ -27,6 +27,5 @@ export const sacrifice: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

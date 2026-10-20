@@ -6,7 +6,7 @@ export const seaChart: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     description: '+1 Carte ; +1 Action. Révélez la carte du dessus de votre pioche. Si vous avez un exemplaire de cette carte en jeu, ajoutez-la à votre main.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'DRAW',

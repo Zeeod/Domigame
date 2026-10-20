@@ -11,7 +11,7 @@ export const trading_post: CardDefinition = {
     description: 'Écartez 2 cartes de votre main. Si vous l’avez fait, gagnez une carte Argent dans votre main.',
     image: '/card-images/trading_post.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };
 
 

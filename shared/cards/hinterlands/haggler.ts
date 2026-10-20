@@ -6,7 +6,6 @@ export const haggler: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+2 💰. Tant que cette carte est en jeu, quand vous achetez une carte, gagnez une carte non-Victoire coûtant moins.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 }

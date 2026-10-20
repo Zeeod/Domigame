@@ -24,6 +24,5 @@ export const oldWitch: CardDefinition = {
     ],
     description: '+3 Cartes. Chaque autre joueur reçoit une Malédiction et peut écarter une Malédiction de sa main.',
     image: '/card-images/old_witch.jpg',
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

@@ -13,7 +13,6 @@ export const souk: CardDefinition = {
     onGain: [
         { type: 'TRASH', min: 0, max: 2, from: 'hand' }
     ],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

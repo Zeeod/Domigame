@@ -11,8 +11,7 @@ export const collection: CardDefinition = {
     name: 'Collection',
     cost: 5,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 2 💰. +1 Achat. Tant que cette carte est en jeu, quand vous gagnez une carte Action, gagnez 1 jeton VP.',
     treasureValue: 2,
     effects: [

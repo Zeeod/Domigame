@@ -31,6 +31,5 @@ export const villain: CardDefinition = {
     ],
     description: '+2 Coffres. Chaque autre joueur avec 5 cartes ou plus en main défausse une carte coûtant 2 pièces ou plus (ou révèle qu\'il ne peut pas).',
     image: '/card-images/villain.jpg',
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

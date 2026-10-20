@@ -11,8 +11,7 @@ export const workersVillage: CardDefinition = {
     name: 'Village ouvrier', // Or Village de Travailleurs
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+1 Carte, +2 Actions, +1 Achat.',
     effects: [
         { type: 'DRAW', amount: 1 },

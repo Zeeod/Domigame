@@ -11,6 +11,6 @@ export const province: CardDefinition = {
     victoryPoints: 6,
     description: '6 PV',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 

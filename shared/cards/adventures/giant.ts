@@ -6,7 +6,6 @@ export const giant: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Retournez votre jeton de Voyage. Si face visible, +1 💰. Si face cachée, +5 💰, et chaque autre joueur révèle la carte du dessus de sa pioche et l\'écarte si elle coûte 3-6 💰, sinon la défausse et gagne une Malédiction.',
     effects: [
         {

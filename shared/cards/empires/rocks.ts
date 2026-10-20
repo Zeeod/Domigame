@@ -22,7 +22,6 @@ export const rocks: CardDefinition = {
     onTrash: [
         { type: 'GAIN_CARD', cardId: 'silver', destination: 'deck' }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

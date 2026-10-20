@@ -10,5 +10,5 @@ export const platinum: CardDefinition = {
     ],
     description: '5 💰',
     image: '/card-images/platinum.jpg', // Placeholder image path
-    expansion: 'Prosperity'
+    expansion: 'prosperity'
 };

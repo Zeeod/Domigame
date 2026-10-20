@@ -12,8 +12,7 @@ export const tiara: CardDefinition = {
     name: 'Diadème', // Or Tiare
     cost: 4,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+1 Achat. Vous pouvez jouer une carte Trésor de votre main deux fois. Quand vous gagnez une carte ce tour-ci, vous pouvez la placer sur votre pioche.',
     treasureValue: 0,
     effects: [

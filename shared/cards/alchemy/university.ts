@@ -7,7 +7,6 @@ export const University: CardDefinition = {
     cost: 2,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+2 Actions.\nRecevez une carte Action coûtant jusqu'à 5 pièces.",
     effects: [
         {

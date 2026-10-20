@@ -19,6 +19,5 @@ export const forum: CardDefinition = {
     onBuy: [
         { type: 'ADD_BUYS', amount: 1 }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

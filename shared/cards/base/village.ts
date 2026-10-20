@@ -16,7 +16,7 @@ export const village: CardDefinition = {
     description: '+1 Carte ; +2 Actions.',
     image: '/card-images/village.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

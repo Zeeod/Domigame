@@ -6,7 +6,7 @@ export const salvager: CardDefinition = {
     types: ['ACTION'],
     description: '+1 Achat. Écartez une carte de votre main. +1 Pièce par coût de la carte écartée.',
     cost: 4,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'ADD_BUYS', amount: 1 },
         {

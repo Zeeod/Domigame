@@ -21,7 +21,7 @@ export const militia: CardDefinition = {
     description: '+2 Pièces. Chaque autre joueur défausse des cartes de sa main jusqu\'à n\'en avoir plus que 3.',
     image: '/card-images/militia.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

@@ -5,8 +5,7 @@ export const armory: CardDefinition = {
     name: 'Armurerie',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Gagnez une carte coûtant jusqu\'à 4💰, et mettez-la sur votre deck.',
     effects: [
         { type: 'GAIN_CARD', maxCost: 4, destination: 'deck' }

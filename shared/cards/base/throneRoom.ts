@@ -27,5 +27,5 @@ export const throneRoom: CardDefinition = {
     description: 'Choisissez une carte Action de votre main et jouez-la deux fois.',
     image: '/card-images/throne_room.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

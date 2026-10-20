@@ -6,7 +6,6 @@ export const BadOmens: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Mettez votre pioche dans votre défausse. Si vous avez 2💰 ou plus en jeu, mettez 2 Cuivres de votre défausse sur votre deck.',
     isNonSupply: true,
     effects: [
@@ -20,7 +19,6 @@ export const Delusion: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Si vous n\'avez pas d\'État, recevez Delusions. (Sinon, rien ne se passe.)',
     isNonSupply: true,
     effects: []
@@ -32,7 +30,6 @@ export const Envy: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Pendant le reste du tour, vos Silvers et Golds valent 1💰.',
     isNonSupply: true,
     effects: []
@@ -44,7 +41,6 @@ export const Famine: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Révélez les 3 cartes du dessus de votre deck. Écartez-en les Actions et défaussez le reste.',
     isNonSupply: true,
     effects: [
@@ -71,7 +67,6 @@ export const Fear: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Si vous avez au moins 5 cartes en main (après défausse d\'une carte le cas échéant), défaussez une Action ou un Trésor.',
     isNonSupply: true,
     effects: []
@@ -83,7 +78,6 @@ export const Greed: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Recevez un Cuivre sur votre deck.',
     isNonSupply: true,
     effects: [
@@ -97,7 +91,6 @@ export const Haunting: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Si vous avez au moins 4 cartes en main, mettez une carte de votre main sur votre deck.',
     isNonSupply: true,
     effects: []
@@ -109,7 +102,6 @@ export const Locusts: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Écartez la carte du dessus de votre deck. Si c\'était un Cuivre ou un Domaine, recevez une Malédiction. Sinon, recevez une carte coûtant moins que la carte écartée, partageant un type avec elle.',
     isNonSupply: true,
     effects: []
@@ -121,7 +113,6 @@ export const Misery: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Si vous n\'avez pas Miserable, recevez-le. Si vous l\'avez déjà, retournez-le sur Twice Miserable.',
     isNonSupply: true,
     effects: []
@@ -133,7 +124,6 @@ export const Plague: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Recevez une Malédiction (Curse).',
     isNonSupply: true,
     effects: [
@@ -147,7 +137,6 @@ export const Poverty: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Défaussez jusqu\'à avoir 3 cartes en main.',
     isNonSupply: true,
     effects: [
@@ -161,7 +150,6 @@ export const War: CardDefinition = {
     cost: 0,
     types: ['HEX'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Révélez des cartes de votre deck jusqu\'à une carte coûtant 3💰 ou 4💰. Écartez-la et défaussez le reste.',
     isNonSupply: true,
     effects: []

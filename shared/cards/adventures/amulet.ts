@@ -6,7 +6,6 @@ export const amulet: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Maintenant et au début de votre prochain tour: Choisissez: +1 💰; ou écartez une carte de votre main; ou gagnez un Argent.',
     effects: [
         {

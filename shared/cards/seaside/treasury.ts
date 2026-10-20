@@ -6,7 +6,7 @@ export const treasury: CardDefinition = {
     types: ['ACTION'],
     description: '+1 Carte ; +1 Action ; +1 Pièce. Lorsque vous défaussez cette carte du jeu, si vous n\'avez pas acheté de carte Victoire, vous pouvez la replacer sur votre pioche.',
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },

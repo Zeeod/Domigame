@@ -29,5 +29,5 @@ export const ironworks: CardDefinition = {
     ],
     description: 'Gagnez une carte coûtant jusqu’à 4 ??. Si c’est une carte Action, +1 Action. Si c’est un Trésor, +1 ??. Si c’est une Victoire, +1 Carte.',
     image: '/card-images/ironworks.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

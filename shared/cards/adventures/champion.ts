@@ -6,7 +6,6 @@ export const champion: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 6,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: '+1 Action. Pour le reste de la partie: +1 Action quand vous jouez une Action. Les Attaques ne vous affectent pas.',
     effects: [

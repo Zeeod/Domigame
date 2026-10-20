@@ -6,7 +6,6 @@ export const farmingVillage: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+2 Actions. Révélez des cartes du dessus de votre pioche jusqu\'à révéler une carte Action ou Trésor. Prenez-la en main. Défaussez les autres.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 2 },

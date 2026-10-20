@@ -5,8 +5,7 @@ export const count: CardDefinition = {
     name: 'Comte',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Choisissez: Défaussez 2 cartes; ou mettez une carte de votre main sur votre deck; ou gagnez un Cuivre. Puis choisissez: +3💰; ou écartez votre main; ou gagnez un Duché.',
     effects: [
         {

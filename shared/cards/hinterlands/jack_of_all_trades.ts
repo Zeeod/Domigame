@@ -6,7 +6,6 @@ export const jackOfAllTrades: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: 'Gagnez un Argent. Regardez la carte du dessus de votre pioche; défaussez-la ou replacez-la. Piochez jusqu\'à avoir 5 cartes en main. Vous pouvez écarter une carte non-Trésor de votre main.',
     effects: [
         { type: 'GAIN_CARD', cardId: 'silver', destination: 'discardPile' },

@@ -6,7 +6,7 @@ export const merchantShip: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     description: 'Maintenant et au début de votre prochain tour : +2 Pièces.',
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'ADD_MONEY', amount: 2 }
     ],

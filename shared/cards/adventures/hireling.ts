@@ -6,7 +6,6 @@ export const hireling: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 6,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Au début de chacun de vos tours pour le reste de la partie: +1 Carte.',
     effects: [],
     durationEffects: [

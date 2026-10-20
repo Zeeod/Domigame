@@ -19,7 +19,7 @@ export const upgrade: CardDefinition = {
     description: '+1 Carte ; +1 Action. Écartez une carte de votre main. Gagnez une carte coûtant exactement 1 ?? de plus que la carte écartée.',
     image: '/card-images/upgrade.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };
 
 

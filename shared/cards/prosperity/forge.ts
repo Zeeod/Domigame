@@ -12,8 +12,7 @@ export const forge: CardDefinition = {
     name: 'Forge',
     cost: 7,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Écartez n\'importe quel nombre de cartes de votre main. Gagnez une carte coûtant exactement le coût total des cartes écartées.',
     effects: [
         {

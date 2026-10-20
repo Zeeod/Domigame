@@ -6,7 +6,6 @@ export const raze: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Action. Écartez cette carte ou une carte de votre main. Regardez autant de cartes du dessus de votre pioche que le coût de la carte écartée et prenez-en une en main.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

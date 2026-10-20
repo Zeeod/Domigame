@@ -19,6 +19,5 @@ export const overlord: CardDefinition = {
             cardTypes: ['ACTION']
         } as any
     ],
-    set: 'empires',
     expansion: 'empires'
 };

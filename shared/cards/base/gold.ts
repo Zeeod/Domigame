@@ -14,6 +14,6 @@ export const gold: CardDefinition = {
     ],
     description: '+3 Pièces',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 

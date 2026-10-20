@@ -25,6 +25,5 @@ export const FlagBearer: CardDefinition = {
         },
     ],
     description: "+3 Pièces. Lorsque vous recevez ou écartez cette carte, prenez le Drapeau.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

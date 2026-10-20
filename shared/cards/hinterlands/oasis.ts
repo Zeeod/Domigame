@@ -6,7 +6,6 @@ export const oasis: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+1 Carte, +1 Action, +1 💰. Défaussez une carte.',
     effects: [
         { type: 'DRAW', amount: 1 },

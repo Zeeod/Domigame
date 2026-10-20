@@ -7,7 +7,6 @@ export const AnimalFair: CardDefinition = {
     types: ['ACTION'],
     cost: 7,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+4 Pièces. +1 Achat par pile de réserve vide.",
     effects: [
         { type: 'ADD_MONEY', amount: 4 },
@@ -21,7 +20,6 @@ export const Barge: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Soit maintenant, soit au début de votre prochain tour : +3 Cartes et +1 Achat.",
     effects: [
         {
@@ -46,7 +44,6 @@ export const BlackCat: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'REACTION'],
     cost: 2,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Cartes. Si c'est le tour d'un autre joueur, chaque autre joueur reçoit une Malédiction.",
     effects: [
         { type: 'DRAW', amount: 2 },
@@ -74,7 +71,6 @@ export const BountyHunter: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Action. Exilez une carte de votre main. Si vous n'aviez pas de copie de cette carte en Exil : +3 Pièces.",
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
@@ -102,7 +98,6 @@ export const CamelTrain: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Exilez une carte non-Victoire de la Réserve.",
     effects: [
         {
@@ -121,7 +116,6 @@ export const Cardinal: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Pièces. Chaque autre joueur révèle les 2 cartes du dessus de son deck, en exile une coûtant 3-6 Pièces et défausse le reste.",
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
@@ -160,7 +154,6 @@ export const Cavalry: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Gagnez 2 Chevaux.",
     effects: [
         { type: 'GAIN_CARD', cardId: 'horse' },
@@ -174,7 +167,6 @@ export const Coven: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Action, +2 Pièces. Chaque autre joueur exile une Malédiction de la Réserve. S'il ne peut pas, il défausse ses Malédictions exilées.",
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
@@ -194,7 +186,6 @@ export const Destrier: CardDefinition = {
     types: ['ACTION'],
     cost: 6,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Cartes, +1 Action. Coûte 1 Pièce de moins par carte gagnée ce tour-ci.",
     effects: [
         { type: 'DRAW', amount: 2 },
@@ -209,7 +200,6 @@ export const Displace: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Exilez une carte de votre main. Gagnez une carte de nom différent coûtant jusqu'à 2 Pièces de plus.",
     effects: [
         {
@@ -231,7 +221,6 @@ export const Falconer: CardDefinition = {
     types: ['ACTION', 'REACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Gagnez une carte coûtant moins que celle-ci, ayant au moins un type parmi Action, Trésor, Victoire.",
     effects: [
         { type: 'GAIN_CARD', maxCost: 4, message: 'Gagnez une carte coûtant moins que Fauconnier' }
@@ -246,7 +235,6 @@ export const Fisherman: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Carte, +1 Action, +1 Pièce. Coûte 3 Pièces de moins si votre défausse est vide.",
     effects: [
         { type: 'DRAW', amount: 1 },
@@ -262,7 +250,6 @@ export const Gatekeeper: CardDefinition = {
     types: ['ACTION', 'DURATION', 'ATTACK'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Au début de votre prochain tour : +3 Pièces. Jusqu'alors, quand un autre joueur gagne une carte Action ou Trésor, il l'exile.",
     effects: [],
     durationTurns: 1,
@@ -277,7 +264,6 @@ export const Goatherd: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Action. Vous pouvez écarter une carte de votre main. +1 Carte par carte que le joueur à votre droite a écartée ce tour-ci.",
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
@@ -292,7 +278,6 @@ export const Groom: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Gagnez une carte coûtant jusqu'à 4 Pièces. Si c'est une Action, gagnez un Cheval. Si c'est un Trésor, gagnez un Argent. Si c'est une Victoire, +1 Carte et +1 Action.",
     effects: [
         { type: 'GAIN_CARD', maxCost: 4, message: "Gagnez une carte coûtant jusqu'à 4 Pièces" },
@@ -306,7 +291,6 @@ export const Hostelry: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Carte, +2 Actions. Quand vous gagnez cette carte, vous pouvez défausser des Trésors pour gagner autant de Chevaux.",
     effects: [
         { type: 'DRAW', amount: 1 },
@@ -335,7 +319,6 @@ export const HuntingLodge: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Carte, +2 Actions. Vous pouvez défausser votre main pour +5 Cartes.",
     effects: [
         { type: 'DRAW', amount: 1 },
@@ -357,7 +340,6 @@ export const Kiln: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Pièces. La prochaine fois que vous jouez une carte ce tour-ci, vous pouvez d'abord gagner une copie de celle-ci.",
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
@@ -371,7 +353,6 @@ export const Livery: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+3 Pièces. Ce tour-ci, quand vous gagnez une carte coûtant 4 Pièces ou plus, gagnez un Cheval.",
     effects: [
         { type: 'ADD_MONEY', amount: 3 },
@@ -385,7 +366,6 @@ export const Mastermind: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Au début de votre prochain tour, vous pouvez jouer une carte Action de votre main trois fois.",
     effects: [],
     durationTurns: 1,
@@ -400,7 +380,6 @@ export const Paddock: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Pièces. Gagnez 2 Chevaux. +1 Action par pile de réserve vide.",
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
@@ -416,7 +395,6 @@ export const Sanctuary: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Carte, +1 Action, +1 Achat. Vous pouvez exiler une carte de votre main.",
     effects: [
         { type: 'DRAW', amount: 1 },
@@ -439,7 +417,6 @@ export const Scrap: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Écartez une carte de votre main. Choisissez un nombre de bonus (parmi +1 Carte, +1 Action, +1 Achat, +1 Pièce, gagner un Argent, gagner un Cheval) égal au coût de la carte écartée.",
     effects: [
         { type: 'SCRAP_EFFECT' as any }
@@ -452,7 +429,6 @@ export const Sheepdog: CardDefinition = {
     types: ['ACTION', 'REACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Cartes. Réaction : quand vous gagnez une carte, vous pouvez jouer cette carte de votre main.",
     effects: [
         { type: 'DRAW', amount: 2 }
@@ -467,7 +443,6 @@ export const Sleigh: CardDefinition = {
     types: ['ACTION', 'REACTION'],
     cost: 2,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Gagnez 2 Chevaux. Réaction : quand vous gagnez une carte, vous pouvez défausser celle-ci pour mettre la carte gagnée dans votre main ou sur votre deck.",
     effects: [
         { type: 'GAIN_CARD', cardId: 'horse' },
@@ -483,7 +458,6 @@ export const SnowyVillage: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+1 Carte, +4 Actions, +1 Achat. Ignorez toute Action supplémentaire ce tour-ci.",
     effects: [
         { type: 'DRAW', amount: 1 },
@@ -499,7 +473,6 @@ export const Stockpile: CardDefinition = {
     types: ['TREASURE'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "3 Pièces, +1 Achat. Quand vous jouez cette carte, exilez-la.",
     treasureValue: 3,
     effects: [
@@ -515,7 +488,6 @@ export const Supplies: CardDefinition = {
     types: ['TREASURE'],
     cost: 2,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "1 Pièce. Quand vous jouez cette carte, gagnez un Cheval sur votre deck.",
     treasureValue: 1,
     effects: [
@@ -530,7 +502,6 @@ export const VillageGreen: CardDefinition = {
     types: ['ACTION', 'DURATION', 'REACTION'],
     cost: 4,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "Soit maintenant, soit au début de votre prochain tour : +1 Carte et +2 Actions. Réaction : quand vous défaussez cette carte hors Cleanup, vous pouvez la jouer.",
     effects: [
         {
@@ -557,7 +528,6 @@ export const Wayfarer: CardDefinition = {
     types: ['ACTION'],
     cost: 6,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+3 Cartes. Vous pouvez gagner un Argent. Coûte autant que la dernière carte gagnée ce tour-ci.",
     effects: [
         { type: 'DRAW', amount: 3 },

@@ -5,8 +5,7 @@ export const procession: CardDefinition = {
     name: 'Procession',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Vous pouvez jouer une carte Action non-Durée de votre main deux fois. Écartez-la. Gagnez une carte Action coûtant exactement 1💰 de plus.',
     effects: [
         {

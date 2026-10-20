@@ -32,6 +32,5 @@ export const wildHunt: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

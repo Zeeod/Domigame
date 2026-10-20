@@ -7,7 +7,6 @@ export const Vineyard: CardDefinition = {
     cost: 0,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     victoryPoints: 0, // Dynamic
     dynamicVP: true,
     vpCalculator: (allCards, getCardDef) => {

@@ -6,7 +6,6 @@ export const baker: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'guilds',
-    set: 'guilds',
     description: '+1 Carte, +1 Action, +1 Coffre. Mise en place: Chaque joueur reçoit +1 Coffre.',
     effects: [
         { type: 'DRAW', amount: 1 },

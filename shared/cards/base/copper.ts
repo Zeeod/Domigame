@@ -13,5 +13,5 @@ export const copper: CardDefinition = {
         { type: 'ADD_MONEY', amount: 1 }
     ],
     description: '+1 Pièce',
-    expansion: 'Base'
+    expansion: 'base'
 };

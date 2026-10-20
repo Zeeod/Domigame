@@ -42,7 +42,6 @@ export const gladiator: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

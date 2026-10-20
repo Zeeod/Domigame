@@ -6,7 +6,7 @@ export const monkey: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 3,
     description: 'Jusqu\'à votre prochain tour, lorsque le joueur à votre droite gagne une carte, +1 Carte. Au début de votre prochain tour : +1 Carte.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'ADD_ACTIONS',

@@ -6,7 +6,6 @@ export const port: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Carte, +2 Actions. Quand vous achetez cette carte, gagnez un autre Port.',
     effects: [
         { type: 'DRAW', amount: 1 },

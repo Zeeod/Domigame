@@ -6,7 +6,7 @@ export const sailor: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 4,
     description: '+1 Action. Une fois durant ce tour, lorsque vous gagnez une carte Durée, vous pouvez la jouer. Au début de votre prochain tour : +2 Pièces ; vous pouvez écarter une carte de votre main.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'ADD_ACTIONS',

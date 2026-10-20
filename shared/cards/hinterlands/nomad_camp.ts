@@ -6,7 +6,6 @@ export const nomadCamp: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+1 Achat, +2 💰. Quand vous gagnez cette carte, mettez-la sur votre pioche.',
     effects: [
         { type: 'ADD_BUYS', amount: 1 },

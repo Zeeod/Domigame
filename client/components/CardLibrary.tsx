@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { CardRegistry } from '../../shared/cards/index';
+import { getCardExpansion } from '../../shared/cards/expansions';
 import { CardFrame } from './CardFrame';
 import './CardLibrary.css';
 
@@ -11,10 +12,7 @@ export const CardLibrary: React.FC<CardLibraryProps> = ({ onClose }) => {
     const [selectedSet, setSelectedSet] = useState<string>('base');
     const [search, setSearch] = useState('');
 
-    const getSetKey = (c: any) => {
-        const raw = c.set || (c.expansion ? c.expansion.toLowerCase() : 'base');
-        return raw.toLowerCase().replace(/\s+/g, '_');
-    };
+    const getSetKey = (c: any) => getCardExpansion(c);
 
     const getDisplayName = (setKey: string) => {
         const key = setKey.toLowerCase().replace(/\s+/g, '_');

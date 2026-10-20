@@ -7,7 +7,6 @@ export const Familiar: CardDefinition = {
     cost: 3,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+1 Carte.\n+1 Action.\nChaque autre joueur reçoit une Malédiction.",
     effects: [
         {

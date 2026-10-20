@@ -12,8 +12,7 @@ export const investment: CardDefinition = {
     name: 'Investissement',
     cost: 5,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 1 💰. Écartez une carte de votre main. Si vous le faites, +1 💰 pour chaque carte de nom différent dans le rebut.',
     treasureValue: 1,
     effects: [

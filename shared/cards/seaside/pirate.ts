@@ -6,7 +6,7 @@ export const pirate: CardDefinition = {
     types: ['ACTION', 'DURATION', 'REACTION'],
     cost: 5,
     description: 'Au début de votre prochain tour, gagnez une carte Trésor coûtant jusqu\'à 6 Pièces dans votre main. Réaction : Lorsqu\'un autre joueur gagne une carte Trésor, vous pouvez jouer cette carte de votre main.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         // No immediate effect unless played via Reaction or Action phase.
         // If played, it sets up the Duration.

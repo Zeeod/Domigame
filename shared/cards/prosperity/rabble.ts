@@ -12,8 +12,7 @@ export const rabble: CardDefinition = {
     name: 'Cohue',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+3 Cartes. Chaque autre joueur révèle les 3 premières cartes de sa pioche, défausse les cartes Action et Trésor, et remet les autres sur sa pioche dans n\'importe quel ordre.',
     effects: [
         { type: 'DRAW', amount: 3 },

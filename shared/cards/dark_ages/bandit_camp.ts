@@ -5,8 +5,7 @@ export const banditCamp: CardDefinition = {
     name: 'Camp de Bandits',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +2 Actions. Gagnez un Butin.',
     effects: [
         { type: 'DRAW', amount: 1 },

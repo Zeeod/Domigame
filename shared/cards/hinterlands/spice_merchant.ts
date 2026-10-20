@@ -6,7 +6,6 @@ export const spiceMerchant: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: 'Vous pouvez écarter un Trésor de votre main. Si vous le faites, choisissez: +2 Cartes et +1 Action; ou +2 💰 et +1 Achat.',
     effects: [
         {

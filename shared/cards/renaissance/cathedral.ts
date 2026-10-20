@@ -15,6 +15,5 @@ export const Cathedral: CardDefinition = {
             message: 'Cathédrale: Écartez une carte de votre main'
         }
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

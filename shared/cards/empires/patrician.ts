@@ -27,7 +27,6 @@ export const patrician: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

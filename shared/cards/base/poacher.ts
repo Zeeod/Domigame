@@ -19,7 +19,7 @@ export const poacher: CardDefinition = {
     description: '+1 Carte ; +1 Action ; +1 Pièce. Défaussez une carte de votre main par pile de réserve vide.',
     image: '/card-images/poacher.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

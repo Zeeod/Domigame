@@ -18,5 +18,5 @@ export const nobles: CardDefinition = {
     ],
     description: '2 PV. Choisissez : +3 Cartes ; ou +2 Actions.',
     image: '/card-images/nobles.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

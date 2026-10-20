@@ -42,8 +42,7 @@ export const Knights: CardDefinition[] = [
         name: 'Dame Anna',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Écartez jusqu'à 2 cartes de votre main. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'TRASH', min: 0, max: 2, from: 'hand', message: 'Écartez jusqu\'à 2 cartes' },
@@ -56,8 +55,7 @@ export const Knights: CardDefinition[] = [
         name: 'Dame Joséphine',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'VICTORY', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "2 VP. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         victoryPoints: 2,
         effects: [
@@ -70,8 +68,7 @@ export const Knights: CardDefinition[] = [
         name: 'Dame Molly',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+2 Actions. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'ADD_ACTIONS', amount: 2 },
@@ -84,8 +81,7 @@ export const Knights: CardDefinition[] = [
         name: 'Dame Natalie',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Vous pouvez recevoir une carte coûtant jusqu'à 3 pièces. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'GAIN_CARD', maxCost: 3, destination: 'discardPile' },
@@ -98,8 +94,7 @@ export const Knights: CardDefinition[] = [
         name: 'Dame Sylvia',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+2 Pièces. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'ADD_MONEY', amount: 2 },
@@ -112,8 +107,7 @@ export const Knights: CardDefinition[] = [
         name: 'Messire Bailey',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+1 Carte. +1 Action. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'DRAW', amount: 1 },
@@ -127,8 +121,7 @@ export const Knights: CardDefinition[] = [
         name: 'Messire Destry',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+2 Cartes. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'DRAW', amount: 2 },
@@ -141,8 +134,7 @@ export const Knights: CardDefinition[] = [
         name: 'Messire Martin',
         cost: 4,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+2 Achats. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'ADD_BUYS', amount: 2 },
@@ -155,8 +147,7 @@ export const Knights: CardDefinition[] = [
         name: 'Messire Michael',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Chaque autre joueur défausse jusqu'à ce qu'il n'ait plus que 3 cartes en main. Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci.",
         effects: [
             { type: 'DISCARD_TO_HAND_SIZE', targetHandSize: 3 },
@@ -169,8 +160,7 @@ export const Knights: CardDefinition[] = [
         name: 'Messire Vander',
         cost: 5,
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Chaque autre joueur dévoile les 2 cartes du dessus de son deck, en écarte une coûtant entre 3 et 6 pièces et défausse le reste. Si un Chevalier est écarté, écartez celui-ci. Lorsque cette carte est écartée, recevez un Or.",
         effects: [
             KNIGHT_ATTACK_EFFECT
@@ -186,8 +176,7 @@ export const Knights: CardDefinition[] = [
         name: 'Chevaliers',
         cost: 5, // Variable, but mostly 5.
         types: ['ACTION', 'ATTACK', 'KNIGHT'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Pile de Chevaliers (Mélangée)",
         mixedPile: {
             type: 'SHUFFLED',

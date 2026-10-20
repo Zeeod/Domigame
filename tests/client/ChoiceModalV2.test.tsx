@@ -1,7 +1,11 @@
+// @vitest-environment jsdom
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ChoiceModalV2 } from '../../client/components/ChoiceModalV2';
+import { CardInspectProvider } from '../../client/context/CardInspectContext';
 import { describe, it, expect, vi } from 'vitest';
+
+const renderWithProviders = (ui: React.ReactElement) => render(<CardInspectProvider>{ui}</CardInspectProvider>);
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
@@ -24,7 +28,7 @@ describe('ChoiceModalV2', () => {
     const mockSupply = {};
 
     it('renders simple selection', () => {
-        render(<ChoiceModalV2
+        renderWithProviders(<ChoiceModalV2
             choice={{
                 id: '1', playerId: 'p1', type: 'SELECT_CARDS', message: 'Choose cards', constraints: { min: 0, max: 5 }
             } as any}
@@ -40,7 +44,7 @@ describe('ChoiceModalV2', () => {
     });
 
     it('toggles selection on click', () => {
-        render(<ChoiceModalV2
+        renderWithProviders(<ChoiceModalV2
             choice={{
                 id: '1', playerId: 'p1', type: 'SELECT_CARDS', message: 'Choose cards', constraints: { min: 1, max: 1 }
             } as any}

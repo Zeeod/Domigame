@@ -26,5 +26,5 @@ export const swindler: CardDefinition = {
     ],
     description: '+2 ??. Chaque autre joueur écarte la carte du dessus de son deck et vous choisissez une carte de même coût dans la réserve pour la remplacer.',
     image: '/card-images/swindler.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

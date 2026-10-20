@@ -6,7 +6,6 @@ export const youngWitch: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 4,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+2 Cartes. Défaussez 2 cartes. Chaque autre joueur gagne une Malédiction sauf s\'il révèle le Fléau de sa main. Mise en place: Ajoutez une pile de cartes de coût 2 ou 3 comme "Fléau".',
     effects: [
         { type: 'DRAW', amount: 2 },

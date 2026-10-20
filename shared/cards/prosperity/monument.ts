@@ -10,6 +10,5 @@ export const monument: CardDefinition = {
         { type: 'ADD_MONEY', amount: 2 },
         { type: 'ADD_VICTORY_TOKENS', amount: 1 }
     ],
-    expansion: 'Prosperity',
-    set: 'prosperity' // Using 'prosperity' as set key
+    expansion: 'prosperity',
 };

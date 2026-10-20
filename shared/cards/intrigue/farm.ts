@@ -12,5 +12,5 @@ export const farm: CardDefinition = {
     ],
     description: '2 PV. 2 💰. (Une carte Trésor et Victoire.)',
     image: '/card-images/farm.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

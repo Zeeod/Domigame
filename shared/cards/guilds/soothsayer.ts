@@ -6,7 +6,6 @@ export const soothsayer: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'guilds',
-    set: 'guilds',
     description: 'Gagnez un Or. Chaque autre joueur gagne une Malédiction. Chaque joueur ayant fait cela pioche une carte.',
     effects: [
         { type: 'GAIN_CARD', cardId: 'gold', destination: 'discardPile' },

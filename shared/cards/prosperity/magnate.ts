@@ -11,8 +11,7 @@ export const magnate: CardDefinition = {
     name: 'Magnat',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+1 Action. Révélez votre main. +1 Carte par carte Trésor révélée.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

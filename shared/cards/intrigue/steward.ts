@@ -19,7 +19,7 @@ export const steward: CardDefinition = {
     description: 'Choisissez : +2 Cartes ; ou +2 ?? ; ou écartez 2 cartes de votre main.',
     image: '/card-images/steward.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };
 
 

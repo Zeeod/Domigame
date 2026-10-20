@@ -7,7 +7,6 @@ export const cemetery: CardDefinition = {
     cost: 4,
     victoryPoints: 2,
     expansion: 'nocturne',
-    set: 'nocturne',
     description: "2 PV. Quand vous gagnez cette carte, écartez jusqu'à 4 cartes de votre main.",
     heirloom: 'haunted_mirror',
     onGain: [

@@ -6,7 +6,6 @@ export const stonemason: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'guilds',
-    set: 'guilds',
     description: 'Écartez une carte de votre main. Gagnez 2 cartes coûtant chacune moins que la carte écartée. Surprix: Gagnez 2 cartes Action coûtant exactement le surprix payé.',
     effects: [
         {

@@ -6,7 +6,6 @@ export const masterpiece: CardDefinition = {
     types: ['TREASURE'],
     cost: 3,
     expansion: 'guilds',
-    set: 'guilds',
     description: '1 💰. Surprix: Gagnez un Argent par 💰 de surprix.',
     treasureValue: 1,
     effects: [

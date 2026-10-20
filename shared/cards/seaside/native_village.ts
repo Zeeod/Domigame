@@ -6,7 +6,7 @@ export const nativeVillage: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     description: '+2 Actions\nChoisissez : Mettez la carte du dessus de votre deck sur le plateau Village Indigène ; ou prenez les cartes du plateau en main.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'ADD_ACTIONS', amount: 2 },
         {

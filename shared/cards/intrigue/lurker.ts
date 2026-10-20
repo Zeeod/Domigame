@@ -35,5 +35,5 @@ export const lurker: CardDefinition = {
     ],
     description: '+1 Action. Choisissez : Écartez une carte Action de la réserve ; ou Gagnez une carte Action du rebut.',
     image: '/card-images/lurker.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

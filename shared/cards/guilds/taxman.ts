@@ -6,7 +6,6 @@ export const taxman: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 4,
     expansion: 'guilds',
-    set: 'guilds',
     description: 'Vous pouvez écarter un Trésor de votre main. Chaque autre joueur ayant 5 cartes ou plus en main défausse une copie du Trésor écartésame. Gagnez un Trésor sur votre pioche coûtant jusqu\'à 3 💰 de plus.',
     effects: [
         {

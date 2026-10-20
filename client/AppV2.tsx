@@ -12,6 +12,7 @@ import { BigCardView } from './components/BigCardView';
 import { RewindVoteOverlay } from './components/RewindVoteOverlay';
 import { CardLibrary } from './components/CardLibrary';
 import './AppV2.css';
+import { safeStorage } from './utils/safeStorage';
 
 export const AppV2: React.FC = () => {
     const {
@@ -44,7 +45,7 @@ export const AppV2: React.FC = () => {
     } = useSocket();
 
     const [playerName, setPlayerName] = useState(() => {
-        return localStorage.getItem('dominion_player_name_pref') || '';
+        return safeStorage.get('dominion_player_name_pref') || '';
     });
     const [roomId, setRoomId] = useState('');
     const [showLibrary, setShowLibrary] = useState(false);
@@ -59,7 +60,7 @@ export const AppV2: React.FC = () => {
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.value;
         setPlayerName(name);
-        localStorage.setItem('dominion_player_name_pref', name);
+        safeStorage.set('dominion_player_name_pref', name);
     };
 
     // Handle leave (confirmation moved to button in BoardLayout)

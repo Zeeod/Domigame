@@ -11,8 +11,7 @@ export const anvil: CardDefinition = {
     name: 'Enclume',
     cost: 3,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+1 Action. Vous pouvez défausser un Trésor pour gagner une carte coûtant jusqu\'à 4.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

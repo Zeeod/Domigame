@@ -6,7 +6,6 @@ export const jester: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+2 💰. Chaque autre joueur défausse la carte du dessus de sa pioche. Si c\'est une Victoire, il gagne une Malédiction. Sinon, vous choisissez: vous gagnez une copie OU il gagne une copie.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },

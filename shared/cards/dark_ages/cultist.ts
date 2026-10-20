@@ -5,8 +5,7 @@ export const cultist: CardDefinition = {
     name: 'Cultiste',
     cost: 5,
     types: ['ACTION', 'ATTACK', 'LOOTER'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+2 Cartes. Chaque autre joueur gagne une Ruine. Vous pouvez jouer un autre Cultiste de votre main. Quand vous écartez cette carte, +3 Cartes.',
     effects: [
         { type: 'DRAW', amount: 2 },

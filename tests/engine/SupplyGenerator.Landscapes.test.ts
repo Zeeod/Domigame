@@ -26,9 +26,11 @@ describe('SupplyGenerator Landscapes', () => {
     });
 
     it('should respect "random:type" directives', () => {
+        // Landmarks are not implemented yet (see shared/cards/unfinished.ts),
+        // so this uses two implemented landscape types: Event and Way.
         const result = SupplyGenerator.getLandscapes({
-            landscapeInstructions: ['random:event', 'random:landmark'],
-            enabledExpansions: ['adventures', 'empires'],
+            landscapeInstructions: ['random:event', 'random:way'],
+            enabledExpansions: ['adventures', 'menagerie'],
             seed: 'test_seed_1'
         });
 
@@ -36,16 +38,11 @@ describe('SupplyGenerator Landscapes', () => {
         const card1 = CardRegistry.get(result[0]);
         const card2 = CardRegistry.get(result[1]);
 
-        // Expect at least one event and one landmark (order depends on implementation, likely order of instructions?)
-        // Our implementation pushes to 'randomDirectives' then finds picking.
-        // It shuffles candidates then iterates directives.
-        // So we should have 1 event and 1 landmark.
-
         const hasEvent = [card1, card2].some(c => c?.types.includes('EVENT'));
-        const hasLandmark = [card1, card2].some(c => c?.types.includes('LANDMARK'));
+        const hasWay = [card1, card2].some(c => c?.types.includes('WAY'));
 
         expect(hasEvent).toBe(true);
-        expect(hasLandmark).toBe(true);
+        expect(hasWay).toBe(true);
     });
 
     it('should respect "random:way" directives', () => {

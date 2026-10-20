@@ -5,6 +5,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { SerializedState, PublicGameState, PrivatePlayerState } from '../../shared/types';
+import { safeStorage } from '../utils/safeStorage';
 
 // ============================================================================
 // Types
@@ -112,7 +113,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
     const [isConnected, setIsConnected] = useState(false);
     const [playerId, setPlayerId] = useState<string | null>(() => {
         if (typeof window !== 'undefined') {
-            return localStorage.getItem('dominion_player_token');
+            return safeStorage.get('dominion_player_token');
         }
         return null;
     });
@@ -235,10 +236,10 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
 
     // Helper to get/create persistent token
     const getOrCreatePlayerToken = useCallback(() => {
-        let token = localStorage.getItem('dominion_player_token');
+        let token = safeStorage.get('dominion_player_token');
         if (!token) {
             token = `p_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-            localStorage.setItem('dominion_player_token', token);
+            safeStorage.set('dominion_player_token', token);
         }
         return token;
     }, []);
@@ -358,7 +359,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
     }, []);
 
     const listSavedGames = useCallback(() => {
-        const token = localStorage.getItem('dominion_player_token');
+        const token = safeStorage.get('dominion_player_token');
         socketRef.current?.emit('list_saved_games', { playerToken: token });
     }, []);
 

@@ -5,8 +5,7 @@ export const spoils: CardDefinition = {
     name: 'Butin',
     cost: 0,
     types: ['TREASURE'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '3💰. Quand vous jouez cette carte, renvoyez-la dans sa pile.',
     isNonSupply: true,
     effects: [

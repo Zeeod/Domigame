@@ -5,8 +5,7 @@ export const scavenger: CardDefinition = {
     name: 'Charognard',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+2💰. Vous pouvez mettre votre deck dans votre défausse. Mettez une carte de votre défausse sur votre deck.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },

@@ -36,6 +36,5 @@ export const SilkMerchant: CardDefinition = {
             amount: 1
         } as any
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

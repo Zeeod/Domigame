@@ -6,7 +6,6 @@ export const witch: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'base',
-    set: 'base',
     description: '+2 Cartes. Chaque autre joueur reçoit une Malédiction.',
     effects: [
         { type: 'DRAW', amount: 2 },

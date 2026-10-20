@@ -6,7 +6,7 @@ export const wharf: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     description: '+2 Cartes ; +1 Achat. Au début de votre prochain tour : +2 Cartes ; +1 Achat.',
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'DRAW', amount: 2 },
         { type: 'ADD_BUYS', amount: 1 }

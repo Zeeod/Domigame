@@ -6,7 +6,6 @@ export const swampHag: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'DURATION'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Jusqu\'à votre prochain tour, quand un autre joueur achète une carte, il gagne une Malédiction. Au début de votre prochain tour: +3 💰.',
     effects: [
         {

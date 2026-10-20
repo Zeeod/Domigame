@@ -6,7 +6,6 @@ export const doctor: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'guilds',
-    set: 'guilds',
     description: 'Nommez une carte. Révélez les 3 cartes du dessus de votre pioche. Écartez les copies nommées. Remettez les autres dans l\'ordre de votre choix. Surprix: Regardez autant de cartes, écartez/défaussez/remettez chacune.',
     effects: [
         { type: 'NAME_A_CARD' },

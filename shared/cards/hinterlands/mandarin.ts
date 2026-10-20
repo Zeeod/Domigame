@@ -6,7 +6,6 @@ export const mandarin: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+3 💰. Mettez une carte de votre main sur votre pioche. Quand vous gagnez cette carte, mettez tous les Trésors en jeu sur votre pioche dans l\'ordre de votre choix.',
     effects: [
         { type: 'ADD_MONEY', amount: 3 },

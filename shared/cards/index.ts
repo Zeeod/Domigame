@@ -333,6 +333,7 @@ import * as Allies from './allies/index.js';
 import * as Promos from './promos/index.js';
 import * as Plunder from './plunder/index.js';
 import * as RisingSun from './rising_sun/index.js';
+import { isUnfinishedCard } from './unfinished.js';
 
 // Helper to extract cards from module exports
 function extractCards(module: any): Record<string, any> {
@@ -888,6 +889,9 @@ export class CardRegistry {
                 // Exclude non-supply and sub-cards
                 if (card.isNonSupply || card.isSubCard || card.isLegacy) return false;
 
+                // Exclude cards not implemented yet (see unfinished.ts)
+                if (isUnfinishedCard(id)) return false;
+
                 // Exclude Landscape, auxiliary types and Heirlooms
                 if (card.types.some(t => excludedTypes.has(t)) || card.types.includes('HEIRLOOM')) return false;
 
@@ -895,6 +899,18 @@ export class CardRegistry {
                 return card.types.includes('ACTION') || card.types.includes('VICTORY') || card.types.includes('TREASURE');
             })
             .map(c => c.id);
+    }
+
+    /**
+     * Landscapes (Events, Landmarks, Projects, Ways, Traits, Allies, Prophecies)
+     * that can be drawn for a game: excludes legacy and unfinished cards.
+     */
+    static getLandscapeCandidates(): CardDefinition[] {
+        const landscapeTypes = ['EVENT', 'LANDMARK', 'PROJECT', 'WAY', 'TRAIT', 'ALLY', 'PROPHECY'];
+        const unique = new Map<string, CardDefinition>();
+        Object.values(ALL_CARDS).forEach(c => { if (c?.id) unique.set(c.id, c); });
+        return Array.from(unique.values()).filter(c =>
+            c.types.some(t => landscapeTypes.includes(t)) && !c.isLegacy && !isUnfinishedCard(c.id));
     }
 
     static getProjectCards(): CardDefinition[] {

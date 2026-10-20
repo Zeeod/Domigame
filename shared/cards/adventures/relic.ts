@@ -6,7 +6,6 @@ export const relic: CardDefinition = {
     types: ['TREASURE', 'ATTACK'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: '2 💰. Chaque autre joueur met son jeton -1 Carte sur sa pioche.',
     treasureValue: 2,
     effects: [

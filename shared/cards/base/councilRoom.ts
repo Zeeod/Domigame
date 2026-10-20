@@ -17,7 +17,7 @@ export const councilRoom: CardDefinition = {
     description: '+4 Cartes ; +1 Achat. Chaque autre joueur pioche une carte.',
     image: '/card-images/council_room.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

@@ -10,5 +10,5 @@ export const duke: CardDefinition = {
     vpCalculator: (allCards) => allCards.filter(c => c.id === 'duchy').length,
     description: 'Vaut 1 PV pour chaque Duché que vous possédez.',
     image: '/card-images/duke.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

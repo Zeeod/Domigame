@@ -15,6 +15,5 @@ export const grandMarket: CardDefinition = {
     buyRestriction: {
         type: 'NO_COPPER_IN_PLAY'
     },
-    expansion: 'Prosperity',
-    set: 'prosperity'
+    expansion: 'prosperity',
 };

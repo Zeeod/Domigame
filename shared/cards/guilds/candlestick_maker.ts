@@ -6,7 +6,6 @@ export const candlestickMaker: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'guilds',
-    set: 'guilds',
     description: '+1 Action, +1 Achat, +1 Coffre.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

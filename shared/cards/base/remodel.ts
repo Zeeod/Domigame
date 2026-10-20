@@ -21,7 +21,7 @@ export const remodel: CardDefinition = {
     description: 'Écartez une carte de votre main. Gagnez une carte coûtant jusqu\'à 2 Pièces de plus que la carte écartée.',
     image: '/card-images/remodel.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

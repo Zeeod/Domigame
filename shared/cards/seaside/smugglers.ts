@@ -6,7 +6,7 @@ export const smugglers: CardDefinition = {
     types: ['ACTION'],
     description: 'Gagnez une copie d\'une carte coûtant jusqu\'à 6 Pièces gagnée par le joueur à votre droite lors de son dernier tour.',
     cost: 3,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'CHECK_PREVIOUS_TURN',

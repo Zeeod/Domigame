@@ -6,7 +6,6 @@ export const treasureHunter: CardDefinition = {
     types: ['ACTION', 'TRAVELLER'],
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: '+1 Action, +1 💰. Gagnez un Argent par carte qui a été gagnée au tour précédent. Quand vous défaussez du jeu, vous pouvez échanger contre un Guerrier.',
     effects: [

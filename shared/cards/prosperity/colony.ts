@@ -8,5 +8,5 @@ export const colony: CardDefinition = {
     victoryPoints: 10,
     description: '10 VP',
     image: '/card-images/colony.jpg', // Placeholder image path
-    expansion: 'Prosperity'
+    expansion: 'prosperity'
 };

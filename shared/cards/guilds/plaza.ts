@@ -6,7 +6,6 @@ export const plaza: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'guilds',
-    set: 'guilds',
     description: '+1 Carte, +2 Actions. Vous pouvez défausser un Trésor pour +1 Coffre.',
     effects: [
         { type: 'DRAW', amount: 1 },

@@ -6,7 +6,6 @@ export const lostCity: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+2 Cartes, +2 Actions. Quand vous gagnez cette carte, chaque autre joueur pioche une carte.',
     effects: [
         { type: 'DRAW', amount: 2 },

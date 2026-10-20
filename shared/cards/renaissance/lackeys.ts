@@ -18,6 +18,5 @@ export const Lackeys: CardDefinition = {
             amount: 2
         } as any
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

@@ -5,6 +5,7 @@ import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { GameState } from '../GameState.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { CardRegistry } from '../../cards/index.js';
+import { getCardExpansion } from '../../cards/expansions.js';
 import { EconomyEngine } from '../EconomyEngine.js';
 import { EffectDefinition } from '../../types/EffectDefinition.js';
 
@@ -18,7 +19,7 @@ export class RisingSunEffectHandler {
                 count: 10,
                 excludeCards: oldKingdomCards,
                 enabledExpansions: state.kingdomCards.length > 0 ?
-                    [...new Set(oldKingdomCards.map(id => CardRegistry.get(id)?.expansion || 'base'))] : undefined
+                    [...new Set(oldKingdomCards.map(id => getCardExpansion(CardRegistry.get(id))))] : undefined
             });
 
             // 1. Remove old piles

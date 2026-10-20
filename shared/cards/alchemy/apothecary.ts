@@ -7,7 +7,6 @@ export const Apothecary: CardDefinition = {
     cost: 2,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+1 Carte.\n+1 Action.\nRévélez les 4 premières cartes de votre deck. Mettez les Cuivres et Potions révélés dans votre main. Replacez le reste sur votre deck dans l'ordre de votre choix.",
     effects: [
         {

@@ -7,7 +7,6 @@ export const Shepherd: CardDefinition = {
     types: ['ACTION'],
     heirloom: 'pasture',
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Action. Défaussez autant de cartes Victoire que vous le souhaitez. +2 Cartes par carte ainsi défaussée.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

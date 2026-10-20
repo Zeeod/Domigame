@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { CardRegistry } from '../../shared/cards/index';
+import { getCardExpansion } from '../../shared/cards/expansions';
+import { isUnfinishedCard } from '../../shared/cards/unfinished';
 import { CardFrame } from './CardFrame';
 import './LobbyKingdomSelector.css';
 
@@ -194,7 +196,7 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
         let pool = CardRegistry.getKingdomCandidates();
 
         if (pickerType) {
-            pool = Object.keys(CardRegistry.getAll());
+            pool = Object.keys(CardRegistry.getAll()).filter(id => !isUnfinishedCard(id));
         }
 
         return pool
@@ -212,8 +214,7 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
                     if (c.types.includes('EVENT') || c.types.includes('LANDMARK') || c.types.includes('PROJECT') || c.types.includes('WAY') || c.types.includes('TRAIT')) return false;
                 }
 
-                const cardSet = c.set || c.expansion || 'base';
-                const cardSetKey = cardSet.toLowerCase().replace(/\s+/g, '_');
+                const cardSetKey = getCardExpansion(c);
 
                 if (expansionFilter) {
                     if (cardSetKey !== expansionFilter) return false;

@@ -2,6 +2,7 @@ import { CardRegistry } from '../cards/index.js';
 import { CardDefinition } from '../types/CardDefinition.js';
 import { createGameState, GameState } from './GameState.js';
 import { EffectUtils } from './EffectUtils.js';
+import { expandExpansionFilter, getCardExpansion, normalizeExpansion } from '../cards/expansions.js';
 
 export interface SupplyGeneratorOptions {
     count: number;
@@ -36,24 +37,9 @@ export class SupplyGenerator {
 
                 // New: Filter by enabled expansions
                 if (options.enabledExpansions) {
-                    const cardExp = (c.expansion || c.set || 'base').toLowerCase();
                     // Fallback to 'base' if list is empty to avoid returning no cards
-                    let filter = options.enabledExpansions.length > 0 ? options.enabledExpansions : ['base'];
-
-                    // Expand combined expansions (cornucopia_guilds -> cornucopia, guilds)
-                    const expandedFilter: string[] = [];
-                    for (const exp of filter) {
-                        if (exp === 'cornucopia_guilds') {
-                            expandedFilter.push('cornucopia', 'guilds');
-                        } else if (exp === 'promos') {
-                            // Promos usually don't have a 'promos' set key but might be standalone
-                            expandedFilter.push('promos', 'promo');
-                        } else {
-                            expandedFilter.push(exp);
-                        }
-                    }
-
-                    return expandedFilter.includes(cardExp);
+                    const filter = options.enabledExpansions.length > 0 ? options.enabledExpansions : ['base'];
+                    return expandExpansionFilter(filter).has(getCardExpansion(c));
                 }
 
                 return true;
@@ -87,13 +73,8 @@ export class SupplyGenerator {
         };
 
         // Helper to match expansion/set
-        const matchesExpansion = (card: CardDefinition, expansion: string) => {
-            const expLower = expansion.toLowerCase();
-            const cardExp = (card.expansion || card.set || '').toLowerCase();
-
-            if (expLower === 'base' && !cardExp) return true;
-            return cardExp === expLower;
-        };
+        const matchesExpansion = (card: CardDefinition, expansion: string) =>
+            getCardExpansion(card) === normalizeExpansion(expansion);
 
         // Process placeholders (e.g. "random:seaside")
         for (const directive of placeholderDirectives) {
@@ -195,10 +176,7 @@ export class SupplyGenerator {
 
         const prosperityCount = kingdomCardIds.filter(id => {
             const def = CardRegistry.get(id);
-            if (!def) return false;
-            const exp = def.expansion?.toLowerCase();
-            const set = def.set?.toLowerCase();
-            return exp === 'prosperity' || set === 'prosperity';
+            return !!def && getCardExpansion(def) === 'prosperity';
         }).length;
 
         const rngState = createGameState(seed ?? 'prosperity_check' + Date.now());
@@ -257,10 +235,7 @@ export class SupplyGenerator {
         if (mode === 'never') return false;
 
         const kingdomCards = kingdomCardIds.map(id => CardRegistry.get(id));
-        return kingdomCards.some(c => {
-            const exp = (c?.expansion || c?.set || '').toLowerCase().replace(/_/g, ' ');
-            return exp === 'dark ages';
-        });
+        return kingdomCards.some(c => !!c && getCardExpansion(c) === 'dark_ages');
     }
 
     /**
@@ -300,29 +275,14 @@ export class SupplyGenerator {
             ? options.enabledExpansions
             : null; // null means "allow all"
 
-        const candidates = Object.values(CardRegistry.getAll())
-            .filter((c): c is CardDefinition => {
-                if (!c) return false;
-                const isLandscape = c.types.includes('EVENT') || c.types.includes('LANDMARK')
-                    || c.types.includes('PROJECT') || c.types.includes('WAY')
-                    || c.types.includes('TRAIT') || c.types.includes('ALLY')
-                    || c.types.includes('PROPHECY');
-                return isLandscape;
-            });
+        const candidates = CardRegistry.getLandscapeCandidates();
 
         // Helper to check expansion
         const isAllowedExp = (c: CardDefinition) => {
             // If no expansion filter, allow all
             if (!expansions) return true;
 
-            const cardExp = (c.expansion || c.set || 'base').toLowerCase();
-            const expMap: Record<string, string> = { 'promos': 'promo' };
-            for (const exp of expansions) {
-                const normalizedExp = expMap[exp] || exp;
-                if (cardExp === normalizedExp || cardExp === exp) return true;
-                if (exp === 'cornucopia_guilds' && (cardExp === 'cornucopia' || cardExp === 'guilds')) return true;
-            }
-            return false;
+            return expandExpansionFilter(expansions).has(getCardExpansion(c));
         };
 
         const validCandidates = candidates.filter(isAllowedExp);

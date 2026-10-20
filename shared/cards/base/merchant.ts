@@ -37,7 +37,7 @@ export const merchant: CardDefinition = {
     description: '+1 Carte ; +1 Action. La première fois que vous jouez un Argent ce tour-ci, vous gagnez +1 Pièce.',
     image: '/card-images/merchant.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

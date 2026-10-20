@@ -12,5 +12,5 @@ export const bridge: CardDefinition = {
     ],
     description: '+1 Achat ; +1 ??. Ce tour-ci, toutes les cartes (y compris celles en main) coûtent 1 ?? de moins, mais pas moins de 0 ??.',
     image: '/card-images/bridge.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

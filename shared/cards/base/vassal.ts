@@ -17,5 +17,5 @@ export const vassal: CardDefinition = {
     description: '+2 Pièces. Défaussez la carte du sommet de votre pioche. Si c\'est une carte Action, vous pouvez la jouer.',
     image: '/card-images/vassal.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

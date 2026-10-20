@@ -11,7 +11,7 @@ export const outpost: CardDefinition = {
     // Text: "If you haven't taken an extra turn... take an extra turn after this one."
     // "At the start of that extra turn, draw 3 cards."
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'SCHEDULE_EXTRA_TURN'

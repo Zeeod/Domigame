@@ -12,8 +12,7 @@ export const mint: CardDefinition = {
     name: 'Monnaie', // Or Monnaie
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Révélez une carte Trésor de votre main. Gagnez-en une copie. Lors de l\'achat : écartez tous vos Trésors en jeu.',
     effects: [
         {

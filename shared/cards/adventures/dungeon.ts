@@ -6,7 +6,6 @@ export const dungeon: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Action. Maintenant et au début de votre prochain tour: +2 Cartes, puis défaussez 2 cartes.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

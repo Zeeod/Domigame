@@ -12,8 +12,7 @@ export const warChest: CardDefinition = {
     name: 'Trésor de guerre',
     cost: 5,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 2 💰. Au début de votre phase d\'Achat, si vous avez au moins 1 💰, vous pouvez gagner une carte coûtant jusqu\'à 4 💰.',
     treasureValue: 2,
     effects: [

@@ -24,5 +24,5 @@ export const artisan: CardDefinition = {
     description: 'Gagnez une carte coûtant jusqu\'à 5 Pièces et ajoutez-la à votre main. Placez une carte de votre main sur votre pioche.',
     image: '/card-images/artisan.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

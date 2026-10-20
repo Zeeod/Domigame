@@ -15,6 +15,5 @@ export const ActingTroupe: CardDefinition = {
             type: 'TRASH_SELF'
         }
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

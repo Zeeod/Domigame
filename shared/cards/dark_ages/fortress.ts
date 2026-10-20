@@ -5,8 +5,7 @@ export const fortress: CardDefinition = {
     name: 'Forteresse',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +2 Actions. Quand vous écartez cette carte, prenez-la en main.',
     effects: [
         { type: 'DRAW', amount: 1 },

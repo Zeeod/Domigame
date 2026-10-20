@@ -6,7 +6,6 @@ export const crossroads: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: 'Révélez votre main. +1 Carte par carte Victoire révélée. Si c\'est la première fois que vous jouez une Croisée des chemins ce tour-ci, +3 Actions.',
     effects: [
         {

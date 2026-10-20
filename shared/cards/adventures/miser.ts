@@ -6,7 +6,6 @@ export const miser: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Choisissez: Mettez un Cuivre de votre main sur votre tapis de Taverne; ou +1 💰 par Cuivre sur votre tapis de Taverne.',
     effects: [
         {

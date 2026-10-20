@@ -26,11 +26,13 @@ On ne commence pas une extension tant que les tests de la précédente ne sont p
 
 ## Phase 0 — Corrections rapides (taille S)
 
-- [ ] **Étiquettes d'extension** : 26 cartes Seaside n'ont pas de champ `expansion` (seule `treasure_map` en a un). Elles risquent d'être mal filtrées dans le sélecteur de royaume.
-- [ ] **Uniformiser la casse** des noms d'extension : `Base`/`base`, `Renaissance`/`renaissance`, `Menagerie`/`menagerie`, `Dark Ages`, `Prosperity`, `Intrigue`… → tout en `snake_case` minuscule (`dark_ages`, `seaside`…).
-- [ ] **Tests client** : `tests/client/ChoiceModalV2.test.tsx` échoue avec `document is not defined`. Ajouter `// @vitest-environment jsdom` en tête de fichier (2 tests).
-- [ ] **Exclure les cartes non finies du générateur de royaume** (drapeau `implemented: false` ou liste noire), pour qu'une partie ne tombe jamais sur une coquille vide.
-- [ ] **Intégration continue** : une action GitHub qui lance `npm run check-types` et `npm test` à chaque push.
+**✅ Terminée le 20/10/2026.**
+
+- [x] **Étiquettes d'extension** : toutes les cartes ont maintenant `expansion` avec un id canonique (`seaside`, `dark_ages`…). Le doublon `set` est supprimé. Source de vérité : `shared/cards/expansions.ts` (`getCardExpansion()`, `EXPANSION_LABELS`).
+  - *Bug corrigé au passage* : le lobby envoyait `dark_ages` alors que les cartes portaient « Dark Ages », donc **les cartes Dark Ages n'étaient jamais tirées** quand on filtrait par extension.
+- [x] **Tests client** : environnement jsdom, contexte `CardInspectProvider` dans le test, accès à `localStorage` sécurisé (`client/utils/safeStorage.ts`).
+- [x] **Cartes non finies exclues** du tirage du royaume, du tirage des paysages et du sélecteur du lobby : liste `shared/cards/unfinished.ts`, gardée à jour par `tests/cards/UnfinishedCards.test.ts`.
+- [x] **Intégration continue** : `.github/workflows/ci.yml` (types, build, tests). *Elle restera rouge tant que la phase 1 n'est pas finie.*
 
 ---
 
@@ -118,6 +120,10 @@ Ces cartes ont un nom et un texte, mais **aucun effet**, et le moteur ne les ré
 | **Nocturne** | crypt, devils_workshop, fool, necromancer, pooka, vampire + Hex **Bad Omens** (effets vides) | 7 |
 
 *Les piles « conteneurs » (ruins, knights, castles_pile, augurs_pile, …) n'ont pas d'effet, c'est normal.*
+
+**À chaque carte codée : retirer son id de `shared/cards/unfinished.ts`** (le test `UnfinishedCards` le rappelle).
+
+**Manque découvert** : rien dans le moteur ne choisit une carte Allié quand une carte Liaison (Allies) est dans le royaume. À ajouter en même temps que les Alliés.
 
 ### 2.4 Ordre conseillé des extensions
 Du plus fiable au plus complexe, pour que le jeu soit jouable tôt :

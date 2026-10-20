@@ -11,8 +11,7 @@ export const expand: CardDefinition = {
     name: 'Agrandissement',
     cost: 7,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Écartez une carte de votre main. Gagnez une carte coûtant jusqu\'à 3 💰 de plus que la carte écartée.',
     effects: [
         {

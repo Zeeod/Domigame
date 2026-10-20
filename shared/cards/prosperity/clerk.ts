@@ -11,8 +11,7 @@ export const clerk: CardDefinition = {
     name: 'Clerc',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+2 💰. Vous pouvez placer cette carte sur votre pioche.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },

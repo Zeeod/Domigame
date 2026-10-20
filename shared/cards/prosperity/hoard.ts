@@ -11,8 +11,7 @@ export const hoard: CardDefinition = {
     name: 'Trésor caché',
     cost: 6,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 2 💰. Tant que cette carte est en jeu, quand vous achetez une carte Victoire, gagnez un Or.',
     treasureValue: 2,
     effects: [

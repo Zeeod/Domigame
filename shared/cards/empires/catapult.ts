@@ -45,7 +45,6 @@ export const catapult: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

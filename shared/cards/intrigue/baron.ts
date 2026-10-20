@@ -20,5 +20,5 @@ export const baron: CardDefinition = {
     description: '+1 Achat. Vous pouvez défausser une carte Domaine pour obtenir +4 ??. Si vous ne le faites pas, gagnez un Domaine.',
     image: '/card-images/baron.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

@@ -6,7 +6,6 @@ export const borderVillage: CardDefinition = {
     types: ['ACTION'],
     cost: 6,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+1 Carte, +2 Actions. Quand vous gagnez cette carte, gagnez une carte coûtant moins.',
     effects: [
         { type: 'DRAW', amount: 1 },

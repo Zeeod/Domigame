@@ -5,8 +5,7 @@ export const forager: CardDefinition = {
     name: 'Glaneuse',
     cost: 3,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Action, +1 Achat. Écartez une carte de votre main. +1 💰 par type de Trésor différent dans le Rebut.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

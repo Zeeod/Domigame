@@ -6,7 +6,7 @@ export const astrolabe: CardDefinition = {
     types: ['TREASURE', 'DURATION'],
     cost: 3,
     description: 'Maintenant et au début de votre prochain tour : +1 Achat ; +1 Pièce.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'ADD_BUYS',

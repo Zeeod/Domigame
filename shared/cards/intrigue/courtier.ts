@@ -30,5 +30,5 @@ export const courtier: CardDefinition = {
     ],
     description: 'Révélez une carte de votre main. Pour chaque type de cette carte (Action, Trésor, Victoire, ...), choisissez un avantage différent : +1 Action ; +1 Achat ; +3 ?? ; ou gagnez un Or.',
     image: '/card-images/courtier.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

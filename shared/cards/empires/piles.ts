@@ -7,7 +7,6 @@ export const catapult_rocks_pile: CardDefinition = {
     cost: 3,
     description: "Cette pile commence avec 5 exemplaires de la Catapulte sur le dessus, puis 5 exemplaires des Pierres dessous. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',
@@ -25,7 +24,6 @@ export const encampment_plunder_pile: CardDefinition = {
     cost: 2,
     description: "Cette pile commence avec 5 exemplaires du Campement sur le dessus, puis 5 exemplaires du Butin dessous. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',
@@ -43,7 +41,6 @@ export const gladiator_fortune_pile: CardDefinition = {
     cost: 3,
     description: "Cette pile commence avec 5 exemplaires du Gladiateur sur le dessus, puis 5 exemplaires de la Fortune dessous. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',
@@ -61,7 +58,6 @@ export const patrician_emporium_pile: CardDefinition = {
     cost: 2,
     description: "Cette pile commence avec 5 exemplaires du Patricien sur le dessus, puis 5 exemplaires de l'Emporium dessous. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',
@@ -79,7 +75,6 @@ export const settlers_bustling_village_pile: CardDefinition = {
     cost: 2,
     description: "Cette pile commence avec 5 exemplaires des Colons sur le dessus, puis 5 exemplaires du Village grouillant dessous. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',
@@ -97,7 +92,6 @@ export const castles_pile: CardDefinition = {
     cost: 3,
     description: "Cette pile commence avec 8 Châteaux différents, du moins cher au plus cher. Seule la carte du dessus de la pile peut être gagnée ou achetée.",
     expansion: 'empires',
-    set: 'empires',
     isPile: true as any,
     mixedPile: {
         type: 'ORDERED',

@@ -5,8 +5,7 @@ export const altar: CardDefinition = {
     name: 'Autel',
     cost: 6,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Écartez une carte de votre main. Gagnez une carte coûtant jusqu\'à 5💰.',
     effects: [
         { type: 'TRASH', min: 1, max: 1, from: 'hand' },

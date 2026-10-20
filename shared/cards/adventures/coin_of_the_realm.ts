@@ -6,7 +6,6 @@ export const coinOfTheRealm: CardDefinition = {
     types: ['TREASURE', 'RESERVE'],
     cost: 2,
     expansion: 'adventures',
-    set: 'adventures',
     description: '1 💰. Mettez cette carte sur votre tapis de Réserve. Réserve: Après avoir joué une Action, appelez cette carte pour +2 Actions.',
     treasureValue: 1,
     effects: [

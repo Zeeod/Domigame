@@ -6,7 +6,7 @@ export const seaWitch: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'DURATION'],
     description: '+2 Cartes. Chaque autre joueur gagne une Malédiction. Au début de votre prochain tour : +2 Cartes, puis défaussez 2 cartes.',
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'DRAW',

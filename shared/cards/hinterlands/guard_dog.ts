@@ -23,7 +23,6 @@ export const guard_dog: CardDefinition = {
     reactionEffects: [
         { type: 'PLAY_THIS_CARD' }
     ],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

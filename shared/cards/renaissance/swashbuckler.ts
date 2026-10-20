@@ -36,6 +36,5 @@ export const Swashbuckler: CardDefinition = {
         },
     ],
     description: "+3 Cartes. Si votre défausse contient au moins une carte : +1 Coffre. Si vous avez au moins 4 Coffres : prenez le Coffre au Trésor.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

@@ -5,7 +5,7 @@ export const island: CardDefinition = {
     name: 'Île',
     types: ['ACTION', 'VICTORY'], // It's Action-Victory!
     cost: 4,
-    set: 'seaside',
+    expansion: 'seaside',
     victoryPoints: 2,
     description: '2 PV\nPlacez cette carte et une carte de votre main sur votre plateau Île.',
     effects: [

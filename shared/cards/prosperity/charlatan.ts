@@ -11,8 +11,7 @@ export const charlatan: CardDefinition = {
     name: 'Charlatan',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+3 💰. Chaque autre joueur gagne une Malédiction. Vous pouvez écarter une Malédiction de votre main.',
     effects: [
         { type: 'ADD_MONEY', amount: 3 },

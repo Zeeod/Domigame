@@ -28,6 +28,5 @@ export const Ducat: CardDefinition = {
             message: 'Vous pouvez écarter un Cuivre'
         } as any
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

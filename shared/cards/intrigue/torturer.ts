@@ -24,7 +24,7 @@ export const torturer: CardDefinition = {
     description: '+3 Cartes. Chaque autre joueur choisit : défausser 2 cartes de sa main ; ou gagner une carte Malédiction dans sa main.',
     image: '/card-images/torturer.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };
 
 

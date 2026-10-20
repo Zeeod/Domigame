@@ -6,7 +6,6 @@ export const menagerie: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+1 Action. Révélez votre main. Si les cartes ont toutes des noms différents, +3 Cartes. Sinon, +1 Carte.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

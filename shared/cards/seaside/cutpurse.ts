@@ -6,7 +6,7 @@ export const cutpurse: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     description: '+2 Pièces. Chaque autre joueur défausse un Cuivre (ou dévoile une main sans Cuivre).',
     cost: 4,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
         {

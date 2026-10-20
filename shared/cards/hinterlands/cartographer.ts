@@ -6,7 +6,6 @@ export const cartographer: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+1 Carte, +1 Action. Regardez les 4 cartes du dessus de votre pioche. Défaussez-en autant que vous voulez et remettez le reste sur votre pioche dans l\'ordre de votre choix.',
     effects: [
         { type: 'DRAW', amount: 1 },

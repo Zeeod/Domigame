@@ -52,6 +52,5 @@ export const Treasurer: CardDefinition = {
         },
     ],
     description: "+3 Pièces. Choisissez-en un : écartez une carte Trésor de votre main ; ou gagnez une carte Trésor de la poubelle dans votre main ; ou prenez la Clé.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

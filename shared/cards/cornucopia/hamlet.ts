@@ -6,7 +6,6 @@ export const hamlet: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+1 Carte, +1 Action. Vous pouvez défausser une carte pour +1 Action. Vous pouvez défausser une carte pour +1 Achat.',
     effects: [
         { type: 'DRAW', amount: 1 },

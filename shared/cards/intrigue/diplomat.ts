@@ -24,5 +24,5 @@ export const diplomat: CardDefinition = {
     ],
     description: '+2 Cartes. Si vous avez 5 cartes ou moins en main après avoir pioché : +2 Actions. Réaction : Quand un autre joueur joue une carte Attaque, si vous avez 5 cartes ou plus en main, vous pouvez révéler cette carte pour piocher 2 cartes puis en défausser 3.',
     image: '/card-images/diplomat.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

@@ -20,6 +20,5 @@ export const capital: CardDefinition = {
         { type: 'PAY_DEBT' },
         { type: 'TAKE_DEBT', amount: 6 }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

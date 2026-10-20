@@ -11,8 +11,7 @@ export const quarry: CardDefinition = {
     name: 'Carrière',
     cost: 4,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 1 💰. Tant que cette carte est en jeu, les cartes Action coûtent 2 💰 de moins (minimum 0).',
     treasureValue: 1,
     effects: [

@@ -20,5 +20,5 @@ export const mill: CardDefinition = {
     description: '1 PV. +1 Carte ; +1 Action. Vous pouvez défausser 2 cartes pour +2 ??.',
     image: '/card-images/mill.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

@@ -11,8 +11,7 @@ export const kingsCourt: CardDefinition = {
     name: 'Roi de la cour',
     cost: 7,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Choisissez une carte Action de votre main et jouez-la trois fois.',
     effects: [
         {

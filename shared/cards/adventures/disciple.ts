@@ -6,7 +6,6 @@ export const disciple: CardDefinition = {
     types: ['ACTION', 'TRAVELLER'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: 'Vous pouvez jouer une carte Action de votre main deux fois. Gagnez une copie de cette carte. Quand vous défaussez du jeu, vous pouvez échanger contre un Maître.',
     effects: [

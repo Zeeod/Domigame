@@ -32,5 +32,5 @@ export const bandit: CardDefinition = {
     description: 'Gagnez un Or. Chaque autre joueur dévoile les deux cartes du sommet de sa pioche, écarte une carte Trésor dévoilée autre qu\'un Cuivre et défausse le reste.',
     image: '/card-images/bandit.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

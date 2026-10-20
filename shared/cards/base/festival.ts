@@ -17,7 +17,7 @@ export const festival: CardDefinition = {
     description: '+2 Actions ; +1 Achat ; +2 Pièces.',
     image: '/card-images/festival.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

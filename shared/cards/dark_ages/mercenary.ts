@@ -5,8 +5,7 @@ export const mercenary: CardDefinition = {
     name: 'Mercenaire',
     cost: 0,
     types: ['ACTION', 'ATTACK'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     isSubCard: true,
     description: 'Vous pouvez écarter 2 cartes de votre main. Si vous le faites, +2 Cartes, +2💰, et chaque autre joueur défausse jusqu\'à 3 cartes en main.',
     effects: [

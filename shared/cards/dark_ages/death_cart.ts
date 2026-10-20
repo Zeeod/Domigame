@@ -5,8 +5,7 @@ export const deathCart: CardDefinition = {
     name: 'Chariot Mortuaire',
     cost: 4,
     types: ['ACTION', 'LOOTER'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+5💰. Vous pouvez écarter une carte Action de votre main. Sinon, écartez cette carte.',
     effects: [
         { type: 'ADD_MONEY', amount: 5 },

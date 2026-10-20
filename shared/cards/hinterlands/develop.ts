@@ -6,7 +6,6 @@ export const develop: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: 'Écartez une carte de votre main. Gagnez deux cartes différentes de la Réserve: une coûtant exactement 1💰 de plus que la carte écartée, et une coûtant exactement 1💰 de moins. Placez-les sur votre pioche dans l\'ordre de votre choix.',
     effects: [
         {

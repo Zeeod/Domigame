@@ -5,8 +5,7 @@ export const pillage: CardDefinition = {
     name: 'Pillage',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Écartez cette carte. Si vous le faites, chaque autre joueur ayant 5 cartes ou plus en main révèle sa main et vous en choisissez une qu\'il défausse. Gagnez 2 Butins.',
     effects: [
         { type: 'TRASH_SELF' },
