@@ -92,7 +92,7 @@ Pour chaque extension, dans l'ordre :
 4. Jouer une partie avec un royaume 100 % de cette extension, contre les bots.
 
 ### 2.1 Éditions — DÉCIDÉ : dernière édition partout
-Les PDF du dossier `docs/rules/` sont ceux des dernières éditions. **Décision (20/10/2026) : on vise la dernière édition de chaque extension.** Les cartes retirées dans la dernière édition sont sorties du registre (le code peut rester dans git, mais il n'est plus proposé en partie).
+Les PDF du dossier `docs/rules/` sont ceux des dernières éditions. **Décision (20/10/2026) : on vise la dernière édition de chaque extension.** Les cartes retirées dans la dernière édition restent dans le registre mais reçoivent `isLegacy: true` : elles ne sont plus tirées en partie (le filtre existe déjà dans `getKingdomCandidates()`).
 - **Hinterlands** : le registre contient la liste de la 1re édition. Les 9 cartes de la 2e édition **ont un fichier mais ne sont pas enregistrées** : berserker, cauldron, guard_dog, nomads, souk, trail, weaver, wheelwright, witchs_hut. Il manque aussi **Fool's Gold**, présente dans les deux éditions.
 - **Cornucopia & Guilds** (PDF 2023) : le registre contient la 1re édition. Les cartes de la 2e édition manquent : Carnival, Farmhands, Ferryman, Joust (+ les 6 Récompenses), Shop.
 
