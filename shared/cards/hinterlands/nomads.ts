@@ -18,7 +18,6 @@ export const nomads: CardDefinition = {
     onDiscard: [
         { type: 'GAIN_THIS_CARD' } // Requires Generic "ON_DISCARD" trigger support
     ],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

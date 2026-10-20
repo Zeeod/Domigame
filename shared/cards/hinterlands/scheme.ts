@@ -6,7 +6,6 @@ export const scheme: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: "+1 Carte, +1 Action. À la fin de ce tour, vous pouvez choisir une carte Action en jeu et la mettre sur votre deck.",
     effects: [
         { type: 'DRAW', amount: 1 },

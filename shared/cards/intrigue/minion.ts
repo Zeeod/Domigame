@@ -38,5 +38,5 @@ export const minion: CardDefinition = {
     ],
     description: '+1 Action. Choisissez : +2 ?? ; ou défaussez votre main, +4 Cartes et chaque autre joueur ayant au moins 5 cartes en main défausse la sienne et pioche 4 cartes.',
     image: '/card-images/minion.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

@@ -6,7 +6,7 @@ export const bazaar: CardDefinition = {
     types: ['ACTION'],
     description: '+1 Carte ; +2 Actions ; +1 Pièce.',
     cost: 5,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 2 },

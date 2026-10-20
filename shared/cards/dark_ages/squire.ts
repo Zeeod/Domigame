@@ -5,8 +5,7 @@ export const squire: CardDefinition = {
     name: 'Écuyer',
     cost: 2,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1💰. Choisissez: +2 Actions; ou +2 Achats; ou gagnez un Argent. Quand vous écartez cette carte, gagnez une carte Attaque.',
     effects: [
         { type: 'ADD_MONEY', amount: 1 },

@@ -6,7 +6,6 @@ export const Herbalist: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+1 Achat.\n+1 Pièce.\nLorsque vous écartez cette carte du jeu, vous pouvez replacer une de vos cartes Trésor en jeu sur votre deck.",
     effects: [
         {

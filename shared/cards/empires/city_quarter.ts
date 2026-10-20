@@ -15,6 +15,5 @@ export const cityQuarter: CardDefinition = {
         { type: 'ADD_ACTIONS', amount: 2 },
         { type: 'ADD_CARDS_PER_ACTION_IN_PLAY', multiplier: 1 }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

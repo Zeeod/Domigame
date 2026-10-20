@@ -24,6 +24,5 @@ export const Patron: CardDefinition = {
             amount: 1
         }
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

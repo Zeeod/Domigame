@@ -6,7 +6,7 @@ export const corsair: CardDefinition = {
     types: ['ACTION', 'DURATION', 'ATTACK'],
     cost: 5,
     description: '+2 Pièces. Au début de votre prochain tour : +1 Pièce. Chaque autre joueur dévoile la carte du sommet de sa pioche, écarte un Argent ou un Or dévoilé et défausse le reste. Jusqu\'à votre prochain tour, chaque autre joueur écarte le premier Argent ou Or qu\'il joue à son tour.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'ADD_MONEY',

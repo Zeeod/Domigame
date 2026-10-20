@@ -31,5 +31,5 @@ export const bureaucrat: CardDefinition = {
     description: 'Gagnez une carte Argent et placez-la sur votre pioche. Chaque autre joueur dévoile une carte Victoire de sa main et la place sur sa pioche (ou dévoile une main sans carte Victoire).',
     image: '/card-images/bureaucrat.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

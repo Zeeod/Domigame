@@ -8,7 +8,7 @@ export class TraitExamples {
             id: 'cheap',
             name: 'Bon Marché',
             types: ['TRAIT'],
-            expansion: 'Plunder',
+            expansion: 'plunder',
             // Effects are handled in getCardCost directly for simplicity
         };
         LandscapeRegistry.register(cheap);
@@ -18,7 +18,7 @@ export class TraitExamples {
             id: 'pious',
             name: 'Pieux',
             types: ['TRAIT'],
-            expansion: 'Plunder',
+            expansion: 'plunder',
             onBuy: [{ // Actually onGain? Traits triggers are tricky. "When you gain..."
                 type: 'TRASH',
                 source: 'hand',

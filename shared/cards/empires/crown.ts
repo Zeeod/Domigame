@@ -36,6 +36,5 @@ export const crown: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

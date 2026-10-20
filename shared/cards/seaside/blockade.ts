@@ -6,7 +6,7 @@ export const blockade: CardDefinition = {
     types: ['ACTION', 'DURATION', 'ATTACK'],
     cost: 4,
     description: 'Gagnez une carte coûtant jusqu\'à 4 Pièces et mettez-la de côté. Au début de votre prochain tour, ajoutez-la à votre main. Tant qu\'elle est mise de côté, lorsqu\'un autre joueur gagne un exemplaire de cette carte à son tour, il gagne une carte Malédiction.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'GAIN_CARD',

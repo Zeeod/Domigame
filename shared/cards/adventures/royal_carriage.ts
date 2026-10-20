@@ -6,7 +6,6 @@ export const royalCarriage: CardDefinition = {
     types: ['ACTION', 'RESERVE'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Action. Mettez cette carte sur votre tapis de Réserve. Réserve: Après avoir joué une Action qui n\'est pas une Commande, appelez cette carte pour rejouer l\'Action.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

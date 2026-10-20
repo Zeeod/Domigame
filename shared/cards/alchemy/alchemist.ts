@@ -7,7 +7,6 @@ export const Alchemist: CardDefinition = {
     cost: 3,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+2 Cartes.\n+1 Action.\nLorsque vous écartez cette carte du jeu, si vous avez une Potion en jeu, vous pouvez replacer cette carte sur votre deck.",
     effects: [
         {

@@ -27,6 +27,5 @@ export const fortune: CardDefinition = {
         }
     ],
     isSubCard: true,
-    set: 'empires',
     expansion: 'empires'
 };

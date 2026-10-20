@@ -5,8 +5,7 @@ export const storeroom: CardDefinition = {
     name: 'Réserve',
     cost: 3,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Achat. Défaussez n\'importe quel nombre de cartes, puis piochez autant. Puis défaussez n\'importe quel nombre de cartes pour +1💰 chacune.',
     effects: [
         { type: 'ADD_BUYS', amount: 1 },

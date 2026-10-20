@@ -6,7 +6,6 @@ export const horseTraders: CardDefinition = {
     types: ['ACTION', 'REACTION'],
     cost: 4,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+1 Achat, +3 💰. Défaussez 2 cartes. Réaction: Quand un autre joueur joue une Attaque, vous pouvez mettre cette carte de côté et piocher une carte au début de votre prochain tour.',
     effects: [
         { type: 'ADD_BUYS', amount: 1 },

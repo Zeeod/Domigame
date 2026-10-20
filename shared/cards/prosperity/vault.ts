@@ -12,8 +12,7 @@ export const vault: CardDefinition = {
     name: 'Chambre forte',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+2 Cartes. Défaussez n\'importe quel nombre de cartes pour +1 💰 chacune. Chaque autre joueur peut défausser 2 cartes pour piocher 1 carte.',
     effects: [
         { type: 'DRAW', amount: 2 },

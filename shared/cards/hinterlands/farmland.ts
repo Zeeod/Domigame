@@ -6,7 +6,6 @@ export const farmland: CardDefinition = {
     types: ['VICTORY'],
     cost: 6,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '2 PV. Quand vous achetez cette carte, écartez une carte de votre main et gagnez une carte coûtant exactement 2 💰 de plus.',
     victoryPoints: 2,
     effects: [],

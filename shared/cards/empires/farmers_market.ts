@@ -27,6 +27,5 @@ export const farmersMarket: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

@@ -23,6 +23,5 @@ export const temple: CardDefinition = {
     onGain: [
         { type: 'GATHER_VP', pileId: 'temple', amount: 1 }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

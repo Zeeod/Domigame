@@ -33,7 +33,6 @@ export const bustlingVillage: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true // It's under Settlers in the pile
 };

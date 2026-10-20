@@ -5,8 +5,7 @@ export const marketSquare: CardDefinition = {
     name: 'Place du Marché',
     cost: 3,
     types: ['ACTION', 'REACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +1 Action, +1 Achat. Quand une de vos cartes est écartée, vous pouvez défausser cette carte pour gagner un Or.',
     effects: [
         { type: 'DRAW', amount: 1 },

@@ -5,8 +5,7 @@ export const feodum: CardDefinition = {
     name: 'Fief',
     cost: 4,
     types: ['VICTORY'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Vaut 1 PV pour chaque 3 Argents dans votre deck. Quand vous écartez cette carte, gagnez 3 Argents.',
     victoryPoints: 0,
     onTrash: [

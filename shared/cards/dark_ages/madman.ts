@@ -5,8 +5,7 @@ export const madman: CardDefinition = {
     name: 'Fou',
     cost: 0,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     isSubCard: true,
     description: '+2 Actions. Renvoyez cette carte sur sa pile. Si vous le faites, +1 Carte par carte en main.',
     effects: [

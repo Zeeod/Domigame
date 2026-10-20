@@ -33,7 +33,6 @@ export const settlers: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

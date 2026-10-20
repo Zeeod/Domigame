@@ -6,7 +6,7 @@ export const tidePools: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 4,
     description: '+3 Cartes ; +1 Action. Au début de votre prochain tour : défaussez 2 cartes.',
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'DRAW',

@@ -27,6 +27,7 @@ import { motion } from 'framer-motion';
 import { useCardInspect } from '../context/CardInspectContext';
 import { useSound } from '../hooks/useSound';
 import { CardRegistry } from '../../shared/cards/index';
+import { getCardExpansion } from '../../shared/cards/expansions';
 import './CardFrame.css';
 
 // ============================================================================
@@ -249,7 +250,7 @@ function getCardData(cardId: string) {
             potionCost: (registryCard as any).potionCost || 0,
             text: registryCard.description,
             image: registryCard.image,
-            set: registryCard.set ?? (registryCard.expansion ? registryCard.expansion.toLowerCase() : 'base')
+            set: getCardExpansion(registryCard)
         };
     }
 

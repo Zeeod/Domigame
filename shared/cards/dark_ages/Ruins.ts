@@ -6,8 +6,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Mine abandonnée',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+1 Pièce.",
         effects: [
             { type: 'ADD_MONEY', amount: 1 }
@@ -19,8 +18,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Bibliothèque en ruines',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+1 Carte.",
         effects: [
             { type: 'DRAW', amount: 1 }
@@ -32,8 +30,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Marché en ruines',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+1 Achat.",
         effects: [
             { type: 'ADD_BUYS', amount: 1 }
@@ -45,8 +42,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Village en ruines',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "+1 Action.",
         effects: [
             { type: 'ADD_ACTIONS', amount: 1 }
@@ -58,8 +54,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Survivants',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Regardez les 2 cartes du dessus de votre deck. Défaussez-les ou replacez-les dans l'ordre de votre choix.",
         effects: [
             {
@@ -84,8 +79,7 @@ export const Ruins: CardDefinition[] = [
         name: 'Ruines',
         cost: 0,
         types: ['ACTION', 'RUINS'],
-        expansion: 'Dark Ages',
-        set: 'Dark Ages',
+        expansion: 'dark_ages',
         description: "Pile de Ruines (Mélangée)",
         mixedPile: {
             type: 'SHUFFLED',

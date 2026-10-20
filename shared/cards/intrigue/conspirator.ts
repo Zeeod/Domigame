@@ -20,5 +20,5 @@ export const conspirator: CardDefinition = {
     ],
     description: '+2 ??. Si vous avez joué au moins 3 cartes Action ce tour-ci (celle-ci incluse) : +1 Carte ; +1 Action.',
     image: '/card-images/conspirator.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

@@ -21,6 +21,5 @@ export const groundskeeper: CardDefinition = {
             effects: [{ type: 'ADD_VP_TOKENS', amount: 1 }]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

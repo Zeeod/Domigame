@@ -29,5 +29,5 @@ export const sentry: CardDefinition = {
     description: '+1 Carte ; +1 Action. Regardez les 2 cartes du sommet de votre pioche. Écartez et/ou défaussez celles que vous voulez. Replacez les autres sur votre pioche dans l\'ordre de votre choix.',
     image: '/card-images/sentry.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

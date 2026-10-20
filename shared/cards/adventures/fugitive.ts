@@ -6,7 +6,6 @@ export const fugitive: CardDefinition = {
     types: ['ACTION', 'TRAVELLER'],
     cost: 4,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: '+2 Cartes, +1 Action. Défaussez une carte. Quand vous défaussez du jeu, vous pouvez échanger contre un Disciple.',
     effects: [

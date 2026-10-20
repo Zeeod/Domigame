@@ -20,6 +20,5 @@ export const royalBlacksmith: CardDefinition = {
             forceAll: true
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

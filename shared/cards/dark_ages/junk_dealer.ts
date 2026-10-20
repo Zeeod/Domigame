@@ -5,8 +5,7 @@ export const junkDealer: CardDefinition = {
     name: 'Brocanteur',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +1 Action, +1💰. Écartez une carte de votre main.',
     effects: [
         { type: 'DRAW', amount: 1 },

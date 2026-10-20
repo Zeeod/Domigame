@@ -7,7 +7,6 @@ export const Horse: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'menagerie',
-    set: 'Menagerie',
     description: "+2 Cartes, +1 Action. Remettez cette carte sur sa pile.",
     isNonSupply: true,
     effects: [

@@ -6,7 +6,7 @@ export const lookout: CardDefinition = {
     types: ['ACTION'],
     description: '+1 Action. Regardez les 3 cartes du dessus de votre pioche. Écartez-en une, défaussez-en une et replacez la dernière sur la pioche.',
     cost: 3,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
         // "Look at the top 3 cards of your deck. Trash one, discard one, put one on top."

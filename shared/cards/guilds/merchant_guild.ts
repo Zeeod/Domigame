@@ -6,7 +6,6 @@ export const merchantGuild: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'guilds',
-    set: 'guilds',
     description: '+1 Achat, +1 💰. Tant que cette carte est en jeu, quand vous achetez une carte, +1 Coffre.',
     effects: [
         { type: 'ADD_BUYS', amount: 1 },

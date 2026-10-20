@@ -18,7 +18,7 @@ export const harbinger: CardDefinition = {
     description: '+1 Carte ; +1 Action. Regardez dans votre défausse. Vous pouvez placer une carte de votre défausse sur votre pioche.',
     image: '/card-images/harbinger.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

@@ -16,7 +16,7 @@ export const laboratory: CardDefinition = {
     description: '+2 Cartes ; +1 Action.',
     image: '/card-images/laboratory.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

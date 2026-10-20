@@ -29,6 +29,5 @@ export const nightWatchman: CardDefinition = {
             ]
         }
     ],
-    set: 'nocturne',
     expansion: 'nocturne'
 };

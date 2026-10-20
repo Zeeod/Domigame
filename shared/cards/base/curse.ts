@@ -13,6 +13,6 @@ export const curse: CardDefinition = {
     victoryPoints: -1,
     description: '-1 PV',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 

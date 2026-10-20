@@ -20,6 +20,5 @@ export const CityGate: CardDefinition = {
             message: 'Porte de la Ville: Replacez une carte sur votre deck'
         }
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

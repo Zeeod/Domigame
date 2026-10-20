@@ -1,3 +1,4 @@
+import { safeStorage } from '../utils/safeStorage';
 
 /**
  * SoundManager - Singleton for Game Audio
@@ -34,14 +35,14 @@ class SoundManager {
             }
 
             // Load mute preference
-            const saved = localStorage.getItem('dominion_muted');
+            const saved = safeStorage.get('dominion_muted');
             this.isMuted = saved === null ? true : saved === 'true';
         }
     }
 
     public setMute(muted: boolean) {
         this.isMuted = muted;
-        localStorage.setItem('dominion_muted', String(muted));
+        safeStorage.set('dominion_muted', String(muted));
         if (!muted) this.resume();
     }
 

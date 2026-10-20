@@ -6,7 +6,6 @@ export const huntingParty: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: '+1 Carte, +1 Action. Révélez votre main. Révélez des cartes du dessus de votre pioche jusqu\'à en révéler une non présente en main. Mettez-la en main. Défaussez le reste.',
     effects: [
         { type: 'DRAW', amount: 1 },

@@ -6,7 +6,6 @@ export const TheEarthsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Vous pouvez écarter un Trésor pour recevoir une carte coûtant jusqu\'à 4💰.',
     isNonSupply: true,
     effects: []
@@ -18,7 +17,6 @@ export const TheFieldsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Action, +1💰.',
     isNonSupply: true,
     effects: [
@@ -33,7 +31,6 @@ export const TheFlamesGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Vous pouvez écarter une carte de votre main.',
     isNonSupply: true,
     effects: [
@@ -54,7 +51,6 @@ export const TheForestsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Carte, +1 Achat.',
     isNonSupply: true,
     effects: [
@@ -69,7 +65,6 @@ export const TheMoonsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Vous pouvez mettre votre défausse dans votre deck.',
     isNonSupply: true,
     effects: []
@@ -81,7 +76,6 @@ export const TheMountainsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Argent (Silver).',
     isNonSupply: true,
     effects: [
@@ -95,7 +89,6 @@ export const TheRiversGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Carte au début de votre prochain tour.',
     isNonSupply: true,
     effects: [
@@ -112,7 +105,6 @@ export const TheSeasGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Carte.',
     isNonSupply: true,
     effects: [
@@ -126,7 +118,6 @@ export const TheSkysGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Vous pouvez défausser 3 cartes pour recevoir un Or sur votre deck.',
     isNonSupply: true,
     effects: []
@@ -138,7 +129,6 @@ export const TheSunsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Regardez les 4 cartes du dessus de votre deck. Défaussez-en autant que vous voulez et remettez les autres dans l\'ordre de votre choix.',
     isNonSupply: true,
     effects: []
@@ -150,7 +140,6 @@ export const TheSwampsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Volonté du Feu (Will-o\'-Wisp).',
     isNonSupply: true,
     effects: [
@@ -164,7 +153,6 @@ export const TheWindsGift: CardDefinition = {
     cost: 0,
     types: ['BOON'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+2 Cartes, défaussez 2 cartes.',
     isNonSupply: true,
     effects: [

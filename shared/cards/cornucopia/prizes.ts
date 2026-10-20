@@ -6,7 +6,6 @@ export const BagOfGold: CardDefinition = {
     cost: 0,
     types: ['ACTION', 'PRIZE'],
     expansion: 'cornucopia',
-    set: 'Cornucopia',
     description: '+1 Action. Recevez un Or sur votre deck.',
     isNonSupply: true,
     effects: [
@@ -21,7 +20,6 @@ export const Diadem: CardDefinition = {
     cost: 0,
     types: ['TREASURE', 'PRIZE'],
     expansion: 'cornucopia',
-    set: 'Cornucopia',
     description: '2💰. Quand vous jouez cette carte, +1💰 pour chaque Action inutilisée.',
     treasureValue: 2,
     isNonSupply: true,
@@ -37,7 +35,6 @@ export const Followers: CardDefinition = {
     cost: 0,
     types: ['ACTION', 'ATTACK', 'PRIZE'],
     expansion: 'cornucopia',
-    set: 'Cornucopia',
     description: '+2 Cartes. Recevez un Domaine. Chaque autre joueur défausse jusqu\'à avoir 3 cartes en main et reçoit une Malédiction (Curse).',
     isNonSupply: true,
     effects: [
@@ -58,7 +55,6 @@ export const Princess: CardDefinition = {
     cost: 0,
     types: ['ACTION', 'PRIZE'],
     expansion: 'cornucopia',
-    set: 'Cornucopia',
     description: '+1 Achat. Tant que cette carte est en jeu, les cartes coûtent 2💰 de moins (mais pas moins de 0).',
     isNonSupply: true,
     effects: [
@@ -73,7 +69,6 @@ export const TrustySteed: CardDefinition = {
     cost: 0,
     types: ['ACTION', 'PRIZE'],
     expansion: 'cornucopia',
-    set: 'Cornucopia',
     description: 'Choisissez deux options : +2 Cartes ; +2 Actions ; +2💰 ; gagnez 4 Argents et mettez la pioche dans la défausse.',
     isNonSupply: true,
     effects: [

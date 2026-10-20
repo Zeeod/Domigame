@@ -7,7 +7,6 @@ export const Transmute: CardDefinition = {
     cost: 0,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "Écartez une carte de votre main. Si c'est...\nUne Action, recevez un Duché.\nUn Trésor, recevez une autre Transmutation.\nUne Victoire, recevez un Or.",
     effects: [
         {

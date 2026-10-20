@@ -22,7 +22,6 @@ export const wheelwright: CardDefinition = {
             ]
         }
     ],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

@@ -14,5 +14,5 @@ export const smithy: CardDefinition = {
     ],
     description: '+3 Cartes.',
     image: '/card-images/smithy.jpg',
-    expansion: 'Base'
+    expansion: 'base'
 };

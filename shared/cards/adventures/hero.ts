@@ -6,7 +6,6 @@ export const hero: CardDefinition = {
     types: ['ACTION', 'TRAVELLER'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: '+2 💰. Gagnez un Trésor. Quand vous défaussez du jeu, vous pouvez échanger contre un Champion.',
     effects: [

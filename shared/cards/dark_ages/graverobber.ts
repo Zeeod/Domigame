@@ -5,8 +5,7 @@ export const graverobber: CardDefinition = {
     name: 'Profanatrice',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Choisissez: Gagnez une carte du Rebut coûtant 3💰-6💰 sur votre deck; ou écartez une carte Action de votre main et gagnez une carte coûtant jusqu\'à 3💰 de plus.',
     effects: [
         {

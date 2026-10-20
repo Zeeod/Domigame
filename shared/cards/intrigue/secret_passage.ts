@@ -18,5 +18,5 @@ export const secret_passage: CardDefinition = {
     ],
     description: '+2 Cartes, +1 Action. Choisissez une carte de votre main et placez-la où vous voulez dans votre deck.',
     image: '/card-images/secret_passage.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

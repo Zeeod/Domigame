@@ -5,8 +5,7 @@ export const beggar: CardDefinition = {
     name: 'Mendiant',
     cost: 2,
     types: ['ACTION', 'REACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: 'Gagnez 3 Cuivres en main. Quand un autre joueur joue une Attaque, vous pouvez défausser cette carte. Si vous le faites, gagnez 2 Argents, un sur votre deck.',
     effects: [
         { type: 'GAIN_CARD', cardId: 'copper', destination: 'hand' },

@@ -17,6 +17,5 @@ export const Scholar: CardDefinition = {
         },
     ],
     description: "Écartez votre main. +7 Cartes.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

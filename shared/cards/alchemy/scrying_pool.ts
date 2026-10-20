@@ -7,7 +7,6 @@ export const ScryingPool: CardDefinition = {
     cost: 2,
     potionCost: 1,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+1 Action.\nChaque joueur (vous inclus) révèle la carte du haut de son deck et vous choisissez de la défausser ou de la replacer.\nEnsuite, révélez des cartes de votre deck jusqu'à révéler une carte qui n'est pas une Action. Mettez toutes les cartes révélées dans votre main.",
     effects: [
         {

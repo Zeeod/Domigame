@@ -18,6 +18,5 @@ export const ghostTown: CardDefinition = {
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 }
     ],
-    set: 'nocturne',
     expansion: 'nocturne'
 };

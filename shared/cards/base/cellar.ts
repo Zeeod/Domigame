@@ -16,7 +16,7 @@ export const cellar: CardDefinition = {
     description: '+1 Action. Défaussez autant de cartes que vous voulez. +1 Carte par carte défaussée.',
     image: '/card-images/cellar.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

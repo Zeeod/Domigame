@@ -6,7 +6,6 @@ export const inn: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+2 Cartes, +2 Actions. Défaussez 2 cartes. Quand vous gagnez cette carte, vous pouvez mélanger n\'importe quel nombre de cartes Action de votre défausse dans votre pioche.',
     effects: [
         { type: 'DRAW', amount: 2 },

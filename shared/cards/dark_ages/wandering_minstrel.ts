@@ -5,8 +5,7 @@ export const wanderingMinstrel: CardDefinition = {
     name: 'Ménestrel Errant',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +2 Actions. Révélez les 3 cartes du dessus de votre deck. Remettez les Actions dans l\'ordre de votre choix et défaussez le reste.',
     effects: [
         { type: 'DRAW', amount: 1 },

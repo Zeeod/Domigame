@@ -6,7 +6,6 @@ export const embassy: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+5 Cartes. Défaussez 3 cartes. Quand vous gagnez cette carte, chaque autre joueur gagne un Argent.',
     effects: [
         { type: 'DRAW', amount: 5 },

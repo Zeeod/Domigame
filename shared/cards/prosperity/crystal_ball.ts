@@ -12,8 +12,7 @@ export const crystalBall: CardDefinition = {
     name: 'Boule de cristal',
     cost: 5,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 1 💰. Regardez la carte du haut de votre pioche. Vous pouvez l\'écarter, la défausser, ou la placer dans votre main.',
     treasureValue: 1,
     effects: [

@@ -6,7 +6,6 @@ export const storyteller: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Action. Jouez jusqu\'à 3 Trésors de votre main. Ensuite payez tous vos 💰 pour piocher autant de cartes.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

@@ -21,5 +21,5 @@ export const pawn: CardDefinition = {
     ],
     description: 'Choisissez deux : +1 Carte ; +1 Action ; +1 Achat ; +1 ??. (Les choix doivent être différents)',
     image: '/card-images/pawn.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

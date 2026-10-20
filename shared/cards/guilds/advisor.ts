@@ -6,7 +6,6 @@ export const advisor: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'guilds',
-    set: 'guilds',
     description: '+1 Action. Révélez les 3 cartes du dessus de votre pioche. Le joueur à votre gauche en choisit une à défausser. Prenez les autres en main.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

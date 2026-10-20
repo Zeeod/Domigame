@@ -12,7 +12,6 @@ export const humbleCastle: CardDefinition = {
     types: ['VICTORY', 'TREASURE', 'CASTLE'],
     effects: [{ type: 'ADD_MONEY', amount: 1 }],
     victoryPoints: 0, // Calculated dynamically: 1 VP per Castle
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -36,7 +35,6 @@ export const crumblingCastle: CardDefinition = {
         { type: 'GAIN_CARD', cardId: 'silver' }
     ],
     victoryPoints: 1,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -65,7 +63,6 @@ export const smallCastle: CardDefinition = {
         } as any
     ],
     victoryPoints: 2,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -93,7 +90,6 @@ export const hauntedCastle: CardDefinition = {
         }
     ],
     victoryPoints: 2,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -118,7 +114,6 @@ export const opulentCastle: CardDefinition = {
         } as any
     ],
     victoryPoints: 3,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -140,7 +135,6 @@ export const sprawlingCastle: CardDefinition = {
         }
     ],
     victoryPoints: 4,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -165,7 +159,6 @@ export const grandCastle: CardDefinition = {
         }
     ],
     victoryPoints: 5,
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };
@@ -177,7 +170,6 @@ export const kingsCastle: CardDefinition = {
     cost: 10,
     types: ['VICTORY', 'CASTLE'],
     victoryPoints: 0, // Calculated dynamically: 2 VP per Castle
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

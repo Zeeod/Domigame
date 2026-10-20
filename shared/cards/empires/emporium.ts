@@ -26,7 +26,6 @@ export const emporium: CardDefinition = {
             trueEffects: [{ type: 'ADD_VP_TOKENS', amount: 2 }]
         }
     ],
-    set: 'empires',
     expansion: 'empires',
     isSubCard: true
 };

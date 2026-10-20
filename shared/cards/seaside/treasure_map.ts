@@ -29,5 +29,5 @@ export const treasureMap: CardDefinition = {
     ],
     description: 'Écartez cette carte et une autre Carte au Trésor de votre main. Si vous le faites, gagnez 4 cartes Or que vous placez sur votre deck.',
     image: '/card-images/treasure-map.jpg',
-    expansion: 'Seaside'
+    expansion: 'seaside'
 };

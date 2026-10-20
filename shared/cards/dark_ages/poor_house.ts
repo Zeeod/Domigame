@@ -5,8 +5,7 @@ export const poorHouse: CardDefinition = {
     name: 'Hospice',
     cost: 1,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+4💰. Révélez votre main. -1💰 par Trésor révélé (pas moins de 0💰).',
     effects: [
         { type: 'ADD_MONEY', amount: 4 },

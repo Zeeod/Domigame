@@ -6,7 +6,6 @@ export const harvest: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: 'Révélez les 4 cartes du dessus de votre pioche. +1 💰 par carte de nom différent révélée. Défaussez les cartes révélées.',
     effects: [
         {

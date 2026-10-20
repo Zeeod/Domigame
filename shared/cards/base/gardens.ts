@@ -18,7 +18,7 @@ export const gardens: CardDefinition = {
     description: 'Vaut 1 Point de Victoire pour chaque tranche de 10 cartes dans votre deck (arrondi ï¿½ l\'infï¿½rieur).',
     image: '/card-images/gardens.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

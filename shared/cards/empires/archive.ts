@@ -42,6 +42,5 @@ export const archive: CardDefinition = {
         }
     ],
     durationTurns: 3,
-    set: 'empires',
     expansion: 'empires'
 };

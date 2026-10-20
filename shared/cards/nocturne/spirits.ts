@@ -6,7 +6,6 @@ export const WillOWisp: CardDefinition = {
     cost: 0,
     types: ['ACTION', 'SPIRIT'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+1 Carte, +1 Action. Révélez la carte du dessus de votre deck ; si son coût est de 2💰 ou moins, mettez-la dans votre main.',
     isNonSupply: true,
     effects: [
@@ -33,7 +32,6 @@ export const Imp: CardDefinition = {
     cost: 2,
     types: ['ACTION', 'SPIRIT'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: '+2 Cartes. Vous pouvez jouer de votre main une carte Action que vous n\'avez pas en jeu.',
     isNonSupply: true,
     effects: [
@@ -48,7 +46,6 @@ export const Ghost: CardDefinition = {
     cost: 4,
     types: ['NIGHT', 'DURATION', 'SPIRIT'],
     expansion: 'nocturne',
-    set: 'Nocturne',
     description: 'Révélez des cartes de votre deck jusqu\'à une Action. Écartez-la. Au début de vos deux prochains tours, jouez-la deux fois, puis défaussez-la.',
     isNonSupply: true,
     durationTurns: 2,

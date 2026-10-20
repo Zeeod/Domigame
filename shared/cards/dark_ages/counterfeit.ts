@@ -5,8 +5,7 @@ export const counterfeit: CardDefinition = {
     name: 'Contrefaçon',
     cost: 5,
     types: ['TREASURE'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     treasureValue: 1,
     description: '1💰, +1 Achat. Vous pouvez jouer un Trésor non-Contrefaçon de votre main deux fois. Si vous le faites, écartez ce Trésor.',
     effects: [

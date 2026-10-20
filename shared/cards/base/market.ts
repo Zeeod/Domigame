@@ -18,7 +18,7 @@ export const market: CardDefinition = {
     description: '+1 Carte ; +1 Action ; +1 Achat ; +1 Pièce.',
     image: '/card-images/market.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

@@ -23,7 +23,6 @@ export const Potion: CardDefinition = {
     types: ['TREASURE'],
     cost: 4,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "Une Potion.",
     potionValue: 1,
 };

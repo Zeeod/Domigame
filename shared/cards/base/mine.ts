@@ -28,7 +28,7 @@ export const mine: CardDefinition = {
     description: 'Écartez une carte Trésor de votre main. Gagnez une carte Trésor coûtant jusqu\'à 3 Pièces de plus que la carte écartée. Ajoutez-la à votre main.',
     image: '/card-images/mine.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

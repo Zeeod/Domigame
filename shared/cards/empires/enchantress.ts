@@ -18,6 +18,5 @@ export const enchantress: CardDefinition = {
     durationEffects: [
         { type: 'DRAW', amount: 2 }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

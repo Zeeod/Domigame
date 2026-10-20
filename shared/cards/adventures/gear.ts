@@ -6,7 +6,6 @@ export const gear: CardDefinition = {
     types: ['ACTION', 'DURATION'],
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+2 Cartes. Mettez de côté jusqu\'à 2 cartes de votre main face cachée (sous cette carte). Au début de votre prochain tour, prenez-les en main.',
     effects: [
         { type: 'DRAW', amount: 2 },

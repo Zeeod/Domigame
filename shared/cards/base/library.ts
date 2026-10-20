@@ -16,7 +16,7 @@ export const library: CardDefinition = {
     description: 'Piochez jusqu\'à ce que vous ayez 7 cartes en main, en mettant de côté chaque carte Action piochée que vous voulez. Défaussez les cartes mises de côté après avoir fini de piocher.',
     image: '/card-images/library.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

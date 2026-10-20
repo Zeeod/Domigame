@@ -20,7 +20,6 @@ export const trail: CardDefinition = {
     onGain: [{ type: 'PLAY_THIS_CARD', optional: true }],
     onTrash: [{ type: 'PLAY_THIS_CARD', optional: true }],
     onDiscard: [{ type: 'PLAY_THIS_CARD', optional: true }],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

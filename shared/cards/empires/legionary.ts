@@ -44,6 +44,5 @@ export const legionary: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

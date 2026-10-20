@@ -29,6 +29,5 @@ export const chariotRace: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

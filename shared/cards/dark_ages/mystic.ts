@@ -5,8 +5,7 @@ export const mystic: CardDefinition = {
     name: 'Mystique',
     cost: 5,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Action, +2💰. Nommez une carte, puis révélez la carte du dessus de votre deck. Si c\'est la carte nommée, prenez-la en main.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },

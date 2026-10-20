@@ -6,7 +6,6 @@ export const treasureTrove: CardDefinition = {
     types: ['TREASURE'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: '2 💰. Quand vous jouez cette carte, gagnez un Or et un Cuivre.',
     treasureValue: 2,
     effects: [

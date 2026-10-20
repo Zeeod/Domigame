@@ -22,7 +22,7 @@ export const moneylender: CardDefinition = {
     description: 'Vous pouvez écarter un Cuivre de votre main. Si vous le faites, +3 Pièces.',
     image: '/card-images/moneylender.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

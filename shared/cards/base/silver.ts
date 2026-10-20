@@ -14,6 +14,6 @@ export const silver: CardDefinition = {
     ],
     description: '+2 Pièces',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 

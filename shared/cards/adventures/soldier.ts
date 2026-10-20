@@ -6,7 +6,6 @@ export const soldier: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'TRAVELLER'],
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     isNonSupply: true,
     description: '+2 💰. +1 💰 par autre Attaque que vous avez en jeu. Chaque autre joueur ayant 4 cartes ou plus en main défausse une carte. Quand vous défaussez, échangez contre un Fugitif.',
     effects: [

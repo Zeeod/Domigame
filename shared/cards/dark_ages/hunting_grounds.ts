@@ -5,8 +5,7 @@ export const huntingGrounds: CardDefinition = {
     name: 'Terrains de Chasse',
     cost: 6,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+4 Cartes. Quand vous écartez cette carte, gagnez un Duché ou 3 Domaines.',
     effects: [
         { type: 'DRAW', amount: 4 }

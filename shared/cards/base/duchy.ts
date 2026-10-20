@@ -11,6 +11,6 @@ export const duchy: CardDefinition = {
     victoryPoints: 3,
     description: '3 PV',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 

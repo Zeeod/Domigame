@@ -19,5 +19,5 @@ export const mining_village: CardDefinition = {
     description: '+1 Carte ; +2 Actions. Vous pouvez écarter cette carte pour +2 💰.',
     image: '/card-images/mining_village.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

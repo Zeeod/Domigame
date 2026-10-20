@@ -6,7 +6,6 @@ export const cache: CardDefinition = {
     types: ['TREASURE'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '3 💰. Quand vous gagnez cette carte, gagnez 2 Cuivres.',
     treasureValue: 3,
     effects: [

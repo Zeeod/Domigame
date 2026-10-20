@@ -19,5 +19,5 @@ export const moat: CardDefinition = {
     description: "+2 Cartes. Lorsqu'un autre joueur joue une carte Attaque, vous pouvez dévoiler cette carte de votre main. Dans ce cas, l'Attaque n'a pas d'effet sur vous.",
     image: '/card-images/moat.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };

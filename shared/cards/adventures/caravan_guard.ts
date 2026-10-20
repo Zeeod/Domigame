@@ -8,7 +8,6 @@ export const caravanGuard: CardDefinition = {
     reactionTrigger: 'ATTACK',
     cost: 3,
     expansion: 'adventures',
-    set: 'adventures',
     description: '+1 Carte, +1 Action. Au début de votre prochain tour, +1 💰. Réaction: Quand un autre joueur joue une Attaque, jouez cette carte.',
     effects: [
         { type: 'DRAW', amount: 1 },

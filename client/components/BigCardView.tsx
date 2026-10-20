@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { useCardInspect } from '../context/CardInspectContext';
 import { CardFrame } from './CardFrame';
 import { CardRegistry } from '../../shared/cards';
+import { EXPANSION_LABELS, getCardExpansion } from '../../shared/cards/expansions';
 
 const TYPE_LABELS: Record<string, string> = {
     TREASURE: 'Trésor',
@@ -46,27 +47,6 @@ const TYPE_COLORS: Record<string, string> = {
     RESERVE: '#16a085',
     FATE: '#ffd700',
     DOOM: '#c0392b',
-};
-
-const SET_LABELS: Record<string, string> = {
-    base: 'Base',
-    intrigue: 'Intrigue',
-    seaside: 'Rivages',
-    alchemy: 'Alchimie',
-    prosperity: 'Prospérité',
-    cornucopia: 'Abondance',
-    hinterlands: 'Arrière-Pays',
-    dark_ages: 'Âges Sombres',
-    guilds: 'Guildes',
-    adventures: 'Aventures',
-    empires: 'Empires',
-    nocturne: 'Nocturne',
-    renaissance: 'Renaissance',
-    menagerie: 'Ménagerie',
-    allies: 'Alliés',
-    plunder: 'Plunder',
-    rising_sun: 'Soleil Levant',
-    promos: 'Promos',
 };
 
 export const BigCardView: React.FC = () => {
@@ -270,11 +250,11 @@ export const BigCardView: React.FC = () => {
                     </div>
 
                     {/* Discreet Expansion Badge on main card hover/area */}
-                    {cardDef?.set && (
+                    {cardDef && (
                         <div className="inspect-expansion-badge">
                             <span>📦</span>
                             <span className="inspect-expansion-name">
-                                {SET_LABELS[cardDef.set] || cardDef.set}
+                                {EXPANSION_LABELS[getCardExpansion(cardDef)]}
                             </span>
                         </div>
                     )}

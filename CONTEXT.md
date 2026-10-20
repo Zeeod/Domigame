@@ -445,6 +445,9 @@ docker compose logs -f         # Logs en temps réel
 6. **Noms en français** : `name: 'Marché Fermier'`
 7. **Exports nommés** : Pas de `export default` dans les cartes
 8. **Tests avant push** : `npm test` doit être 100% vert
+9. **Extension d'une carte** : `expansion: '<id>'` avec un id de `shared/cards/expansions.ts` (`seaside`, `dark_ages`…). Toujours lire via `getCardExpansion(card)`. Le champ `set` est obsolète.
+10. **Cartes non codées** : listées dans `shared/cards/unfinished.ts` (exclues des parties). Retirer l'id quand la carte est implémentée.
+11. **Édition** : on vise la dernière édition de chaque extension. Une carte retirée d'une édition reçoit `isLegacy: true`.
 
 ---
 

@@ -11,8 +11,7 @@ export const bank: CardDefinition = {
     name: 'Banque',
     cost: 7,
     types: ['TREASURE'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: 'Vaut 1 par carte Trésor que vous avez en jeu (celle-ci incluse).',
     treasureValue: 0, // Dynamic value handled by engine
     effects: [

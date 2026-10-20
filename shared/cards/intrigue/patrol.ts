@@ -30,5 +30,5 @@ export const patrol: CardDefinition = {
     ],
     description: '+3 Cartes. Révélez les 4 cartes du dessus de votre deck. Mettez toutes les cartes Victoire et Malédiction révélées dans votre main. Remettez les autres sur votre deck dans l’ordre de votre choix.',
     image: '/card-images/patrol.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

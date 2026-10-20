@@ -12,8 +12,7 @@ export const peddler: CardDefinition = {
     name: 'Colporteur',
     cost: 8,
     types: ['ACTION'],
-    expansion: 'Prosperity',
-    set: 'prosperity',
+    expansion: 'prosperity',
     description: '+1 Carte, +1 Action, +1 💰. Pendant votre tour, cette carte coûte 2 💰 de moins par carte Action que vous avez en jeu (minimum 0).',
     effects: [
         { type: 'DRAW', amount: 1 },

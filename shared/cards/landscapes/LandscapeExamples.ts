@@ -11,7 +11,7 @@ export class LandscapeExamples {
             name: 'Aumône',
             types: ['EVENT'],
             cost: { coin: 0 },
-            expansion: 'Adventures',
+            expansion: 'adventures',
             onBuy: [
                 {
                     type: 'ADD_MONEY',
@@ -26,7 +26,7 @@ export class LandscapeExamples {
             id: 'way_of_the_sheep',
             name: 'Voie du Mouton',
             types: ['WAY'],
-            expansion: 'Menagerie',
+            expansion: 'menagerie',
             onPlay: [{
                 type: 'ADD_MONEY', // Correct type
                 amount: 2

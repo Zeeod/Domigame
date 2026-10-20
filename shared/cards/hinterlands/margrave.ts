@@ -6,7 +6,6 @@ export const margrave: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+3 Cartes, +1 Achat. Chaque autre joueur pioche une carte puis défausse jusqu\'à avoir 3 cartes en main.',
     effects: [
         { type: 'DRAW', amount: 3 },

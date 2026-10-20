@@ -15,7 +15,7 @@ export const chapel: CardDefinition = {
     description: 'Écartez jusqu’à 4 cartes de votre main.',
     image: '/card-images/chapel.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

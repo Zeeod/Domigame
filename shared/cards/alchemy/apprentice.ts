@@ -6,7 +6,6 @@ export const Apprentice: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'alchemy',
-    set: 'Alchemy',
     description: "+1 Action.\nÉcartez une carte de votre main.\n+1 Carte par pièce que la carte écartée coûte.\n+1 Action par Potion que la carte écartée coûte.",
     effects: [
         {

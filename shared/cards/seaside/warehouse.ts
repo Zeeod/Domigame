@@ -6,7 +6,7 @@ export const warehouse: CardDefinition = {
     types: ['ACTION'],
     description: '+3 Cartes ; +1 Action. Défaussez 3 cartes.',
     cost: 3,
-    set: 'seaside',
+    expansion: 'seaside',
     effects: [
         {
             type: 'DRAW',

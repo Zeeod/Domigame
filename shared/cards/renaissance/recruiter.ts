@@ -15,6 +15,5 @@ export const Recruiter: CardDefinition = {
         },
     ],
     description: "+2 Cartes. Écartez une carte de votre main. +1 Villageois par pièce que la carte coûte.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

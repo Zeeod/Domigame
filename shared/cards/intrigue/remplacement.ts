@@ -45,5 +45,5 @@ export const remplacement: CardDefinition = {
     ],
     description: 'Écartez une carte de votre main. Gagnez une carte coûtant jusqu’à 2 ?? de plus que la carte écartée. Si la carte gagnée est une carte Victoire, chaque autre joueur gagne une Malédiction. Si c’est une carte Action ou Trésor, mettez-la sur votre deck.',
     image: '/card-images/remplacement.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

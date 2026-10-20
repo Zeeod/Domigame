@@ -36,6 +36,5 @@ export const engineer: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

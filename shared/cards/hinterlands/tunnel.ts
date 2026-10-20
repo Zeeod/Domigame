@@ -6,7 +6,6 @@ export const tunnel: CardDefinition = {
     types: ['VICTORY', 'REACTION'],
     cost: 3,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '2 PV. Quand vous défaussez cette carte en dehors de la phase Précédant les achats, vous pouvez la révéler pour gagner un Or.',
     victoryPoints: 2,
     effects: [],

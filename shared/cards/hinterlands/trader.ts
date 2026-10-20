@@ -6,7 +6,6 @@ export const trader: CardDefinition = {
     types: ['ACTION', 'REACTION'],
     cost: 4,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: 'Écartez une carte de votre main. Gagnez un Argent par 💰 de coût de la carte écartée. Réaction: Quand vous gagnez une carte, vous pouvez révéler cette carte pour l\'échanger contre un Argent.',
     effects: [
         {

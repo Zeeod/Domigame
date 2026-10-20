@@ -14,7 +14,6 @@ export const weaver: CardDefinition = {
     onDiscard: [
         { type: 'PLAY_THIS_CARD', optional: true }
     ],
-    expansion: 'Hinterlands',
-    set: 'hinterlands',
+    expansion: 'hinterlands',
     isLegacy: false
 };

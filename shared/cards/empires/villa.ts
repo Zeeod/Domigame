@@ -27,6 +27,5 @@ export const villa: CardDefinition = {
             ]
         }
     ],
-    set: 'empires',
     expansion: 'empires'
 };

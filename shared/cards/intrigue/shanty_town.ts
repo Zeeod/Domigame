@@ -16,5 +16,5 @@ export const shanty_town: CardDefinition = {
     ],
     description: '+2 Actions. Révélez votre main. Si vous n\'avez aucune carte Action, +2 Cartes.',
     image: '/card-images/shanty_town.jpg',
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };

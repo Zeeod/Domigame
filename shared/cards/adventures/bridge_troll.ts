@@ -6,7 +6,6 @@ export const bridgeTroll: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'DURATION'],
     cost: 5,
     expansion: 'adventures',
-    set: 'adventures',
     description: 'Chaque autre joueur prend son jeton -1 💰. Maintenant et au début de votre prochain tour: +1 Achat. Tant que cette carte est en jeu, les cartes coûtent 1 💰 de moins.',
     effects: [
         {

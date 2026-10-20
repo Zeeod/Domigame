@@ -6,7 +6,6 @@ export const duchess: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'hinterlands',
-    set: 'hinterlands',
     description: '+2 💰. Chaque joueur (vous inclus) regarde la carte du dessus de sa pioche et peut la défausser.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },

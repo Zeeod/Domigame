@@ -12,7 +12,7 @@ export const courtyard: CardDefinition = {
     description: '+3 Cartes. Mettez une carte de votre main sur le dessus de votre deck.',
     image: '/card-images/courtyard.jpg',
 
-    expansion: 'Intrigue'
+    expansion: 'intrigue'
 };
 
 

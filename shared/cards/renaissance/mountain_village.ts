@@ -20,6 +20,5 @@ export const MountainVillage: CardDefinition = {
             destination: 'hand'
         }
     ],
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };

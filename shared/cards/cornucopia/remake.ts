@@ -6,7 +6,6 @@ export const remake: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'cornucopia',
-    set: 'cornucopia',
     description: 'Deux fois: Écartez une carte de votre main, gagnez une carte coûtant exactement 1 💰 de plus.',
     effects: [
         {

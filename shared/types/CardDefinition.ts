@@ -128,10 +128,13 @@ export interface CardDefinition {
     /** Path to card image */
     image?: string;
 
-    /** Expansion name */
+    /**
+     * Extension de la carte : un id de EXPANSION_IDS (shared/cards/expansions.ts),
+     * ex. 'seaside', 'dark_ages'. Lire via getCardExpansion().
+     */
     expansion?: string;
 
-    /** Set name (e.g. 'seaside', 'base') */
+    /** @deprecated Ancien doublon de `expansion`, plus utilisé par les cartes. */
     set?: string;
 
     /** Global buy restrictions (e.g. Grand Market) */

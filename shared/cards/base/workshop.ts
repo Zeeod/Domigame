@@ -19,7 +19,7 @@ export const workshop: CardDefinition = {
     description: 'Gagnez une carte coûtant jusqu\'à 4 Pièces.',
     image: '/card-images/workshop.jpg',
 
-    expansion: 'Base'
+    expansion: 'base'
 };
 
 

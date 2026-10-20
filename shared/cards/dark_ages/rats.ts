@@ -5,8 +5,7 @@ export const rats: CardDefinition = {
     name: 'Rats',
     cost: 4,
     types: ['ACTION'],
-    expansion: 'Dark Ages',
-    set: 'Dark Ages',
+    expansion: 'dark_ages',
     description: '+1 Carte, +1 Action. Gagnez un Rats. Écartez une carte de votre main (autre que Rats). Quand vous écartez cette carte, +1 Carte.',
     effects: [
         { type: 'DRAW', amount: 1 },

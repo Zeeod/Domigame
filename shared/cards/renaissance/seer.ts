@@ -22,6 +22,5 @@ export const Seer: CardDefinition = {
         },
     ],
     description: "+1 Carte. +1 Action. Révélez les 3 cartes du dessus de votre pioche. Mettez les cartes coûtant 2 à 4 Pièces dans votre main et défaussez le reste.",
-    expansion: 'Renaissance',
-    set: 'renaissance'
+    expansion: 'renaissance',
 };
