@@ -1027,7 +1027,8 @@ export class GameRoomV2 {
             if (!pileId) continue;
             const def = CardRegistry.get(pileId);
             let count = 10;
-            if (pileId === 'ruins') count = numPlayers * 10;
+            // Ruins: 10 per player after the first (like Curses)
+            if (pileId === 'ruins') count = Math.max(10, (numPlayers - 1) * 10);
             else if (pileId === 'spoils') count = 15;
             else if (pileId === 'madman' || pileId === 'mercenary') count = 10;
 
@@ -1036,9 +1037,18 @@ export class GameRoomV2 {
 
             if (def?.mixedPile) {
                 const baseCards = [...def.mixedPile.cards];
-                const finalCardIds: string[] = [];
-                while (finalCardIds.length < count && baseCards.length > 0) {
-                    finalCardIds.push(...baseCards);
+                let finalCardIds: string[] = [];
+                if (def.mixedPile.type === 'SHUFFLED') {
+                    // e.g. Ruins: 10 copies of each kind shuffled together, then deal `count`
+                    for (const id of baseCards) for (let i = 0; i < 10; i++) finalCardIds.push(id);
+                    for (let i = finalCardIds.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [finalCardIds[i], finalCardIds[j]] = [finalCardIds[j], finalCardIds[i]];
+                    }
+                } else {
+                    while (finalCardIds.length < count && baseCards.length > 0) {
+                        finalCardIds.push(...baseCards);
+                    }
                 }
                 const truncatedIds = finalCardIds.slice(0, count);
 
@@ -1072,6 +1082,13 @@ export class GameRoomV2 {
         // Alchemy: Potion
         if (SupplyGenerator.needsPotion(kingdomCardIds)) {
             state.supply['potion'] = { cardId: 'potion', count: 16, cards: [] };
+        }
+
+        // Promo — Black Market: its own deck of one copy each of 25 Kingdom cards not in the Supply
+        if (state.supply['black_market']) {
+            state.blackMarketDeck = SupplyGenerator.buildBlackMarketDeck(Object.keys(state.supply), 25)
+                .map(id => createCardInstance(id));
+            state.blackMarketRevealed = [];
         }
 
         // PREGAME: Waiting for "I am Ready"

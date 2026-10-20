@@ -4,6 +4,7 @@ import { GameAction } from '../types/GameAction.js';
 import { CardRegistry } from '../cards/index.js';
 import { ActionResolver } from '../engine/ActionResolver.js';
 import { DeckEvaluator } from './DeckEvaluator.js';
+import { EconomyEngine } from '../engine/EconomyEngine.js';
 
 // MCTS Node
 class MCTSNode {
@@ -40,6 +41,21 @@ export class SmartBot implements BotInterface {
     private c = 1.41; // Exploration constant
 
     chooseAction(state: GameState, playerId: string): GameAction {
+        // Buy phase: deterministic "Big Money"-style policy (MCTS rollouts only simulate our own
+        // turn, so they undervalue Victory cards and would buy Gold over Province).
+        if (state.phase === 'BUY') {
+            const player = state.players.find(p => p.id === playerId);
+            if (player) {
+                const hasTreasure = player.hand.some(c => CardRegistry.get(c.id)?.types.includes('TREASURE'));
+                if (hasTreasure) return { type: 'PLAY_ALL_TREASURES' };
+                if (player.buys > 0) {
+                    const cardId = this.chooseBuy(state, playerId);
+                    if (cardId) return { type: 'BUY_CARD', cardId };
+                }
+            }
+            return { type: 'END_PHASE' };
+        }
+
         const root = new MCTSNode(state, playerId); // No need to clone, state is immutable
 
         root.untriedActions = this.getValidActions(root.state, playerId);
@@ -264,7 +280,45 @@ export class SmartBot implements BotInterface {
     }
 
 
-    // ... (rest of the file)
+    /** Which card to buy now (null = buy nothing). */
+    chooseBuy(state: GameState, playerId: string): string | null {
+        const player = state.players.find(p => p.id === playerId);
+        if (!player) return null;
+        const coins = player.coins;
+        const cost = (id: string) => EconomyEngine.getCardCost(state, playerId, id);
+        const available = (id: string) => (state.supply[id]?.count ?? 0) > 0 && cost(id) <= coins
+            && !((CardRegistry.get(id) as any)?.potionCost > (player.potions || 0));
+        const provincesLeft = state.supply['province']?.count ?? 8;
+
+        // Victory cards
+        if (available('colony') && coins >= 11) return 'colony';
+        if (available('province') && coins >= 8) return 'province';
+        if (provincesLeft <= 4 && available('duchy') && coins >= 5) return 'duchy';
+        if (provincesLeft <= 2 && available('estate')) return 'estate';
+
+        // Otherwise: the best non-Victory card for the deck, according to the deck evaluator
+        if (available('platinum') && coins >= 9) return 'platinum';
+        const candidates = Object.keys(state.supply).filter(id => {
+            const def = CardRegistry.get(id);
+            if (!def || !available(id)) return false;
+            if (def.types.includes('VICTORY') && !def.types.includes('ACTION') && !def.types.includes('TREASURE')) return false;
+            return id !== 'curse' && id !== 'copper';
+        });
+        if (candidates.length === 0) return null;
+
+        const base = DeckEvaluator.evaluateDeck(state, player);
+        let best: string | null = null;
+        let bestScore = 0;
+        for (const id of candidates) {
+            const simulated = { ...player, discardPile: [...player.discardPile, { id, instanceId: `sim_${id}` }] } as any;
+            // Small tie-breaker in favour of more expensive cards
+            const score = DeckEvaluator.evaluateDeck(state, simulated) - base + cost(id) * 0.01;
+            if (best === null || score > bestScore) { best = id; bestScore = score; }
+        }
+        // Never buy something that makes the deck worse
+        return bestScore > 0 ? best : (available('silver') ? 'silver' : null);
+    }
+
     private evaluateState(state: GameState, playerId: string): number {
         // Delegate to DeckEvaluator for a robust heuristic
         const player = state.players.find(p => p.id === playerId);

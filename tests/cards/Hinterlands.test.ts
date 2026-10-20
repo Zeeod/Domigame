@@ -50,50 +50,7 @@ describe('Hinterlands Expansion', () => {
             expect(player.hand.map(c => c.id)).toContain('silver');
             expect(player.hand.map(c => c.id)).toContain('gold');
         });
-
-        it('should give +3 actions if first time played this turn', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-            const player = state.players[0];
-
-            player.playArea = [
-                { id: 'crossroads', instanceId: 'cr1', turnPlayed: state.turnNumber }
-            ];
-
-            // Manually run the condition check logic which looks at player.playArea
-            const crossroadsDef = CardRegistry.get('crossroads')!;
-            const conditionEffect = crossroadsDef.effects![2]; // The condition
-
-            // Apply it
-            EffectEngine.applyEffect(state, player.id, conditionEffect);
-
-            // Expect +3 Actions (1 play count MATCHES "First time")
-            // Wait, filter logic: "playedCount === 1".
-            // We put 1 in playArea. So it should trigger.
-            expect(player.actions).toBe(4); // 1 start + 3
-        });
-
-        it('should NOT give +3 actions if played previously', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-            const player = state.players[0];
-
-            // Two Crossroads in play
-            player.playArea = [
-                { id: 'crossroads', instanceId: 'cr1', turnPlayed: state.turnNumber },
-                { id: 'crossroads', instanceId: 'cr2', turnPlayed: state.turnNumber }
-            ];
-
-            const crossroadsDef = CardRegistry.get('crossroads')!;
-            const conditionEffect = crossroadsDef.effects![2];
-
-            EffectEngine.applyEffect(state, player.id, conditionEffect);
-
-            // playedCount = 2. Condition "=== 1" fails.
-            expect(player.actions).toBe(1); // Unchanged
-        });
+        // +3 Actions rule: see tests/cards/hinterlands/Crossroads.test.ts
     });
 
     describe('Duchess', () => {

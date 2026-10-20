@@ -46,8 +46,8 @@ describe('Dark Ages Setup', () => {
         const state = room.gameState;
         const p1 = state.players[0];
 
-        // Should have Shelters in hand (PREGAME puts them in hand)
-        const handIds = p1.hand.map(c => c.id);
+        // Starting cards (hand + deck): 7 Coppers + 3 Shelters instead of Estates
+        const handIds = [...p1.hand, ...p1.deck, ...p1.discardPile].map(c => c.id);
         expect(handIds).toContain('hovel');
         expect(handIds).toContain('necropolis');
         expect(handIds).toContain('overgrown_estate');
@@ -72,11 +72,11 @@ describe('Dark Ages Setup', () => {
 
         const state = room.gameState;
 
-        // Ruins should be in supply as an extra pile (nonSupply)
-        expect(state.nonSupply['ruins']).toBeDefined();
-        expect(state.nonSupply['ruins'].isMixed).toBe(true);
-        expect(state.nonSupply['ruins'].cards).toBeDefined();
-        expect(state.nonSupply['ruins'].cards?.length).toBe(20); // 2 players * 10
+        // Ruins are a Supply pile: 10 per player after the first (2 players → 10)
+        expect(state.supply['ruins']).toBeDefined();
+        expect(state.supply['ruins'].isMixed).toBe(true);
+        expect(state.supply['ruins'].cards?.length).toBe(10);
+        expect(state.supply['ruins'].count).toBe(10);
     });
 
     it('should setup Knights mixed pile when Knights are in kingdom', async () => {

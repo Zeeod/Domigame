@@ -77,9 +77,13 @@ export class ConditionEffectHandler {
                 return this.compare(player.tokens.coffers || 0, effect.comparator, effect.value);
             case 'VILLAGERS':
                 return this.compare(player.tokens.villagers || 0, effect.comparator, effect.value);
-            case 'FIRST_TIME_PLAYED_THIS_TURN':
-                // actionsPlayed is incremented just before effects are executed, so 1 means it's the first one.
+            case 'FIRST_TIME_PLAYED_THIS_TURN': {
+                // "If this is the first time you played a <card> this turn" (Crossroads…).
+                // The play counter is incremented before the card's effects (see Play.ts).
+                const cardId = effect.cardId;
+                if (cardId) return (player.playedThisTurn?.[cardId] || 0) <= 1;
                 return (player.actionsPlayed || 0) <= 1;
+            }
             case 'FIRST_TIME_THIS_TURN_GLOBAL': {
                 const flag = effect.value;
                 if (player.turnFlags[flag]) return false;

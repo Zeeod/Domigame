@@ -69,13 +69,15 @@ describe('Hinterlands Expansion - Part 1', () => {
 
         expect(p.coins).toBe(2);
 
-        // Should prompt to discard top card
-        if (engine.state.pendingDecision) {
-            engine.respondToDecision({
-                type: 'YES' // Discard it
-            });
+        // Each player, starting with you, looks at their top card and may discard it
+        expect(engine.state.pendingDecision?.playerId).toBe(p.id);
+        engine.respondToDecision({ type: 'OPTION', optionIndex: 0 }); // Discard
+        expect(p.discardPile.some(c => c.id === 'copper')).toBe(true);
 
-            expect(p.discardPile.some(c => c.id === 'copper')).toBe(true);
+        // Then the other player (keeps theirs)
+        if (engine.state.pendingDecision) {
+            expect(engine.state.pendingDecision.playerId).not.toBe(p.id);
+            engine.respondToDecision({ type: 'OPTION', optionIndex: 1 });
         }
 
         engine.assertCleanState();

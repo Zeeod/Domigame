@@ -103,9 +103,15 @@ describe('Cornucopia & Guilds - Part 1', () => {
         engine.setDeck(p1, ['copper', 'silver', 'gold']);
 
         engine.playCard('advisor');
-
         expect(p1.actions).toBe(1);
-        // Implementation may vary, just check it doesn't crash
+
+        // The player to the left (p2) chooses which revealed card p1 discards
+        expect(engine.state.pendingDecision?.playerId).toBe(p2.id);
+        const gold = (engine.state.pendingDecision as any).context.cards.find((c: any) => c.id === 'gold');
+        engine.respondToDecision({ type: 'CARDS', cardInstanceIds: [gold.instanceId] });
+
+        expect(p1.discardPile.map(c => c.id)).toEqual(['gold']);
+        expect(p1.hand.map(c => c.id).sort()).toEqual(['copper', 'silver']);
         engine.assertCleanState();
     });
 

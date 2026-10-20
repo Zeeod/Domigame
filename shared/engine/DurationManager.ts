@@ -32,13 +32,16 @@ export class DurationManager {
     static register(state: GameState, entry: Omit<DurationEntry, 'registeredOnTurn'>): void {
         state.durations = state.durations || [];
         
-        // Prevent duplicate registration for the same card instance
+        // Same card instance already registered
         const existingIdx = state.durations.findIndex(d => d.cardInstanceId === entry.cardInstanceId);
         if (existingIdx !== -1) {
-            state.durations[existingIdx] = {
-                ...entry,
-                registeredOnTurn: state.turnNumber
-            };
+            const existing = state.durations[existingIdx];
+            if (existing.registeredOnTurn === state.turnNumber) {
+                // Played again this turn (Throne Room…): its next-turn effects happen again too
+                existing.effects = [...existing.effects, ...entry.effects];
+            } else {
+                state.durations[existingIdx] = { ...entry, registeredOnTurn: state.turnNumber };
+            }
             return;
         }
 

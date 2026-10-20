@@ -27,6 +27,7 @@ import { SupplyGenerator } from './SupplyGenerator.js';
 
 // Bootstrap: register all expansion modules (cost modifiers, hooks, phases)
 import './registerExpansions.js';
+import { markPlayed } from './Play.js';
 
 // ============================================================================
 // Resolution Result
@@ -267,7 +268,7 @@ export class ActionResolver {
         }
 
         const card = player.hand.splice(cardIndex, 1)[0];
-        card.turnPlayed = state.turnNumber; // Track when it was played (Global turn)
+        markPlayed(state, player, card); // turnPlayed + per-card play count
         player.playArea.push(card);
         state.cardsPlayedFromHandThisTurn = (state.cardsPlayedFromHandThisTurn || 0) + 1;
 

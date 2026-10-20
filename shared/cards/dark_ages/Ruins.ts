@@ -81,12 +81,10 @@ export const Ruins: CardDefinition[] = [
         types: ['ACTION', 'RUINS'],
         expansion: 'dark_ages',
         description: "Pile de Ruines (Mélangée)",
+        // 10 of each Ruins are shuffled together; the pile uses 10 per player after the first
         mixedPile: {
             type: 'SHUFFLED',
             cards: ['abandoned_mine', 'ruined_library', 'ruined_market', 'ruined_village', 'survivors']
-        },
-        buyRestriction: {
-            type: 'NO_COPPER_IN_PLAY' // Not strictly true, but needs a valid restriction logic if processed
         }
         // Note: Effects are not used for the pile placeholder
     }

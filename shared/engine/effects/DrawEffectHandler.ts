@@ -198,12 +198,13 @@ export class DrawEffectHandler {
             id: `peek_top_${Date.now()}`,
             playerId: player.id,
             type: PromptType.SELECT_OPTION,
-            message: effect.message || `Carte du dessus : ${def?.name}`,
+            message: `${effect.message ? effect.message + ' ' : ''}Carte du dessus : ${def?.name}`,
+            options: effect.options,
             context: {
                 options: effect.options,
                 specialAction: 'PEEK_TOP_DECISION'
             }
-        };
+        } as any;
 
         return { state, needsChoice: true };
     }

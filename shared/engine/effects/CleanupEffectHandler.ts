@@ -11,6 +11,7 @@ import { ZoneManager } from '../ZoneManager.js';
 import { EffectManager } from '../EffectManager.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { getMat } from '../Mats.js';
 
 export class CleanupEffectHandler {
     /**
@@ -80,6 +81,9 @@ export class CleanupEffectHandler {
         player.playArea.forEach(card => {
             if (keepIds.includes(card.instanceId)) {
                 toKeep.push(card);
+            } else if (card.princedBy) {
+                // Prince: set aside again instead of being discarded
+                getMat(player, 'prince').push(card);
             } else {
                 if (card.isResolved) delete card.isResolved;
                 if (card.durationTurns !== undefined) delete card.durationTurns;

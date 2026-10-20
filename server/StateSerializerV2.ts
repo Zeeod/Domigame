@@ -144,6 +144,9 @@ export class StateSerializerV2 {
                         if (decision.context.isAuto !== undefined) safeContext.isAuto = Boolean(decision.context.isAuto);
                         // Ensure maxCost is passed if present in context
                         if (decision.context.maxCost !== undefined) safeContext.maxCost = Number(decision.context.maxCost);
+                        // Deck insertion (Secret Passage…): the card to place and the deck size
+                        if (decision.context.card?.id) safeContext.card = { id: String(decision.context.card.id), instanceId: String(decision.context.card.instanceId) };
+                        if (decision.context.deckCount !== undefined) safeContext.deckCount = Number(decision.context.deckCount);
 
                         // NEW: Allow options in context (for CHOOSE_OPTION type)
                         if (decision.context.options && Array.isArray(decision.context.options)) {
