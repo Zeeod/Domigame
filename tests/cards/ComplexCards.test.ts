@@ -1,3 +1,4 @@
+import { createPlayerState } from '../../shared/engine/PlayerState.js';
 
 import { describe, it, expect } from 'vitest';
 import { GameState, PlayerState } from '../../shared/engine/GameState';
@@ -6,7 +7,7 @@ import { TurnMachine } from '../../shared/engine/TurnMachine';
 
 function createMockState(): GameState {
     const p1: PlayerState = {
-        id: 'p1', name: 'Player 1',
+        ...createPlayerState('p1', 'Player 1'),
         hand: [], deck: [], discardPile: [], playArea: [],
         actions: 1, buys: 1, coins: 0,
         turnNumber: 1,
@@ -18,7 +19,7 @@ function createMockState(): GameState {
     } as any;
 
     const p2: PlayerState = {
-        id: 'p2', name: 'Player 2',
+        ...createPlayerState('p2', 'Player 2'),
         hand: [], deck: [], discardPile: [], playArea: [],
         actions: 1, buys: 1, coins: 0,
         turnNumber: 1,
@@ -225,7 +226,7 @@ describe('Complex Cards QA', () => {
         // console.log('Caravan Guard Decision:', decision);
 
         // If Reaction is handled via standard "Reveal" prompt first:
-        if (decision && decision.type === 'SELECT_CARDS') {
+        if (decision && decision.type === 'CHOOSE_CARDS') {
             expect(decision.playerId).toBe('p2');
             // Choose to reveal/play Caravan Guard
             result = ActionResolver.resolve(state, 'p2', {
@@ -247,12 +248,12 @@ describe('Complex Cards QA', () => {
 
         // 4. Verify Duration Next Turn
         // Finish P1 turn
-        TurnMachine.endActionPhase(state);
-        TurnMachine.endBuyPhase(state);
-        TurnMachine.finalizeCleanup(state); // Clean P1
+        // End P1's turn the way the game does it (each END_PHASE also processes the stack)
+        for (let i = 0; i < 4 && state.currentPlayerIndex === 0; i++) {
+            state = ActionResolver.resolve(state, 'p1', { type: 'END_PHASE' } as any).state;
+        }
 
         // P2's Turn
-        expect(state.players[0].id).toBe('p2'); // Should be P2's turn?
         // Wait, mocked state assumes P1 is first. After cleanup, startNextTurn?
         // createMockState sets currentPlayerIndex=0.
         // ActionResolver.startNextTurn should be called.

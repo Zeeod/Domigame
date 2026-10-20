@@ -42,16 +42,28 @@ export class ZoneEffectHandler {
     }
 
     static handleTrashSelf(state: GameState, player: PlayerState, sourceCardInstanceId?: string): EffectResult {
-        let card = sourceCardInstanceId ? [...player.playArea, ...player.hand].find(c => c.instanceId === sourceCardInstanceId) : undefined;
-        if (!card && player.playArea.length > 0) {
+        let owner: PlayerState = player;
+        let card: CardInstance | undefined;
+
+        if (sourceCardInstanceId) {
+            // The source card may belong to another player (e.g. a Knight's attack resolved
+            // by the victim: "if a Knight is trashed, trash this" targets the attacker's Knight).
+            const owners = [player, ...state.players.filter(p => p.id !== player.id)];
+            for (const p of owners) {
+                const found = [...p.playArea, ...p.hand].find(c => c.instanceId === sourceCardInstanceId);
+                if (found) { owner = p; card = found; break; }
+            }
+        } else if (player.playArea.length > 0) {
+            // Legacy fallback: no source id known, assume the last card played
             card = player.playArea[player.playArea.length - 1];
         }
+
         if (card) {
-            EffectUtils.removeCardFromPlayer(state, player, card.instanceId);
+            EffectUtils.removeCardFromPlayer(state, owner, card.instanceId);
             state.trash.push(card);
             const def = CardRegistry.get(card.id);
-            Logger.log(state, `${player.name} écarte ${def?.name}.`, player.id);
-            EffectUtils.handleTrashTriggers(state, player, card);
+            Logger.log(state, `${owner.name} écarte ${def?.name}.`, owner.id);
+            EffectUtils.handleTrashTriggers(state, owner, card);
         }
         return { state, needsChoice: false };
     }

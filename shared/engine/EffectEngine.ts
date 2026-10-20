@@ -23,12 +23,12 @@ export class EffectEngine {
     /**
      * Push multiple effects to the stack
      */
-    public static pushEffectsToStack(state: GameState, playerId: string, effects: any[], suppressLog: boolean = false, sourceCardInstanceId?: string): void {
+    public static pushEffectsToStack(state: GameState, playerId: string, effects: any[], suppressLog: boolean = false, sourceCardInstanceId?: string, extraContext: Record<string, any> = {}): void {
         const items: EffectStep[] = effects.map(e => ({
             type: 'EFFECT',
             playerId,
             effect: e,
-            context: { suppressLog, sourceCardInstanceId }
+            context: { ...extraContext, suppressLog, sourceCardInstanceId }
         }));
 
         // Push in reverse order for stack (last-in, first-out)
@@ -81,6 +81,8 @@ export class EffectEngine {
      * Dispatch a single effect to its handler
      */
     public static applyEffect(state: GameState, playerId: string, effect: any, context: any = {}): EffectResult {
+        // Shorthand: a plain string is the source card instance id
+        if (typeof context === 'string') context = { sourceCardInstanceId: context };
         const type = effect.type;
 
         // Internal engine effects
@@ -171,7 +173,9 @@ export class EffectEngine {
 
         // Routing for special actions defined in context
         const specialAction = decision.context?.specialAction;
-        if (specialAction === 'ORDER_TRIGGERS') {
+        if (specialAction === 'REACTION_DECISION') {
+            AttackEffectHandler.resolveReactionDecision(state, playerId, payload, decision);
+        } else if (specialAction === 'ORDER_TRIGGERS') {
             const player = state.players.find(p => p.id === playerId);
             if (player) {
                 EffectManager.onOrderTriggerDecision(state, player, parseInt(payload.value), decision.context.remainingTriggers);
@@ -624,10 +628,14 @@ export class EffectEngine {
         if (selectedCards.length === 0 && (payload.cardIds || payload.cardInstanceIds)) {
             const ids = payload.cardIds || payload.cardInstanceIds;
             selectedCards = ids.map((id: string) => {
-                const card = player.hand.find(c => c.instanceId === id) || 
+                const card = player.hand.find(c => c.instanceId === id) ||
                              player.playArea.find(c => c.instanceId === id) ||
                              player.discardPile.find(c => c.instanceId === id) ||
-                             player.aside.find(c => c.instanceId === id);
+                             player.aside.find(c => c.instanceId === id) ||
+                             player.limbo?.find(c => c.instanceId === id) ||
+                             player.deck.find(c => c.instanceId === id) ||
+                             (context.cards || []).find((c: any) => c.instanceId === id) ||
+                             EffectUtils.findCardInGame(state, id);
                 return { instanceId: id, id: card?.id || 'unknown' };
             });
         }
@@ -638,6 +646,12 @@ export class EffectEngine {
         const action = context.action;
         const destination = context.destination;
         const perCardEffects = context.effects || [];
+        // Effects run "on" the selected card, but keep track of the card that started it all
+        // (e.g. a Knight's "trash this" refers to the attacking Knight, not the selected card).
+        const originContext = {
+            originSourceCardInstanceId: context.originSourceCardInstanceId || context.sourceCardInstanceId,
+            attackerId: context.attackerId,
+        };
 
         if (action === 'DISCARD') {
             (state as any).lastDiscardedCount = selectedCards.length;
@@ -673,11 +687,12 @@ export class EffectEngine {
                 const card = EffectUtils.removeCardFromPlayer(state, player, selectedCard.instanceId);
                 if (card) {
                     EffectUtils.addCardToZone(player, card, destination, state);
+                    if (destination === 'trash') state.lastTrashedCard = card;
                 }
             }
 
             if (perCardEffects.length > 0) {
-                this.pushEffectsToStack(state, playerId, perCardEffects, true, selectedCard.instanceId);
+                this.pushEffectsToStack(state, playerId, perCardEffects, true, selectedCard.instanceId, originContext);
             }
         }
 
