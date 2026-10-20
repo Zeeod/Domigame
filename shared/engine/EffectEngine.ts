@@ -4,6 +4,7 @@ import { AttackEffectHandler } from './effects/AttackEffectHandler.js';
 import { EffectManager } from './EffectManager.js';
 import { EffectUtils } from './EffectUtils.js';
 import { GainEffectHandler } from './effects/GainEffectHandler.js';
+import { TrashEffectHandler } from './effects/TrashEffectHandler.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 
@@ -267,8 +268,7 @@ export class EffectEngine {
             if (action === 'DISCARD') {
                 player.discardPile.push(card);
             } else if (action === 'TRASH') {
-                state.trash.push(card);
-                state.lastTrashedCard = card;
+                TrashEffectHandler.trashCard(state, player, card);
             } else if (action === 'MOVE' && destination) {
                 EffectUtils.addCardToZone(player, card, destination, state);
             } else {
@@ -394,8 +394,7 @@ export class EffectEngine {
         for (const id of trashIds) {
             const card = EffectUtils.removeCardFromPlayer(state, player, id);
             if (card) {
-                state.trash.push(card);
-                state.lastTrashedCard = card;
+                TrashEffectHandler.trashCard(state, player, card);
             }
         }
 
@@ -676,8 +675,7 @@ export class EffectEngine {
                     if (action === 'DISCARD') {
                         player.discardPile.push(card);
                     } else if (action === 'TRASH') {
-                        state.trash.push(card);
-                        state.lastTrashedCard = card;
+                        TrashEffectHandler.trashCard(state, player, card);
                     } else if (action === 'MOVE' && destination) {
                         EffectUtils.addCardToZone(player, card, destination, state);
                     }
@@ -686,8 +684,8 @@ export class EffectEngine {
                 // If destination is defined but action is not, we still move it
                 const card = EffectUtils.removeCardFromPlayer(state, player, selectedCard.instanceId);
                 if (card) {
-                    EffectUtils.addCardToZone(player, card, destination, state);
-                    if (destination === 'trash') state.lastTrashedCard = card;
+                    if (destination === 'trash') TrashEffectHandler.trashCard(state, player, card);
+                    else EffectUtils.addCardToZone(player, card, destination, state);
                 }
             }
 
@@ -813,7 +811,11 @@ export class EffectEngine {
         }
 
         if (effectsToPush.length > 0) {
-            this.pushEffectsToStack(state, playerId, effectsToPush, true, context.sourceCardInstanceId);
+            this.pushEffectsToStack(state, playerId, effectsToPush, true, context.sourceCardInstanceId, {
+                originSourceCardInstanceId: context.originSourceCardInstanceId,
+                attackerId: context.attackerId,
+                isAttack: context.isAttack,
+            });
         }
     }
 }

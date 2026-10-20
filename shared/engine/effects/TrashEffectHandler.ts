@@ -1,10 +1,52 @@
 import { GameState, PlayerState, CardInstance, EffectResult } from '../GameState.js';
 import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
+import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { EffectManager } from '../EffectManager.js';
 
 
 export class TrashEffectHandler {
-    // ... (existing methods)
+    /**
+     * THE way to put a card in the trash. Every trashing path must go through here so that
+     * bookkeeping and "when trashed" triggers are consistent:
+     *  - the card's own `onTrash` (Fortress, Hunting Grounds, Catacombs…)
+     *  - reactions / triggers listening to ON_TRASH (Market Square, Sewers, …)
+     * The caller is responsible for removing the card from its previous zone.
+     */
+    public static trashCard(state: GameState, owner: PlayerState, card: CardInstance, opts: { suppressLog?: boolean } = {}): void {
+        state.trash.push(card);
+        state.lastTrashedCard = card;
+        state.lastTrashedCards = [...(state.lastTrashedCards || []), card];
+        owner.trashedThisTurn = (owner.trashedThisTurn || 0) + 1;
+
+        const def = CardRegistry.get(card.id);
+        if (!opts.suppressLog) {
+            EffectUtils.log(state, `${owner.name} écarte ${def?.name || card.id}.`, owner.id);
+        }
+
+        // Global triggers (reactions in hand, cards in play, dynamic triggers)
+        const triggers = TriggerEffectHandler.scanForTriggers(state, owner, 'ON_TRASH', {
+            cardId: card.id,
+            trashedCardId: card.id,
+            trashedCardInstanceId: card.instanceId,
+        });
+        if (triggers.length > 0) {
+            EffectManager.resolveTriggers(state, owner, triggers, "Lors de l'écart : choisissez l'ordre des effets");
+        }
+
+        // The trashed card's own "when you trash this" effects
+        if (def?.onTrash) {
+            const effects = Array.isArray(def.onTrash) ? def.onTrash : [def.onTrash];
+            for (let i = effects.length - 1; i >= 0; i--) {
+                state.effectStack.push({
+                    type: 'EFFECT',
+                    playerId: owner.id,
+                    effect: effects[i],
+                    context: { suppressLog: false, sourceCardInstanceId: card.instanceId }
+                });
+            }
+        }
+    }
 
     public static handleTrashActionGainUpTo3More(state: GameState, player: PlayerState, _effect: any): EffectResult {
         state.pendingDecision = {
@@ -48,8 +90,14 @@ export class TrashEffectHandler {
             // Find specific target if provided (e.g. last revealed)
             // ...
         } else {
-            // Usually comes from a choice prompt, so we check lastDecisionResults
-            cards = state.lastDecisionResults?.cards || [];
+            // A TRASH that defines its own choice (min/max/source/filter) must prompt, unless it is
+            // the continuation of that prompt (fromDecision). A bare { type: 'TRASH' } chained after
+            // another choice uses that choice's result.
+            const definesOwnChoice = effect.min !== undefined || effect.max !== undefined
+                || effect.source !== undefined || effect.from !== undefined || effect.filter !== undefined;
+            if (effect.fromDecision || !definesOwnChoice) {
+                cards = state.lastDecisionResults?.cards || [];
+            }
         }
 
         if (cards.length === 0 && !effect.optional) {
@@ -65,13 +113,26 @@ export class TrashEffectHandler {
 
             // If still no cards, we need to prompt the user
             if (cards.length === 0) {
+                // Only prompt if there is something valid to trash
+                const zoneName = String(effect.source || effect.from || 'hand').toLowerCase();
+                const zoneCards = zoneName === 'hand' ? player.hand
+                    : (zoneName === 'playarea' || zoneName === 'play_area') ? player.playArea
+                    : (zoneName === 'discard' || zoneName === 'discardpile') ? player.discardPile
+                    : player.hand;
+                const candidates = EffectUtils.filterCards(zoneCards, effect.filter);
+                if (candidates.length === 0) {
+                    if (!suppressLog) EffectUtils.log(state, `${player.name} n'a aucune carte à écarter.`, player.id);
+                    return { state, needsChoice: false };
+                }
+                const wantedMin = effect.min !== undefined ? effect.min : 1;
+
                 state.pendingDecision = {
                     id: `trash_${Date.now()}`,
                     playerId: player.id,
                     type: 'CHOOSE_CARDS' as any,
                     message: effect.message || 'Écartez une carte de votre main.',
                     constraints: {
-                        min: effect.min !== undefined ? effect.min : 1,
+                        min: Math.min(wantedMin, candidates.length),
                         max: effect.max !== undefined ? effect.max : 1,
                         sourceZone: effect.source || 'hand',
                         filter: effect.filter
@@ -81,7 +142,7 @@ export class TrashEffectHandler {
                         specialAction: 'TRASH',
                         action: 'TRASH',
                         next: [
-                            { type: 'TRASH', ...effect, next: undefined },
+                            { type: 'TRASH', ...effect, next: undefined, fromDecision: true, optional: true },
                             ...(effect.next ? (Array.isArray(effect.next) ? effect.next : [effect.next]) : [])
                         ]
                     }
@@ -90,33 +151,10 @@ export class TrashEffectHandler {
             }
         }
 
-        cards.forEach(card => {
-            // Remove from source
-            player.hand = player.hand.filter(c => c.instanceId !== card.instanceId);
-            player.playArea = player.playArea.filter(c => c.instanceId !== card.instanceId);
-            player.discardPile = player.discardPile.filter(c => c.instanceId !== card.instanceId);
-
-            state.trash.push(card);
-            state.lastTrashedCard = card;
-            state.lastTrashedCards = [...(state.lastTrashedCards || []), card];
-            player.trashedThisTurn = (player.trashedThisTurn || 0) + 1;
-
-            if (!suppressLog) {
-                EffectUtils.log(state, `${player.name} écarte ${CardRegistry.get(card.id)?.name || card.id}.`, player.id);
-            }
-
-            const def = CardRegistry.get(card.id);
-            if (def?.onTrash) {
-                const effects = Array.isArray(def.onTrash) ? def.onTrash : [def.onTrash];
-                for (let i = effects.length - 1; i >= 0; i--) {
-                    state.effectStack.push({
-                        type: 'EFFECT',
-                        playerId: player.id,
-                        effect: effects[i],
-                        context: { suppressLog: false, sourceCardInstanceId: card.instanceId }
-                    });
-                }
-            }
+        cards.forEach(cardRef => {
+            // Remove from wherever it is; skip cards that are no longer there
+            const card = EffectUtils.removeCardFromPlayer(state, player, cardRef.instanceId);
+            if (!card) return;
 
             if (effect.onSuccess) {
                 const onSuccessEffects = Array.isArray(effect.onSuccess) ? effect.onSuccess : [effect.onSuccess];
@@ -129,6 +167,9 @@ export class TrashEffectHandler {
                     });
                 }
             }
+
+            // Trash last so that its triggers resolve before onSuccess (stack is LIFO)
+            this.trashCard(state, player, card, { suppressLog });
         });
 
 
@@ -161,25 +202,7 @@ export class TrashEffectHandler {
         const card = EffectUtils.removeCardFromGame(state, sourceCardInstanceId);
 
         if (card) {
-            state.trash.push(card);
-            state.lastTrashedCard = card;
-            state.lastTrashedCards = [...(state.lastTrashedCards || []), card];
-            owner.trashedThisTurn = (owner.trashedThisTurn || 0) + 1;
-
-            EffectUtils.log(state, `${owner.name} écarte sa propre carte (${CardRegistry.get(card.id)?.name}).`, owner.id);
-
-            const def = CardRegistry.get(card.id);
-            if (def?.onTrash) {
-                const effects = Array.isArray(def.onTrash) ? def.onTrash : [def.onTrash];
-                for (let i = effects.length - 1; i >= 0; i--) {
-                    state.effectStack.push({
-                        type: 'EFFECT',
-                        playerId: owner.id,
-                        effect: effects[i],
-                        context: { suppressLog: false, sourceCardInstanceId: card.instanceId }
-                    });
-                }
-            }
+            this.trashCard(state, owner, card);
         }
         return { state, needsChoice: false };
     }

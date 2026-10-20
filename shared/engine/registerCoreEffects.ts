@@ -123,20 +123,23 @@ export function registerCoreEffects(): void {
     // Draw & Reveal Effects
     // ========================================================================
 
+    // OTHER_PLAYERS_EFFECT: each other player (in turn order) resolves `effect` or `effects`.
+    // Not an Attack: no reaction window (use ATTACK for that).
     EffectHandlerRegistry.register('OTHER_PLAYERS_EFFECT', (state, player, effect, ctx) => {
-        const otherPlayers = state.players.filter(p => p.id !== player.id);
-        const effectToApply = (effect as any).effect;
-        console.log('DEBUG: OTHER_PLAYERS_EFFECT', { player: player.id, otherCount: otherPlayers.length, hasEffect: !!effectToApply });
-        if (!effectToApply) return { state, needsChoice: false };
+        const e = effect as any;
+        const effectsToApply: any[] = e.effects ? e.effects : (e.effect ? [e.effect] : []);
+        if (effectsToApply.length === 0) return { state, needsChoice: false };
 
-        const stackItems = otherPlayers.map(p => ({
+        const idx = state.players.findIndex(p => p.id === player.id);
+        const otherPlayers = [...state.players.slice(idx + 1), ...state.players.slice(0, Math.max(idx, 0))];
+
+        const stackItems = otherPlayers.flatMap(p => effectsToApply.map(eff => ({
             type: 'EFFECT' as const,
             playerId: p.id,
-            effect: effectToApply,
+            effect: eff,
             context: { ...ctx, sourcePlayerId: player.id }
-        }));
+        })));
 
-        console.log('DEBUG: OTHER_PLAYERS_EFFECT pushing to stack', { count: stackItems.length });
         state.effectStack.push(...stackItems.reverse());
         return { state, needsChoice: false };
     });
@@ -225,7 +228,7 @@ export function registerCoreEffects(): void {
     // ========================================================================
 
     EffectHandlerRegistry.register('SELECT_OPTION', (state, player, effect, ctx) =>
-        ChoiceEffectHandler.handleChooseOption(state, player, effect, ctx.sourceCardInstanceId)
+        ChoiceEffectHandler.handleChooseOption(state, player, effect, ctx)
     );
 
     EffectHandlerRegistry.register('CHOOSE_OPTION', (state, player, effect, ctx) =>

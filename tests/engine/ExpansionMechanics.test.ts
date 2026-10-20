@@ -96,11 +96,18 @@ describe('Expansion Mechanics', () => {
             // 
             // ALTERNATIVE: Verify `CardRegistry.get('salvager').effects` contains the correct context.
             // Check card definition for correct context
-            const salvagerDef = CardRegistry.get('salvager');
-            expect(salvagerDef).toBeDefined();
-            const trashEffect = salvagerDef?.effects?.find((e: any) => e.type === 'TRASH');
-            expect(trashEffect).toBeDefined();
-            expect((trashEffect as any)?.context).toEqual({ specialAction: 'SALVAGER_TRASH' });
+            const salvagerDef = CardRegistry.get('salvager')!;
+            const buysBefore = player.buys;
+            EffectEngine.applyEffects(state, player.id, salvagerDef.effects!);
+
+            // Prompted to trash a card from hand
+            expect(state.pendingDecision?.playerId).toBe(player.id);
+            EffectEngine.resolveDecision(state, player.id, { type: 'CARDS', cardInstanceIds: [silver.instanceId] });
+
+            expect(state.trash.map(c => c.id)).toEqual(['silver']);
+            expect(player.coins).toBe(3);           // + cost of Silver
+            expect(player.buys).toBe(buysBefore + 1);
+            expect(player.hand.map(c => c.id)).toEqual(['estate']);
         });
     });
 

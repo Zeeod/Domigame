@@ -141,7 +141,8 @@ describe('Dark Ages Trash Mechanics', () => {
             expect(state.pendingDecision?.type).toBe(PromptType.SELECT_OPTION);
 
             // Option 1: Gain Duchy
-            const duchyOption = state.pendingDecision!.context.options[0].value;
+            const duchyOption = (state.pendingDecision as any).options[0];
+            expect(duchyOption.label).toContain('Duché');
             // We assume order, or check label "Gagner un Duché"
 
             // Let's resolve with index 0 (Duchy)

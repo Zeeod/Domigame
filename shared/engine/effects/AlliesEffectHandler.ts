@@ -6,6 +6,7 @@ import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { Logger } from '../Logger.js';
 import { CardInstance, GameState } from '../GameState.js';
 import { ChoiceEffectHandler } from './ChoiceEffectHandler.js';
+import { TrashEffectHandler } from './TrashEffectHandler.js';
 
 export class AlliesEffectHandler {
     static register() {
@@ -55,8 +56,7 @@ export class AlliesEffectHandler {
             const card = cards[0];
             if (!card) return { state, needsChoice: false };
 
-            state.trash.push(card);
-            state.lastTrashedCard = card;
+            TrashEffectHandler.trashCard(state, player, card);
             const cost = EconomyEngine.getCardCost(state, player.id, card.id);
             const def = CardRegistry.get(card.id);
 

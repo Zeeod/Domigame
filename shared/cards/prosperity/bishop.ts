@@ -20,8 +20,9 @@ export const bishop: CardDefinition = {
             }]
         },
         {
-            type: 'ATTACK',
-            attackEffects: [
+            // Not an Attack: other players simply may trash a card
+            type: 'OTHER_PLAYERS_EFFECT',
+            effects: [
                 {
                     type: 'TRASH',
                     min: 0,
@@ -30,7 +31,7 @@ export const bishop: CardDefinition = {
                     message: 'Vous pouvez écarter une carte de votre main (Évêque)'
                 }
             ]
-        }
+        } as any
     ],
     description: '+1 💰, +1 Jeton Victoire 🛡️. Écartez une carte de votre main. +1 Jeton Victoire par tranche de 2💰 de son coût (arrondi à l\'inférieur). Chaque autre joueur peut écarter une carte de sa main.',
     image: '/card-images/bishop.jpg',

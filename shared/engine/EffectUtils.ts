@@ -65,6 +65,25 @@ export class EffectUtils {
         if (typeof amountInput === 'number') return amountInput;
         if (typeof amountInput === 'function') return amountInput(state, player);
 
+        // Named amounts used in card definitions
+        if (typeof amountInput === 'string') {
+            switch (amountInput) {
+                case 'LAST_TRASHED_COST':
+                    return state.lastTrashedCard ? EconomyEngine.getCardCost(state, player.id, state.lastTrashedCard.id) : 0;
+                case 'HALF_LAST_TRASHED_COST':
+                    // Bishop: +1 VP per $2 the trashed card costs (rounded down)
+                    return state.lastTrashedCard ? Math.floor(EconomyEngine.getCardCost(state, player.id, state.lastTrashedCard.id) / 2) : 0;
+                case 'LAST_BOUGHT_COST': {
+                    const id = (state as any).lastBoughtCardId;
+                    return id ? EconomyEngine.getCardCost(state, player.id, id) : 0;
+                }
+                default: {
+                    const n = Number(amountInput);
+                    return Number.isFinite(n) ? n : 0;
+                }
+            }
+        }
+
         // Handle all object-based dynamic amounts
         if (typeof amountInput === 'object' && amountInput.type) {
             switch (amountInput.type) {
@@ -364,10 +383,5 @@ export class EffectUtils {
         }
         return undefined;
     }
-
-    public static handleTrashTriggers(_state: GameState, _player: PlayerState, _card: CardInstance) {
-        // This would delegate to TriggerEffectHandler or similar
-        // For now, placeholder or minimal impl
-        // TODO: Integrate with TriggerEffectHandler
-    }
+    // Trashing a card (with its triggers) is done by TrashEffectHandler.trashCard().
 }
