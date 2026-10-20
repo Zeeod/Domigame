@@ -8,13 +8,7 @@ export const secret_passage: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 2 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            min: 1, max: 1,
-            message: 'Choisissez une carte à mettre dans votre deck',
-            context: { specialAction: 'SECRET_PASSAGE_PICK' }
-        }
+        { type: 'INSERT_INTO_DECK', message: 'Choisissez une carte de votre main à placer dans votre pioche' } as any
     ],
     description: '+2 Cartes, +1 Action. Choisissez une carte de votre main et placez-la où vous voulez dans votre deck.',
     image: '/card-images/secret_passage.jpg',

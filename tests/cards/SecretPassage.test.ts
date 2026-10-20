@@ -53,7 +53,7 @@ describe('Secret Passage', () => {
 
         expect(result.needsChoice).toBe(true);
         expect(state.pendingDecision?.type).toBe(PromptType.DECK_INSERTION);
-        expect(state.pendingDecision?.context.cardToMove.instanceId).toBe(silver.instanceId);
+        expect(state.pendingDecision?.context.card.instanceId).toBe(silver.instanceId);
         expect(player.hand.length).toBe(0);
         expect(player.deck.length).toBe(3);
     });

@@ -31,11 +31,16 @@ import { Logger } from './Logger.js';
 import { DurationManager } from './DurationManager.js';
 import { EffectUtils } from './EffectUtils.js';
 import { PhaseEngine } from './PhaseEngine.js';
+import { markPlayed, pushPlayEffects } from './Play.js';
+import { registerOpponentChoiceEffects } from './effects/OpponentChoiceEffects.js';
+import { registerDeckInsertionEffects } from './effects/DeckInsertionEffects.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { addToMat, peekMat } from './Mats.js';
 
 
 export function registerCoreEffects(): void {
+    registerOpponentChoiceEffects();
+    registerDeckInsertionEffects();
 
     // ========================================================================
     // Basic Resource Effects
@@ -125,6 +130,25 @@ export function registerCoreEffects(): void {
     // Draw & Reveal Effects
     // ========================================================================
 
+    // EACH_PLAYER: every player, starting with you, in turn order (Duchess, Legionary…).
+    // includesSelf: false → same as OTHER_PLAYERS_EFFECT.
+    EffectHandlerRegistry.register('EACH_PLAYER', (state, player, effect, ctx) => {
+        const e = effect as any;
+        const effectsToApply: any[] = e.effects ? e.effects : (e.effect ? [e.effect] : []);
+        if (effectsToApply.length === 0) return { state, needsChoice: false };
+        const idx = state.players.findIndex(p => p.id === player.id);
+        const ordered = [...state.players.slice(idx), ...state.players.slice(0, Math.max(idx, 0))]
+            .filter(p => e.includesSelf !== false || p.id !== player.id);
+        const stackItems = ordered.flatMap(p => effectsToApply.map(eff => ({
+            type: 'EFFECT' as const,
+            playerId: p.id,
+            effect: eff,
+            context: { ...ctx, sourcePlayerId: player.id }
+        })));
+        state.effectStack.push(...stackItems.reverse());
+        return { state, needsChoice: false };
+    });
+
     // OTHER_PLAYERS_EFFECT: each other player (in turn order) resolves `effect` or `effects`.
     // Not an Attack: no reaction window (use ATTACK for that).
     EffectHandlerRegistry.register('OTHER_PLAYERS_EFFECT', (state, player, effect, ctx) => {
@@ -157,10 +181,6 @@ export function registerCoreEffects(): void {
         }));
         state.effectStack.push(...stackItems.reverse());
         return { state, needsChoice: false };
-    });
-
-    EffectHandlerRegistry.register('PLAY_ACTION_TWICE', (state, player, _effect, ctx) => {
-        return handlePlayActionMultiple(state, player, 2, ctx);
     });
 
     EffectHandlerRegistry.register('PLAY_ACTION_MULTIPLE', (state, player, effect, ctx) => {
@@ -517,7 +537,7 @@ export function registerCoreEffects(): void {
         if (cardIndex === -1) return { state, needsChoice: false };
 
         const card = player.hand.splice(cardIndex, 1)[0];
-        card.turnPlayed = state.turnNumber;
+        markPlayed(state, player, card);
         player.playArea.push(card);
 
         const cardDef = CardRegistry.get(card.id);
@@ -801,7 +821,7 @@ export function registerCoreEffects(): void {
             }
         }
         if (!card) return { state, needsChoice: false };
-        card.turnPlayed = state.turnNumber;
+        markPlayed(state, player, card);
 
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) return { state, needsChoice: false };
@@ -1028,6 +1048,10 @@ export function registerCoreEffects(): void {
         handlePlayActionMultiple(state, player, 2, ctx)
     );
 
+    EffectHandlerRegistry.register('PLAY_INSTANCE', (state, player, effect, _ctx) =>
+        handlePlayInstance(state, player, effect)
+    );
+
     EffectHandlerRegistry.register('PLAY_ACTION_THRICE', (state, player, _effect, ctx) =>
         handlePlayActionMultiple(state, player, 3, ctx)
     );
@@ -1196,38 +1220,27 @@ function handlePlayActionMultiple(state: any, player: any, multiplier: number, c
 
     Logger.log(state, `${player.name} joue ${cardDef.name} ${multiplier} fois.`);
 
-    // If treasure with value and no custom effects, grant money * multiplier
-    if (cardDef.treasureValue && (!cardDef.effects || cardDef.effects.length === 0)) {
-        player.coins += (cardDef.treasureValue * multiplier);
-    }
+    // One PLAY_INSTANCE per play, resolved one after the other: each play finishes
+    // (including its choices) before the next one starts, as in the rules.
+    const holderInstanceId = ctx?.originSourceCardInstanceId;
+    const plays = Array.from({ length: multiplier }, () => ({
+        type: 'EFFECT' as const,
+        playerId: player.id,
+        effect: { type: 'PLAY_INSTANCE', cardInstanceId: selectedCard.instanceId, holderInstanceId } as any,
+        context: {}
+    }));
+    state.effectStack.push(...plays);
 
-    if (cardDef.effects && cardDef.effects.length > 0) {
-        for (let i = 0; i < multiplier; i++) {
-            const effectItems = cardDef.effects.map((e: any) => ({
-                type: 'EFFECT' as const,
-                playerId: player.id,
-                effect: e as any,
-                context: { sourceCardInstanceId: selectedCard.instanceId, sourceCardId: selectedCard.id }
-            }));
-            state.effectStack.push(...effectItems.reverse());
+    return { state, needsChoice: false };
+}
 
-            if (cardDef.types.includes('DURATION') && cardDef.durationEffects) {
-                state.effectStack.push({
-                    type: 'EFFECT',
-                    playerId: player.id,
-                    effect: {
-                        type: 'DURATION',
-                        effects: cardDef.durationEffects,
-                        turns: 1
-                    } as any,
-                    context: { sourceCardInstanceId: selectedCard.instanceId, sourceCardId: selectedCard.id }
-                });
-            }
-
-            TriggerEffectHandler.handleOnPlayTriggers(state, player, selectedCard.id, selectedCard.instanceId);
-        }
-    }
-
+/** One play of a card already in play (Throne Room replays). */
+function handlePlayInstance(state: any, player: any, effect: any) {
+    const card = player.playArea.find((c: any) => c.instanceId === effect.cardInstanceId);
+    if (!card) return { state, needsChoice: false };
+    markPlayed(state, player, card);
+    pushPlayEffects(state, player, card, effect.holderInstanceId);
+    TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
     return { state, needsChoice: false };
 }
 

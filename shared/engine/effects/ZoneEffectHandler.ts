@@ -8,6 +8,7 @@ import { Logger } from '../Logger.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { TrashEffectHandler } from './TrashEffectHandler.js';
 import { matName, matName as canonicalMat, getMat, addToMat } from '../Mats.js';
+import { markPlayed } from '../Play.js';
 
 export class ZoneEffectHandler {
 
@@ -315,7 +316,7 @@ export class ZoneEffectHandler {
             }
 
             // Add to play area
-            card.turnPlayed = state.turnNumber;
+            markPlayed(state, player, card);
             player.playArea.push(card);
 
             const def = CardRegistry.get(card.id);

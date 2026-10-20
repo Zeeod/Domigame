@@ -77,6 +77,8 @@ export interface PlayerState {
     costReduction: number;
     /** Number of actions already played this turn (Conspirator) */
     actionsPlayed: number;
+    /** How many times each card (by id) has been played this turn, Throne Room replays included */
+    playedThisTurn: Record<string, number>;
 
     /** Number of Silvers played this turn (Merchant) */
     silversPlayed: number;
@@ -197,6 +199,7 @@ export function createPlayerState(id: string, name: string, color: string = '#ff
         silverBonusTriggered: false,
         costReduction: 0,
         actionsPlayed: 0,
+        playedThisTurn: {},
         silversPlayed: 0,
         boughtVictoryCard: false,
         turnNumber: 0,
@@ -277,6 +280,7 @@ export function resetTurnResources(player: PlayerState): void {
     player.hasPlayedTreasure = false;
     player.costReduction = 0;
     player.actionsPlayed = 0;
+    player.playedThisTurn = {};
     player.silversPlayed = 0;
     player.boughtVictoryCard = false;
     player.cardsGainedThisTurn = 0;

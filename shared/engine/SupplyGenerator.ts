@@ -168,6 +168,19 @@ export class SupplyGenerator {
     }
 
     /**
+     * Black Market deck: `size` different Kingdom cards (implemented ones only) that are not in the Supply.
+     */
+    static buildBlackMarketDeck(supplyIds: string[], size = 25, seed?: string): string[] {
+        const inSupply = new Set(supplyIds);
+        const pool = CardRegistry.getKingdomCandidates().filter(id => {
+            const def = CardRegistry.get(id) as any;
+            return !inSupply.has(id) && id !== 'black_market' && !def?.mixedPile;
+        });
+        const rngState = createGameState(seed ?? 'black_market_' + Date.now());
+        return EffectUtils.shuffle(pool, rngState).slice(0, size);
+    }
+
+    /**
      * Determines if Colony/Platinum should be added based on official rules
      */
     static shouldAddProsperity(kingdomCardIds: string[], mode: 'always' | 'never' | 'random' = 'random', seed?: string): boolean {

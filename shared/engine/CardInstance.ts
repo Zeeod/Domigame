@@ -22,6 +22,8 @@ export interface CardInstance {
 
     /** The turn number when this card was played (for Duration display logic) */
     turnPlayed?: number;
+    /** Set aside with this Prince (instance id): returns to the Prince mat instead of being discarded from play */
+    princedBy?: string;
 
     /** Plunder - Shy trait: cannot be played this turn */
     shy?: boolean;

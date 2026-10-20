@@ -6,6 +6,7 @@ import { EffectUtils } from './EffectUtils.js';
 import { GainEffectHandler } from './effects/GainEffectHandler.js';
 import { TrashEffectHandler } from './effects/TrashEffectHandler.js';
 import { addToMat } from './Mats.js';
+import { markPlayed } from './Play.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 
@@ -134,6 +135,17 @@ export class EffectEngine {
     /**
      * Resolve a player decision and resume stack processing
      */
+    /** Decision handlers registered by expansions, keyed by `context.specialAction`. */
+    private static decisionHandlers = new Map<string, (state: GameState, playerId: string, payload: any, decision: any) => void>();
+
+    /**
+     * Let an expansion handle its own decisions: when a pending decision has
+     * `context.specialAction === specialAction`, `handler` is called instead of the built-in routing.
+     */
+    public static registerDecisionHandler(specialAction: string, handler: (state: GameState, playerId: string, payload: any, decision: any) => void): void {
+        this.decisionHandlers.set(specialAction, handler);
+    }
+
     public static resolveDecision(state: GameState, playerId: string, payload: any): EffectResult {
         const decision = state.pendingDecision;
         if (!decision || decision.playerId !== playerId) {
@@ -175,7 +187,10 @@ export class EffectEngine {
 
         // Routing for special actions defined in context
         const specialAction = decision.context?.specialAction;
-        if (specialAction === 'REACTION_DECISION') {
+        const customHandler = specialAction ? this.decisionHandlers.get(specialAction) : undefined;
+        if (customHandler) {
+            customHandler(state, playerId, payload, decision);
+        } else if (specialAction === 'REACTION_DECISION') {
             AttackEffectHandler.resolveReactionDecision(state, playerId, payload, decision);
         } else if (specialAction === 'ORDER_TRIGGERS') {
             const player = state.players.find(p => p.id === playerId);
@@ -557,6 +572,7 @@ export class EffectEngine {
 
         if (shouldPlay) {
             player.playArea.push(card);
+            markPlayed(state, player, card);
             const cardDef = CardRegistry.get(card.id);
             if (cardDef) {
                 EffectUtils.log(state, `${player.name} joue ${cardDef.name} via Vassal.`, player.id);

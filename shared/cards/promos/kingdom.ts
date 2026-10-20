@@ -7,19 +7,9 @@ export const envoy: CardDefinition = {
     types: ['ACTION'],
     description: "Révélez les 5 premières cartes de votre pioche. L'adversaire à votre gauche choisit l'une d'entre elles que vous défaussez. Prenez les autres en main.",
     effects: [
-        { type: 'REVEAL_CARDS', amount: 5, source: 'deck', destination: 'aside' },
-        {
-            type: 'OTHER_PLAYERS_EFFECT',
-            effect: {
-                type: 'CHOOSE_FROM_ZONE',
-                sourceZone: 'aside',
-                destination: 'discardPile',
-                min: 1,
-                max: 1,
-                message: "Choisissez une carte à défausser pour l'adversaire",
-                effects: [{ type: 'MOVE_CARDS', source: 'aside', destination: 'hand', count: 'ALL' }]
-            }
-        }
+        { type: 'REVEAL_CARDS', amount: 5, source: 'deck', destination: 'limbo' },
+        // The player to your left picks one to discard; the rest go to your hand
+        { type: 'OPPONENT_CHOOSES_DISCARD', count: 1, restTo: 'hand' } as any
     ],
     expansion: 'promos'
 };
@@ -28,21 +18,9 @@ export const prince: CardDefinition = {
     id: 'prince',
     name: 'Prince',
     cost: 8,
-    types: ['ACTION', 'COMMAND'],
-    description: "Écartez cette carte. Écartez une carte Action de votre main coûtant jusqu'à 4 💰. Au début de chacun de vos tours, jouez la carte Action écartée. Quand cette carte Action écartée quitte le jeu, défaussez le Prince.",
-    effects: [
-        {
-            type: 'SELECT_AND_APPLY',
-            source: 'hand',
-            filter: { cardTypes: ['ACTION'], maxCost: 4 },
-            destination: 'aside',
-            sourceCardDestination: 'aside', // Move Prince itself to aside
-            message: 'Choisissez une action à mettre de côté avec le Prince',
-            next: [
-                { type: 'REGISTER_TRIGGER', trigger: 'START_ACTION_PHASE', isPermanent: true, effects: [{ type: 'PLAY_THIS_CARD' }] }
-            ]
-        } as any
-    ],
+    types: ['ACTION'],
+    description: "Vous pouvez mettre cette carte de côté. Dans ce cas, mettez de côté une carte Action de votre main coûtant jusqu'à 4 💰. Au début de chacun de vos tours, jouez cette Action, en la remettant de côté quand vous la défaussez de votre zone de jeu.",
+    effects: [{ type: 'PRINCE' } as any],
     expansion: 'promos'
 };
 
@@ -81,25 +59,9 @@ export const captain: CardDefinition = {
     name: 'Capitaine',
     cost: 6,
     types: ['ACTION', 'DURATION', 'COMMAND'],
-    description: "Jouez une carte Action de la Réserve coûtant jusqu'à 4 💰 qui n'est pas une carte Durée, en laissant la carte là-bas. Au début de votre prochain tour, faites de même.",
-    effects: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'supply',
-            filter: { cardTypes: ['ACTION'], excludeTypes: ['DURATION'], maxCost: 4 },
-            message: "Capitaine : choisissez une carte Action (coût <= 4) à jouer",
-            effects: [{ type: 'PLAY_THIS_CARD' }]
-        }
-    ],
-    durationEffects: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'supply',
-            filter: { cardTypes: ['ACTION'], excludeTypes: ['DURATION'], maxCost: 4 },
-            message: "Capitaine (Tour suivant) : choisissez une carte Action (coût <= 4) à jouer",
-            effects: [{ type: 'PLAY_THIS_CARD' }]
-        }
-    ],
+    description: "Maintenant et au début de votre prochain tour : jouez une carte Action de la réserve coûtant jusqu'à 4 💰 qui n'est ni une Durée ni un Ordre, en la laissant là.",
+    effects: [{ type: 'PLAY_FROM_SUPPLY', maxCost: 4 } as any],
+    durationEffects: [{ type: 'PLAY_FROM_SUPPLY', maxCost: 4 } as any],
     expansion: 'promos'
 };
 
@@ -150,28 +112,10 @@ export const black_market: CardDefinition = {
     name: 'Marché Noir',
     cost: 3,
     types: ['ACTION'],
-    description: "+2 💰. Vous pouvez regarder les 3 premières cartes de la pioche du Marché Noir. Vous pouvez en acheter une. Remettez les autres sous la pioche du Marché Noir.",
+    description: "+2 💰. Révélez les 3 cartes du dessus de la pioche du Marché Noir. Vous pouvez en acheter une immédiatement. Remettez les autres sous la pioche du Marché Noir.",
     effects: [
-        {
-            type: 'SEQUENCE',
-            effects: [
-                { type: 'ADD_MONEY', amount: 2 },
-                { type: 'REVEAL_CARDS', amount: 3, source: 'blackMarketDeck' as any, destination: 'blackMarketRevealed' as any },
-                {
-                    type: 'CHOOSE_FROM_ZONE',
-                    sourceZone: 'blackMarketRevealed' as any,
-                    destination: 'discardPile',
-                    message: 'Choisissez une carte à acheter',
-                    min: 0,
-                    max: 1,
-                    optional: true,
-                    effects: [
-                        { type: 'BUY_LAST_SELECTED' as any }
-                    ]
-                } as any,
-                { type: 'MOVE_CARDS', source: 'blackMarketRevealed' as any, destination: 'blackMarketDeck' as any, count: 'ALL', toBottom: true }
-            ]
-        }
+        { type: 'ADD_MONEY', amount: 2 },
+        { type: 'BLACK_MARKET' } as any
     ],
     expansion: 'promos'
 };

@@ -13,9 +13,9 @@ export const advisor: CardDefinition = {
             type: 'REVEAL_CARDS',
             amount: 3,
             source: 'deck',
-            destination: 'aside'
+            destination: 'limbo'
         },
-        { type: 'OPPONENT_CHOOSES_DISCARD', count: 1 },
-        { type: 'MOVE_REMAINING_TO_HAND' }
+        // The player to your left picks one to discard; the rest go to your hand
+        { type: 'OPPONENT_CHOOSES_DISCARD', count: 1, restTo: 'hand' }
     ] as any
 };
