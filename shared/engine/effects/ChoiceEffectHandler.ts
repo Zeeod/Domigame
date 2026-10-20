@@ -37,13 +37,22 @@ export class ChoiceEffectHandler {
     }
 
     public static handleReorder(state: GameState, player: PlayerState, effect: any): EffectResult {
-        const sourceZone = effect.sourceZone || 'HAND';
-        const cards = sourceZone === 'HAND' ? player.hand :
+        const sourceZone = String(effect.sourceZone || 'HAND').toUpperCase();
+        const cards = (sourceZone === 'HAND' ? player.hand :
             sourceZone === 'DECK' ? player.deck :
-                sourceZone === 'DISCARD' ? player.discardPile :
-                    player.aside;
+                (sourceZone === 'DISCARD' || sourceZone === 'DISCARDPILE') ? player.discardPile :
+                    sourceZone === 'LIMBO' ? player.limbo :
+                        (sourceZone === 'PLAYAREA' || sourceZone === 'PLAY_AREA') ? player.playArea :
+                            player.aside) || [];
 
         if (cards.length === 0) return { state, needsChoice: false };
+
+        // A single card has only one possible order: move it directly
+        if (cards.length === 1 && effect.destination) {
+            const card = EffectUtils.removeCardFromPlayer(state, player, cards[0].instanceId);
+            if (card) EffectUtils.addCardToZone(player, card, effect.destination, state, effect.position === 'BOTTOM' ? 'BOTTOM' : 'TOP');
+            return { state, needsChoice: false };
+        }
 
         state.pendingDecision = {
             id: `reorder_${Date.now()}`,

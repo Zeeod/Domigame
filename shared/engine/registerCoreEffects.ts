@@ -30,6 +30,7 @@ import { CardRegistry } from '../cards/index.js';
 import { Logger } from './Logger.js';
 import { DurationManager } from './DurationManager.js';
 import { EffectUtils } from './EffectUtils.js';
+import { PhaseEngine } from './PhaseEngine.js';
 import { EconomyEngine } from './EconomyEngine.js';
 
 
@@ -712,6 +713,31 @@ export function registerCoreEffects(): void {
         const amount = (effect as any).amount || 0;
         player.favors = (player.favors || 0) + amount;
         Logger.log(state, `${player.name} reçoit +${amount} Faveur(s).`);
+        return { state, needsChoice: false };
+    });
+
+    EffectHandlerRegistry.register('SPEND_FAVORS', (state, player, effect) => {
+        const amount = Math.min(EffectUtils.getAmount(state, player, (effect as any).amount ?? 1), player.favors || 0);
+        player.favors = (player.favors || 0) - amount;
+        if (amount > 0) Logger.log(state, `${player.name} dépense ${amount} Faveur(s).`);
+        return { state, needsChoice: false };
+    });
+
+    // CHANGE_PHASE: move the current turn to another phase (e.g. Villa: back to the Action phase)
+    EffectHandlerRegistry.register('CHANGE_PHASE', (state, _player, effect) => {
+        const target = (effect as any).phase;
+        if (!target) return { state, needsChoice: false };
+        if (!state.phasePipeline || state.phasePipeline.length === 0) PhaseEngine.initTurnPipeline(state);
+        const idx = state.phasePipeline!.indexOf(target);
+        if (idx !== -1) state.phaseIndex = idx;
+        state.phase = target;
+        return { state, needsChoice: false };
+    });
+
+    EffectHandlerRegistry.register('ADD_MONEY_PER_CARD_IN_HAND', (state, player, effect) => {
+        const e = effect as any;
+        const count = EffectUtils.filterCards(player.hand, e.filter).length;
+        player.coins += count * (EffectUtils.getAmount(state, player, e.amount ?? 1));
         return { state, needsChoice: false };
     });
 

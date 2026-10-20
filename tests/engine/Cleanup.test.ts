@@ -46,7 +46,7 @@ describe('Cleanup Phase Fixes', () => {
     it('Should clear turn-based triggers during transition to next turn', () => {
         const state = setupState();
         state.triggers = [
-            { type: 'ON_PLAY', playerId: 'p1', once: true, effects: [] },
+            { type: 'ON_PLAY', playerId: 'p1', once: true, expires: 'END_OF_TURN', effects: [] },
             { type: 'ON_PLAY', playerId: 'p1', once: false, effects: [] }
         ];
 
@@ -54,6 +54,21 @@ describe('Cleanup Phase Fixes', () => {
 
         expect(state.triggers.length).toBe(1);
         expect(state.triggers[0].once).toBe(false);
+    });
+
+    it('Merchant bonus does not carry over to a later turn when no Silver was played', () => {
+        const state = setupState();
+        const p1 = state.players[0];
+        const merchant = CardRegistry.get('merchant')!;
+        // Register Merchant's "first Silver this turn" trigger
+        const phaseCondition = (merchant.effects as any[]).find(e => e.type === 'CONDITION');
+        const registerEffect = phaseCondition?.trueEffects?.find((e: any) => e.type === 'REGISTER_TRIGGER');
+        expect(registerEffect).toBeDefined();
+        EffectHandlerRegistry.resolve(state, p1, registerEffect, {} as any);
+        expect(state.triggers.length).toBe(1);
+
+        CleanupEffectHandler.handleStartNextTurn(state);
+        expect(state.triggers.length).toBe(0);
     });
 
     it('Should incorporate player.costReduction in EconomyEngine.getCardCost', () => {

@@ -19,13 +19,9 @@ export const rabble: CardDefinition = {
         {
             type: 'ATTACK',
             attackEffects: [
-                {
-                    type: 'REVEAL_AND_APPLY',
-                    amount: 3,
-                    from: 'deck',
-                    onActionsTreasures: { action: 'DISCARD' },
-                    onOthers: { action: 'TOPDECK_ORDER' }
-                }
+                { type: 'REVEAL_CARDS', amount: 3, source: 'deck', destination: 'limbo' },
+                { type: 'MOVE_CARDS', source: 'limbo', destination: 'discardPile', count: 'ALL', filter: { cardTypes: ['ACTION', 'TREASURE'] } },
+                { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: "Cohue : remettez les cartes restantes sur votre pioche dans l'ordre de votre choix" }
             ]
         }
     ]

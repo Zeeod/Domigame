@@ -28,7 +28,7 @@ describe('Validation des Événements Adventures', () => {
     it('Aumône (Alms) : gagne une carte si 0 trésor en jeu', () => {
         const player = state.players[0];
         player.playArea = []; // 0 trésors
-        player.buys = 1;
+        player.buys = 2; // keep the turn open after one buy
         player.coins = 0;
 
         const res1 = ActionResolver.resolve(state, player.id, { type: 'BUY_EVENT', cardId: 'alms' } as any);
@@ -43,7 +43,7 @@ describe('Validation des Événements Adventures', () => {
     it('Emprunt (Borrow) : défausse défausse pour +1$', () => {
         const player = state.players[0];
         player.discardPile = [{ instanceId: 's1', id: 'silver' }];
-        player.buys = 1;
+        player.buys = 2; // keep the turn open after one buy
         player.coins = 0;
 
         const res2 = ActionResolver.resolve(state, player.id, { type: 'BUY_EVENT', cardId: 'borrow' } as any);

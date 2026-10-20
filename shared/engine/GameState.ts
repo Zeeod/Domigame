@@ -246,7 +246,10 @@ export interface GameState {
         effect?: any;
         effects?: EffectDefinition[];
         sourceCardInstanceId?: string;
+        /** Removed after it fires once */
         once?: boolean;
+        /** When the trigger disappears even if it never fired */
+        expires?: 'END_OF_TURN' | 'START_OF_NEXT_TURN';
     }[];
 
     /** Active duration card entries (DurationTracker) */

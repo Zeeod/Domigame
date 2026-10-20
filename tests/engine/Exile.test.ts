@@ -27,18 +27,22 @@ describe('Exile Mechanics', () => {
         expect(player.hand).not.toContainEqual(gold);
     });
 
-    it('should auto-retrieve from exile when gaining a matching card', () => {
+    it('offers to discard exiled copies when gaining a matching card', () => {
         const goldInExile = createCardInstance('gold');
         player.mats['exile'] = [goldInExile];
 
         // Gain a new gold
         TriggerEffectHandler.handleOnGainTriggers(state, player, 'gold');
 
-        // Check effect stack has TAKE_FROM_MAT
+        // "You may discard copies from Exile": a Yes/No choice whose Yes takes them from the mat
         expect(state.effectStack.length).toBe(1);
-        expect(state.effectStack[0].effect.type).toBe('TAKE_FROM_MAT');
-        expect(state.effectStack[0].effect.mat).toBe('exile');
-        expect(state.effectStack[0].effect.targetCardIds).toContain('gold');
+        const choice = state.effectStack[0].effect as any;
+        expect(choice.type).toBe('SELECT_OPTION');
+        const yes = choice.options[0].effects[0];
+        expect(yes.type).toBe('TAKE_FROM_MAT');
+        expect(yes.mat).toBe('exile');
+        expect(yes.targetCardIds).toContain('gold');
+        expect(yes.destination).toBe('discardPile');
     });
 
     it('should prompt to exile when gaining with exile_prompt destination', () => {

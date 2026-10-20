@@ -25,47 +25,55 @@ function setupState(): GameState {
 
 describe('Generic Effect Refactor Verification', () => {
 
-    it('Vassal: Should reveal top card and offer to play if Action', () => {
+    it('Vassal: discards the top card and offers to play it if it is an Action', () => {
         let state = setupState();
         const p1 = state.players[0];
 
         p1.hand = [{ id: 'vassal', instanceId: 'v1' }] as any;
-        p1.deck = [{ id: 'village', instanceId: 'v2' }] as any;
+        p1.deck = [{ id: 'village', instanceId: 'v2' }, { id: 'copper', instanceId: 'c1' }] as any;
 
-        const res = ActionResolver.resolve(state, 'p1', { type: 'PLAY_CARD', cardInstanceId: 'v1' });
-        state = res.state;
+        state = ActionResolver.resolve(state, 'p1', { type: 'PLAY_CARD', cardInstanceId: 'v1' }).state;
 
         expect(state.players[0].coins).toBe(2);
-        expect(state.players[0].limbo.length).toBe(1);
-        expect(state.pendingDecision).toBeDefined();
-        expect(state.pendingDecision?.type).toBe('CHOOSE_FROM_ZONE');
+        expect(state.pendingDecision?.playerId).toBe('p1');
+        expect((state.pendingDecision as any)?.context?.specialAction).toBe('VASSAL_PLAY');
+
+        // Play the Village
+        state = ActionResolver.resolve(state, 'p1', {
+            type: 'CHOOSE', choiceId: state.pendingDecision!.id,
+            payload: { type: 'CARDS', cardInstanceIds: ['v2'] }
+        } as any).state;
+
+        const pl = state.players[0];
+        expect(pl.playArea.map((c: any) => c.id)).toEqual(['vassal', 'village']);
+        expect(pl.actions).toBe(2);              // 1 - 1 (Vassal) + 2 (Village)
+        expect(pl.hand.map((c: any) => c.id)).toEqual(['copper']); // Village's +1 Card
     });
 
-    it('Patrol: Should put Victory/Curse in hand and reorder others', () => {
+    it('Patrol: +3 Cards, Victory/Curse among the next 4 go to hand, the rest is reordered', () => {
         let state = setupState();
         const p1 = state.players[0];
 
         p1.hand = [{ id: 'patrol', instanceId: 'p1' }] as any;
         p1.deck = [
-            { id: 'copper', instanceId: 'd1' },
-            { id: 'estate', instanceId: 'd2' },
-            { id: 'silver', instanceId: 'd3' },
-            { id: 'gold', instanceId: 'd4' }
+            { id: 'copper', instanceId: 'd1' }, { id: 'estate', instanceId: 'd2' }, { id: 'silver', instanceId: 'd3' }, // drawn
+            { id: 'gold', instanceId: 'd4' }, { id: 'duchy', instanceId: 'd5' },                                     // revealed…
+            { id: 'curse', instanceId: 'd6' }, { id: 'copper', instanceId: 'd7' },
+            { id: 'village', instanceId: 'd8' }                                                                       // untouched
         ] as any;
 
-        const res = ActionResolver.resolve(state, 'p1', { type: 'PLAY_CARD', cardInstanceId: 'p1' });
-        state = res.state;
+        state = ActionResolver.resolve(state, 'p1', { type: 'PLAY_CARD', cardInstanceId: 'p1' }).state;
 
-        // Estate should be in hand (plus one card drawn from effects?)
-        // Patrol: +3 Cards. Reveal 4...
-        // Wait, Patrol is +3 cards first.
-        const handIds = state.players[0].hand.map((c: any) => c.id);
-        expect(handIds).toContain('gold');
-        expect(handIds).toContain('silver');
-        expect(handIds).toContain('copper');
-        expect(handIds).toContain('estate');
+        const handIds = state.players[0].hand.map((c: any) => c.id).sort();
+        expect(handIds).toEqual(['copper', 'curse', 'duchy', 'estate', 'silver']);
 
+        // Gold and Copper go back on top in the chosen order
         expect(state.pendingDecision?.type).toBe('REORDER');
+        state = ActionResolver.resolve(state, 'p1', {
+            type: 'CHOOSE', choiceId: state.pendingDecision!.id,
+            payload: { cardInstanceIds: ['d7', 'd4'] }
+        } as any).state;
+        expect(state.players[0].deck.map((c: any) => c.id)).toEqual(['copper', 'gold', 'village']);
     });
 
     it('Golem: Should reveal until 2 non-Golem actions and play them', () => {

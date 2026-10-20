@@ -233,6 +233,15 @@ export class DrawEffectHandler {
         if (revealed.length > 0) {
             EffectUtils.revealCards(state, revealed, 'ALL', 'Révélation', true, true);
 
+            for (const c of revealed) {
+                EffectUtils.logEvent(state, {
+                    actionType: 'REVEAL',
+                    activePlayerId: player.id,
+                    sourceCard: c.id,
+                    message: `${player.name} dévoile ${CardRegistry.get(c.id)?.name || c.id}.`
+                });
+            }
+
             revealed.forEach(c => {
                 const isMatch = matches.some(m => m.instanceId === c.instanceId);
                 const zone = isMatch ? destZone : failDestZone;

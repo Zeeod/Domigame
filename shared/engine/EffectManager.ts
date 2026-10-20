@@ -42,6 +42,13 @@ export class EffectManager {
             return;
         }
 
+        // 1b. Identical triggers (same card, same effects, e.g. two Merchants): order cannot matter
+        const signature = (t: TriggerDefinition) => `${t.sourceType}|${JSON.stringify(t.effects)}`;
+        if (triggers.every(t => signature(t) === signature(triggers[0]))) {
+            for (let i = triggers.length - 1; i >= 0; i--) this.executeTrigger(state, player, triggers[i]);
+            return;
+        }
+
         // 2. If multiple triggers, check if we need player intervention
         // Some triggers might have strict priority (rare in Dominion, usually player choice)
         // For now, we assume ALL simultaneous triggers are player-ordered.
@@ -156,7 +163,7 @@ export class EffectManager {
             type: 'EFFECT' as const,
             playerId: player.id,
             effect: e,
-            context: { sourceCardInstanceId: trigger.context?.sourceCardInstanceId }
+            context: { ...(trigger.context || {}), sourceCardInstanceId: trigger.context?.sourceCardInstanceId }
         }));
 
         state.effectStack.push(...items.reverse());
