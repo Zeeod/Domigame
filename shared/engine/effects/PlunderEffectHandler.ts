@@ -441,7 +441,7 @@ export class PlunderEffectHandler {
                     type: 'REGISTER_TRIGGER',
                     trigger: 'ON_PLAYER_METRIC_CHANGE',
                     filter: { metric: 'coins', change: 'positive' } as any,
-                    duration: 'UNTIL_NEXT_TURN',
+                    duration: 'TURN', // first time this turn only
                     effects: [{
                         type: 'CONDITION',
                         condition: 'FIRST_TIME_THIS_TURN_GLOBAL', // Simple flag check

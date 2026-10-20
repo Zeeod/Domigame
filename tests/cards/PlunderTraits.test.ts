@@ -8,6 +8,7 @@ import { createGameState, createPlayerState, GameState } from '../../shared/engi
 import { registerDefaultPhases } from '../../shared/engine/registerCorePhases.js';
 import { registerCoreEffects } from '../../shared/engine/registerCoreEffects.js';
 import { ExpansionLoader } from '../../shared/engine/ExpansionLoader.js';
+import { registerAllExpansions } from '../../shared/engine/registerExpansions.js';
 import { PhaseEngine } from '../../shared/engine/PhaseEngine.js';
 
 describe('Plunder Traits Integration', () => {
@@ -17,6 +18,7 @@ describe('Plunder Traits Integration', () => {
         ExpansionLoader.reset();
         registerDefaultPhases();
         registerCoreEffects();
+        registerAllExpansions(); // load expansion modules (cost modifiers, hooks)
         
         state = createGameState('test-game');
         PhaseEngine.initTurnPipeline(state);

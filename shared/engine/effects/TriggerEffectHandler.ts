@@ -7,13 +7,20 @@ import { ProphecyManager } from '../ProphecyManager.js';
 export class TriggerEffectHandler {
     static handleRegisterTrigger(state: GameState, player: PlayerState, effect: any, sourceCardInstanceId?: string): EffectResult {
         if (!state.triggers) state.triggers = [];
+        const duration = effect.isPermanent ? 'PERMANENT' : effect.duration;
+        // duration: PERMANENT (never expires) | ONCE (fires once, whenever) |
+        //           TURN / UNTIL_TURN_END (this turn only) | UNTIL_NEXT_TURN (until the owner's next turn)
+        const expires = (duration === 'TURN' || duration === 'UNTIL_TURN_END') ? 'END_OF_TURN'
+            : duration === 'UNTIL_NEXT_TURN' ? 'START_OF_NEXT_TURN'
+            : undefined;
         state.triggers.push({
             type: effect.trigger,
             playerId: player.id,
             effects: effect.effects,
             sourceCardInstanceId,
             filter: effect.filter,
-            once: effect.duration !== 'PERMANENT' && !effect.isPermanent
+            once: duration !== 'PERMANENT' && duration !== 'UNTIL_NEXT_TURN' && effect.repeat !== true,
+            expires
         });
         return { state, needsChoice: false };
     }
@@ -273,6 +280,25 @@ export class TriggerEffectHandler {
         const triggers = this.scanForTriggers(state, player, 'ON_GAIN', context);
         if (triggers.length > 0) {
             EffectManager.resolveTriggers(state, player, triggers, "Lors du gain : choisissez l'ordre des effets");
+        }
+
+        // Menagerie — Exile: when you gain a card, you may discard its copies from your Exile mat
+        const exiled = (player.mats?.['exile'] || player.exileMat || []).filter(c => c.id === gainedCardId);
+        if (exiled.length > 0) {
+            const name = gainedDef?.name || gainedCardId;
+            state.effectStack.push({
+                type: 'EFFECT',
+                playerId: player.id,
+                effect: {
+                    type: 'SELECT_OPTION',
+                    message: `Défausser ${exiled.length} ${name} de votre Exil ?`,
+                    options: [
+                        { label: 'Oui', effects: [{ type: 'TAKE_FROM_MAT', mat: 'exile', targetCardIds: [gainedCardId], destination: 'discardPile' }] },
+                        { label: 'Non', effects: [] }
+                    ]
+                } as any,
+                context: { gainedCardId }
+            });
         }
         return { state, needsChoice: false };
     }

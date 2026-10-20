@@ -428,6 +428,10 @@ export class EffectEngine {
         if (cardInstanceIds.length === 0 && payload.cards) {
             cardInstanceIds = payload.cards.map((c: any) => typeof c === 'string' ? c : c.instanceId);
         }
+        // Never leave a card behind: cards missing from the answer keep their original order, after the others
+        const expected: string[] = (context.cards || []).map((c: any) => c.instanceId);
+        cardInstanceIds = [...cardInstanceIds.filter(id => expected.length === 0 || expected.includes(id)),
+            ...expected.filter(id => !cardInstanceIds.includes(id))];
 
         // Put cards in destination zone (reverse so first element in array is top of deck)
         for (const id of [...cardInstanceIds].reverse()) {

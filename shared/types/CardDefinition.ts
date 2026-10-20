@@ -108,7 +108,7 @@ export interface CardDefinition {
     isReaction?: boolean;
 
     /** What triggers the reaction? */
-    reactionTrigger?: 'ATTACK' | 'GAIN' | 'TRASH' | 'BUY' | 'REVEAL' | 'DISCARD' | 'ANY';
+    reactionTrigger?: 'ATTACK' | 'GAIN' | 'TRASH' | 'BUY' | 'REVEAL' | 'DISCARD' | 'START_TURN' | 'ANY';
 
     /** Does this reaction block the attack (e.g. Moat)? */
     blocksAttack?: boolean;

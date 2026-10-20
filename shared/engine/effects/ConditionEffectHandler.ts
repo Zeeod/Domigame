@@ -102,6 +102,11 @@ export class ConditionEffectHandler {
                 const def = CardRegistry.get(state.lastTrashedCard.id);
                 return def?.types.includes(effect.value?.toUpperCase()) || false;
             }
+            case 'FIRST_SILVER_OF_TURN': {
+                // Merchant: true while the Silver just played is the only one in play this turn
+                const silversInPlay = player.playArea.filter(c => c.id === 'silver').length;
+                return silversInPlay <= 1;
+            }
             case 'LAST_SELECTED_HAS_TYPE': {
                 const selected = state.lastDecisionResults?.cards?.[0];
                 if (!selected) return false;

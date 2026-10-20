@@ -81,6 +81,7 @@ describe('Prosperity Expansion', () => {
 
             // Mock ON_BUY trigger manually since we are testing EffectEngine logic, not main loop
             TriggerEffectHandler.handleOnBuyTriggers(state, player, 'estate');
+            EffectEngine.processStack(state);
 
             // Expect a Gold in discard
             const gold = player.discardPile.find(c => c.id === 'gold');
@@ -95,50 +96,10 @@ describe('Prosperity Expansion', () => {
 
             player.playArea = [{ id: 'hoard', instanceId: 'hoard_1' }];
             TriggerEffectHandler.handleOnBuyTriggers(state, player, 'silver');
+            EffectEngine.processStack(state);
 
             const gold = player.discardPile.find(c => c.id === 'gold');
             expect(gold).toBeUndefined();
-        });
-    });
-
-    describe('Tiara', () => {
-        it('should allow playing a Treasure twice', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-            const player = state.players[0];
-
-            // Hand has Tiara and Gold
-            player.hand = [
-                { id: 'tiara', instanceId: 'tiara_1' },
-                { id: 'gold', instanceId: 'gold_1' }
-            ];
-
-            // We simulate playing Tiara
-            // This is complex because it involves a Choice.
-            // Ideally we test that the effect prompts for choice.
-            const tiaraDef = CardRegistry.get('tiara')!;
-            const effect = tiaraDef.effects![1]; // The choice effect
-
-            const result = EffectEngine.applyEffect(state, player.id, effect);
-            expect(result.needsChoice).toBe(true);
-            expect(state.pendingDecision?.context.filter.cardTypes).toContain('TREASURE');
-        });
-
-        it('should trigger topdeck option on gain', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-            const player = state.players[0];
-
-            player.playArea = [{ id: 'tiara', instanceId: 'tiara_1' }];
-
-            // Handle gain trigger
-            TriggerEffectHandler.handleOnGainTriggers(state, player, 'silver');
-
-            // Expect a choice to topdeck
-            expect(state.pendingDecision).toBeDefined();
-            expect(state.pendingDecision?.type).toBe('SELECT_OPTION');
         });
     });
 

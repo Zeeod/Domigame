@@ -90,28 +90,28 @@ describe('Mechanics Phase 1B (Reveal/Search/Conditional)', () => {
     });
 
     describe('Sentry (Sentinelle)', () => {
-        it('should handle full flow with aside zone', () => {
+        it('should handle full flow with the limbo zone', () => {
             const player = state.players[0];
             player.deck = [
                 ...createCardInstances('silver', 1),
                 ...createCardInstances('estate', 1)
             ];
             player.hand = [];
-            player.aside = [];
+            player.limbo = [];
 
-            // 1. Reveal 2 to Limbo/Aside
+            // 1. Reveal 2 to Limbo
             EffectEngine.applyEffects(state, 'p1', [{ type: 'REVEAL_CARDS', amount: 2, source: 'deck', destination: 'limbo' } as const]);
-            expect(player.aside.length).toBe(2);
+            expect(player.limbo.length).toBe(2);
 
-            // 2. Trash one from Aside
+            // 2. Trash one from Limbo
             const trashEffect = { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', action: 'TRASH', min: 0, max: 2 } as const;
             EffectEngine.applyEffects(state, 'p1', [trashEffect]);
 
-            const trashId = player.aside[0].instanceId;
+            const trashId = player.limbo[0].instanceId;
             EffectEngine.resolveDecision(state, 'p1', { cardInstanceIds: [trashId] });
 
             expect(state.trash.length).toBe(1);
-            expect(player.aside.length).toBe(1);
+            expect(player.limbo.length).toBe(1);
 
             // 3. Reorder remaining (Auto-moves since only 1 card)
             const reorderEffect = { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP' } as const;
@@ -119,7 +119,7 @@ describe('Mechanics Phase 1B (Reveal/Search/Conditional)', () => {
 
             expect(reorderResult.needsChoice).toBe(false);
             expect(player.deck.length).toBe(1);
-            expect(player.aside.length).toBe(0);
+            expect(player.limbo.length).toBe(0);
         });
     });
 });

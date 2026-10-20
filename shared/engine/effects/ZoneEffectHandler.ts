@@ -301,9 +301,27 @@ export class ZoneEffectHandler {
         return { state, needsChoice: false };
     }
 
-    static handleRotatePile(_state: GameState, _effect: any): EffectResult {
-        // Rotate logic
-        return { state: _state, needsChoice: false };
+    /**
+     * Rotate a split pile (Allies): every card with the same name as the top card goes
+     * to the bottom. Convention: the TOP of a mixed pile is the END of `pile.cards`.
+     */
+    static handleRotatePile(state: GameState, effect: any): EffectResult {
+        const pile = state.supply[effect.pileId];
+        if (!pile?.cards || pile.cards.length < 2) return { state, needsChoice: false };
+
+        const topId = pile.cards[pile.cards.length - 1].id;
+        const moved: CardInstance[] = [];
+        while (pile.cards.length > 0 && pile.cards[pile.cards.length - 1].id === topId) {
+            moved.unshift(pile.cards.pop()!);
+        }
+        if (pile.cards.length === 0) {
+            pile.cards = moved; // only one card name in the pile: nothing changes
+        } else {
+            pile.cards.unshift(...moved);
+        }
+        pile.cardId = pile.cards[pile.cards.length - 1].id;
+        Logger.log(state, `La pile tourne : ${CardRegistry.get(pile.cardId)?.name || pile.cardId} est maintenant au-dessus.`);
+        return { state, needsChoice: false };
     }
 
     static handlePlayFromMat(state: GameState, player: PlayerState, effect: any): EffectResult {

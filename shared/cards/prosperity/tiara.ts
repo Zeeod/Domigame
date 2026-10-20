@@ -39,7 +39,7 @@ export const tiara: CardDefinition = {
                 {
                     type: 'CHOOSE_OPTION',
                     options: [
-                        { label: 'Placer sur la pioche', effects: [{ type: 'MOVE_TO_POSITION', position: 'TOP', from: 'discardPile' }] },
+                        { label: 'Placer sur la pioche', effects: [{ type: 'MOVE_GAINED_TO_HAND', destination: 'deck' }] },
                         { label: 'Laisser dans la défausse', effects: [] }
                     ],
                     message: 'Voulez-vous placer la carte gagnée sur votre pioche ? (Diadème)'

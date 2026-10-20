@@ -317,11 +317,12 @@ export class ActionResolver {
 
         // --- ENLIGHTENMENT (Rising Sun) ---
         if (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE') && state.phase === 'ACTION') {
+            // "Instead of following its instructions, +1 Card and +1 Action"
             finalEffects = [
-                ...(cardDef.effects || []),
+                { type: 'DRAW', amount: 1 },
                 { type: 'ADD_ACTIONS', amount: 1 }
-            ];
-            this.log(state, `${player.name} joue ${cardDef.name} via Illumination : +1 Action.`, player.id);
+            ] as any;
+            this.log(state, `${player.name} joue ${cardDef.name} via Illumination : +1 Carte, +1 Action.`, player.id);
         }
         else if (wayId) {
             const wayDef = LandscapeRegistry.get(wayId);

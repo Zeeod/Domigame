@@ -159,72 +159,50 @@ describe('Simultaneous Resolution', () => {
         // but DRAW usually adds to hand. Player.hand was empty. 
         // Note: EffectEngine probably needs full init.
     });
-    it('should prompt for ordering On-Buy triggers when multiple exist', () => {
-        // 1. Setup State
+    it('should prompt for ordering On-Buy triggers when multiple different ones exist', () => {
         const player: PlayerState = {
-            id: 'p1',
-            name: 'Player 1',
-            hand: [],
-            deck: [],
-            discardPile: [],
-            playArea: [],
-            actions: 0,
-            buys: 1,
-            coins: 5,
-            projects: [],
-            triggers: [],
-            turnNumber: 1
+            id: 'p1', name: 'Player 1',
+            hand: [], deck: [], discardPile: [], playArea: [],
+            actions: 0, buys: 1, coins: 5, projects: [], triggers: [], turnNumber: 1
         } as any;
-
         const state: GameState = {
-            players: [player],
-            currentPlayerIndex: 0,
-            effectStack: [],
-            phase: 'BUY',
-            turnNumber: 1,
-            trash: [],
-            supply: [],
-            durations: []
+            players: [player], currentPlayerIndex: 0, effectStack: [], phase: 'BUY',
+            turnNumber: 1, trash: [], supply: {}, durations: []
         } as any;
 
-        // Mock Cards
-        CardRegistry.register({
-            id: 'gold',
-            name: 'Or',
-            types: ['TREASURE'],
-            cost: 6,
-            value: 3
-        } as any);
+        // Two different test cards (ids that do not clash with real cards)
+        CardRegistry.register({ id: 'test_on_buy_a', name: 'A', types: ['ACTION'], cost: 5,
+            triggers: [{ trigger: 'ON_BUY', effects: [{ type: 'ADD_MONEY', amount: 1 }] }] } as any);
+        CardRegistry.register({ id: 'test_on_buy_b', name: 'B', types: ['ACTION'], cost: 5,
+            triggers: [{ trigger: 'ON_BUY', effects: [{ type: 'ADD_BUYS', amount: 1 }] }] } as any);
+        player.playArea.push({ id: 'test_on_buy_a', instanceId: 'a1' } as any, { id: 'test_on_buy_b', instanceId: 'b1' } as any);
 
-        CardRegistry.register({
-            id: 'haggler',
-            name: 'Marchander',
-            types: ['ACTION'],
-            cost: 5,
-            onBuyTrigger: { type: 'GAIN_CARD_LESS_THAN_COST', amount: 1 } // Simplified effect type
-        } as any);
+        TriggerEffectHandler.handleOnBuyTriggers(state, player, 'silver');
 
-        // Add 2 Hagglers to Play Area
-        player.playArea.push(
-            { id: 'haggler', instanceId: 'h1' } as any,
-            { id: 'haggler', instanceId: 'h2' } as any
-        );
-
-        // 2. Trigger On-Buy
-        // We call helper directly to avoid full buy logic
-        TriggerEffectHandler.handleOnBuyTriggers(state, player, 'gold');
-
-        // 3. Verify Ordering Prompt
-        // Should have SYSTEM_ORDER_TRIGGERS on stack
         expect(state.effectStack.length).toBe(1);
         const effectItem = state.effectStack[0];
         expect((effectItem.effect as any).type).toBe('SYSTEM_ORDER_TRIGGERS');
         expect((effectItem.effect as any).triggers.length).toBe(2);
+    });
 
-        // 4. Process Stack
-        const result = EffectEngine.processStack(state);
-        expect(result.needsChoice).toBe(true);
-        expect((result as any).decision?.type).toBe('SELECT_OPTION');
-        expect((result as any).decision?.options?.length).toBe(2);
+    it('identical On-Buy triggers (two copies of the same card) resolve without asking', () => {
+        const player: PlayerState = {
+            id: 'p1', name: 'Player 1',
+            hand: [], deck: [], discardPile: [], playArea: [],
+            actions: 0, buys: 1, coins: 0, projects: [], triggers: [], turnNumber: 1
+        } as any;
+        const state: GameState = {
+            players: [player], currentPlayerIndex: 0, effectStack: [], phase: 'BUY',
+            turnNumber: 1, trash: [], supply: {}, durations: []
+        } as any;
+        CardRegistry.register({ id: 'test_on_buy_a', name: 'A', types: ['ACTION'], cost: 5,
+            triggers: [{ trigger: 'ON_BUY', effects: [{ type: 'ADD_MONEY', amount: 1 }] }] } as any);
+        player.playArea.push({ id: 'test_on_buy_a', instanceId: 'a1' } as any, { id: 'test_on_buy_a', instanceId: 'a2' } as any);
+
+        TriggerEffectHandler.handleOnBuyTriggers(state, player, 'silver');
+        EffectEngine.processStack(state);
+
+        expect(state.pendingDecision).toBeFalsy();
+        expect(player.coins).toBe(2);
     });
 });

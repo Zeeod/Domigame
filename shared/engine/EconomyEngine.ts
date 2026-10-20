@@ -55,11 +55,7 @@ export class EconomyEngine {
             }
         }
 
-        // --- PLUNDER TRAITS ---
-        const pile = state.supply[cardId];
-        if (pile && pile.traits?.includes('cheap')) {
-            cost = Math.max(0, cost - 1);
-        }
+        // Note: Plunder's "Cheap" trait is a registered modifier (expansions/Plunder.ts).
 
         // Apply registered modifiers (Bridge, Highway, Quarry, etc.)
         for (const mod of this.modifiers) {

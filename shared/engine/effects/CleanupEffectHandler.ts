@@ -164,6 +164,11 @@ export class CleanupEffectHandler {
      * Start the next player's turn
      */
     public static handleStartNextTurn(state: GameState): EffectResult {
+        // "This turn" triggers end with the turn, fired or not
+        if (state.triggers) {
+            state.triggers = state.triggers.filter(t => t.expires !== 'END_OF_TURN');
+        }
+
         if (state.extraTurns && state.extraTurns.length > 0) {
             const extraTurnInfo = state.extraTurns.shift();
             if (extraTurnInfo) {
@@ -174,9 +179,13 @@ export class CleanupEffectHandler {
                 }
             }
         } else {
-            const oldIdx = state.currentPlayerIndex;
             state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
+        }
 
+        // "Until your next turn" triggers end when their owner's turn starts
+        const startingPlayerId = state.players[state.currentPlayerIndex]?.id;
+        if (state.triggers && startingPlayerId) {
+            state.triggers = state.triggers.filter(t => !(t.expires === 'START_OF_NEXT_TURN' && t.playerId === startingPlayerId));
         }
 
         state.turnNumber++;

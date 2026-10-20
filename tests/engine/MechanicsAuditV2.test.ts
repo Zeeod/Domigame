@@ -68,21 +68,23 @@ describe('Expanded Mechanic Verification', () => {
     it('ROTATE_PILE should rotate mixed supply piles', () => {
         const state = setupGame(['village']);
         const player = state.players[0];
-        // Mock a mixed pile
+        // Mock a mixed pile. Convention: the TOP of the pile is the END of the array.
         state.supply['split'] = {
             cardId: 'card1',
             count: 10,
             isMixed: true,
             cards: [
-                createCardInstance('card1'), createCardInstance('card1'),
-                createCardInstance('card2'), createCardInstance('card2')
+                createCardInstance('card2'), createCardInstance('card2'),
+                createCardInstance('card1'), createCardInstance('card1')
             ]
         };
 
         EffectEngine.applyEffect(state, player.id, { type: 'ROTATE_PILE', pileId: 'split' } as any);
+        const cards = state.supply['split'].cards!;
         expect(state.supply['split'].cardId).toBe('card2');
-        expect(state.supply['split'].cards[0].id).toBe('card2');
-        expect(state.supply['split'].cards[3].id).toBe('card1');
+        expect(cards[cards.length - 1].id).toBe('card2'); // new top
+        expect(cards[0].id).toBe('card1');                // card1s went to the bottom
+        expect(cards.map(c => c.id)).toEqual(['card1', 'card1', 'card2', 'card2']);
     });
 
     it('ADD_MONEY_PER_CARD_IN_HAND should count correctly', () => {
