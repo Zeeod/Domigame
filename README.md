@@ -60,7 +60,7 @@ data/          Base SQLite (ignorée par git, créée au démarrage)
 
 ## Avancement
 
-Voir [docs/roadmap/ProEngineRoadmap.md](docs/roadmap/ProEngineRoadmap.md).
+Plan d'action pour finir le jeu : [docs/roadmap/PlanFinalisation.md](docs/roadmap/PlanFinalisation.md).
 
 ## Licence
 
