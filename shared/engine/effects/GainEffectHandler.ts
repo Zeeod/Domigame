@@ -3,6 +3,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { EconomyEngine } from '../EconomyEngine.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { debugLog } from '../debug.js';
 
 export class GainEffectHandler {
     public static handleGainCard(state: GameState, player: PlayerState, effect: any, sourceCardInstanceId?: string): EffectResult {
@@ -238,11 +239,11 @@ export class GainEffectHandler {
 
     public static handleMoveGainedToHand(state: GameState, player: PlayerState, effect: any): EffectResult {
         const gainedCard = state.lastGainedCard;
-        console.log('[DEBUG-MOVE] handleMoveGainedToHand called. gainedCard ID:', gainedCard?.id, 'instanceId:', gainedCard?.instanceId);
+        debugLog('[DEBUG-MOVE] handleMoveGainedToHand called. gainedCard ID:', gainedCard?.id, 'instanceId:', gainedCard?.instanceId);
         if (!gainedCard) return { state, needsChoice: false };
 
         const targetZone = effect.destination || 'hand';
-        console.log('[DEBUG-MOVE] targetZone:', targetZone);
+        debugLog('[DEBUG-MOVE] targetZone:', targetZone);
 
         // Find where the gained card is now. usually discardPile
         const zones: (keyof PlayerState)[] = ['discardPile', 'hand', 'deck', 'aside', 'playArea'];
@@ -256,13 +257,13 @@ export class GainEffectHandler {
                 if (idx !== -1) {
                     foundCard = arr[idx];
                     foundZone = zone;
-                    console.log('[DEBUG-MOVE] found card in zone:', zone);
+                    debugLog('[DEBUG-MOVE] found card in zone:', zone);
                     break;
                 }
             }
         }
 
-        console.log('[DEBUG-MOVE] foundZone:', foundZone, 'foundCard:', foundCard ? 'exists' : 'null');
+        debugLog('[DEBUG-MOVE] foundZone:', foundZone, 'foundCard:', foundCard ? 'exists' : 'null');
 
         if (foundCard && foundZone && foundZone !== targetZone) {
             // Remove from current zone
@@ -274,7 +275,7 @@ export class GainEffectHandler {
                 EffectUtils.addCardToZone(player, foundCard, targetZone as any, state);
             }
             EffectUtils.log(state, `${player.name} met la carte obtenue dans ${targetZone === 'deck' ? 'sa pioche' : 'sa main'}.`, player.id);
-            console.log('[DEBUG-MOVE] Moved card successfully to', targetZone);
+            debugLog('[DEBUG-MOVE] Moved card successfully to', targetZone);
         }
 
         return { state, needsChoice: false };

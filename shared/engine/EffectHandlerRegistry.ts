@@ -7,6 +7,7 @@
  */
 
 import { GameState, PlayerState, EffectResult } from './GameState.js';
+import { debugLog } from './debug.js';
 
 // ============================================================================
 // Types
@@ -82,10 +83,10 @@ export class EffectHandlerRegistry {
     ): EffectResult | undefined {
         const handler = this.handlers.get(effect.type);
         if (!handler) {
-            console.log(`[EffectHandlerRegistry] NO HANDLER for ${effect.type}. Registered: ${Array.from(this.handlers.keys()).join(', ')}`);
+            console.warn(`[EffectHandlerRegistry] No handler for effect type "${effect.type}"`);
             return undefined;
         }
-        console.log(`[EffectHandlerRegistry] Resolving ${effect.type}`);
+        debugLog(`[EffectHandlerRegistry] Resolving ${effect.type}`);
         return handler(state, player, effect, context);
     }
 

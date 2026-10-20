@@ -36,6 +36,7 @@ import { registerOpponentChoiceEffects } from './effects/OpponentChoiceEffects.j
 import { registerDeckInsertionEffects } from './effects/DeckInsertionEffects.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { addToMat, peekMat } from './Mats.js';
+import { debugLog } from './debug.js';
 
 
 export function registerCoreEffects(): void {
@@ -1205,7 +1206,7 @@ function handlePlayActionMultiple(state: any, player: any, multiplier: number, c
                     || player.hand.find((c: any) => c.instanceId === ctx.sourceCardInstanceId);
     }
     if (!selectedCard) {
-        console.log('[handlePlayActionMultiple] No card selected for multiple play');
+        debugLog('[handlePlayActionMultiple] No card selected for multiple play');
         return { state, needsChoice: false };
     }
 

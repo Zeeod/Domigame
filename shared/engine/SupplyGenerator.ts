@@ -3,6 +3,7 @@ import { CardDefinition } from '../types/CardDefinition.js';
 import { createGameState, GameState } from './GameState.js';
 import { EffectUtils } from './EffectUtils.js';
 import { expandExpansionFilter, getCardExpansion, normalizeExpansion } from '../cards/expansions.js';
+import { debugLog } from './debug.js';
 
 export interface SupplyGeneratorOptions {
     count: number;
@@ -130,7 +131,7 @@ export class SupplyGenerator {
         }
 
         const result = Array.from(selection);
-        console.log(`[SupplyGenerator] Generated ${result.length} cards:`, result);
+        debugLog(`[SupplyGenerator] Generated ${result.length} cards:`, result);
 
         // Final sanity check
         if (result.length < count) {
@@ -299,7 +300,7 @@ export class SupplyGenerator {
         };
 
         const validCandidates = candidates.filter(isAllowedExp);
-        console.log(`[SupplyGenerator] Identified ${candidates.length} total landscapes, ${validCandidates.length} valid for expansions.`);
+        debugLog(`[SupplyGenerator] Identified ${candidates.length} total landscapes, ${validCandidates.length} valid for expansions.`);
 
         // 2. Fulfill Random Directives
         const shuffled = EffectUtils.shuffle(validCandidates, rngState);
@@ -395,7 +396,7 @@ export class SupplyGenerator {
                 const pile = state.supply[targetId];
                 if (pile) {
                     pile.traits = [...(pile.traits || []), traitId];
-                    console.log(`[SupplyGenerator] Assigned Trait ${traitId} to pile ${targetId}`);
+                    debugLog(`[SupplyGenerator] Assigned Trait ${traitId} to pile ${targetId}`);
                 }
             }
         }

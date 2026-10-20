@@ -2,6 +2,7 @@ import { TokenManager } from '../TokenManager.js';
 import { Logger } from '../Logger.js';
 import { ExpansionModule } from '../ExpansionLoader.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { debugLog } from '../debug.js';
 
 export const RisingSunModule: ExpansionModule = {
     id: 'rising_sun',
@@ -52,6 +53,6 @@ export const RisingSunModule: ExpansionModule = {
         }
     ],
     onLoad: () => {
-        console.log('[RisingSun] Module loaded.');
+        debugLog('[RisingSun] Module loaded.');
     }
 };
