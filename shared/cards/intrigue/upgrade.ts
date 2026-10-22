@@ -9,13 +9,10 @@ export const upgrade: CardDefinition = {
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
         {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 1, destination: 'discardPile' }]
+            type: 'TRASH', min: 1, max: 1, from: 'hand',
+            onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 1, exact: true, destination: 'discardPile' }]
         }
-    ],
+    ] as any,
     description: '+1 Carte ; +1 Action. Écartez une carte de votre main. Gagnez une carte coûtant exactement 1 ?? de plus que la carte écartée.',
     image: '/card-images/upgrade.jpg',
 

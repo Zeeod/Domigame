@@ -36,6 +36,7 @@ import { registerOpponentChoiceEffects, chosenInstanceIds } from './effects/Oppo
 import { EffectEngine } from './EffectEngine.js';
 import { registerDeckInsertionEffects } from './effects/DeckInsertionEffects.js';
 import { registerNamingEffects } from './effects/NamingEffects.js';
+import { registerIntrigueEffects } from './effects/IntrigueEffects.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { addToMat, peekMat } from './Mats.js';
 import { debugLog } from './debug.js';
@@ -45,6 +46,7 @@ export function registerCoreEffects(): void {
     registerOpponentChoiceEffects();
     registerDeckInsertionEffects();
     registerNamingEffects();
+    registerIntrigueEffects();
 
     // ========================================================================
     // Basic Resource Effects
@@ -710,6 +712,44 @@ export function registerCoreEffects(): void {
         state.extraTurns.push({ playerId: player.id, type, cardLimit: e.cardLimit });
         Logger.log(state, `${player.name} jouera un tour supplémentaire.`);
         return { state, needsChoice: false };
+    });
+
+    // TRASH_FROM_SUPPLY: choose a Supply card (matching `filter`) and trash it (Lurker)
+    EffectHandlerRegistry.register('TRASH_FROM_SUPPLY', (state, player, effect) => {
+        // A specific card (Gladiator: "trash a Gladiator from the Supply"): no choice
+        if ((effect as any).cardId) {
+            const card = GainEffectHandler.takeFromPile(state, (effect as any).cardId);
+            if (card) TrashEffectHandler.trashCard(state, player, card);
+            return { state, needsChoice: false };
+        }
+        const filter = (effect as any).filter || {};
+        const choices = GainEffectHandler.supplyChoices(state, player.id, filter);
+        if (choices.length === 0) return { state, needsChoice: false };
+        state.pendingDecision = {
+            id: `trash_supply_${Date.now()}`,
+            playerId: player.id,
+            type: 'CHOOSE_CARDS' as any,
+            message: (effect as any).message || 'Écartez une carte de la réserve',
+            constraints: { min: 1, max: 1, sourceZone: 'supply', filter: { ...filter, cardIds: choices } },
+            context: { specialAction: 'TRASH_FROM_SUPPLY_PICK' }
+        } as any;
+        return { state, needsChoice: true };
+    });
+    EffectEngine.registerDecisionHandler('TRASH_FROM_SUPPLY_PICK', (state, playerId, payload) => {
+        const player = state.players.find(p => p.id === playerId);
+        const card = player && payload.cardId ? GainEffectHandler.takeFromPile(state, payload.cardId) : undefined;
+        if (player && card) TrashEffectHandler.trashCard(state, player, card);
+    });
+
+    // Poacher: discard a card per empty Supply pile
+    EffectHandlerRegistry.register('DISCARD_PER_EMPTY_SUPPLY', (state, player) => {
+        const empty = Object.values(state.supply).filter(p => p.count <= 0).length;
+        const n = Math.min(empty, player.hand.length);
+        if (n <= 0) return { state, needsChoice: false };
+        return TrashEffectHandler.handleDiscard(state, player, {
+            type: 'DISCARD', min: n, max: n,
+            message: `Défaussez ${n} carte(s) (une par pile vide)`
+        });
     });
 
     EffectHandlerRegistry.register('SPEND_FAVORS', (state, player, effect) => {

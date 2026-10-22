@@ -30,7 +30,7 @@ describe('ActionResolver - Landscapes', () => {
         // Verify effect was applied (Alms: if no treasure in play, gain card up to 4$)
         // In this test, no treasures in play, so it should have triggered a GAN_CARD or a pending decision
         expect(result.state.pendingDecision).toBeDefined();
-        expect(result.state.pendingDecision?.message?.toLowerCase()).toContain('gagnez une carte');
+        expect(result.state.pendingDecision?.message?.toLowerCase()).toContain('recevez une carte');
     });
 
     it('should fail if not enough buys', () => {

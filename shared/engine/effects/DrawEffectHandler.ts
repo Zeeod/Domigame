@@ -104,9 +104,7 @@ export class DrawEffectHandler {
             EffectUtils.log(state, `${player.name} pioche ${def?.name || card.id}.`, player.id);
 
             // Rising Sun: Shadow cards check
-            import('./TriggerEffectHandler.js').then(m => {
-                m.TriggerEffectHandler.handleOnDrawTriggers(state, player, [card]);
-            });
+            TriggerEffectHandler.handleOnDrawTriggers(state, player, [card]);
 
             state.effectStack.push({
                 type: 'EFFECT',

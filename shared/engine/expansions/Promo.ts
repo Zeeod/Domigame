@@ -26,26 +26,6 @@ export const PromoModule: ExpansionModule = {
     name: 'Promotional Cards',
     effectHandlers: [
         {
-            type: 'TRASH_FROM_SUPPLY',
-            handler: (state, player, _effect) => {
-                const decision = state.lastDecisionResults as any;
-                const cardId = decision?.cards?.[0]?.id || decision?.cardId;
-                if (!cardId) return { state, needsChoice: false };
-
-                const pile = state.supply[cardId];
-                if (pile && pile.count > 0) {
-                    pile.count--;
-                    const card = CardRegistry.get(cardId) ? createCardInstance(cardId) : null;
-                    if (card) {
-                        const def = CardRegistry.get(cardId);
-                        Logger.log(state, `${player.name} écarte ${def ? def.name : cardId} de la réserve (Lurker).`, player.id);
-                        TrashEffectHandler.trashCard(state, player, card, { suppressLog: true });
-                    }
-                }
-                return { state, needsChoice: false };
-            }
-        },
-        {
             /**
              * Black Market: reveal the top 3 cards of the Black Market deck; you may buy one
              * (paying its cost, without using a Buy); the rest go to the bottom of that deck.

@@ -3,8 +3,6 @@
  * Fix a card → remove it from this list. Goal: empty list.
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
-    'poacher', // [first] effet(s) sans gestionnaire : DISCARD_PER_EMPTY_SUPPLY
-    'masquerade', // [first] effet(s) sans gestionnaire : PASS_TO_LEFT
     'city', // [first] effet(s) sans gestionnaire : IF_EMPTY_PILES
     'scavenger', // [first] effet(s) sans gestionnaire : MAY_DISCARD_DECK
     'storeroom', // [first] effet(s) sans gestionnaire : DISCARD_FOR_COINS

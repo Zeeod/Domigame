@@ -352,6 +352,10 @@ export class RulesValidator {
             case PromptType.ZONE_SEARCH: {
                 // Check if it's a Supply selection or Card selection
                 if (state.pendingDecision.constraints?.sourceZone === 'supply') {
+                    // Optional supply choice: passing is allowed
+                    if (payload.type === 'PASS' && (state.pendingDecision.constraints?.min ?? 1) === 0) {
+                        return { valid: true };
+                    }
                     // Expect SUPPLY payload
                     if (payload.type !== 'SUPPLY') {
                         return { valid: false, error: 'Sélection de réserve attendue' };
@@ -361,12 +365,12 @@ export class RulesValidator {
                     if (!pile || pile.count <= 0) {
                         return { valid: false, error: 'Sélection de réserve invalide' };
                     }
-                    // Check filter
-                    if (state.pendingDecision.constraints?.filter?.maxCost !== undefined) {
-                        const cardCost = EconomyEngine.getCardCost(state, playerId, cardId);
-                        if (cardCost > state.pendingDecision.constraints.filter.maxCost) {
-                            return { valid: false, error: 'Coût de la carte trop élevé' };
-                        }
+                    const filter: any = state.pendingDecision.constraints?.filter || {};
+                    if (filter.maxCost !== undefined && EconomyEngine.getCardCost(state, playerId, cardId) > filter.maxCost) {
+                        return { valid: false, error: 'Coût de la carte trop élevé' };
+                    }
+                    if (!EconomyEngine.supplyCardMatches(state, playerId, cardId, filter)) {
+                        return { valid: false, error: 'Cette carte ne peut pas être choisie ici' };
                     }
                 } else {
                     // Expect CARDS payload OR UPDATE_SELECTION for real-time sync

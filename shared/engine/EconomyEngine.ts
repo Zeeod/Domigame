@@ -32,6 +32,33 @@ export class EconomyEngine {
         this.modifiers = [];
     }
 
+    /**
+     * Does a Supply card satisfy a selection filter? (maxCost, minCost, exactCost,
+     * cardTypes / allowedTypes, excludeTypes, cardIds, excludeIds, nonVictory).
+     * Used both to build supply choices and to validate the answer.
+     */
+    static supplyCardMatches(state: GameState, playerId: string, cardId: string, filter: any = {}): boolean {
+        const def = CardRegistry.get(cardId);
+        if (!def) return false;
+        const cost = this.getCardCost(state, playerId, cardId);
+        if (filter.maxCost !== undefined && cost > filter.maxCost) return false;
+        if (filter.minCost !== undefined && cost < filter.minCost) return false;
+        if (filter.exactCost !== undefined) {
+            const exact = Array.isArray(filter.exactCost) ? filter.exactCost : [filter.exactCost];
+            if (!exact.includes(cost)) return false;
+        }
+        // Potion / Debt costs: "up to $X" never includes a cost with a Potion or Debt in it
+        if ((filter.maxCost !== undefined || filter.exactCost !== undefined) && !filter.allowPotionOrDebt
+            && (((def as any).potionCost || 0) > 0 || ((def as any).debtCost || 0) > 0)) return false;
+        const types = filter.cardTypes || filter.allowedTypes;
+        if (types && !types.some((t: string) => def.types.includes(t as any))) return false;
+        if (filter.excludeTypes && filter.excludeTypes.some((t: string) => def.types.includes(t as any))) return false;
+        if (filter.nonVictory && def.types.includes('VICTORY')) return false;
+        if (filter.cardIds && !filter.cardIds.includes(cardId)) return false;
+        if (filter.excludeIds && filter.excludeIds.includes(cardId)) return false;
+        return true;
+    }
+
     static getCardCost(state: GameState, playerId: string, cardId: string): number {
         const def = CardRegistry.get(cardId);
         if (!def) return 0;

@@ -1,4 +1,4 @@
-import { GameState, PlayerState, createCardInstance, EffectResult } from '../GameState.js';
+import { GameState, PlayerState, createCardInstance, EffectResult, CardInstance } from '../GameState.js';
 import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { EconomyEngine } from '../EconomyEngine.js';
@@ -6,6 +6,46 @@ import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { debugLog } from '../debug.js';
 
 export class GainEffectHandler {
+    /**
+     * Take the top card of a Supply (or non-Supply) pile. Mixed piles (Ruins, Knights,
+     * split piles) give their real top card (end of `cards`); others create a new instance.
+     */
+    public static takeFromPile(state: GameState, pileId: string): CardInstance | undefined {
+        const pile = state.supply[pileId] || state.nonSupply?.[pileId];
+        if (!pile || pile.count <= 0) return undefined;
+        pile.count--;
+        if (pile.cards && pile.cards.length > 0) {
+            const card = pile.cards.pop()!;
+            if (pile.cards.length > 0) pile.cardId = pile.cards[pile.cards.length - 1].id;
+            return card;
+        }
+        return createCardInstance(pileId);
+    }
+
+    /** Supply piles a player may choose with this filter (non-empty, matching). */
+    public static supplyChoices(state: GameState, playerId: string, filter: any): string[] {
+        return Object.keys(state.supply).filter(id =>
+            state.supply[id].count > 0 && EconomyEngine.supplyCardMatches(state, playerId, state.supply[id].cards?.length ? state.supply[id].cards![state.supply[id].cards!.length - 1].id : id, filter));
+    }
+
+    /** Ask the player to choose a card to gain from the Supply (skipped if nothing matches). */
+    public static promptGainFromSupply(state: GameState, player: PlayerState, filter: any, context: any, message: string, optional = false): EffectResult {
+        const choices = this.supplyChoices(state, player.id, filter);
+        if (choices.length === 0) {
+            EffectUtils.log(state, `${player.name} ne peut recevoir aucune carte.`, player.id);
+            return { state, needsChoice: false };
+        }
+        state.pendingDecision = {
+            id: `gain_card_${Date.now()}`,
+            playerId: player.id,
+            type: 'CHOOSE_CARDS' as any,
+            message,
+            constraints: { min: optional ? 0 : 1, max: 1, sourceZone: 'supply', filter: { ...filter, cardIds: filter.cardIds ?? choices } },
+            context: { specialAction: 'GAINER', filter, ...context }
+        } as any;
+        return { state, needsChoice: true };
+    }
+
     public static handleGainCard(state: GameState, player: PlayerState, effect: any, sourceCardInstanceId?: string): EffectResult {
         const cardId = effect.cardId;
 
@@ -24,52 +64,35 @@ export class GainEffectHandler {
                 computedMaxCost = trashedCost + 2;
             }
 
-            state.pendingDecision = {
-                id: `gain_card_${Date.now()}`,
-                playerId: player.id,
-                type: 'CHOOSE_CARDS' as any,
-                message: `Gagnez une carte coûtant jusqu'à ${computedMaxCost} 💰`,
-                constraints: {
-                    min: 1,
-                    max: 1,
-                    sourceZone: 'supply',
-                    filter: {
-                        maxCost: computedMaxCost,
-                        cardTypes: effect.cardTypes,
-                        allowedTypes: effect.allowedTypes
-                    }
-                },
-                context: {
-                    specialAction: 'GAINER',
-                    filter: {
-                        maxCost: computedMaxCost,
-                        cardTypes: effect.cardTypes,
-                        allowedTypes: effect.allowedTypes
-                    },
-                    destination: effect.destination || 'discardPile',
-                    linkToSource: effect.linkToSource || false,
-                    sourceCardInstanceId: sourceCardInstanceId,
-                    onSuccess: effect.onSuccess,
-                    next: effect.next
-                }
+            const filter = {
+                maxCost: computedMaxCost,
+                minCost: effect.minCost,
+                cardTypes: effect.cardTypes,
+                allowedTypes: effect.allowedTypes,
+                excludeTypes: effect.excludeTypes,
+                nonVictory: effect.nonVictory,
+                excludeIds: effect.excludeIds,
             };
-            return { state, needsChoice: true };
+            return this.promptGainFromSupply(state, player, filter, {
+                destination: effect.destination || 'discardPile',
+                linkToSource: effect.linkToSource || false,
+                sourceCardInstanceId,
+                onSuccess: effect.onSuccess,
+                next: effect.next
+            }, effect.message || `Recevez une carte coûtant jusqu'à ${computedMaxCost} 💰`, !!effect.optional);
         }
 
         if (!cardId) {
             return { state, needsChoice: false };
         }
 
-        const pile = state.supply[cardId];
-        if (!pile || pile.count <= 0) {
+        const newCard = this.takeFromPile(state, cardId);
+        if (!newCard) {
             EffectUtils.log(state, `Plus de ${CardRegistry.get(cardId)?.name || cardId} en réserve.`);
             return { state, needsChoice: false };
         }
-
-        pile.count--;
-        const newCard = createCardInstance(cardId);
         state.lastGainedCard = newCard;
-        state.lastGainedCost = EconomyEngine.getCardCost(state, player.id, cardId);
+        state.lastGainedCost = EconomyEngine.getCardCost(state, player.id, newCard.id);
         const dest = effect.destination || 'discardPile';
 
         if (dest === 'exile_prompt') {
@@ -97,7 +120,7 @@ export class GainEffectHandler {
             }
         }
 
-        const cardName = CardRegistry.get(cardId)?.name || cardId;
+        const cardName = CardRegistry.get(newCard.id)?.name || newCard.id;
         EffectUtils.log(state, `${player.name} reçoit ${cardName}.`, player.id);
 
         // Trigger centralized On-Gain effects (card's own onGain + global triggers)
@@ -111,26 +134,16 @@ export class GainEffectHandler {
         if (!lastTrashed) return { state, needsChoice: false };
 
         const baseCost = EconomyEngine.getCardCost(state, player.id, lastTrashed.id);
-        const maxCost = baseCost + (effect.amount !== undefined ? effect.amount : (effect.costBonus !== undefined ? effect.costBonus : 0));
+        const target = baseCost + (effect.amount !== undefined ? effect.amount : (effect.costBonus !== undefined ? effect.costBonus : 0));
+        // exact: "costing exactly $X more" (Upgrade); otherwise "up to"
+        const filter: any = effect.exact ? { exactCost: target } : { maxCost: target };
+        if (effect.cardTypes) filter.cardTypes = effect.cardTypes;
+        if (effect.nonVictory) filter.nonVictory = true;
 
-        state.pendingDecision = {
-            id: `gain_plus_${Date.now()}`,
-            playerId: player.id,
-            type: 'CHOOSE_CARDS' as any,
-            message: `Gagnez une carte coûtant jusqu'à ${maxCost} 💰`,
-            constraints: { 
-                min: 1, 
-                max: 1, 
-                sourceZone: 'supply',
-                filter: { maxCost }
-            },
-            context: {
-                specialAction: 'GAINER',
-                destination: effect.destination || 'discardPile',
-                onGainEffects: effect.onGainEffects || effect.onSuccess || effect.next
-            }
-        };
-        return { state, needsChoice: true };
+        return this.promptGainFromSupply(state, player, filter, {
+            destination: effect.destination || 'discardPile',
+            onGainEffects: effect.onGainEffects || effect.onSuccess || effect.next
+        }, effect.exact ? `Recevez une carte coûtant exactement ${target} 💰` : `Recevez une carte coûtant jusqu'à ${target} 💰`);
     }
 
     public static handleGainCardExactCost(state: GameState, player: PlayerState, effect: any): EffectResult {
@@ -178,6 +191,9 @@ export class GainEffectHandler {
     public static handleGainFromTrash(state: GameState, player: PlayerState, effect: any): EffectResult {
         // Filter trash
         let trashCards = state.trash;
+        if (effect.cardTypes) {
+            trashCards = trashCards.filter(c => effect.cardTypes.some((t: string) => CardRegistry.get(c.id)?.types.includes(t as any)));
+        }
         if (effect.minCost !== undefined || effect.maxCost !== undefined) {
             trashCards = trashCards.filter(c => {
                 const cost = EconomyEngine.getCardCost(state, player.id, c.id);
