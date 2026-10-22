@@ -5,19 +5,14 @@ export const pirate: CardDefinition = {
     name: 'Pirate',
     types: ['ACTION', 'DURATION', 'REACTION'],
     cost: 5,
-    description: 'Au début de votre prochain tour, gagnez une carte Trésor coûtant jusqu\'à 6 Pièces dans votre main. Réaction : Lorsqu\'un autre joueur gagne une carte Trésor, vous pouvez jouer cette carte de votre main.',
+    description: "Au début de votre prochain tour, recevez en main un Trésor coûtant jusqu'à 6 💰. Quand un joueur (vous compris) reçoit un Trésor, vous pouvez jouer cette carte depuis votre main.",
     expansion: 'seaside',
-    effects: [
-        // No immediate effect unless played via Reaction or Action phase.
-        // If played, it sets up the Duration.
-        // Reaction logic is handled by the engine checking triggers.
-    ],
+    effects: [],
     durationEffects: [
-        {
-            type: 'GAIN_CARD',
-            destination: 'hand',
-            maxCost: 6
-            // types: ['TREASURE'] // Logic must be handled by engine tracking allowed types for specific cards or trusted user.
-        }
-    ]
+        { type: 'GAIN_CARD', destination: 'hand', maxCost: 6, cardTypes: ['TREASURE'], message: 'Pirate : recevez en main un Trésor coûtant jusqu\'à 6 💰' }
+    ] as any,
+    isReaction: true,
+    reactionTrigger: 'ANY_GAIN' as any,
+    reactionCondition: { type: 'GAIN_TYPE', value: 'TREASURE' } as any,
+    reactionEffects: [{ type: 'PLAY_THIS_CARD' }] as any
 };

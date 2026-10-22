@@ -8,12 +8,8 @@ export const monkey: CardDefinition = {
     description: 'Jusqu\'à votre prochain tour, lorsque le joueur à votre droite gagne une carte, +1 Carte. Au début de votre prochain tour : +1 Carte.',
     expansion: 'seaside',
     effects: [
-        {
-            type: 'ADD_ACTIONS',
-            amount: 0
-            // Logic handled by engine via card ID: SETUP_REACTION_RIGHT_PLAYER_GAINS
-        }
-    ],
+        { type: 'MONKEY' }
+    ] as any,
     durationEffects: [
         {
             type: 'DRAW',

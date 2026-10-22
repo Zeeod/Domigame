@@ -200,7 +200,8 @@ export class EffectEngine {
         } else if (specialAction === 'ORDER_TRIGGERS') {
             const player = state.players.find(p => p.id === playerId);
             if (player) {
-                EffectManager.onOrderTriggerDecision(state, player, parseInt(payload.value), decision.context.remainingTriggers);
+                const idx = typeof payload.optionIndex === 'number' ? payload.optionIndex : parseInt(payload.value ?? payload.optionIndex ?? 0);
+                EffectManager.onOrderTriggerDecision(state, player, Number.isFinite(idx) ? idx : 0, decision.context.remainingTriggers);
             }
         } else if (specialAction === 'SENTRY_INTERACTION') {
             this.handleSentryDecision(state, playerId, payload, decision.context);
@@ -418,7 +419,8 @@ export class EffectEngine {
         GainEffectHandler.handleGainCard(state, player, {
             type: 'GAIN_CARD',
             cardId: selectedCard.id,
-            destination: context.destination
+            destination: context.destination,
+            linkToSource: context.linkToSource
         }, context.sourceCardInstanceId);
 
         // Apply 'next' or 'onSuccess' or 'onGainEffects' effects pipeline

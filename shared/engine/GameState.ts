@@ -259,6 +259,13 @@ export interface GameState {
         once?: boolean;
         /** When the trigger disappears even if it never fired */
         expires?: 'END_OF_TURN' | 'START_OF_NEXT_TURN';
+        /** Disappears at the start of this player's turn (e.g. "until your next turn" of an attacker) */
+        expiresOnTurnOf?: string;
+        /** Whose events it listens to: the owner's (SELF, default), other players' (OTHERS), or ANY */
+        scope?: 'SELF' | 'OTHERS' | 'ANY';
+        /** Who resolves the effects: the owner (default) or the player who caused the event */
+        runAs?: 'OWNER' | 'ACTOR';
+        description?: string;
     }[];
 
     /** Active duration card entries (DurationTracker) */

@@ -17,6 +17,7 @@ describe('Simultaneous Resolution', () => {
             deck: [],
             discardPile: [],
             playArea: [],
+            aside: [],
             actions: 0,
             buys: 0,
             coins: 0,

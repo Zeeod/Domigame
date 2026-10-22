@@ -20,8 +20,12 @@ export class TriggerEffectHandler {
             effects: effect.effects,
             sourceCardInstanceId,
             filter: effect.filter,
-            once: duration !== 'PERMANENT' && duration !== 'UNTIL_NEXT_TURN' && effect.repeat !== true,
-            expires
+            once: duration !== 'PERMANENT' && duration !== 'UNTIL_NEXT_TURN' && effect.repeat !== true && !effect.expiresOnTurnOf,
+            expires,
+            expiresOnTurnOf: effect.expiresOnTurnOf === 'ATTACKER' ? effect.attackerId : effect.expiresOnTurnOf,
+            scope: effect.scope,
+            runAs: effect.runAs,
+            description: effect.description
         });
         return { state, needsChoice: false };
     }
@@ -60,10 +64,6 @@ export class TriggerEffectHandler {
             EffectManager.resolveTriggers(state, player, triggers, `Effets déclenchés (${phaseTrigger})`);
             
             // Clean up 'once' dynamic triggers that were executed
-            const executedIndices = triggers.filter(t => (t as any).once && (t as any).originalIndex !== undefined).map(t => (t as any).originalIndex);
-            if (executedIndices.length > 0 && state.triggers) {
-                state.triggers = state.triggers.filter((_, i) => !executedIndices.includes(i));
-            }
         }
     }
 
@@ -118,42 +118,53 @@ export class TriggerEffectHandler {
         }
 
         // 2. Dynamic Triggers (state.triggers)
+        //   scope:  'SELF' (default: the owner's own events) | 'OTHERS' (another player's events) | 'ANY'
+        //   runAs:  'OWNER' (default) | 'ACTOR' (the player who caused the event)
+        //   filter: cardTypes, cardIds, minCost, maxCost, actorId, onActorsTurn, firstPerTurn (flag key)
+        //   once:   removed as soon as it fires
         if (state.triggers) {
+            const fired: any[] = [];
+            const actorIsCurrent = state.players[state.currentPlayerIndex]?.id === player.id;
             for (let i = 0; i < state.triggers.length; i++) {
-                const t = state.triggers[i];
-                if (t.type === triggerType && t.playerId === player.id) {
-                    // Check filter if present
-                    let matches = true;
-                    if (t.filter) {
-                        const targetId = context.cardId || context.boughtCardId || context.gainedCardId || '';
-                        const targetDef = targetId ? CardRegistry.get(targetId) : undefined;
+                const t: any = state.triggers[i];
+                if (t.type !== triggerType) continue;
+                const scope = t.scope || (t.filter?.otherPlayers ? 'OTHERS' : 'SELF');
+                const isOwner = t.playerId === player.id;
+                if (scope === 'SELF' && !isOwner) continue;
+                if (scope === 'OTHERS' && isOwner) continue;
 
-                        if (t.filter.cardTypes) {
-                            if (!targetDef || !t.filter.cardTypes.some((type: string) => targetDef.types.includes(type as any))) {
-                                matches = false;
-                            }
-                        }
-                        if (t.filter.cardIds) {
-                            if (!t.filter.cardIds.includes(targetId)) {
-                                matches = false;
-                            }
-                        }
-                    }
-
-                    if (matches) {
-                        triggers.push({
-                            id: `dynamic_trigger_${i}_${timestamp}`,
-                            sourceId: t.sourceCardInstanceId || 'system',
-                            sourceType: 'CARD', // Or 'RULE' if system
-                            description: `Effet déclenché : ${triggerType}`,
-                            effects: t.effects,
-                            context: { ...context, sourceCardInstanceId: t.sourceCardInstanceId },
-                            once: t.once,
-                            originalIndex: i
-                        });
-                    }
+                const f = t.filter || {};
+                const targetId = context.cardId || context.boughtCardId || context.gainedCardId || '';
+                const targetDef = targetId ? CardRegistry.get(targetId) : undefined;
+                if (f.cardTypes && !(targetDef && f.cardTypes.some((type: string) => targetDef.types.includes(type as any)))) continue;
+                if (f.cardIds && !f.cardIds.includes(targetId)) continue;
+                if ((f.minCost !== undefined || f.maxCost !== undefined) && targetId) {
+                    const cost = EconomyEngine.getCardCost(state, player.id, targetId);
+                    if (f.minCost !== undefined && cost < f.minCost) continue;
+                    if (f.maxCost !== undefined && cost > f.maxCost) continue;
                 }
+                if (f.actorId && f.actorId !== player.id) continue;
+                if (f.onActorsTurn && !actorIsCurrent) continue;
+                if (f.firstPerTurn) {
+                    const key = 'trigger_first_' + f.firstPerTurn;
+                    if (player.turnFlags?.[key]) continue;
+                    if (player.turnFlags) player.turnFlags[key] = true;
+                }
+
+                const runAs = t.runAs === 'ACTOR' ? player.id : t.playerId;
+                triggers.push({
+                    id: `dynamic_trigger_${i}_${timestamp}`,
+                    sourceId: t.sourceCardInstanceId || 'system',
+                    sourceType: 'CARD',
+                    description: t.description || `Effet déclenché : ${triggerType}`,
+                    effects: t.effects,
+                    runAsPlayerId: runAs,
+                    context: { ...context, sourceCardInstanceId: t.sourceCardInstanceId, actorId: player.id, ownerId: t.playerId },
+                    once: t.once
+                });
+                if (t.once) fired.push(t);
             }
+            if (fired.length) state.triggers = state.triggers.filter(t => !fired.includes(t));
         }
 
         // 3. Hand Reactions & Shadows
@@ -243,7 +254,36 @@ export class TriggerEffectHandler {
 
     public static handleOnGainTriggers(state: GameState, player: PlayerState, gainedCard: CardInstance | string): EffectResult {
         const gainedCardId = typeof gainedCard === 'string' ? gainedCard : gainedCard.id;
-        const context = { gainedCardId };
+        const gainedInstanceId = typeof gainedCard === 'string' ? undefined : gainedCard.instanceId;
+        const context = { gainedCardId, gainedInstanceId };
+
+        // Cards gained during your own turn (Smugglers looks at the previous turn of the player to its right)
+        if (state.players[state.currentPlayerIndex]?.id === player.id) {
+            (player.gainedThisTurn = player.gainedThisTurn || []).push(gainedCardId);
+        }
+
+        // "When any player gains a <type>, you may play this from your hand" (Pirate)
+        for (const p of state.players) {
+            for (const c of p.hand) {
+                const def = CardRegistry.get(c.id) as any;
+                if (!def || def.reactionTrigger !== 'ANY_GAIN') continue;
+                const cond = def.reactionCondition;
+                if (cond?.type === 'GAIN_TYPE' && !CardRegistry.get(gainedCardId)?.types.includes(cond.value)) continue;
+                state.effectStack.push({
+                    type: 'EFFECT',
+                    playerId: p.id,
+                    effect: {
+                        type: 'SELECT_OPTION',
+                        message: `Voulez-vous jouer ${def.name} depuis votre main ?`,
+                        options: [
+                            { label: 'Oui', effects: def.reactionEffects || [{ type: 'PLAY_THIS_CARD' }] },
+                            { label: 'Non', effects: [] }
+                        ]
+                    } as any,
+                    context: { sourceCardInstanceId: c.instanceId }
+                });
+            }
+        }
 
         // Prophecy Check
         const gainedDef = CardRegistry.get(gainedCardId);
@@ -330,14 +370,6 @@ export class TriggerEffectHandler {
 
         if (triggers.length > 0) {
             EffectManager.resolveTriggers(state, player, triggers, "Lors de la pose : choisissez l'ordre des effets");
-
-            const dynamicTriggersIndicesToRemove = triggers
-                .filter(t => t.once && t.originalIndex !== undefined)
-                .map(t => t.originalIndex);
-
-            if (dynamicTriggersIndicesToRemove.length > 0) {
-                state.triggers = state.triggers.filter((_, idx) => !dynamicTriggersIndicesToRemove.includes(idx));
-            }
         }
         return { state, needsChoice: false };
     }

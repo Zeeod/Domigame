@@ -10,6 +10,7 @@ import { ActionResolver } from '../../shared/engine/ActionResolver.js';
 import { RulesValidator } from '../../shared/engine/RulesValidator.js';
 import { PhaseEngine } from '../../shared/engine/PhaseEngine.js';
 import { CardInstance } from '../../shared/engine/GameState.js';
+import { autoPayload } from './autoPlay.js';
 
 export interface TestGame {
     state: GameState;
@@ -101,4 +102,24 @@ export function playAllTreasures(state: GameState, playerId = 'p1'): GameState {
 /** Pick a card from the supply for the pending decision (same payload as the client). */
 export function chooseSupply(state: GameState, cardId: string): GameState {
     return choose(state, { type: 'SUPPLY', cardId });
+}
+
+/** End the current player's turn (answering any decision automatically). */
+export function endTurn(state: GameState): GameState {
+    const startTurn = state.turnNumber;
+    for (let i = 0; i < 12 && state.turnNumber === startTurn; i++) {
+        if (state.pendingDecision) {
+            state = choose(state, autoPayload(state, 'first'));
+            continue;
+        }
+        state = endPhase(state, state.players[state.currentPlayerIndex].id);
+    }
+    return state;
+}
+
+/** End turns until it is `playerId`'s turn again (a new turn). */
+export function untilTurnOf(state: GameState, playerId: string): GameState {
+    state = endTurn(state);
+    for (let i = 0; i < 10 && state.players[state.currentPlayerIndex].id !== playerId; i++) state = endTurn(state);
+    return state;
 }

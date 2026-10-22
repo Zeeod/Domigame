@@ -405,7 +405,7 @@ export function registerCoreEffects(): void {
     // ========================================================================
 
     EffectHandlerRegistry.register('REGISTER_TRIGGER', (state, player, effect, ctx) =>
-        TriggerEffectHandler.handleRegisterTrigger(state, player, effect, ctx.sourceCardInstanceId)
+        TriggerEffectHandler.handleRegisterTrigger(state, player, { ...effect, attackerId: ctx.attackerId }, ctx.sourceCardInstanceId)
     );
 
     EffectHandlerRegistry.register('REMOVE_SUN_TOKEN', (state, _player, _effect, _ctx) => {
@@ -799,55 +799,40 @@ export function registerCoreEffects(): void {
     });
 
     // PLAY_THIS_CARD: play the source card from wherever it is (discard after a gain,
-    // hand for reactions like Caravan Guard, deck for Shadows, aside…).
-    // If it is already in play, its effects are simply executed again.
+    // hand for reactions like Caravan Guard / Pirate, deck for Shadows, aside…).
+    // If it is already in play, it is played again (its effects happen again).
     EffectHandlerRegistry.register('PLAY_THIS_CARD', (state, player, _effect, ctx) => {
-        const cardInstanceId = ctx.sourceCardInstanceId;
-        if (!cardInstanceId) return { state, needsChoice: false };
-
-        let card = player.playArea.find(c => c.instanceId === cardInstanceId);
-        if (!card) {
-            const zones = [player.discardPile, player.hand, player.deck, player.aside].filter(Boolean);
-            for (const zone of zones) {
-                const idx = zone.findIndex(c => c.instanceId === cardInstanceId);
-                if (idx !== -1) {
-                    card = zone.splice(idx, 1)[0];
-                    player.playArea.push(card);
-                    break;
-                }
-            }
+        const id = ctx.sourceCardInstanceId;
+        if (!id) return { state, needsChoice: false };
+        const inPlay = player.playArea.find(c => c.instanceId === id);
+        if (inPlay) {
+            markPlayed(state, player, inPlay);
+            pushPlayEffects(state, player, inPlay);
+            TriggerEffectHandler.handleOnPlayTriggers(state, player, inPlay.id, inPlay.instanceId);
+        } else {
+            playCardNow(state, player, id);
         }
-        if (!card) return { state, needsChoice: false };
-        markPlayed(state, player, card);
+        return { state, needsChoice: false };
+    });
 
-        const cardDef = CardRegistry.get(card.id);
-        if (!cardDef) return { state, needsChoice: false };
+    // PLAY_GAINED_CARD: play the card just gained (Sailor)
+    EffectHandlerRegistry.register('PLAY_GAINED_CARD', (state, player, _effect, ctx) => {
+        const id = (ctx as any).gainedInstanceId || state.lastGainedCard?.instanceId;
+        if (id) playCardNow(state, player, id);
+        return { state, needsChoice: false };
+    });
 
-        Logger.log(state, `${player.name} joue ${cardDef.name} immédiatement.`);
+    // TRASH_PLAYED_CARD: trash the card that was just played (Corsair: a Silver or Gold)
+    EffectHandlerRegistry.register('TRASH_PLAYED_CARD', (state, player, _effect, ctx) => {
+        const id = (ctx as any).cardInstanceId;
+        const idx = player.playArea.findIndex(c => c.instanceId === id);
+        if (idx !== -1) TrashEffectHandler.trashCard(state, player, player.playArea.splice(idx, 1)[0]);
+        return { state, needsChoice: false };
+    });
 
-        if (cardDef.effects && cardDef.effects.length > 0) {
-            const effectItems = cardDef.effects.map((e: any) => ({
-                type: 'EFFECT' as const,
-                playerId: player.id,
-                effect: e,
-                context: { sourceCardInstanceId: card.instanceId, sourceCardId: card.id }
-            }));
-            state.effectStack.push(...effectItems.reverse());
-        }
-
-        if (cardDef.types.includes('DURATION') && cardDef.durationEffects) {
-            state.effectStack.push({
-                type: 'EFFECT',
-                playerId: player.id,
-                effect: {
-                    type: 'DURATION',
-                    effects: cardDef.durationEffects,
-                    turns: 1
-                } as any,
-                context: { sourceCardInstanceId: card.instanceId, sourceCardId: card.id }
-            });
-        }
-
+    // CANCEL_DURATION: the source Duration card will not do anything next turn (Tactician with an empty hand)
+    EffectHandlerRegistry.register('CANCEL_DURATION', (state, _player, _effect, ctx) => {
+        if (state.durations) state.durations = state.durations.filter(d => d.cardInstanceId !== ctx.sourceCardInstanceId);
         return { state, needsChoice: false };
     });
 
