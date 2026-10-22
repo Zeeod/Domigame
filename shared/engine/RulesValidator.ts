@@ -33,6 +33,10 @@ export class RulesValidator {
      * NEVER mutates state
      */
     static validate(state: GameState, playerId: string, action: GameAction): ValidationResult {
+        return CardRegistry.withGameOverrides(state.cardOverrides, () => this.validateWithRules(state, playerId, action));
+    }
+
+    private static validateWithRules(state: GameState, playerId: string, action: GameAction): ValidationResult {
         // Check if it's a pending choice situation
         if (state.pendingDecision) {
             if (action.type !== 'CHOOSE') {

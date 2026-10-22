@@ -11,6 +11,7 @@ import { RulesValidator } from '../../shared/engine/RulesValidator.js';
 import { PhaseEngine } from '../../shared/engine/PhaseEngine.js';
 import { CardInstance } from '../../shared/engine/GameState.js';
 import { autoPayload } from './autoPlay.js';
+import { applyKingdomRules } from '../../shared/engine/KingdomRules.js';
 
 export interface TestGame {
     state: GameState;
@@ -30,6 +31,7 @@ export function makeGame(kingdom: string[] = [], playerCount = 2): GameState {
     for (const [id, count] of Object.entries(basics)) state.supply[id] = { cardId: id, count, cards: [] } as any;
     for (const id of kingdom) state.supply[id] = { cardId: id, count: 10, cards: [] } as any;
     state.kingdomCards = [...kingdom];
+    applyKingdomRules(state);
     state.currentPlayerIndex = 0;
     state.turnNumber = 1;
     state.phase = 'ACTION';

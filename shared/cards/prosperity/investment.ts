@@ -13,23 +13,9 @@ export const investment: CardDefinition = {
     cost: 5,
     types: ['TREASURE'],
     expansion: 'prosperity',
-    description: 'Vaut 1 💰. Écartez une carte de votre main. Si vous le faites, +1 💰 pour chaque carte de nom différent dans le rebut.',
-    treasureValue: 1,
+    description: 'Écartez une carte de votre main. Choisissez : +1 💰 ; ou écartez cette carte pour dévoiler votre main et recevoir +1 🛡️ par Trésor de nom différent qui s\'y trouve.',
+    treasureValue: 0,
     effects: [
-        { type: 'ADD_MONEY', amount: 1 },
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            onSuccess: [
-                {
-                    type: 'ADD_MONEY',
-                    amount: {
-                        type: 'COUNT_UNIQUE_CARDS_IN_TRASH'
-                    } as any
-                }
-            ]
-        }
-    ]
+        { type: 'INVESTMENT' }
+    ] as any
 };

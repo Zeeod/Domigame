@@ -992,6 +992,15 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
+    // IF_EMPTY_PILES: run `effect`/`effects` if at least `minPiles` Supply piles are empty (City)
+    EffectHandlerRegistry.register('IF_EMPTY_PILES', (state, player, effect: any, ctx) => {
+        const empty = Object.values(state.supply).filter(p => p.count === 0).length;
+        if (empty < (effect.minPiles ?? 1)) return { state, needsChoice: false };
+        const list = effect.effects || (effect.effect ? [effect.effect] : []);
+        state.effectStack.push(...list.map((e: any) => ({ type: 'EFFECT' as const, playerId: player.id, effect: e, context: ctx })).reverse());
+        return { state, needsChoice: false };
+    });
+
     EffectHandlerRegistry.register('MOVE_TO_POSITION', (state, player, effect, _ctx) => {
         const from = effect.from || 'discardPile';
         const position = effect.position || 'TOP';

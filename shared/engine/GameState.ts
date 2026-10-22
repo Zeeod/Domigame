@@ -149,6 +149,8 @@ export interface PendingDecision {
 
 export interface GameState {
     id: string;
+    /** Per-game changes to card definitions (KingdomRules), e.g. Charlatan makes Curse a Treasure */
+    cardOverrides?: Record<string, any>;
     players: PlayerState[];
     currentPlayerIndex: number;
     /** Queue of extra turns with metadata (Outpost, etc) */

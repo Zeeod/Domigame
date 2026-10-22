@@ -13,7 +13,7 @@ export const peddler: CardDefinition = {
     cost: 8,
     types: ['ACTION'],
     expansion: 'prosperity',
-    description: '+1 Carte, +1 Action, +1 💰. Pendant votre tour, cette carte coûte 2 💰 de moins par carte Action que vous avez en jeu (minimum 0).',
+    description: '+1 Carte, +1 Action, +1 💰. Pendant votre phase Achat, cette carte coûte 2 💰 de moins par carte Action que vous avez en jeu.',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },

@@ -17,28 +17,20 @@ export const vault: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 2 },
         {
-            type: 'DISCARD',
-            min: 0,
-            max: 99,
-            onSuccess: [
-                { type: 'ADD_MONEY', amount: { type: 'COUNT_DISCARDED' } as any }
-            ]
+            type: 'DISCARD', min: 0, max: 99,
+            message: 'Chambre forte : défaussez autant de cartes que vous voulez (+1 💰 chacune)',
+            onSuccess: [{ type: 'ADD_MONEY', amount: { type: 'COUNT_DISCARDED' } }]
         },
         {
             type: 'OTHER_PLAYERS_EFFECT',
-            effect: {
-                type: 'CHOOSE_OPTION',
+            effects: [{
+                type: 'SELECT_OPTION',
+                message: 'Chambre forte : défausser 2 cartes pour piocher 1 carte ?',
                 options: [
-                    {
-                        label: 'Défausser 2 pour piocher 1',
-                        effects: [
-                            { type: 'DISCARD', min: 2, max: 2, onSuccess: [{ type: 'DRAW', amount: 1 }] }
-                        ]
-                    },
+                    { label: 'Défausser 2 cartes, piocher 1', effects: [{ type: 'CONDITION', condition: 'HAND_SIZE', comparator: '>=', value: 2, trueEffects: [{ type: 'DISCARD', min: 2, max: 2, message: 'Défaussez 2 cartes', onSuccess: [{ type: 'DRAW', amount: 1 }] }] }] },
                     { label: 'Ne rien faire', effects: [] }
-                ],
-                message: 'Voulez-vous défausser 2 cartes pour piocher 1 carte ? (Chambre-Forte)'
-            }
+                ]
+            }]
         }
-    ]
+    ] as any
 };

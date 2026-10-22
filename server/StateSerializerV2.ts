@@ -92,6 +92,7 @@ export class StateSerializerV2 {
             ),
 
             trash: state.trash.map(c => this.serializeCard(c)),
+            cardOverrides: state.cardOverrides,
             landscapes: state.landscapes || [],
             landscapeState: JSON.parse(JSON.stringify(state.landscapeState || {})), // Deep copy to be safe
             players: state.players.map(p => this.serializePublicPlayer(p, forPlayerId)),
