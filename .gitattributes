@@ -1,0 +1,6 @@
+# Normalise les fins de ligne : LF partout (éditeurs et scripts cohérents)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.pdf binary
+*.db binary

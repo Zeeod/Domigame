@@ -31,9 +31,11 @@ import { Logger } from './Logger.js';
 import { DurationManager } from './DurationManager.js';
 import { EffectUtils } from './EffectUtils.js';
 import { PhaseEngine } from './PhaseEngine.js';
-import { markPlayed, pushPlayEffects } from './Play.js';
-import { registerOpponentChoiceEffects } from './effects/OpponentChoiceEffects.js';
+import { markPlayed, pushPlayEffects, playCardNow } from './Play.js';
+import { registerOpponentChoiceEffects, chosenInstanceIds } from './effects/OpponentChoiceEffects.js';
+import { EffectEngine } from './EffectEngine.js';
 import { registerDeckInsertionEffects } from './effects/DeckInsertionEffects.js';
+import { registerNamingEffects } from './effects/NamingEffects.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { addToMat, peekMat } from './Mats.js';
 import { debugLog } from './debug.js';
@@ -42,6 +44,7 @@ import { debugLog } from './debug.js';
 export function registerCoreEffects(): void {
     registerOpponentChoiceEffects();
     registerDeckInsertionEffects();
+    registerNamingEffects();
 
     // ========================================================================
     // Basic Resource Effects
@@ -302,9 +305,6 @@ export function registerCoreEffects(): void {
         TrashEffectHandler.handleTrash(state, player, effect, ctx)
     );
 
-    EffectHandlerRegistry.register('TRASH_SELF', (state, player, _effect, ctx) =>
-        TrashEffectHandler.handleTrashSelf(state, player, ctx.sourceCardInstanceId)
-    );
 
     EffectHandlerRegistry.register('DISCARD', (state, player, effect, ctx) =>
         TrashEffectHandler.handleDiscard(state, player, effect, ctx)
@@ -423,9 +423,6 @@ export function registerCoreEffects(): void {
         ZoneEffectHandler.handleTopdeckThis(state, player, ctx.sourceCardInstanceId)
     );
 
-    EffectHandlerRegistry.register('DISCARD_HAND', (state, player, _effect, _ctx) =>
-        ZoneEffectHandler.handleDiscardHand(state, player)
-    );
 
     EffectHandlerRegistry.register('MOVE_CARDS', (state, player, effect, _ctx) =>
         ZoneEffectHandler.handleMoveCards(state, player, effect)
@@ -481,86 +478,45 @@ export function registerCoreEffects(): void {
     // Phase 1 Primitives — Shared across Plunder, Allies, Rising Sun
     // ========================================================================
 
-    // PLAY_TARGET: Play a card from hand (used by Daimyo, Gondola, Mining Road, Sauna, etc.)
+    // PLAY_TARGET — play a card "via an effect" (no Action used):
+    //   times: N                → play the card just selected N times (Tiara: a Treasure twice)
+    //   sourceZone: 'aside'     → play every Action set aside (Golem)
+    //   filter.cardInstanceIds  → play that specific card
+    //   otherwise               → choose a card from hand (filter, optional) and play it (Sauna, Daimyo…)
     EffectHandlerRegistry.register('PLAY_TARGET', (state, player, effect, ctx) => {
         const eff = effect as any;
-        const filter = eff.filter;
-        const optional = eff.optional !== false;
+        if (eff.times) return handlePlayActionMultiple(state, player, eff.times, ctx);
 
-        // Find eligible cards in hand
-        let candidates = [...player.hand];
-        if (filter) {
-            if (filter.cardTypes) {
-                candidates = candidates.filter(c => {
-                    const def = CardRegistry.get(c.id);
-                    return def && filter.cardTypes.some((t: string) => def.types.includes(t as any));
-                });
-            }
-            if (filter.cardIds) {
-                candidates = candidates.filter(c => filter.cardIds.includes(c.id));
-            }
-            if (filter.excludeTypes) {
-                candidates = candidates.filter(c => {
-                    const def = CardRegistry.get(c.id);
-                    return def && !filter.excludeTypes.some((t: string) => def.types.includes(t as any));
-                });
-            }
-        }
-
-        if (candidates.length === 0) {
+        if (eff.sourceZone === 'aside') {
+            const asideActions = player.aside.filter(c => CardRegistry.get(c.id)?.types.includes('ACTION'));
+            for (const c of [...asideActions].reverse()) playCardNow(state, player, c.instanceId);
             return { state, needsChoice: false };
         }
 
-        // Create a choice for the player
+        if (eff.filter?.cardInstanceIds) {
+            for (const id of [...eff.filter.cardInstanceIds].reverse()) playCardNow(state, player, id);
+            return { state, needsChoice: false };
+        }
+
+        const candidates = EffectUtils.filterCards(player.hand, eff.filter);
+        if (candidates.length === 0) return { state, needsChoice: false };
+        const optional = eff.optional !== false;
         state.pendingDecision = {
+            id: `play_target_${Date.now()}`,
             playerId: player.id,
-            type: 'SELECT_CARD',
+            type: 'CHOOSE_CARDS' as any,
             message: eff.message || 'Choisissez une carte à jouer',
-            cards: candidates.map(c => c.instanceId),
-            minCards: optional ? 0 : 1,
-            maxCards: 1,
-            context: {
-                effectType: 'PLAY_TARGET',
-                sourceZone: 'hand',
-                sourceCardInstanceId: ctx.sourceCardInstanceId,
-                onSelect: [{ type: 'PLAY_SELECTED_CARD' }]
-            }
+            constraints: { min: optional ? 0 : 1, max: 1, sourceZone: 'hand', filter: eff.filter },
+            context: { specialAction: 'PLAY_TARGET_PICK', candidates: candidates.map(c => c.instanceId) }
         } as any;
         return { state, needsChoice: true };
     });
 
-    // PLAY_SELECTED_CARD: Internal effect to play a selected card from hand
-    EffectHandlerRegistry.register('PLAY_SELECTED_CARD', (state, player, effect, ctx) => {
-        const cardInstanceId = (ctx as any).selectedCardInstanceId || (effect as any).cardInstanceId;
-        if (!cardInstanceId) return { state, needsChoice: false };
-
-        const cardIndex = player.hand.findIndex(c => c.instanceId === cardInstanceId);
-        if (cardIndex === -1) return { state, needsChoice: false };
-
-        const card = player.hand.splice(cardIndex, 1)[0];
-        markPlayed(state, player, card);
-        player.playArea.push(card);
-
-        const cardDef = CardRegistry.get(card.id);
-        if (!cardDef) return { state, needsChoice: false };
-
-        Logger.log(state, `${player.name} joue ${cardDef.name} (via un effet).`);
-
-        // Apply card effects through the stack
-        if (cardDef.effects && cardDef.effects.length > 0) {
-            const effectItems = cardDef.effects.map((e: any) => ({
-                type: 'EFFECT' as const,
-                playerId: player.id,
-                effect: e,
-                context: { sourceCardInstanceId: card.instanceId }
-            }));
-            state.effectStack.push(...effectItems.reverse());
-        }
-
-        // Trigger ON_PLAY
-        TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
-
-        return { state, needsChoice: false };
+    EffectEngine.registerDecisionHandler('PLAY_TARGET_PICK', (state, playerId, payload, decision) => {
+        const player = state.players.find(p => p.id === playerId);
+        if (!player) return;
+        const id = chosenInstanceIds(payload).find(x => decision.context.candidates.includes(x));
+        if (id) playCardNow(state, player, id);
     });
 
     // GAIN_RELATIVE_COST: Gain a card based on last trashed card's cost + bonus
@@ -663,7 +619,7 @@ export function registerCoreEffects(): void {
 
     EffectHandlerRegistry.register('RETURN_TO_PILE', (state, player, effect, ctx) => {
         const eff = effect as any;
-        const cardInstanceId = ctx.sourceCardInstanceId || (eff as any).cardInstanceId;
+        const cardInstanceId = ctx.sourceCardInstanceId || eff.cardInstanceId || (ctx as any).instanceId || (ctx as any).cardInstanceId;
         const card = EffectUtils.removeCardFromPlayer(state, player, cardInstanceId);
         if (card) {
             // Check supply or non-supply
@@ -878,11 +834,6 @@ export function registerCoreEffects(): void {
         TrashEffectHandler.handleDiscard(state, player, { ...effect, forceAll: true })
     );
 
-    EffectHandlerRegistry.register('REVEAL_HAND', (state, player, _effect, _ctx) => {
-        state.revealedCards = { cards: [...player.hand], visibleTo: 'ALL', cause: 'REVEAL_HAND' };
-        Logger.log(state, `${player.name} révèle sa main : ${player.hand.map(c => c.id).join(', ')}`, player.id);
-        return { state, needsChoice: false };
-    });
 
     // Poor House: -1 coin per Treasure in hand (minimum 0)
     EffectHandlerRegistry.register('SUBTRACT_MONEY_PER_TREASURE_IN_HAND', (state, player, _effect, _ctx) => {
@@ -981,9 +932,6 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
-    EffectHandlerRegistry.register('FINALIZE_CLEANUP', (state, player, _effect, _ctx) =>
-        CleanupEffectHandler.handleFinalizeCleanup(state, player)
-    );
 
     EffectHandlerRegistry.register('DURATION', (state, player, effect, ctx) => {
         const eff = effect as any;
@@ -997,13 +945,7 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
-    EffectHandlerRegistry.register('START_NEXT_TURN', (state, _player, _effect, _ctx) =>
-        CleanupEffectHandler.handleStartNextTurn(state)
-    );
 
-    EffectHandlerRegistry.register('MOVE_CARDS', (state, player, effect, _ctx) =>
-        ZoneEffectHandler.handleMoveCards(state, player, effect)
-    );
 
     // TRASH_SELF: trash the source card. With `target: 'ORIGIN'`, trash the card that
     // started the chain (e.g. the attacking Knight) rather than the card being processed.
@@ -1057,32 +999,6 @@ export function registerCoreEffects(): void {
         handlePlayActionMultiple(state, player, 3, ctx)
     );
 
-    EffectHandlerRegistry.register('PLAY_TARGET', (state, player, effect, ctx) => {
-        if (effect.sourceZone === 'aside') {
-            const asideActions = player.aside.filter(c => {
-                const def = CardRegistry.get(c.id);
-                return def?.types.includes('ACTION');
-            });
-            for (const c of asideActions) {
-                const card = EffectUtils.removeCardFromPlayer(state, player, c.instanceId);
-                if (card) {
-                    player.playArea.push(card);
-                    const def = CardRegistry.get(card.id);
-                    if (def?.effects) {
-                        const effectItems = def.effects.map((e: any) => ({
-                            type: 'EFFECT' as const,
-                            playerId: player.id,
-                            effect: e,
-                            context: { sourceCardInstanceId: card.instanceId, sourceCardId: card.id }
-                        }));
-                        state.effectStack.push(...effectItems.reverse());
-                    }
-                }
-            }
-            return { state, needsChoice: false };
-        }
-        return handlePlayActionMultiple(state, player, effect.times || 2, ctx);
-    });
 
     EffectHandlerRegistry.register('ADD_CARDS_PER_ACTION_IN_PLAY', (state, player, effect, _ctx) => {
         const actionCount = player.playArea.filter(c => {

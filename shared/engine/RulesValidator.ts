@@ -533,6 +533,26 @@ export class RulesValidator {
                 }
                 break;
             }
+            case 'NAME_CARD' as any: {
+                if (payload.type !== 'NAMED_CARD' || typeof payload.cardId !== 'string' || !CardRegistry.get(payload.cardId as string)) {
+                    return { valid: false, error: 'Nom de carte attendu' };
+                }
+                return { valid: true };
+            }
+            case PromptType.COMPOSITE_FILTER: {
+                if (payload.type === 'UPDATE_SELECTION') return { valid: true };
+                if (payload.type !== 'COMPOSITE_RESPONSE' || typeof payload.decisions !== 'object' || !payload.decisions) {
+                    return { valid: false, error: 'Répartition des cartes attendue' };
+                }
+                const buckets: any[] = (state.pendingDecision.context as any)?.buckets || [];
+                for (const b of buckets) {
+                    const ids = (payload.decisions as any)[b.id] || [];
+                    if (b.max !== undefined && ids.length > b.max) {
+                        return { valid: false, error: `Trop de cartes dans « ${b.label ?? b.id} » (max ${b.max})` };
+                    }
+                }
+                return { valid: true };
+            }
             case 'SENTRY_INTERACTION' as any: {
                 // SENTRY_INTERACTION payload has trashIds, discardIds, reorderIds
                 // It can also be an UPDATE_SELECTION (though unlikely for this specialized UI, good to be safe)

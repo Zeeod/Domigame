@@ -4,7 +4,6 @@
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'poacher', // [first] effet(s) sans gestionnaire : DISCARD_PER_EMPTY_SUPPLY
-    'wishing_well', // [first] effet(s) sans gestionnaire : NAME_CARD
     'masquerade', // [first] effet(s) sans gestionnaire : PASS_TO_LEFT
     'city', // [first] effet(s) sans gestionnaire : IF_EMPTY_PILES
     'scavenger', // [first] effet(s) sans gestionnaire : MAY_DISCARD_DECK
@@ -13,7 +12,6 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'wandering_minstrel', // [first] effet(s) sans gestionnaire : REVEAL_AND_SORT_ACTIONS
     'counterfeit', // [first] effet(s) sans gestionnaire : PLAY_TREASURE_TWICE_THEN_TRASH
     'ironmonger', // [first] effet(s) sans gestionnaire : IRONMONGER_REVEAL
-    'mystic', // [first] effet(s) sans gestionnaire : NAME_AND_REVEAL_TOP
     'band_of_misfits', // [first] effet(s) sans gestionnaire : PLAY_AS_SUPPLY_ACTION
     'catacombs', // [first] effet(s) sans gestionnaire : CATACOMBS_CHOICE
     'hermit', // [first] effet(s) sans gestionnaire : MAY_TRASH_NON_TREASURE
@@ -31,10 +29,8 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'horn_of_plenty', // [first] effet(s) sans gestionnaire : GAIN_CARD_COST_UNIQUE_IN_PLAY
     'hunting_party', // [first] effet(s) sans gestionnaire : REVEAL_UNTIL_UNIQUE
     'jester', // [first] effet(s) sans gestionnaire : JESTER_EFFECT
-    'doctor', // [first] effet(s) sans gestionnaire : NAME_A_CARD, TRASH_NAMED_CARDS, REORDER_AND_RETURN
     'taxman', // [last] effet(s) sans gestionnaire : GAIN_TREASURE
     'butcher', // [last] effet(s) sans gestionnaire : PAY_COFFERS_AND_GAIN
-    'journeyman', // [first] effet(s) sans gestionnaire : NAME_A_CARD, REVEAL_UNTIL_COUNT
     'soothsayer', // [first] effet(s) sans gestionnaire : DRAW_IF_GAINED_CURSE
     'raze', // [first] effet(s) sans gestionnaire : LOOK_AT_TOP_COST
     'ranger', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN
@@ -47,30 +43,16 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'swamp_hag', // [first] effet(s) sans gestionnaire : SWAMP_HAG_EFFECT
     'sacrifice', // [first] effet(s) sans gestionnaire : SWITCH_ON_LAST_TRASHED
     'temple', // [first] effet(s) sans gestionnaire : ADD_VP_TOKENS_PER_MOVED
-    'crown', // [first] jouer : PLAY_CARD échoué : Cannot play Action cards in Buy phase
     'overlord', // [first] effet(s) sans gestionnaire : PLAY_AS_SUPPLY_ACTION
     'charm', // [last] effet(s) sans gestionnaire : ADD_TURN_TRIGGER
     'encampment', // [first] effet(s) sans gestionnaire : RETURN_TO_SUPPLY_AT_CLEANUP
     'fortune', // [first] effet(s) sans gestionnaire : MULTIPLY_MONEY
-    'monastery', // [first] jouer : PLAY_CARD échoué : Cannot play Night cards in Action phase
-    'exorcist', // [first] jouer : PLAY_CARD échoué : Cannot play Night cards in Action phase
     'skulk', // [first] effet(s) sans gestionnaire : RECEIVE_HEX
     'philosophers_stone', // [first] effet(s) sans gestionnaire : ADD_COINS_PER_CARDS
     'transmute', // [first] effet(s) sans gestionnaire : SWITCH_ON_LAST_TRASHED
     'cursed_village', // [first] effet(s) sans gestionnaire : RECEIVE_HEX
     'pixie', // [first] effet(s) sans gestionnaire : CHOICE
-    'werewolf', // [first] jouer : PLAY_CARD échoué : Cannot play Night cards in Action phase
     'seer', // [first] effet(s) sans gestionnaire : undefined
     'inventor', // [first] effet(s) sans gestionnaire : GAIN_CARD_FROM_SUPPLY
-    'scrap', // [last] jouer → décision CHOOSE_OPTION/CHOOSE_OPTION : CHOOSE refusé : Type de choix inconnu
-    'barbarian', // [first] après avoir joué : nombre de cartes 306 → 308
-    'hunter', // [first] après avoir joué : nombre de cartes 306 → 309
-    'sentinel', // [first] jouer → décision COMPOSITE_FILTER/- : CHOOSE refusé : Type de choix inconnu
-    'sorceress', // [first] effet(s) sans gestionnaire : NAME_CARD
-    'miller', // [first] après avoir joué : nombre de cartes 312 → 316
     'lich', // [first] effet(s) sans gestionnaire : SKIP_NEXT_TURN
-    'sorcerer_wizard', // [first] jouer → décision NAME_CARD/- : CHOOSE refusé : Type de choix inconnu
-    'sauna', // [first] jouer → boucle de décisions (SELECT_OPTION)
-    'avanto', // [first] jouer → boucle de décisions (SELECT_OPTION)
-    'imperial_envoy', // [first] jouer → décision COMPOSITE_FILTER/- : CHOOSE refusé : Type de choix inconnu
 ]);

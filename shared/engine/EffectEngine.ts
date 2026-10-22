@@ -191,6 +191,10 @@ export class EffectEngine {
         const customHandler = specialAction ? this.decisionHandlers.get(specialAction) : undefined;
         if (customHandler) {
             customHandler(state, playerId, payload, decision);
+        } else if ((decision.type as string) === 'NAME_CARD') {
+            this.handleNameCardDecision(state, playerId, payload, decision);
+        } else if ((decision.type as string) === 'COMPOSITE_FILTER') {
+            this.handleCompositeDecision(state, playerId, payload, decision);
         } else if (specialAction === 'REACTION_DECISION') {
             AttackEffectHandler.resolveReactionDecision(state, playerId, payload, decision);
         } else if (specialAction === 'ORDER_TRIGGERS') {
@@ -241,6 +245,64 @@ export class EffectEngine {
         }
 
         return this.processStack(state);
+    }
+
+    /**
+     * NAME_CARD: the player named a card (payload { type: 'NAMED_CARD', cardId }).
+     * Remembered in state.lastNamedCard; the decision's follow-up effects get it as ctx.namedCardId.
+     */
+    private static handleNameCardDecision(state: GameState, playerId: string, payload: any, decision: any): void {
+        const cardId: string | undefined = payload.cardId || payload.choice;
+        if (!cardId) return;
+        (state as any).lastNamedCard = cardId;
+        const player = state.players.find(p => p.id === playerId);
+        EffectUtils.log(state, `${player?.name ?? playerId} nomme ${CardRegistry.get(cardId)?.name || cardId}.`, playerId);
+        const ctx = decision.context || {};
+        const follow = ctx.onSelect || ctx.next;
+        if (follow) {
+            this.pushEffectsToStack(state, playerId, Array.isArray(follow) ? follow : [follow], true, ctx.sourceCardInstanceId, {
+                namedCardId: cardId,
+                attackerId: ctx.attackerId,
+                originSourceCardInstanceId: ctx.originSourceCardInstanceId,
+            });
+        }
+    }
+
+    /**
+     * COMPOSITE_FILTER: the player sorted cards into buckets
+     * (payload { type: 'COMPOSITE_RESPONSE', decisions: { [bucketId]: instanceIds[] } }).
+     * A bucket id is a destination zone: 'trash', 'discardPile', 'hand', 'deck' (top, in the given
+     * order, first = top). Unassigned cards go to context.defaultBucket (or the last bucket).
+     */
+    private static handleCompositeDecision(state: GameState, playerId: string, payload: any, decision: any): void {
+        const player = state.players.find(p => p.id === playerId);
+        if (!player) return;
+        const ctx = decision.context || {};
+        const buckets: { id: string; max?: number }[] = ctx.buckets || [];
+        const allIds: string[] = (ctx.cards || []).map((c: any) => c.instanceId);
+        const answer: Record<string, string[]> = payload.decisions || {};
+        const fallback = ctx.defaultBucket || buckets[buckets.length - 1]?.id || 'discardPile';
+
+        const assigned = new Set<string>();
+        const plan: { bucket: string; ids: string[] }[] = [];
+        for (const b of buckets) {
+            const ids = (answer[b.id] || []).filter(id => allIds.includes(id) && !assigned.has(id));
+            const kept = b.max !== undefined ? ids.slice(0, b.max) : ids;
+            kept.forEach(id => assigned.add(id));
+            plan.push({ bucket: b.id, ids: kept });
+        }
+        const rest = allIds.filter(id => !assigned.has(id));
+        const fb = plan.find(p => p.bucket === fallback);
+        if (fb) fb.ids.push(...rest); else plan.push({ bucket: fallback, ids: rest });
+
+        for (const { bucket, ids } of plan) {
+            const cards = ids.map(id => EffectUtils.removeCardFromPlayer(state, player, id)).filter(Boolean) as any[];
+            if (bucket === 'trash') cards.forEach(c => TrashEffectHandler.trashCard(state, player, c));
+            else if (bucket === 'deck') player.deck.unshift(...cards);
+            else if (bucket === 'keep') player.limbo.push(...cards);
+            else cards.forEach(c => EffectUtils.addCardToZone(player, c, bucket, state));
+        }
+        if (ctx.next) this.pushEffectsToStack(state, playerId, Array.isArray(ctx.next) ? ctx.next : [ctx.next], true, ctx.sourceCardInstanceId);
     }
 
     /**

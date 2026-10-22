@@ -8,7 +8,8 @@ export const wishing_well: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'NAME_CARD' }
+        { type: 'NAME_CARD' } as any,
+        { type: 'TAKE_TOP_IF_NAMED' } as any
     ],
     description: '+1 Carte, +1 Action. Nommez une carte. Dévoilez la carte du dessus de votre deck. Si c’est la carte nommée, ajoutez-la à votre main.',
     image: '/card-images/wishing_well.jpg',

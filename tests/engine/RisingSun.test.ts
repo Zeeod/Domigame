@@ -108,27 +108,19 @@ describe('Rising Sun Expansion Mechanics', () => {
     });
 
     describe('Mountain Shrine', () => {
-        it('should give money based on unique types in play', () => {
-            player.hand = [{ id: 'estate', instanceId: 'e1' }];
-            player.playArea = [
-                { id: 'copper', instanceId: 'c1' }, // Treasure
-                { id: 'mountain_shrine', instanceId: 'ms1' } // Action
-            ];
-
-            // Apply Mountain Shrine effect
+        it('+2 coins; +2 Cards only if there is an Action in the trash', () => {
+            player.deck = [{ id: 'copper', instanceId: 'd1' }, { id: 'copper', instanceId: 'd2' }];
+            player.coins = 0;
             EffectEngine.applyEffects(state, player.id, [{ type: 'MOUNTAIN_SHRINE_EFFECT' as any }]);
-
-            // Should prompt for trash
-            expect(state.pendingDecision).toBeDefined();
-            expect(state.pendingDecision?.type).toBe('CHOOSE_CARDS');
-
-            // Resolve trash decision
-            EffectEngine.resolveDecision(state, player.id, { cards: [{ id: 'estate', instanceId: 'e1' }] });
-
-            // Unique types in play: TREASURE (copper), ACTION (mountain_shrine) -> 2 types
             expect(player.coins).toBe(2);
-            expect(state.trash).toContainEqual({ id: 'estate', instanceId: 'e1' });
+            expect(player.hand.length).toBe(0);           // no Action in the trash
+
+            state.trash.push({ id: 'village', instanceId: 'v1' });
+            EffectEngine.applyEffects(state, player.id, [{ type: 'MOUNTAIN_SHRINE_EFFECT' as any }]);
+            expect(player.coins).toBe(4);
+            expect(player.hand.length).toBe(2);           // +2 Cards
         });
+
     });
 
     describe('River Shrine', () => {

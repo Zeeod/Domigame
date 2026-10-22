@@ -20,7 +20,7 @@ export const cultist: CardDefinition = {
             optional: true,
             message: 'Voulez-vous jouer un autre Cultiste ?',
             effects: [
-                { type: 'PLAY_TARGET' }
+                { type: 'PLAY_THIS_CARD' } // plays the chosen Cultist
             ]
         }
     ],

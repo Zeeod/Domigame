@@ -80,6 +80,19 @@ export function autoPayload(state: GameState, strategy: Strategy = 'first'): any
             return { type: 'CARDS', cardInstanceIds: (d.context?.cards || []).map((c: any) => c.instanceId) };
         case 'DECK_INSERTION':
             return { type: 'CARDS', index: strategy === 'first' ? 0 : (d.context?.deckCount ?? 0) };
+        case 'NAME_CARD':
+            return { type: 'NAMED_CARD', cardId: strategy === 'first' ? 'copper' : 'gold' };
+        case 'COMPOSITE_FILTER': {
+            // 'first': everything to the default bucket; 'last': fill buckets in order up to their max
+            if (strategy === 'first') return { type: 'COMPOSITE_RESPONSE', decisions: {} };
+            const cards: any[] = [...(d.context?.cards || [])];
+            const decisions: Record<string, string[]> = {};
+            for (const b of d.context?.buckets || []) {
+                const n = Math.min(b.max ?? cards.length, cards.length);
+                decisions[b.id] = cards.splice(0, n).map((c: any) => c.instanceId);
+            }
+            return { type: 'COMPOSITE_RESPONSE', decisions };
+        }
         case 'SENTRY_INTERACTION':
             return { type: 'SENTRY', trash: [], discard: [], reorder: (d.context?.cards || []).map((c: any) => c.instanceId) };
         default:
