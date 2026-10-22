@@ -151,10 +151,12 @@ export class TrashEffectHandler {
             }
         }
 
+        let trashedCount = 0;
         cards.forEach(cardRef => {
             // Remove from wherever it is; skip cards that are no longer there
             const card = EffectUtils.removeCardFromPlayer(state, player, cardRef.instanceId);
             if (!card) return;
+            trashedCount++;
 
             if (effect.onSuccess) {
                 const onSuccessEffects = Array.isArray(effect.onSuccess) ? effect.onSuccess : [effect.onSuccess];
@@ -171,6 +173,15 @@ export class TrashEffectHandler {
             // Trash last so that its triggers resolve before onSuccess (stack is LIFO)
             this.trashCard(state, player, card, { suppressLog });
         });
+
+        // ifTrashed: { count, effects } — happens once if at least `count` cards were trashed
+        // (Trading Post: "Trash 2 cards. If you did, gain a Silver to your hand.")
+        if (effect.ifTrashed && trashedCount >= (effect.ifTrashed.count ?? 1)) {
+            const list = Array.isArray(effect.ifTrashed.effects) ? effect.ifTrashed.effects : [effect.ifTrashed.effects];
+            state.effectStack.push(...list.map((e: any) => ({
+                type: 'EFFECT' as const, playerId: player.id, effect: e, context: { ...context }
+            })).reverse());
+        }
 
 
         // Handle next effects (Standard chaining)

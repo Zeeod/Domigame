@@ -9,27 +9,10 @@ export const lurker: CardDefinition = {
         { type: 'ADD_ACTIONS', amount: 1 },
         {
             type: 'CHOOSE_OPTION',
+            message: 'Rôdeur : choisissez',
             options: [
-                {
-                    label: 'Écarter une Action de la réserve',
-                    effects: [{
-                        type: 'CHOOSE_FROM_ZONE',
-                        sourceZone: 'supply',
-                        filter: { cardTypes: ['ACTION'] },
-                        destination: 'trash',
-                        message: 'Rôdeur : Écartez une carte Action de la réserve'
-                    }]
-                },
-                {
-                    label: 'Gagner une Action du rebut',
-                    effects: [{
-                        type: 'CHOOSE_FROM_ZONE',
-                        sourceZone: 'trash',
-                        filter: { cardTypes: ['ACTION'] },
-                        destination: 'discardPile',
-                        message: 'Rôdeur : Gagnez une Action du rebut'
-                    }]
-                }
+                { label: 'Écarter une Action de la réserve', effects: [{ type: 'TRASH_FROM_SUPPLY', filter: { cardTypes: ['ACTION'] }, message: 'Rôdeur : écartez une carte Action de la réserve' } as any] },
+                { label: 'Recevoir une Action du rebut', effects: [{ type: 'GAIN_FROM_TRASH', cardTypes: ['ACTION'], destination: 'discardPile' } as any] }
             ]
         }
     ],
