@@ -12,9 +12,10 @@ export const quarry: CardDefinition = {
     cost: 4,
     types: ['TREASURE'],
     expansion: 'prosperity',
-    description: 'Vaut 1 💰. Tant que cette carte est en jeu, les cartes Action coûtent 2 💰 de moins (minimum 0).',
+    description: '1 💰. Ce tour-ci, les cartes Action coûtent 2 💰 de moins.',
     treasureValue: 1,
     effects: [
-        { type: 'ADD_MONEY', amount: 1 }
-    ]
+        { type: 'ADD_MONEY', amount: 1 },
+        { type: 'QUARRY' }
+    ] as any
 };

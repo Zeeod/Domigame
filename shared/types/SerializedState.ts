@@ -95,6 +95,8 @@ export interface PublicGameState {
         state: any;
     }>;
     trash: SerializedCard[];
+    /** Per-game card changes (e.g. Charlatan: Curse is also a Treasure) */
+    cardOverrides?: Record<string, any>;
     durations?: any[]; // Active multi-turn effects
     players: PublicPlayerState[];
 

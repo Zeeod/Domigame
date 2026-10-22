@@ -790,12 +790,34 @@ export {
     Potion, Alchemist, Apothecary, Apprentice, ScryingPool, Familiar, Golem, Herbalist, PhilosophersStone, Possession, Transmute, University, Vineyard,
 };
 
+/**
+ * Per-game changes to card definitions (e.g. with Charlatan, Curse is also a Treasure).
+ * Active only while an action of that game is validated or resolved (see withGameOverrides).
+ */
+export type CardOverrides = Record<string, Partial<CardDefinition>>;
+let activeOverrides: CardOverrides | undefined;
+const mergedCache = new WeakMap<CardOverrides, Map<string, CardDefinition>>();
+
 export class CardRegistry {
     /**
-     * Get a card definition by ID
+     * Get a card definition by ID (with the current game's overrides applied)
      */
     static get(cardId: string): CardDefinition | undefined {
-        return ALL_CARDS[cardId];
+        const base = ALL_CARDS[cardId];
+        const o = activeOverrides?.[cardId];
+        if (!base || !o) return base;
+        let cache = mergedCache.get(activeOverrides!);
+        if (!cache) { cache = new Map(); mergedCache.set(activeOverrides!, cache); }
+        let merged = cache.get(cardId);
+        if (!merged) { merged = { ...base, ...o } as CardDefinition; cache.set(cardId, merged); }
+        return merged;
+    }
+
+    /** Run fn with a game's card overrides active (nesting-safe). */
+    static withGameOverrides<T>(overrides: CardOverrides | undefined, fn: () => T): T {
+        const prev = activeOverrides;
+        activeOverrides = overrides;
+        try { return fn(); } finally { activeOverrides = prev; }
     }
 
     /**

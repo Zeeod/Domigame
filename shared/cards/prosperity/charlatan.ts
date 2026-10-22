@@ -12,21 +12,9 @@ export const charlatan: CardDefinition = {
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     expansion: 'prosperity',
-    description: '+3 💰. Chaque autre joueur gagne une Malédiction. Vous pouvez écarter une Malédiction de votre main.',
+    description: '+3 💰. Chaque autre joueur reçoit une Malédiction. Dans les parties utilisant cette carte, la Malédiction est aussi un Trésor valant 1 💰.',
     effects: [
         { type: 'ADD_MONEY', amount: 3 },
-        {
-            type: 'ATTACK',
-            attackEffects: [
-                { type: 'GAIN_CARD', cardId: 'curse', destination: 'discardPile' }
-            ]
-        },
-        {
-            type: 'TRASH',
-            min: 0,
-            max: 1,
-            from: 'hand',
-            filter: { cardIds: ['curse'] }
-        }
-    ]
+        { type: 'ATTACK', attackEffects: [{ type: 'GAIN_CARD', cardId: 'curse', destination: 'discardPile' }] }
+    ] as any
 };

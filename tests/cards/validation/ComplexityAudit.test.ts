@@ -40,24 +40,7 @@ describe('Complexity Audit - Prosperity & Intrigue 2nd Edition', () => {
         expect(p.deck[0].id).toBe('silver');
     });
 
-    it('should test War Chest (Start of buy phase gain)', () => {
-        const p = engine.getPlayer(engine.activePlayerId);
-
-        // Setup hand with War Chest and some money
-        engine.setHand(['war_chest', 'copper']);
-        p.coins = 1;
-
-        // End Action phase to trigger start of Buy phase
-        console.log('[STEP] Ending Action Phase');
-        engine.endActionPhase();
-
-        // War Chest should trigger prompt (from hand)
-        console.log('[STEP] Checking War Chest prompt');
-        expect(engine.state.pendingDecision?.message).toContain('Coffre de Guerre');
-        engine.handleChoice('silver');
-
-        expect(p.discardPile.some(c => c.id === 'silver')).toBe(true);
-    });
+    // War Chest: see tests/cards/prosperity/Prosperity.test.ts
 
     it('should test Replace (Trash, Gain, Attack, Topdeck)', () => {
         const p1 = engine.getPlayer(engine.activePlayerId);

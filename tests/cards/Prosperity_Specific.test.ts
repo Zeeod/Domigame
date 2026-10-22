@@ -1,53 +1,28 @@
 import { describe, it, expect } from 'vitest';
-import { createGameState } from '../../shared/engine/GameState.js';
-import { createPlayerState } from '../../shared/engine/PlayerState.js';
-import { EffectEngine } from '../../shared/engine/EffectEngine.js';
-import { CardRegistry } from '../../shared/cards/index.js';
 import { EconomyEngine } from '../../shared/engine/EconomyEngine.js';
-const getCardCost = (s: any, pid: string, id: string) => EconomyEngine.getCardCost(s, pid, id);
+import { makeGame, cards, player, play } from '../helpers/play.js';
+
+const toBuy = (s: any) => { s.phase = 'BUY'; s.phaseIndex = s.phasePipeline!.indexOf('BUY'); return s; };
 
 describe('Prosperity Specific Cards', () => {
-
     describe('Quarry (Carrière)', () => {
-        it('should reduce Action cards cost by 2 when in play', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-
-            // Setup: Quarry is in play
-            p1.playArea = [{ id: 'quarry', instanceId: 'q1' }];
-
-            // Test on a 5-cost Action (Market)
-            const marketCost = getCardCost(state, p1.id, 'market');
-            expect(marketCost).toBe(3); // 5 - 2 = 3
-
-            // Test on a 3-cost Action (Village)
-            const villageCost = getCardCost(state, p1.id, 'village');
-            expect(villageCost).toBe(1); // 3 - 2 = 1
-
-            // Test on a 2-cost Action (Cellar)
-            const cellarCost = getCardCost(state, p1.id, 'cellar');
-            expect(cellarCost).toBe(0); // 2 - 2 = 0
-
-            // Test on a Treasure (Gold) - Should NOT reduce
-            const goldCost = getCardCost(state, p1.id, 'gold');
-            expect(goldCost).toBe(6);
+        it('reduces Action cards cost by 2 this turn', () => {
+            let s = toBuy(makeGame(['quarry']));
+            player(s).hand = cards('quarry');
+            s = play(s, 'quarry');
+            expect(EconomyEngine.getCardCost(s, 'p1', 'market')).toBe(3);
+            expect(EconomyEngine.getCardCost(s, 'p1', 'village')).toBe(1);
+            expect(EconomyEngine.getCardCost(s, 'p1', 'cellar')).toBe(0);
+            expect(EconomyEngine.getCardCost(s, 'p1', 'gold')).toBe(6);
         });
 
-        it('should stack with multiple Quarries', () => {
-            const state = createGameState('test-seed');
-            const p1 = createPlayerState('p1', 'Player 1');
-            state.players.push(p1);
-
-            // Setup: 2 Quarries in play
-            p1.playArea = [
-                { id: 'quarry', instanceId: 'q1' },
-                { id: 'quarry', instanceId: 'q2' }
-            ];
-
-            // Test on a 5-cost Action (Market)
-            const marketCost = getCardCost(state, p1.id, 'market');
-            expect(marketCost).toBe(1); // 5 - 4 = 1
+        it('stacks with multiple Quarries, even if one leaves play', () => {
+            let s = toBuy(makeGame(['quarry']));
+            player(s).hand = cards('quarry', 'quarry');
+            s = play(s, 'quarry'); s = play(s, 'quarry');
+            expect(EconomyEngine.getCardCost(s, 'p1', 'market')).toBe(1);
+            player(s).playArea = [];
+            expect(EconomyEngine.getCardCost(s, 'p1', 'market')).toBe(1);
         });
     });
 });

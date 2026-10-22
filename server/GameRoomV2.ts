@@ -32,6 +32,7 @@ import { SupplyGenerator } from '../shared/engine/SupplyGenerator.js';
 import { VictoryChecker } from '../shared/engine/VictoryChecker.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
+import { applyKingdomRules } from '../shared/engine/KingdomRules.js';
 import { database } from './Database.js';
 
 // ============================================================================
@@ -879,6 +880,7 @@ export class GameRoomV2 {
 
         const kingdomCardIds = overrideKingdom || (this.config.kingdomCards ?? []).filter((id): id is string => id !== null);
         state.kingdomCards = kingdomCardIds;
+        applyKingdomRules(state);
         const useShelters = SupplyGenerator.shouldUseShelters(kingdomCardIds, this.config.sheltersMode);
         const heirlooms = SupplyGenerator.getRequiredHeirlooms(kingdomCardIds);
 

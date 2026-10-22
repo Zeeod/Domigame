@@ -12,7 +12,7 @@ export const hoard: CardDefinition = {
     cost: 6,
     types: ['TREASURE'],
     expansion: 'prosperity',
-    description: 'Vaut 2 💰. Tant que cette carte est en jeu, quand vous achetez une carte Victoire, gagnez un Or.',
+    description: '2 💰. Ce tour-ci, quand vous recevez une carte Victoire, si vous l\'avez achetée, recevez un Or.',
     treasureValue: 2,
     effects: [
         { type: 'ADD_MONEY', amount: 2 }

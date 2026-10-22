@@ -13,26 +13,10 @@ export const warChest: CardDefinition = {
     cost: 5,
     types: ['TREASURE'],
     expansion: 'prosperity',
-    description: 'Vaut 2 💰. Au début de votre phase d\'Achat, si vous avez au moins 1 💰, vous pouvez gagner une carte coûtant jusqu\'à 4 💰.',
-    treasureValue: 2,
+    description: 'Le joueur à votre gauche nomme une carte. Recevez une carte coûtant jusqu\'à 5 💰 qui n\'a pas été nommée pour un Trésor de guerre ce tour-ci.',
+    treasureValue: 0,
     effects: [
-        { type: 'ADD_MONEY', amount: 2 }
-    ],
-    triggers: [
-        {
-            trigger: 'START_BUY_PHASE',
-            effects: [
-                {
-                    type: 'CHOOSE_FROM_ZONE',
-                    sourceZone: 'supply',
-                    destination: 'discardPile',
-                    min: 0,
-                    max: 1,
-                    filter: { maxCost: 4 },
-                    message: 'Voulez-vous gagner une carte via Coffre de Guerre ?',
-                    optional: true
-                }
-            ]
-        }
-    ]
+        { type: 'WAR_CHEST' }
+    ] as any,
+    triggers: []
 };

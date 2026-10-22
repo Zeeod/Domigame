@@ -50,6 +50,10 @@ export class ActionResolver {
      * Uses Immer to ensure immutability and handle structural sharing.
      */
     static resolve(state: GameState, playerId: string, action: GameAction): ActionResult {
+        return CardRegistry.withGameOverrides(state.cardOverrides, () => this.resolveWithRules(state, playerId, action));
+    }
+
+    private static resolveWithRules(state: GameState, playerId: string, action: GameAction): ActionResult {
         debugLog(`[ActionResolver] resolve: type=${action.type}, playerId=${playerId}`);
         let actionResult: any = { success: false };
 

@@ -13,24 +13,14 @@ export const mint: CardDefinition = {
     cost: 5,
     types: ['ACTION'],
     expansion: 'prosperity',
-    description: 'Révélez une carte Trésor de votre main. Gagnez-en une copie. Lors de l\'achat : écartez tous vos Trésors en jeu.',
+    description: 'Vous pouvez dévoiler un Trésor de votre main. Recevez-en une copie. Quand vous recevez cette carte, écartez tous les Trésors hors Durée que vous avez en jeu.',
     effects: [
         {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            message: 'Révélez un Trésor pour en gagner une copie',
+            type: 'CHOOSE_FROM_ZONE', sourceZone: 'hand', min: 0, max: 1,
+            message: 'Monnaie : dévoilez un Trésor pour en recevoir une copie',
             filter: { cardTypes: ['TREASURE'] },
-            onSuccess: [
-                { type: 'GAIN_COPY_OF_TARGET' }
-            ]
+            onSuccess: [{ type: 'GAIN_COPY_OF_TARGET' }]
         }
-    ],
-    onBuy: [
-        {
-            type: 'TRASH',
-            from: 'play_area',
-            forceAll: true,
-            filter: { cardTypes: ['TREASURE'] }
-        } as any
-    ]
+    ] as any,
+    onGain: [{ type: 'MINT_ON_GAIN' }] as any
 };
