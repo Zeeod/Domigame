@@ -6,7 +6,7 @@ export const Herbalist: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'alchemy',
-    description: "+1 Achat.\n+1 Pièce.\nLorsque vous écartez cette carte du jeu, vous pouvez replacer une de vos cartes Trésor en jeu sur votre deck.",
+    description: '+1 Achat, +1 💰. Quand vous défaussez cette carte du jeu, vous pouvez placer un de vos Trésors en jeu sur votre pioche.',
     effects: [
         {
             type: 'ADD_BUYS',
@@ -17,15 +17,5 @@ export const Herbalist: CardDefinition = {
             amount: 1
         }
     ],
-    onCleanup: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'playArea',
-            destination: 'deck',
-            min: 0,
-            max: 1,
-            filter: { cardTypes: ['TREASURE'] },
-            message: 'Choisissez un Trésor à replacer sur votre deck'
-        }
-    ]
+    onDiscard: [{ type: 'HERBALIST_ON_DISCARD' }] as any
 };

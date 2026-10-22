@@ -15,6 +15,7 @@ import { peekMat } from '../shared/engine/Mats.js';
 import { CardRegistry } from '../shared/cards/index.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { DeckEvaluator } from '../shared/bot/DeckEvaluator.js';
+import { possessionOf } from '../shared/engine/Possession.js';
 import { SerializedCard, PublicPlayerState, PublicGameState, PrivatePlayerState, SerializedState } from '../shared/types/index.js';
 
 // Extend PublicGameState to include turnEndTime
@@ -42,6 +43,16 @@ export class StateSerializerV2 {
         }
 
         const privateState = this.serializePrivate(state, forPlayerId);
+
+        // Possession: the controller sees (and plays) the possessed player's hand
+        const poss = possessionOf(state);
+        if (poss) {
+            const possessed = state.players.find(p => p.id === poss.possessedId);
+            publicState.possession = {
+                ...poss,
+                hand: forPlayerId === poss.controllerId && possessed ? possessed.hand.map(c => this.serializeCard(c)) : undefined,
+            };
+        }
 
         return {
             public: publicState,

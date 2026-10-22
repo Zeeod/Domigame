@@ -11,6 +11,7 @@ import { ZoneManager } from '../ZoneManager.js';
 import { EffectManager } from '../EffectManager.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { endPossessionTurn } from '../Possession.js';
 import { getMat } from '../Mats.js';
 
 export class CleanupEffectHandler {
@@ -87,6 +88,38 @@ export class CleanupEffectHandler {
             }
         });
 
+        // Stack is LIFO: push the draw and the turn change first, so that effects of cards
+        // discarded from play (Alchemist, Herbalist, Tireless...) happen before them.
+        const isOutpostTurn = state.extraTurns && state.extraTurns.length > 0 &&
+            state.extraTurns[0].playerId === player.id &&
+            state.extraTurns[0].type === 'OUTPOST';
+
+        let drawCount = isOutpostTurn ? 3 : 5;
+        if (player.artifacts?.includes('flag')) {
+            drawCount += 1;
+        }
+        if (player.nextTurnDraw) {
+            drawCount += player.nextTurnDraw;
+            player.nextTurnDraw = 0;
+        }
+
+        // Move DRAW and turn transition to the stack
+        state.effectStack.push({
+            type: 'EFFECT',
+            playerId: player.id,
+            effect: { type: 'START_NEXT_TURN' } as any
+        });
+
+        state.effectStack.push({
+            type: 'EFFECT',
+            playerId: player.id,
+            effect: { type: 'DRAW', amount: drawCount } as any,
+            context: { suppressLog: true }
+        });
+
+        // Cards discarded from play this Clean-up (Alchemist checks for a Potion, Herbalist picks a Treasure)
+        state.cleanupDiscardedFromPlay = toDiscard.map(c => c.instanceId);
+
         for (const card of toDiscard) {
             const def = CardRegistry.get(card.id);
             if (def) {
@@ -130,33 +163,6 @@ export class CleanupEffectHandler {
         player.discardPile.push(...toDiscard);
         player.playArea = toKeep;
 
-        const isOutpostTurn = state.extraTurns && state.extraTurns.length > 0 &&
-            state.extraTurns[0].playerId === player.id &&
-            state.extraTurns[0].type === 'OUTPOST';
-
-        let drawCount = isOutpostTurn ? 3 : 5;
-        if (player.artifacts?.includes('flag')) {
-            drawCount += 1;
-        }
-        if (player.nextTurnDraw) {
-            drawCount += player.nextTurnDraw;
-            player.nextTurnDraw = 0;
-        }
-
-        // Move DRAW and turn transition to the stack
-        state.effectStack.push({
-            type: 'EFFECT',
-            playerId: player.id,
-            effect: { type: 'START_NEXT_TURN' } as any
-        });
-
-        state.effectStack.push({
-            type: 'EFFECT',
-            playerId: player.id,
-            effect: { type: 'DRAW', amount: drawCount } as any,
-            context: { suppressLog: true }
-        });
-
         return { state, needsChoice: false };
     }
 
@@ -175,6 +181,20 @@ export class CleanupEffectHandler {
             endingPlayer.gainedLastTurn = endingPlayer.gainedThisTurn || [];
             endingPlayer.gainedThisTurn = [];
         }
+        // Turns count for the tie-breaker (a Possession turn is not the possessed player's own)
+        if (endingPlayer && (state.currentExtraTurn as any)?.type !== 'POSSESSION') {
+            endingPlayer.turnsTaken = (endingPlayer.turnsTaken || 0) + 1;
+        }
+        if ((state.currentExtraTurn as any)?.type === 'POSSESSION') endPossessionTurn(state, endingPlayer);
+
+        // The game ends at the end of a turn: check before starting the next one
+        if (VictoryChecker.checkGameEnd(state).isGameOver) {
+            state.phase = 'GAME_OVER';
+            state.isGameOver = true;
+            this.calculateScores(state);
+            return { state, needsChoice: false };
+        }
+        if (!state.currentExtraTurn) state.lastNormalTurnIndex = state.currentPlayerIndex;
         state.currentExtraTurn = null;
 
         if (state.extraTurns && state.extraTurns.length > 0) {
@@ -184,12 +204,12 @@ export class CleanupEffectHandler {
                 if (idx !== -1) {
                     state.currentPlayerIndex = idx;
                     state.currentExtraTurn = extraTurnInfo;
-                    const label: Record<string, string> = { OUTPOST: 'Avant-poste', MISSION: 'Mission', VOYAGE: 'Voyage' };
+                    const label: Record<string, string> = { OUTPOST: 'Avant-poste', MISSION: 'Mission', VOYAGE: 'Voyage', POSSESSION: 'Possession' };
                     this.log(state, `--- Tour Supplémentaire${extraTurnInfo.type && label[extraTurnInfo.type] ? ` (${label[extraTurnInfo.type]})` : ''} ---`);
                 }
             }
         } else {
-            state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
+            state.currentPlayerIndex = ((state.lastNormalTurnIndex ?? state.currentPlayerIndex) + 1) % state.players.length;
         }
         state.previousTurnPlayerId = endingPlayerId;
         state.cardsPlayedFromHandThisTurn = 0;
@@ -288,54 +308,16 @@ export class CleanupEffectHandler {
             // Note: Auto-advance checking is handled by PhaseEngine or callers of the stack resolution
         }
 
-        // Check Victory
-        const victoryResult = VictoryChecker.checkGameEnd(state);
-        if (victoryResult.isGameOver) {
-            state.phase = 'GAME_OVER';
-            state.isGameOver = true;
-            this.calculateScores(state);
-        }
-
         return { state, needsChoice: false };
     }
 
     private static calculateScores(state: GameState): void {
-        const scores: { playerId: string; score: number }[] = [];
-
-        // Apply Landscape effects for everyone first
-        const activeLandscapes = LandscapeManager.getActiveLandscapes(state);
-        for (const landscapeId of activeLandscapes) {
-            const def = LandscapeRegistry.get(landscapeId);
-            if (def && def.onScore) {
-                // ...
-            }
+        const { scores, winnerIds } = VictoryChecker.ranking(state);
+        for (const s of scores) {
+            const p = state.players.find(pl => pl.id === s.playerId);
+            if (p) p.score = s.score;
         }
-
-        for (const player of state.players) {
-            let score = player.vpTokens || 0;
-            const allCards = ZoneManager.getAllCards(player);
-
-            const totalCardCount = allCards.length;
-            for (const card of allCards) {
-                const def = CardRegistry.get(card.id);
-                if (!def) continue;
-
-                if (def.vpCalculator) {
-                    score += def.vpCalculator(allCards, (id) => CardRegistry.get(id));
-                } else if (def.dynamicVP) {
-                    if (card.id === 'gardens') score += Math.floor(totalCardCount / 10);
-                } else if (card.id === 'duke') {
-                    score += allCards.filter(c => c.id === 'duchy').length;
-                } else if (def.victoryPoints) {
-                    score += def.victoryPoints;
-                }
-            }
-            player.score = score;
-            scores.push({ playerId: player.id, score });
-        }
-
-        scores.sort((a, b) => b.score - a.score);
-        state.winnerId = scores[0]?.playerId ?? null;
+        state.winnerId = winnerIds[0] ?? null;
         state.gameResults = scores.map(s => {
             const player = state.players.find(p => p.id === s.playerId)!;
             return {
@@ -343,10 +325,16 @@ export class CleanupEffectHandler {
                 name: player.name,
                 color: player.color,
                 score: s.score,
-                isWinner: player.id === state.winnerId
+                isWinner: winnerIds.includes(player.id)
             };
         });
 
+        if (winnerIds.length > 1) {
+            const names = winnerIds.map(id => state.players.find(p => p.id === id)?.name).join(' et ');
+            this.log(state, `Partie terminée ! Victoire partagée : ${names} !`);
+            for (const s of scores) this.log(state, `${s.playerName}: ${s.score} points`);
+            return;
+        }
         const winner = state.players.find(p => p.id === state.winnerId);
         this.log(state, `Partie terminée! Victoire de ${winner?.name}!`);
         for (const s of scores) {

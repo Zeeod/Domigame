@@ -2,6 +2,7 @@ import { GameState, PlayerState, CardInstance, EffectResult } from '../GameState
 import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { interceptTrash } from '../Possession.js';
 import { EffectManager } from '../EffectManager.js';
 
 
@@ -14,7 +15,7 @@ export class TrashEffectHandler {
      * The caller is responsible for removing the card from its previous zone.
      */
     public static trashCard(state: GameState, owner: PlayerState, card: CardInstance, opts: { suppressLog?: boolean } = {}): void {
-        state.trash.push(card);
+        if (!interceptTrash(state, owner, card)) state.trash.push(card);
         state.lastTrashedCard = card;
         state.lastTrashedCards = [...(state.lastTrashedCards || []), card];
         owner.trashedThisTurn = (owner.trashedThisTurn || 0) + 1;

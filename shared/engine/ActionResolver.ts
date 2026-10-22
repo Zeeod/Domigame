@@ -14,6 +14,7 @@ import { GameAction, ChoosePayload } from '../types/GameAction.js';
 import { EffectEngine } from './EffectEngine.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
+import { mapActor, gainRecipient } from './Possession.js';
 import { createCardInstance } from './CardInstance.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { TurnMachine } from './TurnMachine.js';
@@ -50,7 +51,8 @@ export class ActionResolver {
      * Uses Immer to ensure immutability and handle structural sharing.
      */
     static resolve(state: GameState, playerId: string, action: GameAction): ActionResult {
-        return CardRegistry.withGameOverrides(state.cardOverrides, () => this.resolveWithRules(state, playerId, action));
+        return CardRegistry.withGameOverrides(state.cardOverrides, () =>
+            this.resolveWithRules(state, mapActor(state, playerId, action) ?? playerId, action));
     }
 
     private static resolveWithRules(state: GameState, playerId: string, action: GameAction): ActionResult {
@@ -473,12 +475,13 @@ export class ActionResolver {
         // Trigger ON_BUY effects (e.g. Hoard, Haggler) - Before gain
         TriggerEffectHandler.handleOnBuyTriggers(state, player, cardToGainId);
 
-        // Gain card
-        player.discardPile.push(cardToGainInstance);
+        // Gain card (Possession: the controller gains it instead)
+        const gainer = gainRecipient(state, player);
+        gainer.discardPile.push(cardToGainInstance);
         state.lastGainedCard = cardToGainInstance;
 
         // Trigger ON_GAIN effects (e.g. Cemetery, Cache, Ill-Gotten Gains)
-        const gainResult = TriggerEffectHandler.triggerOnGainEffects(state, player, cardToGainInstance);
+        const gainResult = TriggerEffectHandler.triggerOnGainEffects(state, gainer, cardToGainInstance);
         state = gainResult.state;
 
         // Seaside: Track VP bought

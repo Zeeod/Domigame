@@ -45,8 +45,6 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'encampment', // [first] effet(s) sans gestionnaire : RETURN_TO_SUPPLY_AT_CLEANUP
     'fortune', // [first] effet(s) sans gestionnaire : MULTIPLY_MONEY
     'skulk', // [first] effet(s) sans gestionnaire : RECEIVE_HEX
-    'philosophers_stone', // [first] effet(s) sans gestionnaire : ADD_COINS_PER_CARDS
-    'transmute', // [first] effet(s) sans gestionnaire : SWITCH_ON_LAST_TRASHED
     'cursed_village', // [first] effet(s) sans gestionnaire : RECEIVE_HEX
     'pixie', // [first] effet(s) sans gestionnaire : CHOICE
     'seer', // [first] effet(s) sans gestionnaire : undefined

@@ -3,6 +3,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { EconomyEngine } from '../EconomyEngine.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { gainRecipient } from '../Possession.js';
 import { debugLog } from '../debug.js';
 
 export class GainEffectHandler {
@@ -85,6 +86,9 @@ export class GainEffectHandler {
         if (!cardId) {
             return { state, needsChoice: false };
         }
+
+        // Possession: the controller gains the card instead
+        player = gainRecipient(state, player);
 
         const newCard = this.takeFromPile(state, cardId);
         if (!newCard) {

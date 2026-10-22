@@ -33,6 +33,7 @@ import { VictoryChecker } from '../shared/engine/VictoryChecker.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
 import { applyKingdomRules } from '../shared/engine/KingdomRules.js';
+import { actingPlayerFor } from '../shared/engine/Possession.js';
 import { database } from './Database.js';
 
 // ============================================================================
@@ -1416,7 +1417,9 @@ export class GameRoomV2 {
         // 1. Check for pending decisions (reactions, discards, etc.)
         if (this.gameState.pendingDecision) {
             const decisionId = this.gameState.pendingDecision.id;
-            const deciderId = this.gameState.pendingDecision.playerId;
+            // The seat the decision is for, and who answers it (Possession: the controller)
+            const seatId = this.gameState.pendingDecision.playerId;
+            const deciderId = actingPlayerFor(this.gameState, seatId);
             const roomPlayer = this.players.find(p => p.id === deciderId);
 
             if (roomPlayer?.isBot) {
@@ -1429,8 +1432,8 @@ export class GameRoomV2 {
                         if (this.gameState?.pendingDecision?.id !== decisionId) return;
 
                         const action = bot.resolveChoice
-                            ? bot.resolveChoice(this.gameState, deciderId)
-                            : bot.chooseAction(this.gameState, deciderId);
+                            ? bot.resolveChoice(this.gameState, seatId)
+                            : bot.chooseAction(this.gameState, seatId);
 
                         if (action) {
                             this.handleActionByPlayerId(deciderId, action);
@@ -1450,13 +1453,14 @@ export class GameRoomV2 {
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         if (!currentPlayer) return;
 
-        const roomPlayer = this.players.find(p => p.id === currentPlayer.id);
+        const actorId = actingPlayerFor(this.gameState, currentPlayer.id);
+        const roomPlayer = this.players.find(p => p.id === actorId);
 
         // console.log(`[scheduleBotTurnIfNeeded] Player: ${currentPlayer.name} (id: ${currentPlayer.id}), isBot: ${roomPlayer?.isBot}, isConnected: ${roomPlayer?.isConnected}`);
 
         if (!roomPlayer || !roomPlayer.isBot) return;
 
-        const bot = this.bots.get(currentPlayer.id);
+        const bot = this.bots.get(actorId);
         if (!bot) return;
 
         const delay = Math.random() * 400 + 400; // 0.4 - 0.8 seconds
@@ -1468,11 +1472,11 @@ export class GameRoomV2 {
 
             const action = bot.chooseAction(this.gameState, currentPlayer.id);
             if (action) {
-                this.handleActionByPlayerId(currentPlayer.id, action);
+                this.handleActionByPlayerId(actorId, action);
             } else {
                 this.logger.error('BOT_ACTION', `Bot ${bot.name} failed to resolve action.`);
                 // Force end phase if bot fails to act
-                this.handleActionByPlayerId(currentPlayer.id, { type: 'END_PHASE' });
+                this.handleActionByPlayerId(actorId, { type: 'END_PHASE' });
             }
         }, delay);
     }

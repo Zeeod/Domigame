@@ -12,6 +12,7 @@ import { PhaseEngine } from '../../shared/engine/PhaseEngine.js';
 import { CardInstance } from '../../shared/engine/GameState.js';
 import { autoPayload } from './autoPlay.js';
 import { applyKingdomRules } from '../../shared/engine/KingdomRules.js';
+import { actingPlayerFor } from '../../shared/engine/Possession.js';
 
 export interface TestGame {
     state: GameState;
@@ -49,6 +50,11 @@ export function player(state: GameState, id = 'p1') {
 }
 
 /** Validate then resolve, exactly like the server (GameRoomV2). Throws on an illegal action. */
+/** Send any action as `playerId` (validated like the server). */
+export function act(state: GameState, playerId: string, action: any): GameState {
+    return apply(state, playerId, action);
+}
+
 function apply(state: GameState, playerId: string, action: any): GameState {
     const validation = RulesValidator.validate(state, playerId, action);
     if (!validation.valid) throw new Error(`Invalid ${action.type}: ${validation.error}`);
@@ -68,7 +74,7 @@ export function play(state: GameState, cardId: string, playerId = 'p1'): GameSta
 export function choose(state: GameState, payload: any, playerId?: string): GameState {
     const d = state.pendingDecision;
     if (!d) throw new Error('No pending decision');
-    return apply(state, playerId ?? d.playerId, { type: 'CHOOSE', choiceId: d.id, payload });
+    return apply(state, playerId ?? actingPlayerFor(state, d.playerId), { type: 'CHOOSE', choiceId: d.id, payload });
 }
 
 /** Select cards (by card id, first matches) for the pending decision. */
@@ -114,7 +120,7 @@ export function endTurn(state: GameState): GameState {
             state = choose(state, autoPayload(state, 'first'));
             continue;
         }
-        state = endPhase(state, state.players[state.currentPlayerIndex].id);
+        state = endPhase(state, actingPlayerFor(state, state.players[state.currentPlayerIndex].id));
     }
     return state;
 }

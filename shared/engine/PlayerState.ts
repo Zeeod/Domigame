@@ -150,6 +150,8 @@ export interface PlayerState {
     debt: number;
     favors: number;
     vpTokens: number;
+    /** Turns this player has finished (tie-breaker) */
+    turnsTaken?: number;
     coinTokens: number;
     potions: number;
 
