@@ -52,8 +52,6 @@ export const SHELL_CARDS: ReadonlySet<string> = new Set([
  * Listed here so that a game never uses them in a broken state.
  */
 export const BROKEN_CARDS: ReadonlySet<string> = new Set([
-    // Alchemy — needs "control another player's turn" support
-    'possession',
 ]);
 
 export const UNFINISHED_CARDS: ReadonlySet<string> = new Set([...SHELL_CARDS, ...BROKEN_CARDS]);

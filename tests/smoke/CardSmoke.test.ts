@@ -6,6 +6,7 @@
  * Report: logs/smoke_report.json. Cards that still fail are listed in KNOWN_BROKEN
  * (the test fails if a new card breaks, or if a listed card now works: update the list).
  */
+import { actingPlayerFor } from '../../shared/engine/Possession.js';
 import { describe, it, expect, vi } from 'vitest';
 import fs from 'fs';
 import { GameRoomV2 } from '../../server/GameRoomV2.js';
@@ -114,7 +115,7 @@ function runCard(pileId: string, cardId: string, strategy: Strategy): string | n
             continue;
         }
         const current = state.players[state.currentPlayerIndex];
-        const r = act(state, current.id, { type: 'END_PHASE' });
+        const r = act(state, actingPlayerFor(state, current.id), { type: 'END_PHASE' });
         if (!r.ok) return `fin de phase (${state.phase}) : ${r.error}`;
         state = r.state;
         const c = check(`tour ${state.turnNumber}`); if (c) return c;

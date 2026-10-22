@@ -23,7 +23,9 @@ export type Phase = 'PREGAME' | 'START' | 'ACTION' | 'BUY' | 'NIGHT' | 'CLEANUP'
 export interface ExtraTurnInfo {
     playerId: string;
     /** OUTPOST: draw 3 for this turn's hand · MISSION: no buying cards · VOYAGE: card limit */
-    type?: 'OUTPOST' | 'MISSION' | 'VOYAGE' | 'EXTRA';
+    type?: 'OUTPOST' | 'MISSION' | 'VOYAGE' | 'EXTRA' | 'POSSESSION';
+    /** POSSESSION: the player who makes the decisions and gains the cards */
+    controllerId?: string;
     /** Max cards that may be played from hand during the turn (Voyage: 3) */
     cardLimit?: number;
 }
@@ -151,6 +153,10 @@ export interface GameState {
     id: string;
     /** Per-game changes to card definitions (KingdomRules), e.g. Charlatan makes Curse a Treasure */
     cardOverrides?: Record<string, any>;
+    /** Instance ids of the cards discarded from play in the current Clean-up */
+    cleanupDiscardedFromPlay?: string[];
+    /** Index of the player who took the last normal (non-extra) turn: rotation resumes after them */
+    lastNormalTurnIndex?: number;
     players: PlayerState[];
     currentPlayerIndex: number;
     /** Queue of extra turns with metadata (Outpost, etc) */

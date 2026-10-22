@@ -9,6 +9,7 @@
 import { GameState, getCurrentPlayer } from '../engine/GameState.js';
 import { GameAction } from '../types/GameAction.js';
 import { CardRegistry } from '../cards/index.js';
+import { mapActor } from './Possession.js';
 import { PromptType } from './prompts/Prompt.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { EffectUtils } from './EffectUtils.js';
@@ -33,7 +34,11 @@ export class RulesValidator {
      * NEVER mutates state
      */
     static validate(state: GameState, playerId: string, action: GameAction): ValidationResult {
-        return CardRegistry.withGameOverrides(state.cardOverrides, () => this.validateWithRules(state, playerId, action));
+        return CardRegistry.withGameOverrides(state.cardOverrides, () => {
+            const actor = mapActor(state, playerId, action);
+            if (actor === null) return { valid: false, error: 'Un autre joueur contrôle ce tour (Possession)' };
+            return this.validateWithRules(state, actor, action);
+        });
     }
 
     private static validateWithRules(state: GameState, playerId: string, action: GameAction): ValidationResult {

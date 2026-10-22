@@ -3,6 +3,7 @@
  * knowing it in advance. Strategy 'first' picks the minimum / first option,
  * 'last' picks the maximum / last option (to cover other branches).
  */
+import { actingPlayerFor } from '../../shared/engine/Possession.js';
 import { GameState, CardInstance } from '../../shared/engine/GameState.js';
 import { CardRegistry } from '../../shared/cards/index.js';
 import { EconomyEngine } from '../../shared/engine/EconomyEngine.js';
@@ -120,7 +121,7 @@ export function resolveAll(state: GameState, strategy: Strategy = 'first', maxSt
     for (let i = 0; i < maxSteps && state.pendingDecision; i++) {
         const d = state.pendingDecision;
         const payload = autoPayload(state, strategy);
-        const r = act(state, d.playerId, { type: 'CHOOSE', choiceId: d.id, payload });
+        const r = act(state, actingPlayerFor(state, d.playerId), { type: 'CHOOSE', choiceId: d.id, payload });
         if (!r.ok) return { ok: false, error: `décision ${d.type}/${(d as any).context?.specialAction ?? '-'} : ${r.error}`, state };
         state = r.state;
     }

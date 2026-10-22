@@ -7,20 +7,9 @@ export const University: CardDefinition = {
     cost: 2,
     potionCost: 1,
     expansion: 'alchemy',
-    description: "+2 Actions.\nRecevez une carte Action coûtant jusqu'à 5 pièces.",
+    description: '+2 Actions. Vous pouvez recevoir une carte Action coûtant jusqu\'à 5 💰.',
     effects: [
-        {
-            type: 'ADD_ACTIONS',
-            amount: 2
-        },
-        {
-            type: 'GAIN_CARD',
-            minDecoratedCost: 0,
-            maxDecoratedCost: 5, // Engine handles coin cost <= 5.
-            // Assumption: maxDecoratedCost handles basic coin cost.
-            // If strict adherence to "Action card costing up to 5", we need a filter.
-            allowedTypes: ['ACTION'],
-            message: 'Recevez une carte Action coûtant jusqu\'à 5 pièces'
-        }
-    ]
+        { type: 'ADD_ACTIONS', amount: 2 },
+        { type: 'GAIN_CARD', maxCost: 5, cardTypes: ['ACTION'], optional: true, message: 'Université : recevez une carte Action coûtant jusqu\'à 5 💰' }
+    ] as any
 };
