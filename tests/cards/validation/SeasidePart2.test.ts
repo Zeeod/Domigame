@@ -105,55 +105,7 @@ describe('Seaside Expansion Part 2', () => {
         engine.assertCleanState();
     });
 
-    it('should test Lookout (Vigie)', () => {
-        const p = engine.findPlayer('Player 1');
-        // +1 Action. Look at 3 cards. Trash 1, Discard 1, Top 1.
-        engine.setHand(p, ['lookout']);
-        engine.setDeck(p, ['copper', 'silver', 'gold']); // 3 cards
-
-        engine.playCard('lookout');
-
-        // Cards moved to ASIDE/LIMBO?
-        // Lookout implementation: MOVE_CARDS deck->aside count=3.
-        // Prompt 1: Trash (source: aside).
-        expect(p.aside.length).toBe(3);
-
-        // Trash Copper
-        const copper = p.aside.find(c => c.id === 'copper')!;
-        engine.respondToDecision({
-            type: 'CARDS',
-            cardIds: [copper.instanceId]
-        });
-
-        // State Check: Trash has Copper. Aside has Silver, Gold.
-        expect(engine.state.trash.find(c => c.id === 'copper')).toBeDefined();
-        expect(p.aside.length).toBe(2);
-
-        // Prompt 2: Discard (source: aside).
-        // Discard Silver
-        const silver = p.aside.find(c => c.id === 'silver')!;
-        engine.respondToDecision({
-            type: 'CARDS',
-            cardIds: [silver.instanceId]
-        });
-
-        // State Check: Discard has Silver. Aside has Gold.
-        expect(p.discardPile.find(c => c.id === 'silver')).toBeDefined();
-        expect(p.aside.length).toBe(0);
-
-        // Auto-move Gold to TopDeck (or logic might just finish)
-        // Lookout last effect: MOVE_CARDS aside->deck count=1.
-        // Should happen automatically as no choice needed? Or impl might vary.
-        // If prompt needed, we'd see it.
-        // But impl said "count: 1". 
-        // Let's assume it moves automatically.
-
-        expect(engine.state.pendingDecision).toBeNull();
-        expect(p.deck.length).toBe(1);
-        expect(p.deck[0].id).toBe('gold');
-
-        engine.assertCleanState();
-    });
+    // Lookout: see tests/cards/seaside/Seaside.test.ts
 
     it('should test Salvager (Naufrageur)', () => {
         const p = engine.findPlayer('Player 1');

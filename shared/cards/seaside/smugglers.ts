@@ -8,10 +8,6 @@ export const smugglers: CardDefinition = {
     cost: 3,
     expansion: 'seaside',
     effects: [
-        {
-            type: 'CHECK_PREVIOUS_TURN',
-            query: 'GAINED_CARDS_BY_OPPONENT'
-            // This EffectPrimitive handles finding the card and letting user choose one to gain (cost <= 6)
-        }
-    ]
+        { type: 'SMUGGLERS' }
+    ] as any
 };

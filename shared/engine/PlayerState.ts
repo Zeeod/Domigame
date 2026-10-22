@@ -79,6 +79,9 @@ export interface PlayerState {
     actionsPlayed: number;
     /** How many times each card (by id) has been played this turn, Throne Room replays included */
     playedThisTurn: Record<string, number>;
+    /** Card ids gained during this player's current turn / previous turn (Smugglers) */
+    gainedThisTurn?: string[];
+    gainedLastTurn?: string[];
 
     /** Number of Silvers played this turn (Merchant) */
     silversPlayed: number;

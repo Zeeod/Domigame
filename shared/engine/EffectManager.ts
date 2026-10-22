@@ -92,10 +92,7 @@ export class EffectManager {
         }
 
         // Prompt user to pick the NEXT trigger to resolve
-        return {
-            state,
-            needsChoice: true,
-            decision: {
+        const decision: any = {
                 id: `order_${Date.now()}_${Math.random()}`,
                 playerId: player.id,
                 type: 'SELECT_OPTION',
@@ -111,8 +108,10 @@ export class EffectManager {
                     // Triggers might contain functions or complex data, careful with serialization.
                     // For now, in-memory reference is fine for server-side state.
                 }
-            }
         };
+        // Handlers publish their decision on the state (that is what the client and validator read)
+        state.pendingDecision = decision;
+        return { state, needsChoice: true, decision };
     }
 
     /**
@@ -159,9 +158,10 @@ export class EffectManager {
         Logger.log(state, `Résolution de : ${trigger.description}`, player.id);
 
         // Push effects to stack (reverse for correct execution order)
+        const runAs = (trigger as any).runAsPlayerId || player.id;
         const items = trigger.effects.map(e => ({
             type: 'EFFECT' as const,
-            playerId: player.id,
+            playerId: runAs,
             effect: e,
             context: { ...(trigger.context || {}), sourceCardInstanceId: trigger.context?.sourceCardInstanceId }
         }));

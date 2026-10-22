@@ -47,10 +47,6 @@ export class CleanupEffectHandler {
         if (cleanupTriggers.length > 0) {
             EffectManager.resolveTriggers(state, player, cleanupTriggers, "Effets de fin de tour");
             
-            const executedIndices = cleanupTriggers.filter(t => (t as any).once && (t as any).originalIndex !== undefined).map(t => (t as any).originalIndex);
-            if (executedIndices.length > 0 && state.triggers) {
-                state.triggers = state.triggers.filter((_, i) => !executedIndices.includes(i));
-            }
         }
 
         // 4. Legacy onCleanup (if any)
@@ -174,6 +170,11 @@ export class CleanupEffectHandler {
         }
 
         const endingPlayerId = state.players[state.currentPlayerIndex]?.id;
+        const endingPlayer = state.players[state.currentPlayerIndex];
+        if (endingPlayer) {
+            endingPlayer.gainedLastTurn = endingPlayer.gainedThisTurn || [];
+            endingPlayer.gainedThisTurn = [];
+        }
         state.currentExtraTurn = null;
 
         if (state.extraTurns && state.extraTurns.length > 0) {
@@ -196,7 +197,8 @@ export class CleanupEffectHandler {
         // "Until your next turn" triggers end when their owner's turn starts
         const startingPlayerId = state.players[state.currentPlayerIndex]?.id;
         if (state.triggers && startingPlayerId) {
-            state.triggers = state.triggers.filter(t => !(t.expires === 'START_OF_NEXT_TURN' && t.playerId === startingPlayerId));
+            state.triggers = state.triggers.filter(t => !(t.expires === 'START_OF_NEXT_TURN' && t.playerId === startingPlayerId)
+                && t.expiresOnTurnOf !== startingPlayerId);
         }
 
         state.turnNumber++;
@@ -274,10 +276,6 @@ export class CleanupEffectHandler {
             if (dynamicTriggers.length > 0) {
                 triggers.push(...dynamicTriggers);
                 
-                const executedIndices = dynamicTriggers.filter(t => (t as any).once && (t as any).originalIndex !== undefined).map(t => (t as any).originalIndex);
-                if (executedIndices.length > 0 && state.triggers) {
-                    state.triggers = state.triggers.filter((_, i) => !executedIndices.includes(i));
-                }
             }
 
             // 4. Resolve simultaneously

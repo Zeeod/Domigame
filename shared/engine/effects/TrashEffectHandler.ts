@@ -244,8 +244,18 @@ export class TrashEffectHandler {
         }
 
         // DISCARD logic often requires a prompt first.
-        const minAmount = effect.min !== undefined ? effect.min : (effect.optional ? 0 : amount);
-        const maxAmount = effect.max !== undefined ? effect.max : amount;
+        const candidates = EffectUtils.filterCards(player.hand, effect.filter);
+        let minAmount = effect.min !== undefined ? effect.min : (effect.optional ? 0 : amount);
+        const maxAmount = Math.min(effect.max !== undefined ? effect.max : amount, candidates.length);
+        minAmount = Math.min(minAmount, candidates.length);
+        if (maxAmount <= 0) {
+            // Nothing can be discarded (e.g. Cutpurse with no Copper): failure branch
+            if (effect.onFailure) {
+                const effects = Array.isArray(effect.onFailure) ? effect.onFailure : [effect.onFailure];
+                state.effectStack.push(...effects.map((e: any) => ({ type: 'EFFECT' as const, playerId: player.id, effect: e, context: {} })).reverse());
+            }
+            return { state, needsChoice: false };
+        }
 
 
 

@@ -9,10 +9,12 @@ export const tactician: CardDefinition = {
     expansion: 'seaside',
     effects: [
         {
-            type: 'DISCARD',
-            forceAll: true
+            // Only if you have at least one card in hand: discard it, and the next-turn bonus happens
+            type: 'CONDITION', condition: 'HAND_SIZE', comparator: '>=', value: 1,
+            trueEffects: [{ type: 'DISCARD', forceAll: true }],
+            falseEffects: [{ type: 'CANCEL_DURATION' }]
         }
-    ],
+    ] as any,
     // Helper for Duration logic:
     // Engine automatically replays "duration" effects?
     // Or I need `durationEffects` field in CardDefinition?
