@@ -106,11 +106,11 @@ export const imperial_envoy: CardDefinition = {
     name: 'Émissaire Impérial',
     cost: 5,
     types: ['ACTION'],
-    description: "+1 Action. +1 💰. Regardez les 4 cartes du haut de votre pioche. Écartez-en une, défaussez-en une, mettez-en une dans votre main et une sur votre pioche.",
+    description: "+5 Cartes. +1 Achat. +2 Dettes.",
     effects: [
-        { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'ADD_MONEY', amount: 1 },
-        { type: 'IMPERIAL_ENVOY_EFFECT' as any }
+        { type: 'DRAW', amount: 5 },
+        { type: 'ADD_BUYS', amount: 1 },
+        { type: 'TAKE_DEBT', amount: 2 }
     ],
     expansion: 'rising_sun'
 };
@@ -155,9 +155,10 @@ export const litter: CardDefinition = {
 export const mountain_shrine: CardDefinition = {
     id: 'mountain_shrine',
     name: 'Sanctuaire de Montagne',
-    cost: 5,
+    cost: 0,
+    debtCost: 5,
     types: ['ACTION', 'OMEN'],
-    description: "+1 Soleil. Vous pouvez écarter une carte de votre main. S'il y a des Action dans le rebut, +2 Cartes. +2 💰.",
+    description: "+1 Soleil. +2 💰. Vous pouvez écarter une carte de votre main. Ensuite, s'il y a une carte Action au rebut, +2 Cartes.",
     effects: [
         { type: 'REMOVE_SUN_TOKEN' },
         { type: 'SELECT_AND_APPLY', source: 'hand', max: 1, action: 'TRASH' as any, optional: true },

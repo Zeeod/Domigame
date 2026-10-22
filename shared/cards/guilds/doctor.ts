@@ -13,7 +13,7 @@ export const doctor: CardDefinition = {
             type: 'REVEAL_CARDS',
             amount: 3,
             source: 'deck',
-            destination: 'aside'
+            destination: 'limbo'
         },
         { type: 'TRASH_NAMED_CARDS' },
         { type: 'REORDER_AND_RETURN', destination: 'deck' }

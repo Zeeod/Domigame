@@ -130,18 +130,19 @@ export class MenagerieEffectHandler {
             state.pendingDecision = {
                 id: `scrap_choice_${Date.now()}`,
                 playerId: player.id,
-                type: 'CHOOSE_OPTION',
-                message: `Choisissez ${cost} bonus différents (Ferraille)`,
+                type: 'SELECT_OPTION',
+                message: `Choisissez ${Math.min(cost, 6)} bonus différents (Ferraille)`,
                 options: [
                     { label: '+1 Carte', effects: [{ type: 'DRAW', amount: 1 }] },
                     { label: '+1 Action', effects: [{ type: 'MODIFY_RESOURCE', resource: 'actions', amount: 1 }] },
                     { label: '+1 Achat', effects: [{ type: 'MODIFY_RESOURCE', resource: 'buys', amount: 1 }] },
+                    { label: '+1 💰', effects: [{ type: 'ADD_MONEY', amount: 1 }] },
                     { label: 'Gagner un Argent', effects: [{ type: 'GAIN_CARD', cardId: 'silver' }] },
                     { label: 'Gagner un Cheval', effects: [{ type: 'GAIN_CARD', cardId: 'horse' }] }
                 ],
                 constraints: {
-                    min: Math.min(cost, 5),
-                    max: Math.min(cost, 5),
+                    min: Math.min(cost, 6),
+                    max: Math.min(cost, 6),
                     exclusive: true,
                     sourceZone: 'aside'
                 },

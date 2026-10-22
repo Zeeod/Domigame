@@ -7,11 +7,11 @@ export const Golem: CardDefinition = {
     cost: 4,
     potionCost: 1,
     expansion: 'alchemy',
-    description: "Révélez des cartes de votre deck jusqu'à ce que vous ayez révélé 2 cartes Action autres que des Golems. Écartez les autres cartes révélées, puis jouez les cartes Action révélées dans n'importe quel ordre.",
+    description: "Révélez des cartes de votre deck jusqu'à ce que vous ayez révélé 2 cartes Action autres que des Golems. Défaussez les autres cartes révélées, puis jouez les cartes Action révélées dans n'importe quel ordre.",
     effects: [
         {
             type: 'REVEAL_UNTIL',
-            condition: { cardTypes: ['ACTION'], excludeTypes: ['GOLEM'] },
+            condition: { cardTypes: ['ACTION'], excludeIds: ['golem'] },
             amount: 2,
             destination: 'aside',
             failDestination: 'discardPile'

@@ -43,11 +43,12 @@ export const sorceress: CardDefinition = {
     name: 'Enchanteresse (Augure)',
     cost: 5,
     types: ['ACTION', 'ATTACK', 'AUGUR'],
-    description: "+1 Carte. +1 Action. Nommez une carte. Révélez la carte du haut du deck de chaque autre joueur. S'il s'agit de la carte nommée, il reçoit une Malédiction.",
+    description: "+1 Action. Nommez une carte. Dévoilez la carte du dessus de votre pioche et prenez-la en main. S'il s'agit de la carte nommée, chaque autre joueur reçoit une Malédiction.",
     effects: [
-        { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'NAME_CARD' as any, next: { type: 'ATTACK', attackEffects: [{ type: 'SORCERESS_AUGUR_ATTACK' as any }] } }
+        { type: 'NAME_CARD' } as any,
+        // Put the top card into your hand; if it is the named card, each other player gains a Curse
+        { type: 'TOP_TO_HAND_CHECK_NAMED', ifNamed: [{ type: 'ATTACK', attackEffects: [{ type: 'GAIN_CARD', cardId: 'curse' }] }] } as any
     ],
     expansion: 'allies',
     isSubCard: true

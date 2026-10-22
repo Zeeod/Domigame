@@ -16,15 +16,6 @@ export class AlliesEffectHandler {
         // =================================================================
 
         // BAUBLE: Next gain to deck
-        EffectHandlerRegistry.register('NEXT_GAIN_TO_DECK', (state, player) => {
-            const trigger = {
-                type: 'REGISTER_TRIGGER',
-                trigger: 'ON_GAIN',
-                duration: 'ONCE',
-                effects: [{ type: 'MOVE_CARDS', source: 'discardPile', destination: 'deck', position: 'TOP', count: 1 } as any]
-            } as any;
-            return TriggerEffectHandler.handleRegisterTrigger(state, player, trigger);
-        });
 
         // SYCOPHANT: Discard 3, if any were Action/Treasure -> +3 Money
         EffectHandlerRegistry.register('SYCOPHANT_EFFECT', (state: GameState, player) => {
@@ -52,8 +43,7 @@ export class AlliesEffectHandler {
 
         // BARBARIAN ATTACK
         EffectHandlerRegistry.register('BARBARIAN_ATTACK', (state, player) => {
-            const cards = EffectUtils.drawCards(state, player, 1);
-            const card = cards[0];
+            const card = EffectUtils.handleDrawCardsToLimbo(state, player, 1).cards[0]; // top card, not drawn
             if (!card) return { state, needsChoice: false };
 
             TrashEffectHandler.trashCard(state, player, card);
@@ -153,7 +143,7 @@ export class AlliesEffectHandler {
 
         // HUNTER: Reveal 3, put Action, Treasure, Victory in hand
         EffectHandlerRegistry.register('HUNTER_EFFECT', (state, player) => {
-            const cards = EffectUtils.drawCards(state, player, 3);
+            const { cards } = EffectUtils.handleDrawCardsToLimbo(state, player, 3); // revealed, not drawn
             EffectUtils.revealCards(state, cards, 'ALL', 'Chasseur');
             const toHand: CardInstance[] = [];
             const typesNeeded = new Set(['ACTION', 'TREASURE', 'VICTORY']);
@@ -195,7 +185,8 @@ export class AlliesEffectHandler {
 
         // SENTINEL: Look at top 5, trash up to 2, discard any, reorder rest
         EffectHandlerRegistry.register('SENTINEL_EFFECT', (state, player) => {
-            const cards = EffectUtils.drawCards(state, player, 5);
+            const { cards } = EffectUtils.handleDrawCardsToLimbo(state, player, 5); // looked at, not drawn
+            player.limbo.push(...cards);
             EffectUtils.revealCards(state, cards, 'ALL', 'Sentinelle');
             state.pendingDecision = {
                 id: 'sentinel_choice',
@@ -368,20 +359,6 @@ export class AlliesEffectHandler {
             return { state, needsChoice: false };
         });
 
-        // SORCERESS AUGUR ATTACK
-        EffectHandlerRegistry.register('SORCERESS_AUGUR_ATTACK', (state, player, _eff, ctx) => {
-            const namedCardId = ctx.namedCardId;
-            const topCard = EffectUtils.drawCards(state, player, 1)[0];
-            if (topCard) {
-                EffectUtils.revealCards(state, [topCard], 'ALL', `Haut du deck de ${player.name}`);
-                if (topCard.id === namedCardId) {
-                    state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'GAIN_CARD', cardId: 'curse' } });
-                }
-                player.deck.unshift(topCard); // Put back
-            }
-            return { state, needsChoice: false };
-        });
-
         // SORCERER WIZARD ATTACK
         EffectHandlerRegistry.register('SORCERER_WIZARD_ATTACK', (state, player) => {
             state.pendingDecision = {
@@ -399,7 +376,7 @@ export class AlliesEffectHandler {
 
         EffectHandlerRegistry.register('SORCERER_REVEAL_AND_CHECK', (state, player, _eff, ctx) => {
             const guessedCardId = ctx.namedCardId;
-            const topCard = EffectUtils.drawCards(state, player, 1)[0];
+            const topCard = EffectUtils.handleDrawCardsToLimbo(state, player, 1).cards[0]; // revealed, then put back
             if (topCard) {
                 EffectUtils.revealCards(state, [topCard], 'ALL', `${player.name} révèle sa carte`);
                 if (topCard.id !== guessedCardId) {
@@ -413,7 +390,8 @@ export class AlliesEffectHandler {
         // MILLER
         EffectHandlerRegistry.register('SELECT_FROM_TOPDECK', (state, player, effect) => {
             const eff = effect as any;
-            const cards = EffectUtils.drawCards(state, player, eff.amount || 1);
+            const { cards } = EffectUtils.handleDrawCardsToLimbo(state, player, eff.amount || 1); // looked at, not drawn
+            player.limbo.push(...cards);
             if (cards.length === 0) return { state, needsChoice: false };
 
             state.pendingDecision = {
@@ -421,18 +399,15 @@ export class AlliesEffectHandler {
                 playerId: player.id,
                 type: 'CHOOSE_CARDS',
                 message: `Choisissez ${eff.count || 1} carte(s) à mettre dans votre ${eff.destination || 'hand'}`,
-                constraints: { min: eff.count || 1, max: eff.count || 1, sourceZone: 'limbo' },
+                constraints: { min: Math.min(eff.count || 1, cards.length), max: eff.count || 1, sourceZone: 'limbo' },
                 context: {
-                    cards,
-                    onSelect: [
-                        { type: 'MOVE_CARDS', source: 'limbo', destination: eff.destination || 'hand', count: eff.count || 1 },
-                        { type: 'MOVE_CARDS', source: 'limbo', destination: 'discardPile', count: 'ALL' }
-                    ]
+                    cards: cards.map(c => ({ id: c.id, instanceId: c.instanceId })),
+                    // The chosen card(s) go to `destination`; the rest are discarded
+                    action: 'MOVE',
+                    destination: eff.destination || 'hand',
+                    next: [{ type: 'MOVE_CARDS', source: 'limbo', destination: 'discardPile', count: 'ALL' }]
                 }
             } as any;
-            // Move cards to a temporary zone (limbo) for selection
-            state.players.find(p => p.id === player.id)!.hand.push(...cards); // Hack: use hand for now if no limbo
-            // Actually, we should use a specific context for these cards.
             return { state, needsChoice: true };
         });
 

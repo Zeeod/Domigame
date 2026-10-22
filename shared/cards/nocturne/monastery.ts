@@ -4,7 +4,7 @@ export const Monastery: CardDefinition = {
     id: 'monastery',
     name: 'Monastère',
     cost: 2,
-    types: ['ACTION', 'NIGHT'],
+    types: ['NIGHT'],
     heirloom: 'goat',
     expansion: 'nocturne',
     description: 'Pour chaque carte que vous avez reçue ce tour-ci, vous pouvez écarter une carte de votre main ou un Cuivre que vous avez en jeu.',

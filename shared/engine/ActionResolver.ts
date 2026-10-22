@@ -189,22 +189,21 @@ export class ActionResolver {
         const isEnlightenmentFulfilled = state.activeProphecyId === 'enlightenment' &&
             state.landscapeState['enlightenment']?.tokens?.sun === 0;
 
-        // 1. Auto-transition to BUY phase if treasure (ORDER MATTERS: Log must come after transition)
-        // Exception: Enlightenment makes Treasures Actions in Action phase
-        if (isTreasure && state.phase === 'ACTION' && !isEnlightenmentFulfilled) {
-            TurnMachine.endActionPhase(state);
-        }
-
         const isNight = cardDef.types.includes('NIGHT');
         const isAction = cardDef.types.includes('ACTION');
 
-        // Phase Restrictions
+        // 1. Playing a Treasure (that is not also an Action) in the Action phase starts the Buy phase.
+        // Exception: Enlightenment makes Treasures Actions in Action phase
+        if (isTreasure && !isAction && state.phase === 'ACTION' && !isEnlightenmentFulfilled) {
+            TurnMachine.endActionPhase(state);
+        }
+
+        // Phase restrictions — a card with several types may be played in the phase of any of them
+        // (Crown: Action in the Action phase, Treasure in the Buy phase; Werewolf: Action or Night).
         if (state.phase === 'ACTION') {
-            if (isNight) return { success: false, state, error: 'Cannot play Night cards in Action phase' };
-            // Treasures handled above (auto-transition) or allowed if mixed type? (To verify rules: Treasures can be played in Action? No, usually signifies Buy phase start)
+            if (!isAction && !(isTreasure && isEnlightenmentFulfilled)) return { success: false, state, error: 'Cannot play this card in Action phase' };
         } else if (state.phase === 'BUY') {
-            if (isAction) return { success: false, state, error: 'Cannot play Action cards in Buy phase' }; // Unless specific exceptions (e.g. Black Market?)
-            if (isNight) return { success: false, state, error: 'Cannot play Night cards in Buy phase' };
+            if (!isTreasure) return { success: false, state, error: 'Can only play Treasures in Buy phase' };
         } else if (state.phase === 'NIGHT') {
             if (!isNight) return { success: false, state, error: 'Can only play Night cards in Night phase' };
         }
@@ -304,8 +303,9 @@ export class ActionResolver {
             }
         }
 
-        // Pay action cost
-        if (cardDef.types.includes('ACTION') || (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE') && state.phase === 'ACTION')) {
+        // Pay action cost — only when played as an Action, i.e. in the Action phase
+        // (Crown played as a Treasure in the Buy phase, or Werewolf in the Night phase, cost nothing)
+        if (state.phase === 'ACTION' && (cardDef.types.includes('ACTION') || (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE')))) {
             player.actions--;
             player.actionsPlayed++;
         }

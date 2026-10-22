@@ -173,19 +173,6 @@ export class RisingSunEffectHandler {
             return { state, needsChoice: false };
         });
 
-        EffectHandlerRegistry.register('RETURN_TO_PILE', (state, player, _effect, ctx) => {
-            const cardInstanceId = ctx.instanceId || ctx.cardInstanceId;
-            // Search in discardPile or hand if triggered by something else
-            const card = EffectUtils.removeCardFromPlayer(state, player, cardInstanceId);
-            if (card) {
-                const pile = state.supply[card.id];
-                if (pile) {
-                    pile.count++;
-                    Logger.log(state, `${player.name} remet ${CardRegistry.get(card.id)?.name} dans sa pile.`);
-                }
-            }
-            return { state, needsChoice: false };
-        });
         EffectHandlerRegistry.register('APPROACHING_ARMY_EFFECT', (state, player) => {
             const p = {
                 type: 'REGISTER_TRIGGER',
@@ -310,26 +297,6 @@ export class RisingSunEffectHandler {
         });
 
         // IMPERIAL ENVOY
-        EffectHandlerRegistry.register('IMPERIAL_ENVOY_EFFECT', (state, player) => {
-            const cards = EffectUtils.drawCards(state, player, 4);
-            EffectUtils.revealCards(state, cards, 'ALL', 'Émissaire Impérial');
-            state.pendingDecision = {
-                id: 'imperial_envoy_choice',
-                playerId: player.id,
-                type: 'COMPOSITE_FILTER',
-                message: 'Émissaire Impérial : Écartez 1, défaussez 1, hand 1, deck 1',
-                context: {
-                    cards,
-                    buckets: [
-                        { id: 'trash', label: 'Écarter', min: 1, max: 1 },
-                        { id: 'discard', label: 'Défausser', min: 1, max: 1 },
-                        { id: 'hand', label: 'En main', min: 1, max: 1 },
-                        { id: 'deck', label: 'Sur le deck', min: 1, max: 1 }
-                    ]
-                }
-            } as any;
-            return { state, needsChoice: true };
-        });
 
         // MOUNTAIN SHRINE: If Actions in trash, +2 Cards. +2 Money.
         EffectHandlerRegistry.register('MOUNTAIN_SHRINE_EFFECT', (state, player) => {
@@ -435,26 +402,5 @@ export class RisingSunEffectHandler {
         });
 
         // MOUNTAIN SHRINE: Trash a card. +$1 per unique name in play.
-        EffectHandlerRegistry.register('MOUNTAIN_SHRINE_EFFECT', (state, player) => {
-            const uniqueInPlay = new Set(player.playArea.map(c => c.id));
-            const bonus = uniqueInPlay.size;
-            player.coins += bonus;
-            Logger.log(state, `${player.name} gagne +${bonus} 💰 (Sanctuaire de la Montagne : ${bonus} nom(s) unique(s) en jeu).`);
-
-            state.effectStack.push({
-                type: 'EFFECT',
-                playerId: player.id,
-                effect: {
-                    type: 'SELECT_AND_APPLY',
-                    sourceZone: 'hand',
-                    min: 1,
-                    max: 1,
-                    message: 'Sanctuaire de la Montagne : Écartez une carte',
-                    action: 'TRASH' as any
-                } as any
-            });
-
-            return { state, needsChoice: false };
-        });
     }
 }

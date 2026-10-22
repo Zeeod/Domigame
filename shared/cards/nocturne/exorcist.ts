@@ -4,7 +4,7 @@ export const Exorcist: CardDefinition = {
     id: 'exorcist',
     name: 'Exorciste',
     cost: 4,
-    types: ['ACTION', 'NIGHT'],
+    types: ['NIGHT'],
     heirloom: 'haunted_mirror',
     expansion: 'nocturne',
     description: 'Écartez une carte de votre main. Recevez en main un Esprit moins cher que la carte écartée (dans la réserve non-supply).',

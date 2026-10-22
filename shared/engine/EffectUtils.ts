@@ -264,6 +264,10 @@ export class EffectUtils {
         }
     }
 
+    /**
+     * Takes up to `amount` cards off the top of the deck (reshuffling if needed) and RETURNS them:
+     * the caller must put them somewhere (limbo, aside, hand…), otherwise they are lost.
+     */
     public static handleDrawCardsToLimbo(state: GameState, player: PlayerState, amount: number): { state: GameState, cards: CardInstance[] } {
         const drawn: CardInstance[] = [];
         for (let i = 0; i < amount; i++) {
