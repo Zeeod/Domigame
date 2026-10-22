@@ -6,10 +6,10 @@ export const highway: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    description: '+1 Carte, +1 Action. Tant que cette carte est en jeu, les cartes coûtent 1 💰 de moins (pas moins de 0).',
+    description: '+1 Carte, +1 Action. Ce tour-ci, les cartes coûtent 1 💰 de moins.',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'COST_REDUCTION', amount: 1 }
+        { type: 'ADD_COST_REDUCTION', amount: 1 }
     ] as any
 };

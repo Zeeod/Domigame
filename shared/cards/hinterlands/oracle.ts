@@ -10,5 +10,6 @@ export const oracle: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 2 },
         { type: 'REVEAL_CARDS', amount: 2, source: 'deck', destination: 'deck' }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

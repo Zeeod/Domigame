@@ -2,6 +2,7 @@ import { GameState, PlayerState } from '../GameState.js';
 import { EffectHandlerRegistry } from '../EffectHandlerRegistry.js';
 import { EffectEngine } from '../EffectEngine.js';
 import { EffectUtils } from '../EffectUtils.js';
+import { discardCard } from '../Discard.js';
 import { CardRegistry } from '../../cards/index.js';
 
 /** Instance ids chosen in a decision payload, whatever its shape. */
@@ -60,7 +61,7 @@ export function registerOpponentChoiceEffects(): void {
         for (const id of chosen) {
             const card = EffectUtils.removeCardFromPlayer(state, owner, id);
             if (card) {
-                owner.discardPile.push(card);
+                discardCard(state, owner, card);
                 EffectUtils.log(state, `${owner.name} défausse ${CardRegistry.get(card.id)?.name || card.id}.`, owner.id);
             }
         }

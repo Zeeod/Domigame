@@ -89,10 +89,10 @@ export class EconomyEngine {
             cost = mod.modifier(state, playerId, cardId, cost);
         }
 
-        // Apply player-specific cost reduction (Bridge, Highway)
-        const player = state.players.find(p => p.id === playerId);
-        if (player && player.costReduction) {
-            cost -= player.costReduction;
+        // "This turn, cards cost $1 less" (Bridge, Highway): applies to everyone during that turn
+        const current = state.players[state.currentPlayerIndex];
+        if (current && current.costReduction) {
+            cost -= current.costReduction;
         }
 
         // System fallback: ensure no negative cost

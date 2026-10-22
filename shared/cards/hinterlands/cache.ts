@@ -14,5 +14,6 @@ export const cache: CardDefinition = {
     onGain: [
         { type: 'GAIN_CARD', cardId: 'copper', destination: 'discardPile' },
         { type: 'GAIN_CARD', cardId: 'copper', destination: 'discardPile' }
-    ]
+    ],
+    isLegacy: true
 };

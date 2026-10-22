@@ -120,6 +120,13 @@ export class CleanupEffectHandler {
         // Cards discarded from play this Clean-up (Alchemist checks for a Potion, Herbalist picks a Treasure)
         state.cleanupDiscardedFromPlay = toDiscard.map(c => c.instanceId);
 
+        // "This turn, when you discard … from play" effects registered during the turn (Scheme)
+        const pending = (state.discardFromPlayEffects || []).filter(e => e.playerId === player.id && e.turn === state.turnNumber);
+        state.discardFromPlayEffects = [];
+        for (const e of pending.reverse()) {
+            state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: e.effect });
+        }
+
         for (const card of toDiscard) {
             const def = CardRegistry.get(card.id);
             if (def) {

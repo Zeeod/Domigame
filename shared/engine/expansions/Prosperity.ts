@@ -12,6 +12,7 @@ import { GameState, PlayerState, CardInstance } from '../GameState.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { TrashEffectHandler } from '../effects/TrashEffectHandler.js';
 import { GainEffectHandler } from '../effects/GainEffectHandler.js';
+import { discardCard } from '../Discard.js';
 import { playCardNow } from '../Play.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
@@ -106,7 +107,7 @@ export const ProsperityModule: ExpansionModule = {
                 if (effect.to === 'play') { playCardNow(state, player, effect.instanceId); return done(state); }
                 const [card] = player.deck.splice(idx, 1);
                 if (effect.to === 'trash') TrashEffectHandler.trashCard(state, player, card);
-                else player.discardPile.push(card);
+                else discardCard(state, player, card);
                 return done(state);
             }
         },

@@ -24,6 +24,6 @@ export const duchess: CardDefinition = {
                 }
             ]
         }
-    ]
-    // Note: "When gaining Duchy, may gain Duchess" requires special trigger handling
+    ],
+    isLegacy: true
 };

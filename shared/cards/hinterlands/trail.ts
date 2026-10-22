@@ -2,24 +2,18 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const trail: CardDefinition = {
     id: 'trail',
-    name: 'Sentier',
+    name: 'Piste',
     cost: 4,
     types: ['ACTION', 'REACTION'],
-    description: '+1 Carte; +1 Action; +1 💰. \nRéaction: Lorsque cette carte est gagnée, écartée ou défaussée, vous pouvez la jouer.',
+    description: '+1 Carte, +1 Action. Quand vous recevez, écartez ou défaussez cette carte, hors phase d\'Ajustement, vous pouvez la jouer.',
     effects: [
         { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'ADD_MONEY', amount: 1 }
-    ],
-    isReaction: true,
-    reactionTrigger: 'ANY', // TRIGGER ON GAIN / TRASH / DISCARD
-    reactionEffects: [
-        { type: 'PLAY_THIS_CARD' }
-    ],
+        { type: 'ADD_ACTIONS', amount: 1 }
+    ] as any,
     // Triggers required to activate reaction opportunity or auto-play
-    onGain: [{ type: 'PLAY_THIS_CARD', optional: true }],
-    onTrash: [{ type: 'PLAY_THIS_CARD', optional: true }],
-    onDiscard: [{ type: 'PLAY_THIS_CARD', optional: true }],
+    onGain: [{ type: 'MAY_PLAY_THIS' }] as any,
+    onTrash: [{ type: 'MAY_PLAY_THIS', fromTrash: true }] as any,
     expansion: 'hinterlands',
-    isLegacy: false
+    isLegacy: false,
+    onDiscardOutsideCleanup: [{ type: 'MAY_PLAY_THIS' }] as any
 };

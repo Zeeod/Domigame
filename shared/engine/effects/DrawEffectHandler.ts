@@ -4,6 +4,7 @@ import { EffectUtils } from '../EffectUtils.js';
 import { PromptType } from '../prompts/Prompt.js';
 import { EffectDefinition } from '../../types/EffectDefinition.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
+import { discardCards } from '../Discard.js';
 import { debugLog } from '../debug.js';
 
 export class DrawEffectHandler {
@@ -67,7 +68,7 @@ export class DrawEffectHandler {
         if (player.hand.length >= targetSize) {
             // Discard aside cards if any (from Library/Watchtower logic)
             if (player.aside.length > 0) {
-                player.discardPile.push(...player.aside);
+                discardCards(state, player, player.aside);
                 player.aside = [];
             }
             return { state, needsChoice: false };
@@ -76,7 +77,7 @@ export class DrawEffectHandler {
         const { cards } = this.handleDrawCardsToLimbo(state, player, 1);
         if (cards.length === 0) {
             if (player.aside.length > 0) {
-                player.discardPile.push(...player.aside);
+                discardCards(state, player, player.aside);
                 player.aside = [];
             }
             return { state, needsChoice: false };
@@ -136,7 +137,7 @@ export class DrawEffectHandler {
         }
 
         player.hand.push(...treasures);
-        player.discardPile.push(...revealed);
+        discardCards(state, player, revealed);
 
         EffectUtils.log(state, `${player.name} ajoute ${treasures.length} Trésor(s) à sa main.`, player.id);
         return { state, needsChoice: false };

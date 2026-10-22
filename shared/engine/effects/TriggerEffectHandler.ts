@@ -269,12 +269,14 @@ export class TriggerEffectHandler {
                 if (!def || def.reactionTrigger !== 'ANY_GAIN') continue;
                 const cond = def.reactionCondition;
                 if (cond?.type === 'GAIN_TYPE' && !CardRegistry.get(gainedCardId)?.types.includes(cond.value)) continue;
+                if (cond?.type === 'GAIN_ID' && gainedCardId !== cond.value) continue;
+                if (cond?.othersOnly && p.id === player.id) continue;
                 state.effectStack.push({
                     type: 'EFFECT',
                     playerId: p.id,
                     effect: {
                         type: 'SELECT_OPTION',
-                        message: `Voulez-vous jouer ${def.name} depuis votre main ?`,
+                        message: def.reactionMessage || `Voulez-vous jouer ${def.name} depuis votre main ?`,
                         options: [
                             { label: 'Oui', effects: def.reactionEffects || [{ type: 'PLAY_THIS_CARD' }] },
                             { label: 'Non', effects: [] }

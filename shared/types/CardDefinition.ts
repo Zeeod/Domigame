@@ -124,6 +124,10 @@ export interface CardDefinition {
 
     /** Is this a legacy card (e.g. 1st Edition)? */
     isLegacy?: boolean;
+    /** "When you discard this other than during Clean-up" (Tunnel, Weaver, Trail…) */
+    onDiscardOutsideCleanup?: any[];
+    /** Prompt shown when offering this card's reaction */
+    reactionMessage?: string;
 
     /** Path to card image */
     image?: string;

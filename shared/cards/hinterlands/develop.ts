@@ -6,18 +6,8 @@ export const develop: CardDefinition = {
     types: ['ACTION'],
     cost: 3,
     expansion: 'hinterlands',
-    description: 'Écartez une carte de votre main. Gagnez deux cartes différentes de la Réserve: une coûtant exactement 1💰 de plus que la carte écartée, et une coûtant exactement 1💰 de moins. Placez-les sur votre pioche dans l\'ordre de votre choix.',
+    description: 'Écartez une carte de votre main. Recevez une carte coûtant exactement 1 💰 de plus et une carte coûtant exactement 1 💰 de moins, dans l\'ordre de votre choix, sur votre pioche.',
     effects: [
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            message: 'Choisissez une carte à écarter',
-            onSuccess: [
-                { type: 'GAIN_CARD_EXACT_COST', costBonus: 1, destination: 'deck' },
-                { type: 'GAIN_CARD_EXACT_COST', costBonus: -1, destination: 'deck' }
-            ]
-        } as any
-    ]
+        { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Développement : écartez une carte', onSuccess: [{ type: 'DEVELOP' }] }
+    ] as any
 };

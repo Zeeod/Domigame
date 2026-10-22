@@ -6,6 +6,7 @@ import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { Logger } from '../Logger.js';
 import { CardInstance, GameState } from '../GameState.js';
 import { ChoiceEffectHandler } from './ChoiceEffectHandler.js';
+import { discardCards, discardCard } from '../Discard.js';
 import { TrashEffectHandler } from './TrashEffectHandler.js';
 
 export class AlliesEffectHandler {
@@ -157,7 +158,7 @@ export class AlliesEffectHandler {
             }
 
             player.hand.push(...toHand);
-            player.discardPile.push(...cards);
+            discardCards(state, player, cards);
             return { state, needsChoice: false };
         });
 
@@ -350,7 +351,7 @@ export class AlliesEffectHandler {
                     toDiscard.forEach(c => {
                         const idx = player.hand.findIndex(hc => hc.instanceId === c.instanceId);
                         if (idx !== -1) {
-                            player.discardPile.push(player.hand.splice(idx, 1)[0]);
+                            discardCard(state, player, player.hand.splice(idx, 1)[0]);
                         }
                     });
                     Logger.log(state, `${player.name} défausse ses Actions et Trésors (${toDiscard.length} cartes).`);

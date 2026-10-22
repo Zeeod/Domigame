@@ -3,6 +3,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { interceptTrash } from '../Possession.js';
+import { discardCards } from '../Discard.js';
 import { EffectManager } from '../EffectManager.js';
 
 
@@ -224,7 +225,7 @@ export class TrashEffectHandler {
         if (effect.forceAll) {
             const cards = [...player.hand];
             const discardedCount = cards.length;
-            player.discardPile.push(...cards);
+            discardCards(state, player, cards);
             player.hand = [];
             EffectUtils.log(state, `${player.name} défausse sa main.`, player.id);
             

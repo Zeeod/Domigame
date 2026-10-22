@@ -13,5 +13,6 @@ export const nomadCamp: CardDefinition = {
     ],
     onGain: [
         { type: 'MOVE_TO_POSITION', from: 'discardPile', position: 'TOP' }
-    ]
+    ],
+    isLegacy: true
 };

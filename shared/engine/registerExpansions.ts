@@ -9,6 +9,7 @@ import { ExpansionLoader } from './ExpansionLoader.js';
 import { BaseModule } from './expansions/Base.js';
 import { ProsperityModule } from './expansions/Prosperity.js';
 import { AlchemyModule } from './expansions/Alchemy.js';
+import { HinterlandsModule } from './expansions/Hinterlands.js';
 import { GuildsModule } from './expansions/Guilds.js';
 import { RenaissanceModule } from './expansions/Renaissance.js';
 import { NocturneModule } from './expansions/Nocturne.js';
@@ -30,6 +31,7 @@ export function registerAllExpansions(): void {
     ExpansionLoader.load(BaseModule);
     ExpansionLoader.load(ProsperityModule);
     ExpansionLoader.load(AlchemyModule);
+    ExpansionLoader.load(HinterlandsModule);
     ExpansionLoader.load(GuildsModule);
     ExpansionLoader.load(RenaissanceModule);
     ExpansionLoader.load(NocturneModule);

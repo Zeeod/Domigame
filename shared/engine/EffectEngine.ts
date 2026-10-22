@@ -9,6 +9,7 @@ import { addToMat } from './Mats.js';
 import { markPlayed } from './Play.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
+import { discardCards, discardCard } from './Discard.js';
 import { debugLog } from './debug.js';
 
 /**
@@ -346,7 +347,7 @@ export class EffectEngine {
             }
 
             if (action === 'DISCARD') {
-                player.discardPile.push(card);
+                discardCard(state, player, card);
             } else if (action === 'TRASH') {
                 TrashEffectHandler.trashCard(state, player, card);
             } else if (action === 'MOVE' && destination) {
@@ -451,7 +452,7 @@ export class EffectEngine {
         for (const selectedCard of selectedCards) {
             const card = EffectUtils.removeCardFromPlayer(state, player, selectedCard.instanceId);
             if (card) {
-                player.discardPile.push(card);
+                discardCard(state, player, card);
                 EffectUtils.log(state, `${player.name} défausse ${CardRegistry.get(card.id)?.name || card.id}.`, player.id);
             }
         }
@@ -482,7 +483,7 @@ export class EffectEngine {
         for (const id of discardIds) {
             const card = EffectUtils.removeCardFromPlayer(state, player, id);
             if (card) {
-                player.discardPile.push(card);
+                discardCard(state, player, card);
             }
         }
 
@@ -558,7 +559,7 @@ export class EffectEngine {
             });
         } else {
             // Done — discard aside cards
-            player.discardPile.push(...player.aside);
+            discardCards(state, player, player.aside);
             player.aside = [];
         }
     }
@@ -653,7 +654,7 @@ export class EffectEngine {
                 TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
             }
         } else {
-            player.discardPile.push(card);
+            discardCard(state, player, card);
             EffectUtils.log(state, `${player.name} défausse ${CardRegistry.get(card.id)?.name || card.id}.`, player.id);
         }
     }
@@ -750,7 +751,7 @@ export class EffectEngine {
                 const card = EffectUtils.removeCardFromPlayer(state, player, selectedCard.instanceId);
                 if (card) {
                     if (action === 'DISCARD') {
-                        player.discardPile.push(card);
+                        discardCard(state, player, card);
                     } else if (action === 'TRASH') {
                         TrashEffectHandler.trashCard(state, player, card);
                     } else if (action === 'MOVE' && destination) {
