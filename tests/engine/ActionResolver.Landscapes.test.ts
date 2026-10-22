@@ -17,6 +17,7 @@ describe('ActionResolver - Landscapes', () => {
         state.players = [p1];
         state.phase = 'BUY';
         state.landscapes = ['alms'];
+        state.supply['silver'] = { cardId: 'silver', count: 40, cards: [] } as any;
 
         const result = ActionResolver.resolve(state, 'p1', {
             type: 'BUY_LANDSCAPE',
