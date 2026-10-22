@@ -5,19 +5,15 @@ export const nomads: CardDefinition = {
     name: 'Nomades',
     cost: 4,
     types: ['ACTION'],
-    description: '+2 💰. \nLors de l\'achat: +2 Achats. \nLorsque vous écartez cette carte: +2 💰. \nLorsque vous défaussez cette carte pendant un tour: gagnez-la.',
+    description: '+1 Achat, +2 💰. Quand vous recevez ou écartez cette carte, +2 💰.',
     effects: [
+        { type: 'ADD_BUYS', amount: 1 },
         { type: 'ADD_MONEY', amount: 2 }
-    ],
-    onBuy: [
-        { type: 'ADD_BUYS', amount: 2 }
-    ],
+    ] as any,
     onTrash: [
         { type: 'ADD_MONEY', amount: 2 }
     ],
-    onDiscard: [
-        { type: 'GAIN_THIS_CARD' } // Requires Generic "ON_DISCARD" trigger support
-    ],
     expansion: 'hinterlands',
-    isLegacy: false
+    isLegacy: false,
+    onGain: [{ type: 'ADD_MONEY', amount: 2 }] as any
 };

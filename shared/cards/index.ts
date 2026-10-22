@@ -203,6 +203,16 @@ import { scheme } from './hinterlands/scheme.js';
 import { mandarin } from './hinterlands/mandarin.js';
 import { embassy } from './hinterlands/embassy.js';
 import { cache } from './hinterlands/cache.js';
+import { berserker } from './hinterlands/berserker.js';
+import { cauldron } from './hinterlands/cauldron.js';
+import { guard_dog } from './hinterlands/guard_dog.js';
+import { nomads } from './hinterlands/nomads.js';
+import { souk } from './hinterlands/souk.js';
+import { trail } from './hinterlands/trail.js';
+import { weaver } from './hinterlands/weaver.js';
+import { wheelwright } from './hinterlands/wheelwright.js';
+import { witchs_hut } from './hinterlands/witchs_hut.js';
+import { fools_gold } from './hinterlands/fools_gold.js';
 
 // Cornucopia expansion - Individual card files
 import { hamlet } from './cornucopia/hamlet.js';
@@ -584,6 +594,16 @@ const ALL_CARDS: Record<string, any> = {
     mandarin,
     embassy,
     cache,
+    berserker,
+    cauldron,
+    guard_dog,
+    nomads,
+    souk,
+    trail,
+    weaver,
+    wheelwright,
+    witchs_hut,
+    fools_gold,
 
     // Cornucopia (Abondance)
     hamlet,

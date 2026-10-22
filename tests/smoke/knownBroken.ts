@@ -15,11 +15,6 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'rebuild', // [first] effet(s) sans gestionnaire : REBUILD_EFFECT
     'rogue', // [first] effet(s) sans gestionnaire : ROGUE_EFFECT
     'survivors', // [first] effet(s) sans gestionnaire : CHOICE
-    'trader', // [first] effet(s) sans gestionnaire : GAIN_SILVERS_PER_COST
-    'highway', // [first] effet(s) sans gestionnaire : COST_REDUCTION
-    'inn', // [last] effet(s) sans gestionnaire : MOVE_TO_DECK_AND_SHUFFLE
-    'oracle', // [first] après avoir joué : nombre de cartes 306 → 304
-    'mandarin', // [first] effet(s) sans gestionnaire : TOPDECK_ALL_TREASURES_IN_PLAY
     'tournament', // [first] effet(s) sans gestionnaire : TOURNAMENT_EFFECT
     'young_witch', // [first] effet(s) sans gestionnaire : GAIN_CURSE_UNLESS_BANE
     'harvest', // [first] effet(s) sans gestionnaire : ADD_MONEY_PER_UNIQUE_CARD

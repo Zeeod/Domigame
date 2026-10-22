@@ -6,22 +6,14 @@ export const haggler: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',
-    description: '+2 💰. Tant que cette carte est en jeu, quand vous achetez une carte, gagnez une carte non-Victoire coûtant moins.',
+    description: '+2 💰. Ce tour-ci, quand vous recevez une carte que vous avez achetée, recevez une carte non-Victoire moins chère.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 }
     ],
     triggers: [
         {
             trigger: 'ON_BUY',
-            filter: { matchLinkedId: false }, // Triggers on any buy
-            effects: [
-                {
-                    type: 'GAIN_CARD',
-                    maxCost: 'LAST_BOUGHT_COST' as any,
-                    cardTypes: ['ACTION', 'TREASURE'], // Simplified: non-victory can be Action or Treasure
-                    destination: 'discardPile'
-                }
-            ]
+            effects: [{ type: 'GAIN_CARD', maxCost: 'LAST_BOUGHT_COST' as any, nonVictory: true, destination: 'discardPile', message: 'Marchandeur : recevez une carte non-Victoire moins chère' }]
         }
-    ]
+    ] as any
 };

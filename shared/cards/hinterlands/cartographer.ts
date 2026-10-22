@@ -10,25 +10,8 @@ export const cartographer: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'REVEAL_CARDS',
-            amount: 4,
-            source: 'deck',
-            destination: 'aside'
-        },
-        {
-            type: 'SELECT_AND_APPLY',
-            sourceZone: 'aside',
-            min: 0,
-            max: 4,
-            message: 'Défaussez des cartes (les autres seront remises sur votre pioche)',
-            action: 'DISCARD'
-        },
-        {
-            type: 'MOVE_CARDS',
-            source: 'aside',
-            destination: 'deck',
-            count: 'all'
-        }
+        { type: 'REVEAL_CARDS', amount: 4, source: 'deck', destination: 'limbo', private: true },
+        { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', min: 0, max: 4, message: 'Cartographe : défaussez autant de ces cartes que vous voulez', action: 'DISCARD' },
+        { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Cartographe : remettez les autres sur votre pioche dans l\'ordre de votre choix' }
     ] as any
 };

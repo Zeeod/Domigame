@@ -8,6 +8,7 @@
 import { ExpansionModule } from '../ExpansionLoader.js';
 import { CardRegistry } from '../../cards/index.js';
 import { GameState, PlayerState, CardInstance } from '../GameState.js';
+import { discardCard } from '../Discard.js';
 import { EffectUtils } from '../EffectUtils.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
@@ -140,7 +141,7 @@ export const AlchemyModule: ExpansionModule = {
                 const target = state.players.find(p => p.id === effect.targetId);
                 if (!target) return done(state);
                 const idx = target.deck.findIndex(c => c.instanceId === effect.instanceId);
-                if (idx !== -1) target.discardPile.push(target.deck.splice(idx, 1)[0]);
+                if (idx !== -1) discardCard(state, target, target.deck.splice(idx, 1)[0]);
                 return done(state);
             }
         },

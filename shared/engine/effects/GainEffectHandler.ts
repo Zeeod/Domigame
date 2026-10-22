@@ -143,6 +143,7 @@ export class GainEffectHandler {
         const filter: any = effect.exact ? { exactCost: target } : { maxCost: target };
         if (effect.cardTypes) filter.cardTypes = effect.cardTypes;
         if (effect.nonVictory) filter.nonVictory = true;
+        if (effect.excludeIds) filter.excludeIds = effect.excludeIds;
 
         return this.promptGainFromSupply(state, player, filter, {
             destination: effect.destination || 'discardPile',

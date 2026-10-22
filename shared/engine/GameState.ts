@@ -155,6 +155,8 @@ export interface GameState {
     cardOverrides?: Record<string, any>;
     /** Instance ids of the cards discarded from play in the current Clean-up */
     cleanupDiscardedFromPlay?: string[];
+    /** Effects to run when this turn's cards are discarded from play (Scheme) */
+    discardFromPlayEffects?: { playerId: string; turn: number; effect: any }[];
     /** Index of the player who took the last normal (non-extra) turn: rotation resumes after them */
     lastNormalTurnIndex?: number;
     players: PlayerState[];

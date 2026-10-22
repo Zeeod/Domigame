@@ -5,15 +5,9 @@ export const weaver: CardDefinition = {
     name: 'Tisserand',
     cost: 4,
     types: ['ACTION', 'REACTION'],
-    description: 'Gagnez 2 Argents. \nRéaction: Lorsque vous défaussez cette carte, vous pouvez la jouer.',
-    effects: [
-        { type: 'GAIN_CARD', cardId: 'silver', count: 2, destination: 'discardPile' }
-    ],
-    isReaction: true,
-    reactionTrigger: 'DISCARD',
-    onDiscard: [
-        { type: 'PLAY_THIS_CARD', optional: true }
-    ],
+    description: 'Recevez deux Argents ou une carte coûtant jusqu\'à 4 💰. Quand vous défaussez cette carte hors phase d\'Ajustement, vous pouvez la jouer.',
+    effects: [{ type: 'WEAVER' }] as any,
     expansion: 'hinterlands',
-    isLegacy: false
+    isLegacy: false,
+    onDiscardOutsideCleanup: [{ type: 'MAY_PLAY_THIS' }] as any
 };

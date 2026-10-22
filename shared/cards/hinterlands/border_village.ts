@@ -6,12 +6,10 @@ export const borderVillage: CardDefinition = {
     types: ['ACTION'],
     cost: 6,
     expansion: 'hinterlands',
-    description: '+1 Carte, +2 Actions. Quand vous gagnez cette carte, gagnez une carte coûtant moins.',
+    description: '+1 Carte, +2 Actions. Quand vous recevez cette carte, recevez une carte moins chère.',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 2 }
     ],
-    onGain: [
-        { type: 'GAIN_CARD', maxCost: 5, destination: 'discardPile' }
-    ]
+    onGain: [{ type: 'GAIN_CHEAPER_THAN', cardId: 'border_village' }] as any
 };

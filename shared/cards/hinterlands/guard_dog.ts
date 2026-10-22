@@ -5,7 +5,7 @@ export const guard_dog: CardDefinition = {
     name: 'Chien de garde',
     cost: 3,
     types: ['ACTION', 'REACTION'],
-    description: '+2 Cartes. Si vous avez 5 cartes ou moins en main, +2 Cartes. \nRéaction: Lorsqu\'un autre joueur joue une Attaque, vous pouvez jouer cette carte de votre main.',
+    description: '+2 Cartes. Si vous avez 5 cartes ou moins en main, +2 Cartes. Quand un autre joueur joue une Attaque, vous pouvez d\'abord jouer cette carte depuis votre main.',
     effects: [
         { type: 'DRAW', amount: 2 },
         {

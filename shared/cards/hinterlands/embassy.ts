@@ -16,5 +16,6 @@ export const embassy: CardDefinition = {
             type: 'OTHER_PLAYERS_EFFECT',
             effect: { type: 'GAIN_CARD', cardId: 'silver', destination: 'discardPile' }
         }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

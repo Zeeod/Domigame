@@ -5,23 +5,12 @@ export const wheelwright: CardDefinition = {
     name: 'Charron',
     cost: 5,
     types: ['ACTION'],
-    description: '+1 Carte; +1 Action. Défaussez une carte. Si vous le faites, gagnez une carte coûtant jusqu\'à 2 💰 de plus que la carte défaussée.',
+    description: '+1 Carte, +1 Action. Vous pouvez défausser une carte pour recevoir une carte Action coûtant autant ou moins qu\'elle.',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'DISCARD',
-            amount: 1,
-            min: 1,
-            max: 1,
-            onSuccess: [
-                {
-                    type: 'GAIN_CARD_RELATIVE_TO_DISCARD',
-                    costBonus: 2
-                }
-            ]
-        }
-    ],
+        { type: 'DISCARD', min: 0, max: 1, message: 'Charron : vous pouvez défausser une carte', onSuccess: [{ type: 'WHEELWRIGHT_GAIN' }] }
+    ] as any,
     expansion: 'hinterlands',
     isLegacy: false
 };

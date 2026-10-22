@@ -6,19 +6,10 @@ export const farmland: CardDefinition = {
     types: ['VICTORY'],
     cost: 6,
     expansion: 'hinterlands',
-    description: '2 PV. Quand vous achetez cette carte, écartez une carte de votre main et gagnez une carte coûtant exactement 2 💰 de plus.',
+    description: '2 PV. Quand vous recevez cette carte, écartez une carte de votre main et recevez une carte autre que Terres cultivées coûtant exactement 2 💰 de plus.',
     victoryPoints: 2,
     effects: [],
-    onBuy: [
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            message: 'Écartez une carte pour en gagner une coûtant +2',
-            onSuccess: [
-                { type: 'GAIN_CARD_EXACT_COST', costBonus: 2, destination: 'discardPile' }
-            ]
-        }
+    onGain: [
+        { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Terres cultivées : écartez une carte', onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 2, exact: true, excludeIds: ['farmland'] }] }
     ] as any
 };

@@ -2,33 +2,14 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const witchs_hut: CardDefinition = {
     id: 'witchs_hut',
-    name: 'Cabane de sorcière',
+    name: 'Hutte de la sorcière',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
-    description: '+4 Cartes. Défaussez 2 cartes. Si vous avez défaussé 2 cartes Action, chaque autre joueur gagne une Malédiction.',
+    description: '+4 Cartes. Défaussez 2 cartes, en les dévoilant. Si ce sont deux cartes Action, chaque autre joueur reçoit une Malédiction.',
     effects: [
         { type: 'DRAW', amount: 4 },
-        {
-            type: 'DISCARD_WITH_CONDITION',
-            min: 2,
-            max: 2,
-            condition: 'DISCARDED_TYPE_COUNT',
-            cardType: 'ACTION',
-            // Need to pass cardType via context or if condition supports it?
-            // ConditionEffect works with 'cardType'.
-            // DiscardWithConditionEffect.condition is type ConditionEffect['condition'].
-            // We need a way to pass parameters like 'ACTION' to the condition check.
-            // Using 'trueEffects' for the attack.
-            trueEffects: [
-                {
-                    type: 'ATTACK',
-                    attackEffects: [
-                        { type: 'GAIN_CARD', cardId: 'curse' }
-                    ]
-                }
-            ]
-        }
-    ],
+        { type: 'DISCARD', min: 2, max: 2, message: 'Hutte de la sorcière : défaussez 2 cartes', onSuccess: [{ type: 'WITCHS_HUT_CHECK' }] }
+    ] as any,
     expansion: 'hinterlands',
     isLegacy: false
 };

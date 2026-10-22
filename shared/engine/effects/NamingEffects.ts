@@ -2,6 +2,7 @@ import { GameState, PlayerState, CardInstance } from '../GameState.js';
 import { EffectHandlerRegistry } from '../EffectHandlerRegistry.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { CardRegistry } from '../../cards/index.js';
+import { discardCards } from '../Discard.js';
 import { TrashEffectHandler } from './TrashEffectHandler.js';
 
 /** Top card of the deck, reshuffling the discard if needed (undefined if none). */
@@ -98,7 +99,7 @@ export function registerNamingEffects(): void {
         }
         EffectUtils.revealCards(state, [...kept, ...discarded], 'ALL', `${player.name} dévoile`);
         kept.forEach(c => EffectUtils.addCardToZone(player, c, e.destination || 'hand', state));
-        player.discardPile.push(...discarded);
+        discardCards(state, player, discarded);
         return { state, needsChoice: false };
     });
 

@@ -8,6 +8,7 @@ import { Logger } from '../Logger.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { TrashEffectHandler } from './TrashEffectHandler.js';
 import { matName, matName as canonicalMat, getMat, addToMat } from '../Mats.js';
+import { discardCards, discardCard } from '../Discard.js';
 import { markPlayed } from '../Play.js';
 
 export class ZoneEffectHandler {
@@ -120,7 +121,7 @@ export class ZoneEffectHandler {
     static handleDiscardTopDeck(state: GameState, player: PlayerState): EffectResult {
         if (player.deck.length > 0) {
             const card = player.deck.shift()!;
-            player.discardPile.push(card);
+            discardCard(state, player, card);
             const def = CardRegistry.get(card.id);
             Logger.log(state, `${player.name} défausse ${def?.name} du dessus de son deck.`, player.id);
         }
@@ -140,7 +141,7 @@ export class ZoneEffectHandler {
 
     static handleDiscardHand(state: GameState, player: PlayerState): EffectResult {
         const count = player.hand.length;
-        player.discardPile.push(...player.hand);
+        discardCards(state, player, player.hand);
         player.hand = [];
         Logger.log(state, `${player.name} défausse sa main (${count} cartes).`, player.id);
         return { state, needsChoice: false };

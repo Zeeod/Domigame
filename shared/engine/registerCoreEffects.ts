@@ -39,6 +39,7 @@ import { registerNamingEffects } from './effects/NamingEffects.js';
 import { registerIntrigueEffects } from './effects/IntrigueEffects.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { addToMat, peekMat } from './Mats.js';
+import { discardCard } from './Discard.js';
 import { debugLog } from './debug.js';
 
 
@@ -782,7 +783,7 @@ export function registerCoreEffects(): void {
         const target = (effect as any).amount !== undefined ? (effect as any).amount : ((effect as any).targetSize || 3);
         while (player.hand.length > target) {
             const card = player.hand.pop();
-            if (card) player.discardPile.push(card);
+            if (card) discardCard(state, player, card);
         }
         return { state, needsChoice: false };
     });
@@ -907,7 +908,7 @@ export function registerCoreEffects(): void {
         EffectUtils.log(state, `${player.name} révèle et défausse ${cardDef?.name || topCard.id} (Vassal).`, player.id);
 
         if (!isAction) {
-            player.discardPile.push(topCard);
+            discardCard(state, player, topCard);
             return { state, needsChoice: false };
         }
 

@@ -13,5 +13,6 @@ export const mandarin: CardDefinition = {
     ] as any,
     onGain: [
         { type: 'TOPDECK_ALL_TREASURES_IN_PLAY' }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

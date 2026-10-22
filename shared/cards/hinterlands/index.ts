@@ -31,3 +31,4 @@ export * from './trail.js';
 export * from './weaver.js';
 export * from './wheelwright.js';
 export * from './witchs_hut.js';
+export * from './fools_gold.js';
