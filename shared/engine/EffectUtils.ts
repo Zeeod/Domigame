@@ -242,6 +242,12 @@ export class EffectUtils {
     }
 
     public static revealCards(state: GameState, cards: CardInstance[], visibleTo: string[] | 'ALL' = 'ALL', cause?: string, autoHide: boolean = true, highlight: boolean = false) {
+        // Renaissance — Patron: "when something causes you to reveal this, +1 Coffers"
+        for (const c of cards || []) {
+            if (c?.id !== 'patron') continue;
+            const owner = state.players.find(p => [p.hand, p.deck, p.discardPile, p.playArea, p.limbo, p.aside].some(z => z?.some(x => x.instanceId === c.instanceId)));
+            if (owner) owner.coffers = (owner.coffers || 0) + 1;
+        }
         state.revealedCards = {
             cards,
             visibleTo,
@@ -273,7 +279,12 @@ export class EffectUtils {
         const shuffled = this.shuffle(player.discardPile, state);
         player.discardPile = [];
         const stashes = shuffled.filter(c => c.id === 'stash');
-        const rest = shuffled.filter(c => c.id !== 'stash');
+        let rest = shuffled.filter(c => c.id !== 'stash');
+        if ((player.projects || []).includes('star_chart') && rest.length > 1) {
+            const cost = (id: string) => (CardRegistry.get(id)?.cost || 0) + (CardRegistry.get(id)?.debtCost || 0);
+            const best = rest.reduce((a, b) => cost(b.id) > cost(a.id) ? b : a);
+            rest = [best, ...rest.filter(c => c !== best)];
+        }
         player.deck = [...player.deck, ...stashes, ...rest];
     }
 

@@ -26,10 +26,6 @@ export const SHELL_CARDS: ReadonlySet<string> = new Set([
     'mirror', 'peril', 'prepare', 'prosper', 'rush', 'scrounge',
     'cheap', 'fated', 'inherited', 'patient', 'shy', 'tireless',
 
-    // Renaissance — Projets + 2 cartes
-    'academy', 'barracks', 'canal', 'capitalism', 'citadel', 'crop_rotation', 'exploration',
-    'fair', 'fleet', 'guildhall', 'innovation', 'pageant', 'piazza', 'road_network', 'sewers',
-    'silos', 'sinister_plot', 'star_chart', 'sculptor', 'scepter',
 
     // Rising Sun — Événements
     'amass', 'asceticism', 'continue', 'credit', 'foresight', 'gather', 'kintsugi', 'practice',

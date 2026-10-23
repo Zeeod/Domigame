@@ -120,6 +120,7 @@ export class CleanupEffectHandler {
 
         // Cards discarded from play this Clean-up (Alchemist checks for a Potion, Herbalist picks a Treasure)
         state.cleanupDiscardedFromPlay = toDiscard.map(c => c.instanceId);
+        EventBus.emit(state, { type: 'PLAY_DISCARDED', playerId: player.id, context: { cards: toDiscard } });
 
         // "This turn, when you discard … from play" effects registered during the turn (Scheme)
         const pending = (state.discardFromPlayEffects || []).filter(e => e.playerId === player.id && e.turn === state.turnNumber);
@@ -218,8 +219,18 @@ export class CleanupEffectHandler {
         }
         if ((state.currentExtraTurn as any)?.type === 'POSSESSION') endPossessionTurn(state, endingPlayer);
 
+        // Renaissance — Fleet: after the game ends, an extra round of turns for players with Fleet
+        if (!state.fleetRound && VictoryChecker.checkGameEnd(state).isGameOver && state.players.some(p => (p.projects || []).includes('fleet'))) {
+            state.fleetRound = true;
+            const i = state.currentPlayerIndex;
+            const order = [...state.players.slice(i + 1), ...state.players.slice(0, i + 1)];
+            state.extraTurns = order.filter(p => (p.projects || []).includes('fleet')).map(p => ({ playerId: p.id, type: 'EXTRA' as const }));
+            this.log(state, '--- Tour de la Flotte ---');
+        }
+        const fleetPending = state.fleetRound && (state.extraTurns || []).length > 0;
+
         // The game ends at the end of a turn: check before starting the next one
-        if (VictoryChecker.checkGameEnd(state).isGameOver) {
+        if (!fleetPending && VictoryChecker.checkGameEnd(state).isGameOver) {
             state.phase = 'GAME_OVER';
             state.isGameOver = true;
             this.calculateScores(state);

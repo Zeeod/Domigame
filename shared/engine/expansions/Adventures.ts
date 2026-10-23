@@ -19,6 +19,7 @@ import { TriggerEffectHandler } from '../effects/TriggerEffectHandler.js';
 import { chosenInstanceIds } from '../effects/OpponentChoiceEffects.js';
 import { discardCard, discardCards } from '../Discard.js';
 import { playCardNow } from '../Play.js';
+import { EventBus } from '../EventBus.js';
 import { getMat } from '../Mats.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
@@ -176,6 +177,7 @@ export const AdventuresModule: ExpansionModule = {
             // "Directly after resolving an Action": offer the Reserve calls (Coin of the Realm, Royal Carriage)
             type: 'AFTER_ACTION',
             handler: (state, player, effect: any) => {
+                EventBus.emit(state, { type: 'AFTER_ACTION', playerId: player.id, context: { cardId: effect.cardId, cardInstanceId: effect.cardInstanceId } });
                 const triggers = TriggerEffectHandler.scanForTriggers(state, player, 'AFTER_ACTION', { cardId: effect.cardId, cardInstanceId: effect.cardInstanceId });
                 if (triggers.length) EffectManager.resolveTriggers(state, player, triggers, 'Après une Action : appeler une Réserve ?');
                 return done(state);
