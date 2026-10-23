@@ -24,7 +24,7 @@ export class DrawEffectHandler {
                     break;
                 }
                 EffectUtils.log(state, `${player.name} mélange sa pioche.`, player.id);
-                player.deck = EffectUtils.shuffle(player.discardPile, state);
+                EffectUtils.reshuffleDiscard(state, player);
                 player.discardPile = [];
                 debugLog('[DrawEffectHandler] Shuffled discard into deck', { newDeckSize: player.deck.length });
             }
@@ -149,7 +149,7 @@ export class DrawEffectHandler {
 
     public static handlePeekBottom(state: GameState, player: PlayerState): EffectResult {
         if (player.deck.length === 0 && player.discardPile.length > 0) {
-            player.deck = EffectUtils.shuffle(player.discardPile, state);
+            EffectUtils.reshuffleDiscard(state, player);
             player.discardPile = [];
             EffectUtils.log(state, `${player.name} mélange sa défausse.`, player.id);
         }
@@ -180,7 +180,7 @@ export class DrawEffectHandler {
 
     public static handlePeekTopDeck(state: GameState, player: PlayerState, effect: any): EffectResult {
         if (player.deck.length === 0 && player.discardPile.length > 0) {
-            player.deck = EffectUtils.shuffle(player.discardPile, state);
+            EffectUtils.reshuffleDiscard(state, player);
             player.discardPile = [];
         }
 
@@ -381,7 +381,7 @@ export class DrawEffectHandler {
     public static handleRevealTopDeck(state: GameState, player: PlayerState, effect: any): EffectResult {
         if (player.deck.length === 0) {
             if (player.discardPile.length === 0) return { state, needsChoice: false };
-            player.deck = EffectUtils.shuffle(player.discardPile, state);
+            EffectUtils.reshuffleDiscard(state, player);
             player.discardPile = [];
         }
         if (player.deck.length === 0) return { state, needsChoice: false };

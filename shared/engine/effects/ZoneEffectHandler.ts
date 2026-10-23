@@ -58,7 +58,7 @@ export class ZoneEffectHandler {
 
         if (effect.targets === 'TOP_OF_DECK') {
             if (player.deck.length === 0 && player.discardPile.length > 0) {
-                player.deck = EffectUtils.shuffle(player.discardPile, state);
+                EffectUtils.reshuffleDiscard(state, player);
                 player.discardPile = [];
             }
             const top = player.deck.shift();

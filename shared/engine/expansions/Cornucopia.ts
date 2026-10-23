@@ -30,7 +30,7 @@ function pushAll(state: GameState, playerId: string, effects: any[], context: an
 /** Take the top card of the deck, shuffling the discard pile in if needed. */
 function drawTop(state: GameState, player: PlayerState): CardInstance | undefined {
     if (player.deck.length === 0 && player.discardPile.length > 0) {
-        player.deck = EffectUtils.shuffle(player.discardPile, state);
+        EffectUtils.reshuffleDiscard(state, player);
         player.discardPile = [];
     }
     return player.deck.shift();
