@@ -15,15 +15,6 @@ export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
     'rebuild', // [first] effet(s) sans gestionnaire : REBUILD_EFFECT
     'rogue', // [first] effet(s) sans gestionnaire : ROGUE_EFFECT
     'survivors', // [first] effet(s) sans gestionnaire : CHOICE
-    'tournament', // [first] effet(s) sans gestionnaire : TOURNAMENT_EFFECT
-    'young_witch', // [first] effet(s) sans gestionnaire : GAIN_CURSE_UNLESS_BANE
-    'harvest', // [first] effet(s) sans gestionnaire : ADD_MONEY_PER_UNIQUE_CARD
-    'horn_of_plenty', // [first] effet(s) sans gestionnaire : GAIN_CARD_COST_UNIQUE_IN_PLAY
-    'hunting_party', // [first] effet(s) sans gestionnaire : REVEAL_UNTIL_UNIQUE
-    'jester', // [first] effet(s) sans gestionnaire : JESTER_EFFECT
-    'taxman', // [last] effet(s) sans gestionnaire : GAIN_TREASURE
-    'butcher', // [last] effet(s) sans gestionnaire : PAY_COFFERS_AND_GAIN
-    'soothsayer', // [first] effet(s) sans gestionnaire : DRAW_IF_GAINED_CURSE
     'raze', // [first] effet(s) sans gestionnaire : LOOK_AT_TOP_COST
     'ranger', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN
     'artificer', // [last] effet(s) sans gestionnaire : GAIN_CARD_EXACT_COST_DISCARDED

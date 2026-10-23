@@ -10,6 +10,6 @@ export const masterpiece: CardDefinition = {
     treasureValue: 1,
     effects: [
         { type: 'ADD_MONEY', amount: 1 }
-    ]
-    // Note: Overpay needs special buy phase handling
+    ],
+    isLegacy: true
 };

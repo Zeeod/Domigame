@@ -6,9 +6,7 @@ export const hornOfPlenty: CardDefinition = {
     types: ['TREASURE'],
     cost: 5,
     expansion: 'cornucopia',
-    description: '0 💰. Quand vous jouez cette carte, gagnez une carte coûtant jusqu\'à 1 💰 par carte de nom différent que vous avez en jeu. Si c\'est une carte Victoire, écartez cette carte.',
+    description: 'Quand vous jouez cette carte, recevez une carte coûtant jusqu\'à 1 💰 par carte de nom différent que vous avez en jeu (celle-ci comprise). Si c\'est une carte Victoire, écartez cette carte.',
     treasureValue: 0,
-    effects: [
-        { type: 'GAIN_CARD_COST_UNIQUE_IN_PLAY' }
-    ] as any
+    effects: [{ type: 'HORN_OF_PLENTY' }] as any
 };

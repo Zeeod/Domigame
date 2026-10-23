@@ -15,5 +15,6 @@ export const horseTraders: CardDefinition = {
     reactionTrigger: 'ATTACK',
     reactionEffects: [
         { type: 'SET_ASIDE_UNTIL_NEXT_TURN', drawOnReturn: 1 }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

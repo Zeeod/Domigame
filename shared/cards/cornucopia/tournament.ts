@@ -10,5 +10,6 @@ export const tournament: CardDefinition = {
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'TOURNAMENT_EFFECT' }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

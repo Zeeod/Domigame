@@ -15,5 +15,6 @@ export const harvest: CardDefinition = {
             destination: 'discardPile'
         },
         { type: 'ADD_MONEY_PER_UNIQUE_CARD', revealedCards: 4 }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

@@ -6,18 +6,9 @@ export const butcher: CardDefinition = {
     types: ['ACTION'],
     cost: 5,
     expansion: 'guilds',
-    description: '+2 Coffres. Vous pouvez écarter une carte de votre main et payer des Coffres. Gagnez une carte coûtant jusqu\'au coût de la carte écartée plus les Coffres payés.',
+    description: '+2 Coffres. Vous pouvez écarter une carte de votre main. Si vous le faites, dépensez autant de Coffres que vous voulez et recevez une carte coûtant jusqu\'au coût de la carte écartée plus 1 💰 par Coffre dépensé.',
     effects: [
         { type: 'ADD_COFFERS', amount: 2 },
-        {
-            type: 'TRASH',
-            min: 0,
-            max: 1,
-            from: 'hand',
-            message: 'Écartez une carte pour améliorer',
-            onSuccess: [
-                { type: 'PAY_COFFERS_AND_GAIN', destination: 'discardPile' }
-            ]
-        }
+        { type: 'TRASH', min: 0, max: 1, from: 'hand', message: 'Boucher : vous pouvez écarter une carte', onSuccess: [{ type: 'BUTCHER' }] }
     ] as any
 };

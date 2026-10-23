@@ -6,23 +6,9 @@ export const remake: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'cornucopia',
-    description: 'Deux fois: Écartez une carte de votre main, gagnez une carte coûtant exactement 1 💰 de plus.',
+    description: 'Faites ceci deux fois : écartez une carte de votre main, puis recevez une carte coûtant exactement 1 💰 de plus.',
     effects: [
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            message: 'Première carte à écarter',
-            onSuccess: [{ type: 'GAIN_CARD_EXACT_COST', costBonus: 1 }]
-        } as any,
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand',
-            message: 'Deuxième carte à écarter',
-            onSuccess: [{ type: 'GAIN_CARD_EXACT_COST', costBonus: 1 }]
-        } as any
-    ]
+        { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Refonte : écartez une carte (1/2)', onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 1, exact: true }] },
+        { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Refonte : écartez une carte (2/2)', onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 1, exact: true }] }
+    ] as any
 };

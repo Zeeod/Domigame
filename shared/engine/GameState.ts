@@ -159,6 +159,8 @@ export interface GameState {
     discardFromPlayEffects?: { playerId: string; turn: number; effect: any }[];
     /** Index of the player who took the last normal (non-extra) turn: rotation resumes after them */
     lastNormalTurnIndex?: number;
+    /** Ferryman: the set-aside Kingdom pile (in nonSupply) */
+    ferrymanPile?: string;
     players: PlayerState[];
     currentPlayerIndex: number;
     /** Queue of extra turns with metadata (Outpost, etc) */
