@@ -11,14 +11,6 @@ export const royalBlacksmith: CardDefinition = {
     debtCost: 8,
     cost: 0,
     types: ['ACTION'],
-    effects: [
-        { type: 'DRAW', amount: 5 },
-        { type: 'REVEAL_HAND' },
-        {
-            type: 'DISCARD',
-            filter: { cardIds: ['copper'] },
-            forceAll: true
-        }
-    ],
+    effects: [{ type: 'DRAW', amount: 5 }, { type: 'REVEAL_HAND' }, { type: 'DISCARD_ALL_OF', cardId: 'copper' }] as any,
     expansion: 'empires'
 };

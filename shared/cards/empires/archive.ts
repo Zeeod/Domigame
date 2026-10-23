@@ -11,36 +11,11 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const archive: CardDefinition = {
     id: 'archive',
     name: 'Archive',
-    description: "+1 Action. +3 Cartes. Mettez-les de côté. Au début de chacun de vos 3 prochains tours, prenez-en une en main.",
+    description: '+1 Action. Mettez de côté face cachée les 3 cartes du dessus de votre pioche (vous pouvez les regarder). Maintenant et au début de vos deux prochains tours, prenez-en une en main.',
     cost: 5,
     types: ['ACTION', 'DURATION'],
-    effects: [
-        { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'MOVE_CARDS',
-            count: 3,
-            source: 'deck',
-            destination: 'aside'
-        },
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'aside',
-            destination: 'hand',
-            min: 1,
-            max: 1,
-            message: 'Archive: Choisissez une carte à mettre en main'
-        }
-    ],
-    durationEffects: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'aside',
-            destination: 'hand',
-            min: 1,
-            max: 1,
-            message: 'Archive: Choisissez une carte à mettre en main'
-        }
-    ],
-    durationTurns: 3,
+    effects: [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'ARCHIVE' }] as any,
+    durationEffects: [{ type: 'ARCHIVE_PICK' }] as any,
+    durationTurns: 2,
     expansion: 'empires'
 };

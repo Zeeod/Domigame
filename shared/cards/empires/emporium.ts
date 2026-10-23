@@ -16,16 +16,7 @@ export const emporium: CardDefinition = {
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'ADD_MONEY', amount: 1 }
     ],
-    onGain: [
-        {
-            type: 'CONDITION',
-            condition: 'CARDS_IN_PLAY_COUNT',
-            filter: { cardTypes: ['ACTION'] },
-            value: 5,
-            comparator: '>=',
-            trueEffects: [{ type: 'ADD_VP_TOKENS', amount: 2 }]
-        }
-    ],
+    onGain: [{ type: 'EMPORIUM_ON_GAIN' }] as any,
     expansion: 'empires',
     isSubCard: true
 };

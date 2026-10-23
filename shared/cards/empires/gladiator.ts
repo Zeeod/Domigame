@@ -9,39 +9,10 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const gladiator: CardDefinition = {
     id: 'gladiator',
     name: 'Gladiateur',
-    description: "2 💰. Révélez une carte de votre main. Le joueur à votre gauche peut révéler un exemplaire de cette carte de sa main. S'il ne le fait pas, +1 💰 et écartez un Gladiateur de la réserve.",
+    description: '+2 💰. Dévoilez une carte de votre main. Le joueur à votre gauche peut dévoiler une copie de cette carte de sa main. S\'il ne le fait pas, +1 💰 et écartez un Gladiateur de la réserve.',
     cost: 3,
     types: ['ACTION'],
-    effects: [
-        { type: 'ADD_MONEY', amount: 2 },
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            message: 'Révélez une carte de votre main',
-            min: 0,
-            max: 1,
-            destination: 'aside',
-            onSuccess: [
-                // Simplified: Always give +1💰 and option to trash Gladiator
-                // Full implementation would need opponent reveal response
-                { type: 'ADD_MONEY', amount: 1 },
-                {
-                    type: 'CHOOSE_OPTION',
-                    message: 'Écarter un Gladiateur de la réserve ?',
-                    options: [
-                        {
-                            label: 'Oui',
-                            effects: [
-                                { type: 'TRASH_FROM_SUPPLY', cardId: 'gladiator' } as any
-                            ]
-                        },
-                        { label: 'Non', effects: [] }
-                    ]
-                },
-                { type: 'MOVE_CARDS', source: 'aside', destination: 'hand', count: 1 }
-            ]
-        }
-    ],
+    effects: [{ type: 'ADD_MONEY', amount: 2 }, { type: 'GLADIATOR' }] as any,
     expansion: 'empires',
     isSubCard: true
 };

@@ -16,16 +16,6 @@ export const villa: CardDefinition = {
         { type: 'ADD_BUYS', amount: 1 },
         { type: 'ADD_MONEY', amount: 1 }
     ],
-    onGain: [
-        { type: 'MOVE_CARDS', source: 'discardPile', destination: 'hand', count: 1, filter: { cardIds: ['villa'] } },
-        {
-            type: 'CONDITION',
-            condition: 'PHASE',
-            value: 'BUY',
-            trueEffects: [
-                { type: 'CHANGE_PHASE', phase: 'ACTION' }
-            ]
-        }
-    ],
+    onGain: [{ type: 'VILLA_ON_GAIN' }] as any,
     expansion: 'empires'
 };

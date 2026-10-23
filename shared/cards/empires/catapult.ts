@@ -14,37 +14,8 @@ export const catapult: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     effects: [
         { type: 'ADD_MONEY', amount: 1 },
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            source: 'hand',
-            onSuccess: [
-                {
-                    type: 'CONDITION',
-                    condition: 'LAST_TRASHED_MIN_COST',
-                    value: 3,
-                    trueEffects: [
-                        {
-                            type: 'ATTACK',
-                            attackEffects: [{ type: 'GAIN_CARD', cardId: 'curse' }]
-                        }
-                    ]
-                },
-                {
-                    type: 'CONDITION',
-                    condition: 'LAST_TRASHED_HAS_TYPE',
-                    value: 'TREASURE',
-                    trueEffects: [
-                        {
-                            type: 'ATTACK',
-                            attackEffects: [{ type: 'DISCARD_DOWN_TO', amount: 3 }]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+        { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Catapulte : écartez une carte', onSuccess: [{ type: 'CATAPULT_ATTACK' }] }
+    ] as any,
     expansion: 'empires',
     isSubCard: true
 };

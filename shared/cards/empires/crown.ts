@@ -11,30 +11,6 @@ export const crown: CardDefinition = {
     description: "Si c'est votre phase d'Action, vous pouvez jouer une carte Action de votre main deux fois. Si c'est votre phase d'Achat, vous pouvez jouer un Trésor de votre main deux fois.",
     cost: 5,
     types: ['ACTION', 'TREASURE'],
-    effects: [
-        {
-            type: 'CONDITION',
-            condition: 'PHASE',
-            value: 'ACTION',
-            trueEffects: [
-                {
-                    type: 'CHOOSE_FROM_ZONE',
-                    sourceZone: 'hand',
-                    filter: { cardTypes: ['ACTION'] },
-                    message: 'Couronne : Choisissez une Action à jouer deux fois',
-                    onSuccess: [{ type: 'PLAY_ACTION_TWICE' }]
-                }
-            ],
-            falseEffects: [
-                {
-                    type: 'CHOOSE_FROM_ZONE',
-                    sourceZone: 'hand',
-                    filter: { cardTypes: ['TREASURE'] },
-                    message: 'Couronne : Choisissez un Trésor à jouer deux fois',
-                    onSuccess: [{ type: 'PLAY_ACTION_TWICE' }] // PLAY_ACTION_TWICE should work for any card
-                }
-            ]
-        }
-    ],
+    effects: [{ type: 'CROWN' }] as any,
     expansion: 'empires'
 };

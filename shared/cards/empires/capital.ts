@@ -8,17 +8,11 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const capital: CardDefinition = {
     id: 'capital',
     name: 'Capital',
-    description: "6 💰. +1 Achat. Lorsque vous défaussez cette carte du jeu, remboursez votre Dette, puis prenez 6 Dettes.",
+    description: '6 💰, +1 Achat. Quand vous défaussez cette carte du jeu, prenez 6 Dette, puis vous pouvez rembourser de la Dette.',
     cost: 5,
     types: ['TREASURE'],
-    treasureValue: 6,
-    effects: [
-        { type: 'ADD_BUYS', amount: 1 }
-    ],
-    onDiscard: [
-        // This is triggered when discarded from play
-        { type: 'PAY_DEBT' },
-        { type: 'TAKE_DEBT', amount: 6 }
-    ],
+    treasureValue: 0,
+    effects: [{ type: 'ADD_MONEY', amount: 6 }, { type: 'ADD_BUYS', amount: 1 }] as any,
+    onDiscard: [{ type: 'CAPITAL_DEBT' }] as any,
     expansion: 'empires'
 };

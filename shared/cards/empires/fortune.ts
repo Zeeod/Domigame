@@ -12,20 +12,8 @@ export const fortune: CardDefinition = {
     cost: 8,
     debtCost: 8,
     types: ['TREASURE'],
-    effects: [
-        { type: 'ADD_BUYS', amount: 1 },
-        { type: 'MULTIPLY_MONEY', multiplier: 2 }
-    ],
-    onGain: [
-        {
-            type: 'GAIN_CARD',
-            cardId: 'gold',
-            count: {
-                type: 'COUNT_CARDS_IN_PLAY',
-                filter: { cardIds: ['gladiator'] }
-            } as any
-        }
-    ],
+    effects: [{ type: 'ADD_BUYS', amount: 1 }, { type: 'FORTUNE_DOUBLE' }] as any,
+    onGain: [{ type: 'FORTUNE_ON_GAIN' }] as any,
     isSubCard: true,
     expansion: 'empires'
 };

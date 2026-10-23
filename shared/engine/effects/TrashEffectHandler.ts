@@ -4,6 +4,7 @@ import { EffectUtils } from '../EffectUtils.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { interceptTrash } from '../Possession.js';
 import { discardCards } from '../Discard.js';
+import { EventBus } from '../EventBus.js';
 import { EffectManager } from '../EffectManager.js';
 
 
@@ -20,6 +21,7 @@ export class TrashEffectHandler {
         state.lastTrashedCard = card;
         state.lastTrashedCards = [...(state.lastTrashedCards || []), card];
         owner.trashedThisTurn = (owner.trashedThisTurn || 0) + 1;
+        EventBus.emit(state, { type: 'CARD_TRASHED', playerId: owner.id, context: { cardId: card.id, instanceId: card.instanceId } });
 
         const def = CardRegistry.get(card.id);
         if (!opts.suppressLog) {

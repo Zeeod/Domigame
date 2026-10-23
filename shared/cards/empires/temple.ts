@@ -8,20 +8,10 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const temple: CardDefinition = {
     id: 'temple',
     name: 'Temple',
-    description: "+1 PV. Écartez 1 à 3 cartes de votre main. Ajoutez 1 PV à la pile Temple chaque fois que vous en recevez un.",
+    description: '+1 🛡️. Écartez de 1 à 3 cartes de noms différents de votre main. Ajoutez 1 🛡️ sur la pile des Temples. Quand vous recevez cette carte, prenez les 🛡️ de la pile.',
     cost: 4,
     types: ['ACTION', 'GATHERING'],
-    effects: [
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 3,
-            filter: { uniqueNames: true }
-        },
-        { type: 'ADD_VP_TOKENS_PER_MOVED', amount: 1 }
-    ],
-    onGain: [
-        { type: 'GATHER_VP', pileId: 'temple', amount: 1 }
-    ],
+    effects: [{ type: 'TEMPLE' }] as any,
+    onGain: [{ type: 'TAKE_PILE_VP', cardId: 'temple' }] as any,
     expansion: 'empires'
 };

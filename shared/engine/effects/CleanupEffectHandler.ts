@@ -12,6 +12,7 @@ import { EffectManager } from '../EffectManager.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { ProphecyManager } from '../ProphecyManager.js';
 import { endPossessionTurn } from '../Possession.js';
+import { EventBus } from '../EventBus.js';
 import { getMat, peekMat } from '../Mats.js';
 
 export class CleanupEffectHandler {
@@ -148,6 +149,16 @@ export class CleanupEffectHandler {
                     });
                 }
 
+                // Plunder — Reckless: when you discard it from play, return it to its pile
+                if ((card as any).reckless) {
+                    delete (card as any).reckless;
+                    state.effectStack.push({
+                        type: 'EFFECT', playerId: player.id,
+                        effect: { type: 'RETURN_TO_PILE' } as any,
+                        context: { sourceCardInstanceId: card.instanceId }
+                    });
+                }
+
                 // Adventures — Travellers: when discarded from play, may be exchanged for the next card
                 if ((def as any).upgradesTo) {
                     state.effectStack.push({
@@ -196,6 +207,7 @@ export class CleanupEffectHandler {
         // Adventures — Save: the set-aside card goes into your hand at end of turn (after drawing)
         const saved = endingPlayer ? peekMat(endingPlayer, 'save') : [];
         if (endingPlayer && saved.length) endingPlayer.hand.push(...getMat(endingPlayer, 'save').splice(0));
+        if (endingPlayer) EventBus.emit(state, { type: 'TURN_END', playerId: endingPlayer.id, context: {} });
         if (endingPlayer) {
             endingPlayer.gainedLastTurn = endingPlayer.gainedThisTurn || [];
             endingPlayer.gainedThisTurn = [];

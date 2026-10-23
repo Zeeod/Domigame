@@ -12,10 +12,6 @@
  */
 /** Cards with a text but no effect at all. */
 export const SHELL_CARDS: ReadonlySet<string> = new Set([
-    // Empires — Landmarks + King's Castle
-    'aqueduct', 'arena', 'bandit_fort', 'basilica', 'baths', 'battlefield', 'colonnade',
-    'defiled_shrine', 'fountain', 'keep', 'labyrinth', 'mountain_pass', 'museum', 'obelisk',
-    'orchard', 'palace', 'tomb', 'tower', 'triumphal_arch', 'wall', 'wolf_den', 'kings_castle',
 
     // Allies — cartes Allié
     'architects_guild', 'band_of_nomads', 'cave_dwellers', 'circle_of_witches', 'city_state',

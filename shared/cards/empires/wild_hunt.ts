@@ -7,30 +7,12 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const wildHunt: CardDefinition = {
     id: 'wild_hunt',
     name: 'Chasse gardée',
-    description: "Choisissez une option : +3 Cartes et ajoutez 1 PV à la pile Chasse Sauvage ; ou recevez le Domaine, et si vous le faites, prenez les PV de la pile.",
+    description: 'Choisissez : +3 Cartes et ajoutez 1 🛡️ sur la pile des Chasses sauvages ; ou recevez un Domaine, et si vous le faites, prenez les 🛡️ de la pile.',
     cost: 5,
     types: ['ACTION', 'GATHERING'],
-    effects: [
-        {
-            type: 'CHOOSE_OPTION',
-            message: 'Wild Hunt',
-            options: [
-                {
-                    label: '+3 Cards, +1 VP to pile',
-                    effects: [
-                        { type: 'DRAW', amount: 3 },
-                        { type: 'GATHER_VP', pileId: 'wild_hunt', amount: 1 }
-                    ]
-                },
-                {
-                    label: 'Gain Estate, Take VP from pile',
-                    effects: [
-                        { type: 'GAIN_CARD', cardId: 'estate', destination: 'discardPile' },
-                        { type: 'TAKE_VP_FROM_PILE', pileId: 'wild_hunt' }
-                    ]
-                }
-            ]
-        }
-    ],
+    effects: [{ type: 'SELECT_OPTION', message: 'Chasse sauvage : choisissez', options: [
+        { label: '+3 Cartes et +1 🛡️ sur la pile', effects: [{ type: 'DRAW', amount: 3 }, { type: 'ADD_PILE_VP', cardId: 'wild_hunt', amount: 1 }] },
+        { label: 'Recevoir un Domaine et prendre les 🛡️ de la pile', effects: [{ type: 'WILD_HUNT_ESTATE' }] }
+    ] }] as any,
     expansion: 'empires'
 };

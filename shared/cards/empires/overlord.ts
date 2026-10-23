@@ -8,16 +8,10 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const overlord: CardDefinition = {
     id: 'overlord',
     name: 'Seigneur',
-    description: "Jouez cette carte comme si c'était une carte Action de la réserve coûtant jusqu'à 5 💰. Cette carte est la carte choisie jusqu'à ce qu'elle quitte le jeu.",
+    description: 'Jouez une carte Action non-Commande de la réserve coûtant jusqu\'à 5 💰, en la laissant dans la réserve.',
     cost: 0,
     debtCost: 8,
     types: ['ACTION', 'COMMAND' as any],
-    effects: [
-        {
-            type: 'PLAY_AS_SUPPLY_ACTION',
-            maxCost: 5,
-            cardTypes: ['ACTION']
-        } as any
-    ],
+    effects: [{ type: 'OVERLORD' }] as any,
     expansion: 'empires'
 };

@@ -5,26 +5,10 @@ export const charm: CardDefinition = {
     name: 'Charme',
     types: ['TREASURE'],
     cost: 5,
-    description: "Choisissez : +1 Achat et +2$ ; ou la prochaine fois que vous gagnez une carte ce tour-ci, gagnez une autre carte de nom différent coûtant autant.",
+    description: 'Quand vous jouez cette carte, choisissez : +1 Achat et +2 💰 ; ou la prochaine fois que vous achetez une carte ce tour-ci, vous pouvez aussi recevoir une carte de nom différent de même coût.',
     expansion: 'empires',
-    effects: [
-        {
-            type: 'CHOOSE_OPTION',
-            options: [
-                {
-                    text: "+1 Achat, +2$",
-                    effects: [
-                        { type: 'ADD_BUYS', amount: 1 },
-                        { type: 'ADD_MONEY', amount: 2 }
-                    ]
-                },
-                {
-                    text: "Gagnez une autre carte de même coût",
-                    effects: [
-                        { type: 'ADD_TURN_TRIGGER', trigger: 'ON_GAIN', effect: 'GAIN_OTHER_SAME_COST' } as any
-                    ]
-                }
-            ]
-        } as any
-    ]
+    effects: [{ type: 'SELECT_OPTION', message: 'Charme : choisissez', options: [
+        { label: '+1 Achat et +2 💰', effects: [{ type: 'ADD_BUYS', amount: 1 }, { type: 'ADD_MONEY', amount: 2 }] },
+        { label: 'Au prochain achat, une autre carte de même coût', effects: [{ type: 'CHARM_SET' }] }
+    ] }] as any
 };
