@@ -7,21 +7,15 @@ export const mercenary: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     expansion: 'dark_ages',
     isSubCard: true,
-    description: 'Vous pouvez écarter 2 cartes de votre main. Si vous le faites, +2 Cartes, +2💰, et chaque autre joueur défausse jusqu\'à 3 cartes en main.',
+    description: 'Vous pouvez écarter 2 cartes de votre main. Si vous le faites, +2 Cartes, +2 💰, et chaque autre joueur défausse jusqu\'à avoir 3 cartes en main. (Hors réserve.)',
     effects: [
         {
-            type: 'MAY_TRASH_FOR_BONUS',
-            min: 2,
-            max: 2,
-            from: 'hand',
-            bonus: [
+            type: 'TRASH', min: 0, max: 2, from: 'hand', message: 'Mercenaire : vous pouvez écarter 2 cartes',
+            ifTrashed: { count: 2, effects: [
                 { type: 'DRAW', amount: 2 },
                 { type: 'ADD_MONEY', amount: 2 },
-                {
-                    type: 'OTHER_PLAYERS_EFFECT',
-                    effect: { type: 'DISCARD_DOWN_TO', amount: 3 }
-                }
-            ]
-        } as any
-    ]
+                { type: 'ATTACK', attackEffects: [{ type: 'DISCARD_TO_HAND_SIZE', targetSize: 3 }] }
+            ] }
+        }
+    ] as any
 };

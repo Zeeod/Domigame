@@ -6,9 +6,9 @@ export const rogue: CardDefinition = {
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     expansion: 'dark_ages',
-    description: '+2💰. S\'il y a une carte coûtant 3💰-6💰 dans le Rebut, gagnez-la. Sinon, chaque autre joueur révèle les 2 cartes du dessus de son deck, en écarte une coûtant 3💰-6💰 et défausse le reste.',
+    description: '+2 💰. S\'il y a des cartes coûtant de 3 à 6 💰 dans le rebut, recevez-en une. Sinon, chaque autre joueur dévoile les 2 cartes du dessus de sa pioche, en écarte une coûtant de 3 à 6 💰 et défausse le reste.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
-        { type: 'ROGUE_EFFECT' } as any
-    ]
+        { type: 'ROGUE' }
+    ] as any
 };

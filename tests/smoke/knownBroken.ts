@@ -3,17 +3,6 @@
  * Fix a card → remove it from this list. Goal: empty list.
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
-    'scavenger', // [first] effet(s) sans gestionnaire : MAY_DISCARD_DECK
-    'storeroom', // [first] effet(s) sans gestionnaire : DISCARD_FOR_COINS
-    'vagrant', // [first] effet(s) sans gestionnaire : REVEAL_TOP_AND_MAYBE_TAKE
-    'wandering_minstrel', // [first] effet(s) sans gestionnaire : REVEAL_AND_SORT_ACTIONS
-    'counterfeit', // [first] effet(s) sans gestionnaire : PLAY_TREASURE_TWICE_THEN_TRASH
-    'ironmonger', // [first] effet(s) sans gestionnaire : IRONMONGER_REVEAL
-    'band_of_misfits', // [first] effet(s) sans gestionnaire : PLAY_AS_SUPPLY_ACTION
-    'catacombs', // [first] effet(s) sans gestionnaire : CATACOMBS_CHOICE
-    'hermit', // [first] effet(s) sans gestionnaire : MAY_TRASH_NON_TREASURE
-    'rebuild', // [first] effet(s) sans gestionnaire : REBUILD_EFFECT
-    'rogue', // [first] effet(s) sans gestionnaire : ROGUE_EFFECT
     'survivors', // [first] effet(s) sans gestionnaire : CHOICE
     'raze', // [first] effet(s) sans gestionnaire : LOOK_AT_TOP_COST
     'ranger', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN

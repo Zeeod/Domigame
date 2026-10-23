@@ -19,7 +19,5 @@ export const squire: CardDefinition = {
             ]
         } as any
     ],
-    onTrash: [
-        { type: 'GAIN_CARD', filter: { cardTypes: ['ATTACK'] }, destination: 'discardPile' } as any
-    ]
+    onTrash: [{ type: 'GAIN_CARD', maxCost: 99, cardTypes: ['ATTACK'], message: 'Écuyer : recevez une carte Attaque' }] as any
 };

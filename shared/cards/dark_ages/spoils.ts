@@ -10,11 +10,6 @@ export const spoils: CardDefinition = {
     isNonSupply: true,
     effects: [
         { type: 'ADD_MONEY', amount: 3 },
-        {
-            type: 'SEQUENCE',
-            effects: [
-                { type: 'RETURN_TO_SUPPLY', min: 1, max: 1, filter: { cardIds: ['spoils'] } }
-            ]
-        }
-    ]
+        { type: 'RETURN_TO_PILE' }
+    ] as any
 };

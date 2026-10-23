@@ -10,6 +10,6 @@ export const vagrant: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'REVEAL_TOP_AND_MAYBE_TAKE', filter: { cardTypes: ['CURSE', 'RUINS', 'SHELTER', 'VICTORY'] } } as any
-    ]
+        { type: 'VAGRANT' }
+    ] as any
 };

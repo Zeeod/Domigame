@@ -10,6 +10,6 @@ export const ironmonger: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'IRONMONGER_REVEAL' } as any
-    ]
+        { type: 'IRONMONGER' }
+    ] as any
 };

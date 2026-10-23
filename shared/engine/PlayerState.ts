@@ -152,6 +152,8 @@ export interface PlayerState {
     vpTokens: number;
     /** Turns this player has finished (tie-breaker) */
     turnsTaken?: number;
+    /** Cards bought this turn (Hermit) */
+    cardsBoughtThisTurn?: number;
     coinTokens: number;
     potions: number;
 
@@ -275,6 +277,7 @@ export function resetTurnResources(player: PlayerState): void {
     player.actions = 1;
     player.buys = 1;
     player.coins = 0;
+    player.cardsBoughtThisTurn = 0;
     // Potions are now tokens or resources? 
     // Alchemy potions are "virtual" currency like coins, they don't persist.
     // So keep as turn resource or sync with temporary token.

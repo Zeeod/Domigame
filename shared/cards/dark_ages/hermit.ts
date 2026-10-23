@@ -6,9 +6,10 @@ export const hermit: CardDefinition = {
     cost: 3,
     types: ['ACTION'],
     expansion: 'dark_ages',
-    description: 'Regardez votre défausse. Vous pouvez écarter une carte non-Trésor de votre défausse ou main. Gagnez une carte coûtant jusqu\'à 3💰. Quand vous défaussez cette carte en phase Précédent les achats, si vous n\'avez rien acheté ce tour, écartez-la et gagnez un Fou.',
+    description: 'Regardez votre défausse. Vous pouvez écarter une carte non-Trésor de votre défausse ou de votre main. Recevez une carte coûtant jusqu\'à 3 💰. Quand vous défaussez cette carte du jeu, si vous n\'avez acheté aucune carte ce tour-ci, écartez-la et recevez un Fou.',
     effects: [
-        { type: 'MAY_TRASH_NON_TREASURE', from: 'discard_or_hand' } as any,
-        { type: 'GAIN_CARD', maxCost: 3, destination: 'discardPile' }
-    ]
+        { type: 'HERMIT' },
+        { type: 'GAIN_CARD', maxCost: 3 }
+    ] as any,
+    onDiscard: [{ type: 'HERMIT_ON_DISCARD' }] as any
 };

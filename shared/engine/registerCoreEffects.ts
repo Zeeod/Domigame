@@ -605,35 +605,27 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
-    // RETURN_TO_SUPPLY: Return a card from play to its supply pile
-    EffectHandlerRegistry.register('RETURN_TO_SUPPLY', (state, player, effect, ctx) => {
-        const eff = effect as any;
-        const cardInstanceId = ctx.sourceCardInstanceId || (eff as any).cardInstanceId;
-        const card = EffectUtils.removeCardFromPlayer(state, player, cardInstanceId);
-        if (card) {
-            const pile = state.supply[card.id];
-            if (pile) {
-                pile.count++;
-                Logger.log(state, `${player.name} remet ${CardRegistry.get(card.id)?.name || card.id} dans la réserve.`);
-            }
-        }
+    // RETURN_TO_SUPPLY / RETURN_TO_PILE: return this card to its pile (Supply or not: Spoils, Madman…).
+    // If it has no pile, it stays where it is. state.lastReturnedToPile tells the next effects whether it worked.
+    const returnToPile = (state: any, player: any, effect: any, ctx: any) => {
+        const id = ctx.sourceCardInstanceId || effect.cardInstanceId || ctx.instanceId || ctx.cardInstanceId;
+        state.lastReturnedToPile = false;
+        const owned = id && [player.hand, player.playArea, player.discardPile, player.deck, player.aside, player.limbo]
+            .some((z: any[]) => z?.some(c => c.instanceId === id));
+        if (!owned) return { state, needsChoice: false };
+        const cardId = [player.hand, player.playArea, player.discardPile, player.deck, player.aside, player.limbo]
+            .flatMap((z: any[]) => z || []).find((c: any) => c.instanceId === id)!.id;
+        const pile = state.supply[cardId] || state.nonSupply?.[cardId];
+        if (!pile) return { state, needsChoice: false };
+        const card = EffectUtils.removeCardFromPlayer(state, player, id)!;
+        pile.count++;
+        if (Array.isArray(pile.cards) && pile.isMixed) pile.cards.push(card);
+        state.lastReturnedToPile = true;
+        Logger.log(state, `${player.name} remet ${CardRegistry.get(cardId)?.name || cardId} sur sa pile.`);
         return { state, needsChoice: false };
-    });
-
-    EffectHandlerRegistry.register('RETURN_TO_PILE', (state, player, effect, ctx) => {
-        const eff = effect as any;
-        const cardInstanceId = ctx.sourceCardInstanceId || eff.cardInstanceId || (ctx as any).instanceId || (ctx as any).cardInstanceId;
-        const card = EffectUtils.removeCardFromPlayer(state, player, cardInstanceId);
-        if (card) {
-            // Check supply or non-supply
-            const pile = state.supply[card.id] || state.nonSupply[card.id];
-            if (pile) {
-                pile.count++;
-                Logger.log(state, `${player.name} remet ${CardRegistry.get(card.id)?.name || card.id} sur sa pile.`);
-            }
-        }
-        return { state, needsChoice: false };
-    });
+    };
+    EffectHandlerRegistry.register('RETURN_TO_SUPPLY', returnToPile);
+    EffectHandlerRegistry.register('RETURN_TO_PILE', returnToPile);
 
     // MAY_TRASH_FOR_BONUS: Optional trash from hand; if done, apply bonus effects
     EffectHandlerRegistry.register('MAY_TRASH_FOR_BONUS', (state, player, effect, ctx) => {

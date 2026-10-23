@@ -377,17 +377,16 @@ export class ActionResolver {
             }
         }
 
-        // Execute card effects
+        // Queue the card's effects, then the "when you play" triggers on top of them (they happen
+        // first: Urchin "you may first trash this", Corsair…), then resolve.
         if (finalEffects) {
             // Suppress effect log if this is a treasure card that already logged its value
             const shouldSuppress = !wayId && (cardDef.treasureValue || 0) > 0 && cardDef.types.includes('TREASURE');
-            const result = EffectEngine.applyEffects(state, player.id, finalEffects, shouldSuppress, cardInstanceId);
-            state = result.state;
+            EffectEngine.pushEffectsToStack(state, player.id, finalEffects, shouldSuppress, cardInstanceId);
         }
-
-        // Trigger ON_PLAY effects (e.g. Merchant)
         const onPlayResult = TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
         state = onPlayResult.state;
+        state = EffectEngine.processStack(state).state;
 
         // Add treasure/potion values
         if (cardDef.potionValue) {
@@ -496,6 +495,7 @@ export class ActionResolver {
 
         // Store for triggers (Haggler, Merchant Guild)
         state.lastBoughtCardId = cardToGainId;
+        player.cardsBoughtThisTurn = (player.cardsBoughtThisTurn || 0) + 1;
         state.lastBoughtCost = cardCost;
 
         // Trigger ON_BUY effects (e.g. Hoard, Haggler) - Before gain

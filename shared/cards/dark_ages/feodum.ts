@@ -12,5 +12,7 @@ export const feodum: CardDefinition = {
         { type: 'GAIN_CARD', cardId: 'silver', destination: 'discardPile' },
         { type: 'GAIN_CARD', cardId: 'silver', destination: 'discardPile' },
         { type: 'GAIN_CARD', cardId: 'silver', destination: 'discardPile' }
-    ]
+    ],
+    dynamicVP: true,
+    vpCalculator: (allCards) => Math.floor(allCards.filter((c: any) => c.id === 'silver').length / 3)
 };

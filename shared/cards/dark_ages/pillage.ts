@@ -6,23 +6,6 @@ export const pillage: CardDefinition = {
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     expansion: 'dark_ages',
-    description: 'Écartez cette carte. Si vous le faites, chaque autre joueur ayant 5 cartes ou plus en main révèle sa main et vous en choisissez une qu\'il défausse. Gagnez 2 Butins.',
-    effects: [
-        { type: 'TRASH_SELF' },
-        {
-            type: 'OTHER_PLAYERS_EFFECT',
-            effect: {
-                type: 'CONDITION',
-                condition: 'HAND_SIZE',
-                comparator: '>=',
-                value: 5,
-                trueEffects: [
-                    { type: 'REVEAL_HAND' },
-                    { type: 'DISCARD', min: 1, max: 1, message: 'Attaque Pillage : Défaussez une carte.' }
-                ]
-            } as any
-        },
-        { type: 'GAIN_CARD', cardId: 'spoils', destination: 'discardPile' },
-        { type: 'GAIN_CARD', cardId: 'spoils', destination: 'discardPile' }
-    ]
+    description: 'Écartez cette carte. Si vous le faites, recevez 2 Butins, et chaque autre joueur ayant 5 cartes ou plus en main dévoile sa main et défausse une carte de votre choix.',
+    effects: [{ type: 'PILLAGE' }] as any
 };

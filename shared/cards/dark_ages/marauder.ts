@@ -8,10 +8,7 @@ export const marauder: CardDefinition = {
     expansion: 'dark_ages',
     description: 'Gagnez un Butin. Chaque autre joueur gagne une Ruine.',
     effects: [
-        { type: 'GAIN_CARD', cardId: 'spoils', destination: 'discardPile' },
-        {
-            type: 'OTHER_PLAYERS_EFFECT',
-            effect: { type: 'GAIN_CARD', cardId: 'ruins', destination: 'discardPile' }
-        }
-    ]
+        { type: 'GAIN_CARD', cardId: 'spoils' },
+        { type: 'ATTACK', attackEffects: [{ type: 'GAIN_CARD', cardId: 'ruins' }] }
+    ] as any
 };
