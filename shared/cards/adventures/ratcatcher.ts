@@ -11,5 +11,6 @@ export const ratcatcher: CardDefinition = {
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'START_TURN', call: true, effects: [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Chasseur de rats : écartez une carte de votre main' }] }] as any
 };

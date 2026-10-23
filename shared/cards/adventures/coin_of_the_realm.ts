@@ -6,10 +6,11 @@ export const coinOfTheRealm: CardDefinition = {
     types: ['TREASURE', 'RESERVE'],
     cost: 2,
     expansion: 'adventures',
-    description: '1 💰. Mettez cette carte sur votre tapis de Réserve. Réserve: Après avoir joué une Action, appelez cette carte pour +2 Actions.',
-    treasureValue: 1,
+    description: '1 💰. Quand vous jouez cette carte, placez-la sur votre plateau Taverne. Juste après avoir résolu une Action, vous pouvez l\'appeler pour +2 Actions.',
+    treasureValue: 0,
     effects: [
         { type: 'ADD_MONEY', amount: 1 },
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'AFTER_ACTION', call: true, effects: [{ type: 'ADD_ACTIONS', amount: 2 }] }] as any
 };

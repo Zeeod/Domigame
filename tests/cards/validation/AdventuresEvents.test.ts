@@ -40,7 +40,7 @@ describe('Validation des Événements Adventures', () => {
         expect(state.pendingDecision?.constraints?.filter?.maxCost).toBe(4);
     });
 
-    it('Emprunt (Borrow) : défausse défausse pour +1$', () => {
+    it('Emprunt (Borrow) : jeton -1 Carte sur la pioche et +1$', () => {
         const player = state.players[0];
         player.discardPile = [{ instanceId: 's1', id: 'silver' }];
         player.buys = 2; // keep the turn open after one buy
@@ -51,8 +51,8 @@ describe('Validation des Événements Adventures', () => {
         state = res2.state;
         const pFinal = state.players[0];
 
+        // Official: +1 Buy; if your -1 Card token isn't on your deck, put it there and +$1
         expect(pFinal.coins).toBe(1);
-        expect(pFinal.discardPile.length).toBe(0);
-        expect(pFinal.deck.length).toBeGreaterThan(0); // Silver a été mis sur le deck
+        expect(pFinal.minusCardToken).toBe(true);
     });
 });

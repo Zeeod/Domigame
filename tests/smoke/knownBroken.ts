@@ -3,15 +3,6 @@
  * Fix a card → remove it from this list. Goal: empty list.
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
-    'raze', // [first] effet(s) sans gestionnaire : LOOK_AT_TOP_COST
-    'ranger', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN
-    'artificer', // [last] effet(s) sans gestionnaire : GAIN_CARD_EXACT_COST_DISCARDED
-    'bridge_troll', // [first] effet(s) sans gestionnaire : TAKE_MINUS_COIN_TOKEN, COST_REDUCTION
-    'giant', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN
-    'haunted_woods', // [first] effet(s) sans gestionnaire : HAUNTED_WOODS_EFFECT
-    'relic', // [first] effet(s) sans gestionnaire : PUT_MINUS_CARD_TOKEN
-    'storyteller', // [first] effet(s) sans gestionnaire : PLAY_TREASURES_FROM_HAND, PAY_ALL_COINS_TO_DRAW
-    'swamp_hag', // [first] effet(s) sans gestionnaire : SWAMP_HAG_EFFECT
     'sacrifice', // [first] effet(s) sans gestionnaire : SWITCH_ON_LAST_TRASHED
     'temple', // [first] effet(s) sans gestionnaire : ADD_VP_TOKENS_PER_MOVED
     'overlord', // [first] effet(s) sans gestionnaire : PLAY_AS_SUPPLY_ACTION

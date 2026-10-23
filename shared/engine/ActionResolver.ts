@@ -15,6 +15,7 @@ import { EffectEngine } from './EffectEngine.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 import { mapActor, gainRecipient } from './Possession.js';
+import { activeOverrides } from './KingdomRules.js';
 import { createCardInstance } from './CardInstance.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { TurnMachine } from './TurnMachine.js';
@@ -51,7 +52,7 @@ export class ActionResolver {
      * Uses Immer to ensure immutability and handle structural sharing.
      */
     static resolve(state: GameState, playerId: string, action: GameAction): ActionResult {
-        return CardRegistry.withGameOverrides(state.cardOverrides, () =>
+        return CardRegistry.withGameOverrides(activeOverrides(state), () =>
             this.resolveWithRules(state, mapActor(state, playerId, action) ?? playerId, action));
     }
 
@@ -379,6 +380,10 @@ export class ActionResolver {
 
         // Queue the card's effects, then the "when you play" triggers on top of them (they happen
         // first: Urchin "you may first trash this", Corsair…), then resolve.
+        // "Directly after resolving an Action" (Coin of the Realm, Royal Carriage): queued under its effects
+        if (cardDef.types.includes('ACTION')) {
+            state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'AFTER_ACTION', cardId: card.id, cardInstanceId: card.instanceId } as any, context: {} });
+        }
         if (finalEffects) {
             // Suppress effect log if this is a treasure card that already logged its value
             const shouldSuppress = !wayId && (cardDef.treasureValue || 0) > 0 && cardDef.types.includes('TREASURE');
@@ -666,6 +671,8 @@ export class ActionResolver {
         }
 
         player.buys--;
+        (player.eventsThisTurn = player.eventsThisTurn || []).push(landscapeId);
+        if ((def as any).oncePerGame) ((player as any).eventsOnce = (player as any).eventsOnce || []).push(landscapeId);
 
         this.log(state, `${player.name} achète l'aménagement ${def.name}.`, player.id);
 

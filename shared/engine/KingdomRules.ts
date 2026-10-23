@@ -56,3 +56,23 @@ export function applyKingdomSetup(state: GameState): void {
         for (const p of state.players) p.coffers = (p.coffers || 0) + 1;
     }
 }
+
+const mergedCache = new WeakMap<object, Map<string, CardOverrides>>();
+
+/**
+ * Card overrides in force right now: the game's (Charlatan…) plus those of the player whose
+ * turn it is (Inheritance: "during your turns, Estates are also Commands…").
+ */
+export function activeOverrides(state: GameState): CardOverrides | undefined {
+    const game = state.cardOverrides;
+    const pid = state.players?.[state.currentPlayerIndex]?.id;
+    const mine = pid ? state.playerCardOverrides?.[pid] : undefined;
+    if (!mine) return game;
+    if (!game) return mine;
+    let byPlayer = mergedCache.get(game);
+    if (!byPlayer) { byPlayer = new Map(); mergedCache.set(game, byPlayer); }
+    const key = pid + ':' + JSON.stringify(Object.keys(mine));
+    let merged = byPlayer.get(key);
+    if (!merged) { merged = { ...game, ...mine }; byPlayer.set(key, merged); }
+    return merged;
+}

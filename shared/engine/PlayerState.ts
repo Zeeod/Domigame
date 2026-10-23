@@ -171,6 +171,12 @@ export interface PlayerState {
     journeyTokenFaceUp: boolean;
     minusCoinToken: boolean;
     minusCardToken: boolean;
+    /** Adventures: Journey token face down? (it starts face up) */
+    journeyFaceDown?: boolean;
+    /** Adventures: pile tokens (plus1Card, plus1Action, plus1Buy, plus1Coin, minus2Cost, trashing) → pile id */
+    advTokens?: Record<string, string>;
+    /** Events bought this turn (once-per-turn Events) */
+    eventsThisTurn?: string[];
     permanentDurations: CardInstance[];
     cardsGainedLastTurn: number;
     sunToken: boolean;
@@ -278,6 +284,8 @@ export function resetTurnResources(player: PlayerState): void {
     player.buys = 1;
     player.coins = 0;
     player.cardsBoughtThisTurn = 0;
+    player.eventsThisTurn = [];
+    (player as any).buyPhaseGains = 0;
     // Potions are now tokens or resources? 
     // Alchemy potions are "virtual" currency like coins, they don't persist.
     // So keep as turn resource or sync with temporary token.

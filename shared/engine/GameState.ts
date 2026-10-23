@@ -153,6 +153,8 @@ export interface GameState {
     id: string;
     /** Per-game changes to card definitions (KingdomRules), e.g. Charlatan makes Curse a Treasure */
     cardOverrides?: Record<string, any>;
+    /** Per-player card changes, active during that player's turns (Inheritance: Estates) */
+    playerCardOverrides?: Record<string, Record<string, any>>;
     /** Instance ids of the cards discarded from play in the current Clean-up */
     cleanupDiscardedFromPlay?: string[];
     /** Effects to run when this turn's cards are discarded from play (Scheme) */

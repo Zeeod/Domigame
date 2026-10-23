@@ -1,308 +1,91 @@
 import { LandscapeDefinition } from '../../types/LandscapeDefinition';
 
-export const alms: LandscapeDefinition = {
-    id: 'alms',
-    name: 'Aumône',
-    types: ['EVENT'],
-    cost: { coin: 0 },
-    description: "Une fois par tout : si vous n'avez pas de Trésor en jeu, gagnez une carte coûtant jusqu'à 4$.",
-    expansion: 'adventures',
-    onBuy: [
-        {
-            type: 'CONDITION',
-            condition: 'CARDS_IN_PLAY_COUNT',
-            filter: { cardTypes: ['TREASURE'] },
-            comparator: '==',
-            value: 0,
-            trueEffects: [
-                { type: 'GAIN_CARD', maxCost: 4, destination: 'discardPile' }
-            ]
-        }
-    ]
-};
+/**
+ * Adventures — the 20 Events (official texts). Effects not generic are in expansions/Adventures.ts.
+ */
+const ev = (id: string, name: string, coin: number, description: string, onBuy: any[], extra: Record<string, any> = {}): LandscapeDefinition => ({
+    id, name, types: ['EVENT'], cost: { coin }, description, expansion: 'adventures', onBuy, ...extra
+} as any);
 
-export const borrow: LandscapeDefinition = {
-    id: 'borrow',
-    name: 'Emprunt',
-    types: ['EVENT'],
-    cost: { coin: 0 },
-    description: "Une fois par tour : +1 Achat. Si votre pile de défausse ne contient pas de Trésor, +1 pièce. Sinon, défaussez votre pile de défausse pour +1 pièce.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'ADD_BUYS', amount: 1 },
-        {
-            type: 'CONDITION',
-            condition: 'DISCARD_COUNT' as any,
-            filter: { cardTypes: ['TREASURE'] },
-            comparator: '==',
-            value: 0,
-            trueEffects: [{ type: 'ADD_MONEY', amount: 1 }],
-            falseEffects: [
-                { type: 'DISCARD_TO_DECK' },
-                { type: 'ADD_MONEY', amount: 1 }
-            ]
-        }
-    ]
-};
+export const alms = ev('alms', 'Aumône', 0,
+    "Une fois par tour : si vous n'avez aucun Trésor en jeu, recevez une carte coûtant jusqu'à 4 💰.",
+    [{ type: 'ALMS' }], { oncePerTurn: true });
 
-export const save: LandscapeDefinition = {
-    id: 'save',
-    name: 'Épargne',
-    types: ['EVENT'],
-    cost: { coin: 1 },
-    description: "Une fois par tour : +1 Achat. Écartez une carte de votre main pour la mettre sur votre plateau Taverne (c'est le moment de la récupérer).",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'ADD_BUYS', amount: 1 },
-        { type: 'MOVE_TO_TAVERN_MAT' }
-    ]
-};
+export const borrow = ev('borrow', 'Emprunt', 0,
+    'Une fois par tour : +1 Achat. Si votre jeton -1 Carte n\'est pas sur votre pioche, placez-le dessus et +1 💰.',
+    [{ type: 'BORROW' }], { oncePerTurn: true });
 
-export const pilgrimage: LandscapeDefinition = {
-    id: 'pilgrimage',
-    name: 'Pèlerinage',
-    types: ['EVENT'],
-    cost: { coin: 4 },
-    description: "Une fois par tour : Choisissez jusqu'à 3 cartes en jeu. Gagnez-en une copie de chaque.",
-    expansion: 'adventures',
-    onBuy: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'playArea',
-            destination: 'discardPile',
-            min: 0,
-            max: 3,
-            message: "Choisissez jusqu'à 3 cartes en jeu pour en gagner une copie.",
-            onSuccess: [
-                { type: 'GAIN_COPY_OF_TARGET' }
-            ]
-        }
-    ]
-};
+export const quest = ev('quest', 'Quête', 0,
+    'Vous pouvez défausser une Attaque, deux Malédictions ou six cartes. Si vous le faites, recevez un Or.',
+    [{ type: 'QUEST' }]);
 
-export const ball: LandscapeDefinition = {
-    id: 'ball',
-    name: 'Bal',
-    types: ['EVENT'],
-    cost: { coin: 5 },
-    description: "Prenez votre jeton -1 Pièce. Gagnez 2 cartes coûtant chacune jusqu'à 4$.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MODIFY_TOKEN', token: 'minusCoinToken', value: true } as any,
-        { type: 'GAIN_CARD', maxCost: 4, destination: 'discardPile' },
-        { type: 'GAIN_CARD', maxCost: 4, destination: 'discardPile' }
-    ]
-};
+export const save = ev('save', 'Épargne', 1,
+    'Une fois par tour : +1 Achat. Mettez de côté une carte de votre main, et prenez-la en main à la fin du tour (après avoir pioché).',
+    [{ type: 'SAVE' }], { oncePerTurn: true });
 
-export const bonfire: LandscapeDefinition = {
-    id: 'bonfire',
-    name: 'Feu de joie',
-    types: ['EVENT'],
-    cost: { coin: 3 },
-    description: "Écartez jusqu'à 2 Cuivres que vous avez en jeu.",
-    expansion: 'adventures',
-    onBuy: [
-        {
-            type: 'TRASH',
-            source: 'playArea',
-            min: 0,
-            max: 2,
-            filter: { cardIds: ['copper'] }
-        }
-    ]
-};
+export const scoutingParty = ev('scouting_party', 'Éclaireurs', 2,
+    '+1 Achat. Regardez les 5 cartes du dessus de votre pioche. Défaussez-en 3 et remettez les autres dans l\'ordre de votre choix.',
+    [{ type: 'SCOUTING_PARTY' }]);
 
-export const expedition: LandscapeDefinition = {
-    id: 'expedition',
-    name: 'Expédition',
-    types: ['EVENT'],
-    cost: { coin: 3 },
-    description: "Piochez 2 cartes supplémentaires pour votre prochaine main.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MODIFY_TOKEN', token: 'minusCardToken', value: false } as any,
-        { type: 'ADD_NEXT_TURN_DRAW', amount: 2 } as any
-    ]
-};
-
-export const ferry: LandscapeDefinition = {
-    id: 'ferry',
-    name: 'Bac',
-    types: ['EVENT'],
-    cost: { coin: 3 },
-    description: "Déplacez votre jeton -2 Coût sur une pile de la réserve Action.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MOVE_TOKEN', token: 'minus2Cost', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const inheritance: LandscapeDefinition = {
-    id: 'inheritance',
-    name: 'Héritage',
-    types: ['EVENT'],
-    cost: { coin: 7 },
-    description: "Une fois par partie : Mettez de côté une carte Action de votre main coûtant jusqu'à 4$. Placez votre jeton Domaine dessus. Vos Domaines acquièrent les capacités de cette carte.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'INHERITANCE_EFFECT' } as any
-    ]
-};
-
-export const lostArts: LandscapeDefinition = {
-    id: 'lost_arts',
-    name: 'Arts perdus',
-    types: ['EVENT'],
-    cost: { coin: 6 },
-    description: "Déplacez votre jeton +1 Action sur une pile de la réserve Action.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MOVE_TOKEN', token: 'plus1Action', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const mission: LandscapeDefinition = {
-    id: 'mission',
-    name: 'Mission',
-    types: ['EVENT'],
-    cost: { coin: 4 },
-    description: "Jouez un tour supplémentaire après celui-ci (mais pas un 3ème tour consécutif). Durant ce tour, vous ne pouvez pas acheter de cartes.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'SCHEDULE_EXTRA_TURN', turnType: 'MISSION' } as any
-    ]
-};
-
-export const pathfinding: LandscapeDefinition = {
-    id: 'pathfinding',
-    name: 'Pionnier',
-    types: ['EVENT'],
-    cost: { coin: 8 },
-    description: "Déplacez votre jeton +1 Carte sur une pile de la réserve Action.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MOVE_TOKEN', token: 'plus1Card', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const plan: LandscapeDefinition = {
-    id: 'plan',
-    name: 'Plan',
-    types: ['EVENT'],
-    cost: { coin: 3 },
-    description: "Déplacez votre jeton Écart sur une pile de la réserve Action.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MOVE_TOKEN', token: 'trashToken', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const quest: LandscapeDefinition = {
-    id: 'quest',
-    name: 'Quête',
-    types: ['EVENT'],
-    cost: { coin: 0 },
-    description: "Vous pouvez défausser une Attaque, deux Malédictions ou 6 cartes. Si vous le faites, gagnez un Or.",
-    expansion: 'adventures',
-    onBuy: [
-        {
-            type: 'CHOOSE_OPTION',
-            options: [
-                { text: 'Défausser une Attaque', effects: [{ type: 'DISCARD', min: 1, max: 1, filter: { cardTypes: ['ATTACK'] } }] },
-                { text: 'Défausser 2 Malédictions', effects: [{ type: 'DISCARD', min: 2, max: 2, filter: { cardIds: ['curse'] } }] },
-                { text: 'Défausser 6 cartes', effects: [{ type: 'DISCARD', min: 6, max: 6 }] }
-            ],
-            onSuccess: [{ type: 'GAIN_CARD', cardId: 'gold' }]
-        } as any
-    ]
-};
-
-export const raid: LandscapeDefinition = {
-    id: 'raid',
-    name: 'Raid',
-    types: ['EVENT'],
-    cost: { coin: 5 },
-    description: "Gagnez un Argent par Argent que vous avez en jeu. Chaque autre joueur prend son jeton -1 Carte et le place sur sa pioche.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'ADD_MONEY_PER_CARDS', cardTypes: ['TREASURE'], cardIds: ['silver'], coinsPerCard: 0 } as any,
-        { type: 'OTHER_PLAYERS_EFFECT', effects: [{ type: 'MODIFY_TOKEN', token: 'minusCardToken', value: true } as any] }
-    ]
-};
-
-export const scoutingParty: LandscapeDefinition = {
-    id: 'scouting_party',
-    name: 'Éclaireurs',
-    types: ['EVENT'],
-    cost: { coin: 2 },
-    description: "+1 Achat. Regardez les 5 cartes du dessus de votre pioche. Défaussez-en 3 et replacez le reste sur le dessus dans l'ordre de votre choix.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'ADD_BUYS', amount: 1 },
-        {
-            type: 'REORDER',
-            amount: 5,
-            message: 'Choisissez 3 cartes à défausser.',
-            onSuccess: [{ type: 'DISCARD', min: 3, max: 3 }]
-        } as any
-    ]
-};
-
-export const seaway: LandscapeDefinition = {
-    id: 'seaway',
-    name: 'Chenal',
-    types: ['EVENT'],
-    cost: { coin: 5 },
-    description: "+1 Achat. Gagnez une carte Action coûtant jusqu'à 4$. Déplacez votre jeton +1 Achat sur sa pile.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'ADD_BUYS', amount: 1 },
-        { type: 'GAIN_CARD', maxCost: 4, filter: { cardTypes: ['ACTION'] } },
-        { type: 'MOVE_TOKEN', token: 'plus1Buy', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const trade: LandscapeDefinition = {
-    id: 'trade',
-    name: 'Commerce',
-    types: ['EVENT'],
-    cost: { coin: 5 },
-    description: "Écartez jusqu'à 2 cartes de votre main. Gagnez un Argent par carte écartée.",
-    expansion: 'adventures',
-    onBuy: [
-        {
-            type: 'SELECT_AND_APPLY',
-            sourceZone: 'hand',
-            min: 0,
-            max: 2,
-            message: 'Choisissez jusqu\'à 2 cartes à écarter pour gagner un Argent par carte.',
-            effects: [{ type: 'TRASH' }],
-            onEach: [{ type: 'GAIN_CARD', cardId: 'silver' }]
-        } as any
-    ]
-};
-
-export const training: LandscapeDefinition = {
-    id: 'training',
-    name: 'Entraînement',
-    types: ['EVENT'],
-    cost: { coin: 6 },
-    description: "Déplacez votre jeton +1 pièce sur une pile de la réserve Action.",
-    expansion: 'adventures',
-    onBuy: [
-        { type: 'MOVE_TOKEN', token: 'plus1Coin', targetType: 'ACTION_PILE' } as any
-    ]
-};
-
-export const travellingFair: LandscapeDefinition = {
-    id: 'travelling_fair',
-    name: 'Foire itinérante',
-    types: ['EVENT'],
-    cost: { coin: 2 },
-    description: "+2 Achats. Pour le reste de ce tour, lorsque vous gagnez une carte, vous pouvez la placer sur votre pioche.",
-    expansion: 'adventures',
-    onBuy: [
+export const travellingFair = ev('travelling_fair', 'Foire itinérante', 2,
+    '+2 Achats. Quand vous recevez une carte ce tour-ci, vous pouvez la placer sur votre pioche.',
+    [
         { type: 'ADD_BUYS', amount: 2 },
-        { type: 'ADD_POST_GAIN_EFFECT', effect: { type: 'MOVE_TO_POSITION', position: 0 } } as any
-    ]
-};
+        {
+            type: 'REGISTER_TRIGGER', trigger: 'ON_GAIN', duration: 'TURN', repeat: true,
+            effects: [{ type: 'SELECT_OPTION', message: 'Foire itinérante : placer la carte reçue sur votre pioche ?', options: [
+                { label: 'Oui', effects: [{ type: 'GAINED_CARD_TO', to: 'deck' }] },
+                { label: 'Non', effects: [] }
+            ] }],
+            description: 'Foire itinérante'
+        }
+    ]);
+
+export const bonfire = ev('bonfire', 'Feu de joie', 3, 'Écartez jusqu\'à 2 cartes que vous avez en jeu.', [{ type: 'BONFIRE' }]);
+
+export const expedition = ev('expedition', 'Expédition', 3,
+    'Piochez 2 cartes de plus pour votre prochaine main.', [{ type: 'ADD_NEXT_TURN_DRAW', amount: 2 }]);
+
+export const ferry = ev('ferry', 'Bac', 3,
+    'Déplacez votre jeton -2 💰 sur une pile Action de la réserve (les cartes de cette pile coûtent 2 💰 de moins pendant vos tours).',
+    [{ type: 'MOVE_TOKEN', token: 'minus2Cost' }]);
+
+export const plan = ev('plan', 'Plan', 3,
+    'Déplacez votre jeton Écart sur une pile Action de la réserve (quand vous achetez une carte de cette pile, vous pouvez écarter une carte de votre main).',
+    [{ type: 'MOVE_TOKEN', token: 'trashing' }]);
+
+export const mission = ev('mission', 'Mission', 4,
+    'Une fois par tour : si le tour précédent n\'était pas le vôtre, jouez un tour supplémentaire après celui-ci, pendant lequel vous ne pouvez pas acheter de cartes.',
+    [{ type: 'SCHEDULE_EXTRA_TURN', turnType: 'MISSION' }], { oncePerTurn: true });
+
+export const pilgrimage = ev('pilgrimage', 'Pèlerinage', 4,
+    'Une fois par tour : retournez votre jeton Voyage (il commence face visible). Puis, s\'il est face visible, choisissez jusqu\'à 3 cartes de noms différents que vous avez en jeu et recevez-en une copie.',
+    [{ type: 'PILGRIMAGE' }], { oncePerTurn: true });
+
+export const ball = ev('ball', 'Bal', 5,
+    'Prenez votre jeton -1 💰. Recevez 2 cartes coûtant chacune jusqu\'à 4 💰.',
+    [{ type: 'TAKE_MINUS_COIN_TOKEN' }, { type: 'GAIN_CARD', maxCost: 4 }, { type: 'GAIN_CARD', maxCost: 4 }]);
+
+export const raid = ev('raid', 'Raid', 5,
+    'Recevez un Argent par Argent que vous avez en jeu. Chaque autre joueur place son jeton -1 Carte sur sa pioche.',
+    [{ type: 'RAID' }]);
+
+export const seaway = ev('seaway', 'Route maritime', 5,
+    'Recevez une carte Action coûtant jusqu\'à 4 💰. Déplacez votre jeton +1 Achat sur sa pile.',
+    [{ type: 'SEAWAY' }]);
+
+export const trade = ev('trade', 'Commerce', 5,
+    'Écartez jusqu\'à 2 cartes de votre main. Recevez un Argent par carte écartée.', [{ type: 'TRADE' }]);
+
+export const lostArts = ev('lost_arts', 'Arts perdus', 6,
+    'Déplacez votre jeton +1 Action sur une pile Action de la réserve.', [{ type: 'MOVE_TOKEN', token: 'plus1Action' }]);
+
+export const training = ev('training', 'Entraînement', 6,
+    'Déplacez votre jeton +1 💰 sur une pile Action de la réserve.', [{ type: 'MOVE_TOKEN', token: 'plus1Coin' }]);
+
+export const inheritance = ev('inheritance', 'Héritage', 7,
+    'Une fois par partie : mettez de côté une carte Action non-Victoire de la réserve coûtant jusqu\'à 4 💰. Placez-y votre jeton Domaine (pendant vos tours, vos Domaines sont aussi des Commandes et ont les capacités de cette carte).',
+    [{ type: 'INHERITANCE' }], { oncePerGame: true });
+
+export const pathfinding = ev('pathfinding', 'Orientation', 8,
+    'Déplacez votre jeton +1 Carte sur une pile Action de la réserve.', [{ type: 'MOVE_TOKEN', token: 'plus1Card' }]);

@@ -6,9 +6,10 @@ export const distantLands: CardDefinition = {
     types: ['ACTION', 'RESERVE', 'VICTORY'],
     cost: 5,
     expansion: 'adventures',
-    description: 'Mettez cette carte sur votre tapis de Réserve. Vaut 4 PV si sur votre tapis de Réserve, sinon 0.',
+    description: 'Placez cette carte sur votre plateau Taverne. Vaut 4 PV si elle est sur votre plateau Taverne à la fin de la partie (sinon 0 PV).',
     victoryPoints: 0, // Dynamic: 4 if on Reserve mat
     effects: [
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    vpOnMat: { mat: 'tavern', vp: 4 }
 };

@@ -6,9 +6,10 @@ export const royalCarriage: CardDefinition = {
     types: ['ACTION', 'RESERVE'],
     cost: 5,
     expansion: 'adventures',
-    description: '+1 Action. Mettez cette carte sur votre tapis de Réserve. Réserve: Après avoir joué une Action qui n\'est pas une Commande, appelez cette carte pour rejouer l\'Action.',
+    description: '+1 Action. Placez cette carte sur votre plateau Taverne. Juste après avoir résolu une Action, si elle est encore en jeu, vous pouvez appeler cette carte pour rejouer cette Action.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'AFTER_ACTION', call: true, filter: { excludeTypes: ['COMMAND'] }, effects: [{ type: 'REPLAY_ACTION' }] }] as any
 };

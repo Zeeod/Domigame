@@ -7,13 +7,11 @@ export const champion: CardDefinition = {
     cost: 6,
     expansion: 'adventures',
     isNonSupply: true,
-    description: '+1 Action. Pour le reste de la partie: +1 Action quand vous jouez une Action. Les Attaques ne vous affectent pas.',
+    description: '+1 Action. Pour le reste de la partie, quand un autre joueur joue une Attaque, elle ne vous affecte pas, et quand vous jouez une Action, +1 Action.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 }
     ],
-    durationEffects: [
-        { type: 'PERMANENT_PLUS_ACTION' },
-        { type: 'PERMANENT_ATTACK_IMMUNITY' }
-    ] as any,
-    isPermanentDuration: true
+    durationEffects: [],
+    isPermanentDuration: true,
+    blocksAttack: true
 };

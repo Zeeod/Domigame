@@ -6,8 +6,10 @@ export const transmogrify: CardDefinition = {
     types: ['ACTION', 'RESERVE'],
     cost: 4,
     expansion: 'adventures',
-    description: 'Mettez cette carte sur votre tapis de Réserve. Réserve: Au début de votre tour, appelez cette carte pour écarter une carte de votre main et gagner une carte coûtant jusqu\'à 1 💰 de plus.',
+    description: '+1 Action. Placez cette carte sur votre plateau Taverne. Au début de votre tour, vous pouvez l\'appeler pour écarter une carte de votre main et recevoir en main une carte coûtant jusqu\'à 1 💰 de plus.',
     effects: [
+        { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'START_TURN', call: true, effects: [{ type: 'TRANSMOGRIFY' }] }] as any
 };

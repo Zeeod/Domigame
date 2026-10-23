@@ -6,8 +6,9 @@ export const duplicate: CardDefinition = {
     types: ['ACTION', 'RESERVE'],
     cost: 4,
     expansion: 'adventures',
-    description: 'Mettez cette carte sur votre tapis de Réserve. Réserve: Quand vous gagnez une carte coûtant jusqu\'à 6 💰, appelez cette carte pour gagner une copie de cette carte.',
+    description: 'Placez cette carte sur votre plateau Taverne. Quand vous recevez une carte coûtant jusqu\'à 6 💰, vous pouvez appeler cette carte pour en recevoir une copie.',
     effects: [
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'ON_GAIN', call: true, filter: { maxCost: 6 }, effects: [{ type: 'GAIN_COPY_OF_GAINED' }] }] as any
 };

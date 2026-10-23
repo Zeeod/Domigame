@@ -6,18 +6,10 @@ export const giant: CardDefinition = {
     types: ['ACTION', 'ATTACK'],
     cost: 5,
     expansion: 'adventures',
-    description: 'Retournez votre jeton de Voyage. Si face visible, +1 💰. Si face cachée, +5 💰, et chaque autre joueur révèle la carte du dessus de sa pioche et l\'écarte si elle coûte 3-6 💰, sinon la défausse et gagne une Malédiction.',
-    effects: [
-        {
-            type: 'FLIP_JOURNEY_TOKEN',
-            onFaceUp: [{ type: 'ADD_MONEY', amount: 1 }],
-            onFaceDown: [
-                { type: 'ADD_MONEY', amount: 5 },
-                {
-                    type: 'ATTACK',
-                    attackEffects: [{ type: 'GIANT_ATTACK' }]
-                }
-            ]
-        }
-    ] as any
+    description: 'Retournez votre jeton Voyage (il commence face visible). S\'il est face cachée, +1 💰. S\'il est face visible, +5 💰, et chaque autre joueur dévoile la carte du dessus de sa pioche, l\'écarte si elle coûte de 3 à 6 💰, et sinon la défausse et reçoit une Malédiction.',
+    effects: [{
+        type: 'FLIP_JOURNEY_TOKEN',
+        onFaceDown: [{ type: 'ADD_MONEY', amount: 1 }],
+        onFaceUp: [{ type: 'ADD_MONEY', amount: 5 }, { type: 'ATTACK', attackEffects: [{ type: 'GIANT_ATTACK' }] }]
+    }] as any
 };
