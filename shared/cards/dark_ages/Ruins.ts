@@ -56,21 +56,7 @@ export const Ruins: CardDefinition[] = [
         types: ['ACTION', 'RUINS'],
         expansion: 'dark_ages',
         description: "Regardez les 2 cartes du dessus de votre deck. Défaussez-les ou replacez-les dans l'ordre de votre choix.",
-        effects: [
-            {
-                type: 'CHOICE',
-                options: ['Défausser', 'Replacer'],
-                effects: {
-                    'Défausser': [
-                        { type: 'REVEAL_CARDS', amount: 2, source: 'deck', destination: 'discardPile' }
-                    ],
-                    'Replacer': [
-                        { type: 'REVEAL_CARDS', amount: 2, source: 'deck', destination: 'limbo' },
-                        { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Replacez les cartes sur votre deck' }
-                    ]
-                }
-            }
-        ],
+        effects: [{ type: 'SURVIVORS' }] as any,
         isSubCard: true
     },
     // The Mixed Pile Placeholder
