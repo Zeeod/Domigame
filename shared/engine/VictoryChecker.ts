@@ -71,6 +71,7 @@ export class VictoryChecker {
                 score += this.calculateLandmarkScore(state, player, landscapeId, allCards);
             }
         }
+        for (const f of this.playerScorers) score += f(state, player);
         return score;
     }
 
@@ -109,6 +110,9 @@ export class VictoryChecker {
     /**
      * Calculate score from a Landmark
      */
+    /** Extra VP for a player, registered by expansions (Nocturne: Miserable). */
+    static playerScorers: ((state: GameState, player: PlayerState) => number)[] = [];
+
     /** "When scoring" Landmark rules, registered by expansions (Empires). */
     static landmarkScorers: ((state: GameState, player: PlayerState, landmarkId: string, allCards: any[]) => number)[] = [];
 

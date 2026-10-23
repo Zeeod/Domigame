@@ -1,161 +1,30 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const BadOmens: CardDefinition = {
-    id: 'bad_omens',
-    name: 'Mauvais Augures',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Mettez votre pioche dans votre défausse. Si vous avez 2💰 ou plus en jeu, mettez 2 Cuivres de votre défausse sur votre deck.',
-    isNonSupply: true,
-    effects: [
-        // TODO: Implement
-    ]
-};
+/** Nocturne — the 12 Hexes and the 5 States (official texts). */
+const hex = (id: string, name: string, description: string, effects: any[]): CardDefinition => ({
+    id, name, cost: 0, types: ['HEX'], expansion: 'nocturne', isNonSupply: true, description, effects
+} as any);
+const st = (id: string, name: string, description: string): CardDefinition => ({
+    id, name, cost: 0, types: ['STATE'], expansion: 'nocturne', isNonSupply: true, description, effects: []
+} as any);
 
-export const Delusion: CardDefinition = {
-    id: 'delusion',
-    name: 'Délire',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Si vous n\'avez pas d\'État, recevez Delusions. (Sinon, rien ne se passe.)',
-    isNonSupply: true,
-    effects: []
-};
+export const BadOmens = hex('bad_omens', 'Mauvais présages', 'Placez votre pioche dans votre défausse. Regardez-la et placez-en 2 Cuivres sur votre pioche (ou dévoilez que vous ne pouvez pas).', [{ type: 'BAD_OMENS' }]);
+export const Delusion = hex('delusion', 'Illusion', 'Si vous n\'avez ni Trompé ni Envieux, prenez Trompé.', [{ type: 'TAKE_STATE_IF_FREE', stateId: 'deluded' }]);
+export const Envy = hex('envy', 'Envie', 'Si vous n\'avez ni Trompé ni Envieux, prenez Envieux.', [{ type: 'TAKE_STATE_IF_FREE', stateId: 'envious' }]);
+export const Famine = hex('famine', 'Famine', 'Dévoilez les 3 cartes du dessus de votre pioche. Défaussez les Actions. Mélangez les autres dans votre pioche.', [{ type: 'FAMINE' }]);
+export const Fear = hex('fear', 'Peur', 'Si vous avez au moins 5 cartes en main, défaussez une Action ou un Trésor (ou dévoilez que vous ne pouvez pas).', [{ type: 'FEAR' }]);
+export const Greed = hex('greed', 'Cupidité', 'Recevez un Cuivre sur votre pioche.', [{ type: 'GAIN_CARD', cardId: 'copper', destination: 'deck' }]);
+export const Haunting = hex('haunting', 'Hantise', 'Si vous avez au moins 4 cartes en main, placez-en une sur votre pioche.', [{ type: 'HAUNTING' }]);
+export const Locusts = hex('locusts', 'Sauterelles', 'Écartez la carte du dessus de votre pioche. Si c\'est un Cuivre ou un Domaine, recevez une Malédiction. Sinon, recevez une carte moins chère partageant un type avec elle.', [{ type: 'LOCUSTS' }]);
+export const Misery = hex('misery', 'Misère', 'Si c\'est votre première Misère de la partie, prenez Misérable. Sinon, retournez-le en Doublement misérable.', [{ type: 'MISERY' }]);
+export const Plague = hex('plague', 'Peste', 'Recevez une Malédiction en main.', [{ type: 'GAIN_CARD', cardId: 'curse', destination: 'hand' }]);
+export const Poverty = hex('poverty', 'Pauvreté', 'Défaussez jusqu\'à avoir 3 cartes en main.', [{ type: 'DISCARD_TO_HAND_SIZE', targetSize: 3 }]);
+export const War = hex('war', 'Guerre', 'Dévoilez des cartes de votre pioche jusqu\'à dévoiler une carte coûtant 3 ou 4 💰. Écartez-la et défaussez le reste.', [{ type: 'WAR' }]);
 
-export const Envy: CardDefinition = {
-    id: 'envy',
-    name: 'Envie',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Pendant le reste du tour, vos Silvers et Golds valent 1💰.',
-    isNonSupply: true,
-    effects: []
-};
+export const ALL_HEXES = [BadOmens, Delusion, Envy, Famine, Fear, Greed, Haunting, Locusts, Misery, Plague, Poverty, War];
 
-export const Famine: CardDefinition = {
-    id: 'famine',
-    name: 'Famine',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Révélez les 3 cartes du dessus de votre deck. Écartez-en les Actions et défaussez le reste.',
-    isNonSupply: true,
-    effects: [
-        {
-            type: 'REVEAL_TOP_OF_DECK',
-            amount: 3,
-            next: [
-                {
-                    type: 'CHOOSE_FROM_REVEALED',
-                    message: 'Écartez les Actions révélées',
-                    min: 0,
-                    max: 3,
-                    destination: 'trash', // Wait, Hex says "Trash the Actions, Discard the rest"
-                    // We need a forced filter/choice
-                } as any
-            ]
-        }
-    ]
-};
-
-export const Fear: CardDefinition = {
-    id: 'fear',
-    name: 'Peur',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Si vous avez au moins 5 cartes en main (après défausse d\'une carte le cas échéant), défaussez une Action ou un Trésor.',
-    isNonSupply: true,
-    effects: []
-};
-
-export const Greed: CardDefinition = {
-    id: 'greed',
-    name: 'Cupidité',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Recevez un Cuivre sur votre deck.',
-    isNonSupply: true,
-    effects: [
-        { type: 'GAIN_CARD', cardId: 'copper', destination: 'deck' }
-    ]
-};
-
-export const Haunting: CardDefinition = {
-    id: 'haunting',
-    name: 'Hantise',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Si vous avez au moins 4 cartes en main, mettez une carte de votre main sur votre deck.',
-    isNonSupply: true,
-    effects: []
-};
-
-export const Locusts: CardDefinition = {
-    id: 'locusts',
-    name: 'Criquets',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Écartez la carte du dessus de votre deck. Si c\'était un Cuivre ou un Domaine, recevez une Malédiction. Sinon, recevez une carte coûtant moins que la carte écartée, partageant un type avec elle.',
-    isNonSupply: true,
-    effects: []
-};
-
-export const Misery: CardDefinition = {
-    id: 'misery',
-    name: 'Misère',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Si vous n\'avez pas Miserable, recevez-le. Si vous l\'avez déjà, retournez-le sur Twice Miserable.',
-    isNonSupply: true,
-    effects: []
-};
-
-export const Plague: CardDefinition = {
-    id: 'plague',
-    name: 'Peste',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Recevez une Malédiction (Curse).',
-    isNonSupply: true,
-    effects: [
-        { type: 'GAIN_CARD', cardId: 'curse' }
-    ]
-};
-
-export const Poverty: CardDefinition = {
-    id: 'poverty',
-    name: 'Pauvreté',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Défaussez jusqu\'à avoir 3 cartes en main.',
-    isNonSupply: true,
-    effects: [
-        { type: 'DISCARD_TO_HAND_SIZE', targetSize: 3 }
-    ]
-};
-
-export const War: CardDefinition = {
-    id: 'war',
-    name: 'Guerre',
-    cost: 0,
-    types: ['HEX'],
-    expansion: 'nocturne',
-    description: 'Révélez des cartes de votre deck jusqu\'à une carte coûtant 3💰 ou 4💰. Écartez-la et défaussez le reste.',
-    isNonSupply: true,
-    effects: []
-};
-
-export const ALL_HEXES = [
-    BadOmens, Delusion, Envy, Famine, Fear, Greed,
-    Haunting, Locusts, Misery, Plague, Poverty, War
-];
+export const LostInTheWoods = st('lost_in_the_woods', 'Perdu dans les bois', 'Au début de votre tour, vous pouvez défausser une carte pour recevoir une Faveur.');
+export const Deluded = st('deluded', 'Trompé', 'Au début de votre phase Achat, rendez cet État : vous ne pouvez pas acheter de carte Action ce tour-ci.');
+export const Envious = st('envious', 'Envieux', 'Au début de votre phase Achat, rendez cet État : l\'Argent et l\'Or rapportent 1 💰 ce tour-ci.');
+export const Miserable = st('miserable', 'Misérable', '-2 PV.');
+export const TwiceMiserable = st('twice_miserable', 'Doublement misérable', '-4 PV.');

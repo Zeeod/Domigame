@@ -23,7 +23,6 @@ import { CleanupEffectHandler } from './effects/CleanupEffectHandler.js';
 import { ProphecyManager } from './ProphecyManager.js';
 import { RisingSunEffectHandler } from './effects/RisingSunEffectHandler.js';
 import { AlliesEffectHandler } from './effects/AlliesEffectHandler.js';
-import { BoonsEffectHandler } from './effects/BoonsEffectHandler.js';
 import { PlunderEffectHandler } from './effects/PlunderEffectHandler.js';
 import { MenagerieEffectHandler } from './effects/MenagerieEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
@@ -1136,7 +1135,6 @@ export function registerCoreEffects(): void {
 
     RisingSunEffectHandler.register();
     AlliesEffectHandler.register();
-    BoonsEffectHandler.register();
     PlunderEffectHandler.register();
     MenagerieEffectHandler.register();
 

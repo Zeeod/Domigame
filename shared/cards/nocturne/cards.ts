@@ -1,353 +1,108 @@
-
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const Bard: CardDefinition = {
-    id: 'bard',
-    name: 'Barde',
-    types: ['ACTION', 'FATE'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "+2 Pièces. Recevez une Aubaine.",
-    effects: [
-        { type: 'ADD_MONEY', amount: 2 },
-        { type: 'RECEIVE_BOON' }
-    ]
-};
+/**
+ * Nocturne — the Kingdom cards (official texts). Rules: engine/expansions/NocturneRules.ts.
+ * Night cards follow their instructions like any card (`effects`).
+ */
+const k = (id: string, name: string, cost: number, types: string[], description: string, effects: any[], extra: any = {}): CardDefinition => ({
+    id, name, cost, types, expansion: 'nocturne', description, effects, ...extra
+} as any);
 
-export const BlessedVillage: CardDefinition = {
-    id: 'blessed_village',
-    name: 'Village Béni',
-    types: ['ACTION', 'FATE'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "+1 Carte, +2 Actions. Au moment où vous gagnez cette carte, prenez une Aubaine. Recevez cette Aubaine maintenant ou au début de votre prochain tour.",
-    effects: [
-        { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 2 }
-    ],
-    onGain: [
-        { type: 'RECEIVE_BOON' } // Simplified
-    ]
-};
-
-export const Changeling: CardDefinition = {
-    id: 'changeling',
-    name: 'Changeforme',
-    types: ['NIGHT'],
-    cost: 3,
-    expansion: 'nocturne',
-    description: "Écartez cette carte. Gagnez une copie d'une carte que vous avez gagnée pendant ce tour.",
-    nightEffects: [
-        { type: 'TRASH_SELF' },
-        { type: 'GAIN_COPY_OF_TARGET' } // Logic needs refinement in engine
-    ]
-};
-
-export const Cobbler: CardDefinition = {
-    id: 'cobbler',
-    name: 'Cordonnier',
-    types: ['NIGHT', 'DURATION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Au début de votre prochain tour, gagnez une carte coûtant jusqu'à 4 Pièces dans votre main.",
-    durationTurns: 1,
-    durationEffects: [
-        {
-            type: 'GAIN_CARD_FROM_SUPPLY',
-            allowedTypes: ['ACTION', 'TREASURE', 'VICTORY'], // Any card from supply?
-            maxCost: 4,
-            destination: 'hand'
-        }
-    ]
-};
-
-export const Conclave: CardDefinition = {
-    id: 'conclave',
-    name: 'Conclave',
-    types: ['ACTION'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "+2 Pièces. Vous pouvez jouer une carte Action de votre main que vous n'avez pas en jeu. Si vous le faites, +1 Action.",
-    effects: [
-        { type: 'ADD_MONEY', amount: 2 },
-        // Interactive choice needed
-    ]
-};
-
-export const Crypt: CardDefinition = {
-    id: 'crypt',
-    name: 'Crypte',
-    types: ['NIGHT', 'DURATION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Mettez de côté n'importe quel nombre de Trésors que vous avez en jeu. Au début de chacun de vos tours, vous pouvez mettre une de ces cartes dans votre main.",
-    nightEffects: [
-        // Complex logic
-    ]
-};
-
-export const CursedVillage: CardDefinition = {
-    id: 'cursed_village',
-    name: 'Village Maudit',
-    types: ['ACTION', 'DOOM'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "+2 Actions. Piochez jusqu'à ce que vous ayez 6 cartes en main. Recevez une Malédiction (Hex).",
-    effects: [
-        { type: 'ADD_ACTIONS', amount: 2 },
-        { type: 'DRAW_UNTIL_HAND_SIZE', targetSize: 6 },
-        { type: 'RECEIVE_HEX' }
-    ]
-};
-
-export const DenOfSin: CardDefinition = {
-    id: 'den_of_sin',
-    name: 'Repaire du Péché',
-    types: ['NIGHT', 'DURATION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Au début de votre prochain tour : +2 Cartes.",
-    durationTurns: 1,
-    durationEffects: [
-        { type: 'DRAW', amount: 2 }
-    ]
-};
-
-export const DevilsWorkshop: CardDefinition = {
-    id: 'devils_workshop',
-    name: 'Atelier du Diable',
-    types: ['NIGHT'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "Si vous avez gagné 2 cartes ou plus à ce tour, gagnez un Lutin (Imp). Sinon, gagnez une carte coûtant jusqu'à 4 Pièces.",
-    relatedCardIds: ['imp'],
-    nightEffects: [
-        // Conditional logic
-    ]
-};
-
-export const Druid: CardDefinition = {
-    id: 'druid',
-    name: 'Druide',
-    types: ['ACTION', 'FATE'],
-    cost: 2,
-    expansion: 'nocturne',
-    description: "+1 Achat\n    Appliquez une des trois Aubaines mises de côté (laissez-la en place).\n    Mise en place : mettez de coté face visible les 3 premières Aubaines.",
-    effects: [
-        { type: 'ADD_BUYS', amount: 1 },
-        { type: 'DRUID_CHOOSE_BOON' }
-    ]
-};
-
-export const FaithfulHound: CardDefinition = {
-    id: 'faithful_hound',
-    name: 'Chien Fidèle',
-    cost: 2,
-    types: ['ACTION', 'REACTION'],
-    expansion: 'nocturne',
-    description: "+2 Cartes. Si vous défaussez cette carte autrement que lors de votre phase de nettoyage, vous pouvez la mettre de côté et la reprendre en main au début de votre prochain tour.",
-    effects: [
-        { type: 'DRAW', amount: 2 }
-    ],
-    isReaction: true,
-    reactionTrigger: 'DISCARD'
-};
-
-export const Fool: CardDefinition = {
-    id: 'fool',
-    name: 'Fou',
-    types: ['ACTION', 'FATE'],
-    cost: 3,
-    expansion: 'nocturne',
-    description: "Si vous avez perdu une Aubaine, prenez-la. Sinon : +1 Achat, +2 Pièces, recevez une Aubaine. Si vous avez reçu l'Aubaine qui permet de mélanger la défausse ou d'avoir +1 Pièce, perdez-la (tournez la carte face cachée).",
-    heirloom: 'lucky_coin',
-    effects: [
-        // Complex logic
-    ]
-};
-
-export const Guardian: CardDefinition = {
-    id: 'guardian',
-    name: 'Gardien',
-    types: ['NIGHT', 'DURATION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Jusqu'au début de votre prochain tour, quand un autre joueur joue une carte Attaque, elle ne vous affecte pas. Au début de votre prochain tour, +1 Pièce.",
-    durationTurns: 1,
-    durationEffects: [
-        { type: 'ADD_MONEY', amount: 1 }
-    ],
-    nightEffects: [
-        // Protection effect
-    ]
-};
-
-export const Idol: CardDefinition = {
-    id: 'idol',
-    name: 'Idole',
-    types: ['TREASURE', 'ATTACK', 'FATE'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "2 Pièces. Recevez une Aubaine. Si le nombre d'Idoles que vous avez en jeu est impair, chaque autre joueur reçoit une Malédiction (Hex).",
-    treasureValue: 2,
-    effects: [
-        { type: 'ADD_MONEY', amount: 2 },
-        { type: 'RECEIVE_BOON' },
-        // Conditional attack
-    ]
-};
-
-export const Leprechaun: CardDefinition = {
-    id: 'leprechaun',
-    name: 'Leprechaun',
-    types: ['ACTION', 'DOOM'],
-    cost: 3,
-    expansion: 'nocturne',
-    description: "Gagnez un Or. Si vous avez exactement 7 cartes en jeu, gagnez un Souhait (Wish). Sinon, recevez une Malédiction (Hex).",
-    relatedCardIds: ['wish'],
-    effects: [
-        { type: 'GAIN_CARD', cardId: 'gold' },
-        // Conditional
-    ]
-};
-
-export const Necromancer: CardDefinition = {
-    id: 'necromancer',
-    name: 'Nécromancien',
-    types: ['ACTION'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "Jouez une carte Action face visible du tas de Rebut, ne l'écartant pas de là et la laissant là.",
-    effects: [
-        // Play from trash
-    ]
-};
-
-export const Pixie: CardDefinition = {
-    id: 'pixie',
-    name: 'Pixie',
-    types: ['ACTION', 'FATE'],
-    cost: 4,
-    expansion: 'nocturne',
-    description: "+1 Carte, +1 Action. Choisissez-en un : +2 Pièces ; ou recevez une Aubaine. En recevant l'Aubaine, vous pouvez écarter cette carte pour gagner l'Aubaine deux fois (prenez des copies).",
-    heirloom: 'goat',
-    effects: [
-        { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'CHOICE', options: ['+2 Pièces', 'Recevoir une Aubaine'], effects: {} }
-    ]
-};
-
-export const Pooka: CardDefinition = {
-    id: 'pooka',
-    name: 'Pooka',
-    types: ['ACTION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Vous pouvez écarter une carte Trésor (autre que Cursed Gold) de votre main pour +4 Cartes.",
-    heirloom: 'cursed_gold',
-    effects: [
-        // Choice
-    ]
-};
-
-export const Raider: CardDefinition = {
-    id: 'raider',
-    name: 'Pillard',
-    types: ['NIGHT', 'DURATION', 'ATTACK'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Chaque autre joueur ayant 5 cartes ou plus défausse une copie d'une carte qu'il a en jeu (ou révèle qu'il ne peut pas). Au début de votre prochain tour, +3 Pièces.",
-    nightEffects: [
-        { type: 'BANDIT_ATTACK' } // Placeholder for custom attack
-    ],
-    durationTurns: 1,
-    durationEffects: [
-        { type: 'ADD_MONEY', amount: 3 }
-    ]
-};
-
-export const SacredGrove: CardDefinition = {
-    id: 'sacred_grove',
-    name: 'Bosquet Sacré',
-    types: ['ACTION', 'FATE'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "+1 Achat, +3 Pièces. Recevez une Aubaine. Si vous en avez choisi une qui donne +1 Pièce ou +1 Achat, vous pouvez recevoir cette Aubaine à nouveau.",
-    effects: [
-        { type: 'ADD_BUYS', amount: 1 },
-        { type: 'ADD_MONEY', amount: 3 },
-        { type: 'RECEIVE_BOON' }
-    ]
-};
-
-export const SecretCave: CardDefinition = {
-    id: 'secret_cave',
-    name: 'Grotte Secrète',
-    types: ['ACTION', 'DURATION'],
-    cost: 3,
-    expansion: 'nocturne',
-    description: "+1 Carte, +1 Action. Vous pouvez défausser 3 cartes. Si vous le faites, +3 Pièces et activez ce tour.",
-    heirloom: 'magic_lamp',
-    effects: [
-        { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 1 },
-        // Conditional discard for money+duration
-    ]
-};
-
-export const Tormentor: CardDefinition = {
-    id: 'tormentor',
-    name: 'Tourmenteur',
-    types: ['ACTION', 'ATTACK', 'DOOM'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "+2 Pièces. Si vous n'avez pas d'autres cartes en jeu, gagnez un Lutin (Imp). Sinon, chaque autre joueur reçoit une Malédiction (Hex).",
-    relatedCardIds: ['imp'],
-    effects: [
-        { type: 'ADD_MONEY', amount: 2 },
-        // Conditional
-    ]
-};
-
-export const TragicHero: CardDefinition = {
-    id: 'tragic_hero',
-    name: 'Héros Tragique',
-    types: ['ACTION'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "+3 Cartes, +1 Achat. Si vous avez 8 cartes ou plus en main (en comptant celle-ci), écartez cette carte et gagnez un Trésor.",
-    effects: [
-        { type: 'DRAW', amount: 3 },
-        { type: 'ADD_BUYS', amount: 1 },
-        // Conditional trash
-    ]
-};
-
-export const Vampire: CardDefinition = {
-    id: 'vampire',
-    name: 'Vampire',
-    types: ['NIGHT', 'ATTACK', 'DOOM'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Chaque autre joueur reçoit une Malédiction (Hex). Gagnez une Chauve-Souris (Bat) du tas de cartes non-disponibles ou de la poubelle, échangez-la avec cette carte.",
-    relatedCardIds: ['bat'],
-    nightEffects: [
-        // Attack + Exchange
-    ]
-};
-
-export const Werewolf: CardDefinition = {
-    id: 'werewolf',
-    name: 'Loup-Garou',
-    types: ['ACTION', 'NIGHT', 'ATTACK', 'DOOM'],
-    cost: 5,
-    expansion: 'nocturne',
-    description: "Si c'est votre phase Nuit, chaque autre joueur reçoit une Malédiction (Hex). Sinon, +3 Cartes.",
-    effects: [
-        { type: 'DRAW', amount: 3 }
-    ],
-    nightEffects: [
-        { type: 'RECEIVE_HEX' } // Plus attack on others?
-    ]
-};
+export const Bard = k('bard', 'Barde', 4, ['ACTION', 'FATE'], '+2 💰. Recevez une Faveur.',
+    [{ type: 'ADD_MONEY', amount: 2 }, { type: 'RECEIVE_BOON' }]);
+export const BlessedVillage = k('blessed_village', 'Village béni', 4, ['ACTION', 'FATE'],
+    '+1 Carte, +2 Actions. Quand vous recevez cette carte, prenez une Faveur. Recevez-la maintenant ou au début de votre prochain tour.',
+    [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 2 }], { onGain: [{ type: 'BLESSED_VILLAGE_ON_GAIN' }] });
+export const Cemetery = k('cemetery', 'Cimetière', 4, ['VICTORY'], '2 PV. Quand vous recevez cette carte, écartez jusqu\'à 4 cartes de votre main. Héritage : Miroir hanté.',
+    [], { victoryPoints: 2, heirloom: 'haunted_mirror', onGain: [{ type: 'TRASH', min: 0, max: 4, from: 'hand', message: 'Cimetière : vous pouvez écarter jusqu\'à 4 cartes' }] });
+export const Changeling = k('changeling', 'Changelin', 3, ['NIGHT'],
+    'Écartez cette carte. Recevez une copie d\'une carte que vous avez en jeu. Dans les parties utilisant cette carte, quand vous recevez une carte coûtant 3 💰 ou plus, vous pouvez l\'échanger contre un Changelin.',
+    [{ type: 'CHANGELING' }]);
+export const Cobbler = k('cobbler', 'Cordonnier', 5, ['NIGHT', 'DURATION'], 'Au début de votre prochain tour, recevez en main une carte coûtant jusqu\'à 4 💰.',
+    [], { durationEffects: [{ type: 'GAIN_CARD', maxCost: 4, destination: 'hand', message: 'Cordonnier : recevez en main une carte coûtant jusqu\'à 4 💰' }] });
+export const Conclave = k('conclave', 'Conclave', 4, ['ACTION'],
+    '+2 💰. Vous pouvez jouer une carte Action de votre main dont vous n\'avez pas de copie en jeu. Si vous le faites, +1 Action.',
+    [{ type: 'ADD_MONEY', amount: 2 }, { type: 'PLAY_UNIQUE_ACTION', bonusAction: true, message: 'Conclave : jouer une Action dont vous n\'avez pas de copie en jeu ?' }]);
+export const Crypt = k('crypt', 'Crypte', 5, ['NIGHT', 'DURATION'],
+    'Mettez de côté face cachée autant de Trésors non-Durée que vous voulez parmi ceux que vous avez en jeu. Tant qu\'il en reste, au début de chacun de vos tours, prenez-en un en main.',
+    [{ type: 'CRYPT' }], { durationEffects: [{ type: 'CRYPT_RETURN' }], durationTurns: 99 });
+export const CursedVillage = k('cursed_village', 'Village maudit', 5, ['ACTION', 'DOOM'],
+    '+2 Actions. Piochez jusqu\'à avoir 6 cartes en main. Quand vous recevez cette carte, recevez un Maléfice.',
+    [{ type: 'ADD_ACTIONS', amount: 2 }, { type: 'DRAW_UNTIL_HAND_SIZE', targetSize: 6 }], { onGain: [{ type: 'RECEIVE_HEX' }] });
+export const DenOfSin = k('den_of_sin', 'Antre du vice', 5, ['NIGHT', 'DURATION'], 'Au début de votre prochain tour, +2 Cartes. Cette carte est reçue en main (au lieu de votre défausse).',
+    [], { durationEffects: [{ type: 'DRAW', amount: 2 }], gainToHand: true });
+export const DevilsWorkshop = k('devils_workshop', 'Atelier du diable', 4, ['NIGHT'],
+    'Si le nombre de cartes que vous avez reçues ce tour-ci est 2 ou plus, recevez un Diablotin ; 1, recevez une carte coûtant jusqu\'à 4 💰 ; 0, recevez un Or.',
+    [{ type: 'DEVILS_WORKSHOP' }]);
+export const Druid = k('druid', 'Druide', 2, ['ACTION', 'FATE'], '+1 Achat. Recevez l\'une des Faveurs mises de côté (laissez-la en place). Mise en place : mettez de côté face visible les 3 premières Faveurs.',
+    [{ type: 'ADD_BUYS', amount: 1 }, { type: 'DRUID_CHOOSE_BOON' }]);
+export const Exorcist = k('exorcist', 'Exorciste', 4, ['NIGHT'], 'Écartez une carte de votre main. Recevez un Esprit moins cher d\'une des piles d\'Esprits.',
+    [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Exorciste : écartez une carte', onSuccess: [{ type: 'EXORCIST_GAIN' }] }]);
+export const FaithfulHound = k('faithful_hound', 'Chien fidèle', 2, ['ACTION', 'REACTION'],
+    '+2 Cartes. Quand vous défaussez cette carte hors Ajustement, vous pouvez la mettre de côté et la prendre en main à la fin du tour.',
+    [{ type: 'DRAW', amount: 2 }], { onDiscardOutsideCleanup: [{ type: 'FAITHFUL_HOUND' }] });
+export const Fool = k('fool', 'Fou', 3, ['ACTION', 'FATE'],
+    'Si vous n\'êtes pas le joueur qui a Perdu dans les bois, prenez-le, prenez 3 Faveurs et recevez-les dans l\'ordre de votre choix. Héritage : Pièce porte-bonheur.',
+    [{ type: 'FOOL' }], { heirloom: 'lucky_coin' });
+export const GhostTown = k('ghost_town', 'Ville fantôme', 3, ['NIGHT', 'DURATION'], 'Au début de votre prochain tour, +1 Carte et +1 Action. Cette carte est reçue en main (au lieu de votre défausse).',
+    [], { durationEffects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }], gainToHand: true });
+export const Guardian = k('guardian', 'Gardien', 2, ['NIGHT', 'DURATION'],
+    'Jusqu\'à votre prochain tour, quand un autre joueur joue une carte Attaque, elle ne vous affecte pas. Au début de votre prochain tour, +1 💰. Cette carte est reçue en main.',
+    [], { durationEffects: [{ type: 'ADD_MONEY', amount: 1 }], gainToHand: true, blocksAttack: true });
+export const Idol = k('idol', 'Idole', 5, ['TREASURE', 'ATTACK', 'FATE'],
+    '2 💰. Quand vous jouez cette carte, si vous avez alors un nombre impair d\'Idoles en jeu, recevez une Faveur ; si c\'est un nombre pair, chaque autre joueur reçoit une Malédiction.',
+    [{ type: 'ADD_MONEY', amount: 2 }, { type: 'IDOL' }], { treasureValue: 0 });
+export const Leprechaun = k('leprechaun', 'Farfadet', 3, ['ACTION', 'DOOM'],
+    'Recevez un Or. Si vous avez exactement 7 cartes en jeu, recevez un Vœu de sa pile. Sinon, recevez un Maléfice.',
+    [{ type: 'GAIN_CARD', cardId: 'gold' }, { type: 'LEPRECHAUN' }]);
+export const Monastery = k('monastery', 'Monastère', 2, ['NIGHT'],
+    'Pour chaque carte que vous avez reçue ce tour-ci, vous pouvez écarter une carte de votre main ou un Cuivre que vous avez en jeu.', [{ type: 'MONASTERY' }]);
+export const Necromancer = k('necromancer', 'Nécromancien', 4, ['ACTION'],
+    'Jouez une carte Action non-Durée face visible du rebut, en l\'y laissant et en la retournant face cachée pour ce tour. Mise en place : placez les 3 Zombies dans le rebut.',
+    [{ type: 'NECROMANCER' }]);
+export const NightWatchman = k('night_watchman', 'Veilleur de nuit', 3, ['NIGHT'],
+    'Regardez les 5 cartes du dessus de votre pioche, défaussez-en autant que vous voulez et remettez les autres dans l\'ordre de votre choix. Cette carte est reçue en main.',
+    [{ type: 'NIGHT_WATCHMAN' }], { gainToHand: true });
+export const Pixie = k('pixie', 'Lutin', 2, ['ACTION', 'FATE'],
+    '+1 Carte, +1 Action. Défaussez la Faveur du dessus. Vous pouvez écarter cette carte pour recevoir deux fois cette Faveur. Héritage : Chèvre.',
+    [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'PIXIE' }], { heirloom: 'goat' });
+export const Pooka = k('pooka', 'Pooka', 5, ['ACTION'],
+    'Vous pouvez écarter un Trésor autre qu\'un Or maudit de votre main pour +4 Cartes. Héritage : Or maudit.',
+    [{ type: 'TRASH', min: 0, max: 1, from: 'hand', filter: { cardTypes: ['TREASURE'], excludeIds: ['cursed_gold'] }, message: 'Pooka : écarter un Trésor pour +4 Cartes ?', ifTrashed: { count: 1, effects: [{ type: 'DRAW', amount: 4 }] } }],
+    { heirloom: 'cursed_gold' });
+export const Raider = k('raider', 'Pillard', 6, ['NIGHT', 'DURATION', 'ATTACK'],
+    'Chaque autre joueur ayant 5 cartes ou plus en main défausse une copie d\'une carte que vous avez en jeu (ou dévoile qu\'il ne peut pas). Au début de votre prochain tour, +3 💰.',
+    [{ type: 'ATTACK', attackEffects: [{ type: 'RAIDER_HIT' }] }], { durationEffects: [{ type: 'ADD_MONEY', amount: 3 }] });
+export const SacredGrove = k('sacred_grove', 'Bosquet sacré', 5, ['ACTION', 'FATE'],
+    '+1 Achat, +3 💰. Recevez une Faveur. Si elle ne donne pas +1 💰, chaque autre joueur peut la recevoir.',
+    [{ type: 'ADD_BUYS', amount: 1 }, { type: 'ADD_MONEY', amount: 3 }, { type: 'SACRED_GROVE' }]);
+export const SecretCave = k('secret_cave', 'Grotte secrète', 3, ['ACTION', 'DURATION'],
+    '+1 Carte, +1 Action. Vous pouvez défausser 3 cartes. Si vous le faites, au début de votre prochain tour, +3 💰. Héritage : Lampe magique.',
+    [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'SECRET_CAVE' }],
+    { durationEffects: [{ type: 'ADD_MONEY', amount: 3 }], heirloom: 'magic_lamp' });
+export const Shepherd = k('shepherd', 'Berger', 4, ['ACTION'],
+    '+1 Action. Défaussez autant de cartes Victoire que vous voulez, en les dévoilant. +2 Cartes par carte défaussée. Héritage : Pâturage.',
+    [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'ARTIFICER_START' },
+        { type: 'DISCARD', min: 0, max: 99, filter: { cardTypes: ['VICTORY'] }, message: 'Berger : défaussez des cartes Victoire (+2 Cartes chacune)' },
+        { type: 'SHEPHERD_DRAW' }], { heirloom: 'pasture' });
+export const Skulk = k('skulk', 'Rôdeur', 4, ['ACTION', 'ATTACK', 'DOOM'],
+    '+1 Achat. Chaque autre joueur reçoit le prochain Maléfice. Quand vous recevez cette carte, recevez un Or.',
+    [{ type: 'ADD_BUYS', amount: 1 }, { type: 'HEX_OTHERS' }], { onGain: [{ type: 'GAIN_CARD', cardId: 'gold' }] });
+export const Tormentor = k('tormentor', 'Tourmenteur', 5, ['ACTION', 'ATTACK', 'DOOM'],
+    '+2 💰. Si vous n\'avez pas d\'autres cartes en jeu, recevez un Diablotin de sa pile. Sinon, chaque autre joueur reçoit le prochain Maléfice.',
+    [{ type: 'ADD_MONEY', amount: 2 }, { type: 'TORMENTOR' }]);
+export const Tracker = k('tracker', 'Traqueur', 2, ['ACTION', 'FATE'],
+    '+1 💰. Recevez une Faveur. Ce tour-ci, quand vous recevez une carte, vous pouvez la placer sur votre pioche. Héritage : Bourse.',
+    [{ type: 'ADD_MONEY', amount: 1 },
+        { type: 'REGISTER_TRIGGER', trigger: 'ON_GAIN', duration: 'TURN', repeat: true, description: 'Traqueur',
+            effects: [{ type: 'SELECT_OPTION', message: 'Traqueur : placer la carte reçue sur votre pioche ?', options: [
+                { label: 'Oui', effects: [{ type: 'GAINED_CARD_TO', to: 'deck' }] }, { label: 'Non', effects: [] }] }] },
+        { type: 'RECEIVE_BOON' }], { heirloom: 'pouch' });
+export const TragicHero = k('tragic_hero', 'Héros tragique', 5, ['ACTION'],
+    '+3 Cartes, +1 Achat. Si vous avez 8 cartes ou plus en main (après la pioche), écartez cette carte et recevez un Trésor.',
+    [{ type: 'DRAW', amount: 3 }, { type: 'ADD_BUYS', amount: 1 }, { type: 'TRAGIC_HERO' }]);
+export const Vampire = k('vampire', 'Vampire', 5, ['NIGHT', 'ATTACK', 'DOOM'],
+    'Chaque autre joueur reçoit le prochain Maléfice. Recevez une carte coûtant jusqu\'à 5 💰 autre qu\'un Vampire. Échangez cette carte contre une Chauve-souris.',
+    [{ type: 'VAMPIRE' }]);
+export const Werewolf = k('werewolf', 'Loup-garou', 5, ['ACTION', 'NIGHT', 'ATTACK', 'DOOM'],
+    'Si c\'est votre phase de Nuit, chaque autre joueur reçoit le prochain Maléfice. Sinon, +3 Cartes.', [{ type: 'WEREWOLF' }]);

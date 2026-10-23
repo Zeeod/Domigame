@@ -39,8 +39,6 @@ export const SHELL_CARDS: ReadonlySet<string> = new Set([
     'banish', 'commerce', 'enhance', 'invest', 'march', 'populate', 'pursue', 'stampede',
     'transport', 'way_of_the_mouse',
 
-    // Nocturne
-    'crypt', 'devils_workshop', 'fool', 'necromancer', 'pooka', 'vampire',
 ]);
 
 /**

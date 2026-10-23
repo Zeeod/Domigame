@@ -168,6 +168,13 @@ export class RulesValidator {
     }
 
     private static validateBuyCard(state: GameState, playerId: string, cardId: string): ValidationResult {
+        {
+            const p = state.players.find(x => x.id === playerId) as any;
+            const d = CardRegistry.get(cardId);
+            if (p?.deludedTurn === state.turnNumber && d?.types.includes('ACTION')) {
+                return { valid: false, error: 'Trompé : vous ne pouvez pas acheter de carte Action ce tour-ci' };
+            }
+        }
         // Check if it's this player's turn
         const currentPlayer = getCurrentPlayer(state);
         if (!currentPlayer || currentPlayer.id !== playerId) {
