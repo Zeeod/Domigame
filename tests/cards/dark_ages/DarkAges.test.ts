@@ -407,6 +407,16 @@ describe('Âge des Ténèbres', () => {
         expect(ids(player(s).discardPile)).toEqual(['estate']);
     });
 
+    it('Survivants : défausse les 2 cartes du dessus ou les remet', () => {
+        let s = makeGame([]);
+        player(s).hand = cards('survivors');
+        player(s).deck = cards('estate', 'curse', 'gold');
+        s = play(s, 'survivors');
+        s = chooseOption(s, 0);
+        expect(ids(player(s).discardPile).sort()).toEqual(['curse', 'estate']);
+        expect(ids(player(s).deck)).toEqual(['gold']);
+    });
+
     it('Abris : Nécropole +2 Actions ; Domaine luxuriant écarté → +1 Carte', () => {
         let s = makeGame(['chapel']);
         player(s).hand = cards('necropolis');

@@ -430,6 +430,25 @@ export const DarkAgesModule: ExpansionModule = {
             }
         },
         {
+            // Survivors: look at the top 2 cards; discard them or put them back in any order
+            type: 'SURVIVORS',
+            handler: (state, player) => {
+                const seen: CardInstance[] = [];
+                for (let i = 0; i < 2; i++) { const c = takeTop(state, player); if (c) seen.push(c); }
+                if (!seen.length) return done(state);
+                player.limbo.push(...seen);
+                const ids = seen.map(c => c.instanceId);
+                const back = seen.length > 1
+                    ? [{ type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: "Survivants : remettez les cartes dans l'ordre de votre choix" }]
+                    : [{ type: 'LIMBO_TO', ids, to: 'deck' }];
+                push(state, player.id, options(`Survivants : ${seen.map(c => nameOf(c.id)).join(', ')}`, [
+                    { label: 'Les défausser', effects: [{ type: 'LIMBO_TO', ids, to: 'discard' }] },
+                    { label: 'Les remettre', effects: back }
+                ]));
+                return done(state);
+            }
+        },
+        {
             // Cultist: you may play a Cultist from your hand
             type: 'MAY_PLAY_FROM_HAND',
             handler: (state, player, effect: any) => askHand(state, player, 'PLAY_FROM_HAND', effect.message || 'Jouer une carte de votre main ?', effect.filter || {})

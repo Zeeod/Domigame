@@ -3,7 +3,6 @@
  * Fix a card → remove it from this list. Goal: empty list.
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
-    'survivors', // [first] effet(s) sans gestionnaire : CHOICE
     'raze', // [first] effet(s) sans gestionnaire : LOOK_AT_TOP_COST
     'ranger', // [first] effet(s) sans gestionnaire : FLIP_JOURNEY_TOKEN
     'artificer', // [last] effet(s) sans gestionnaire : GAIN_CARD_EXACT_COST_DISCARDED
