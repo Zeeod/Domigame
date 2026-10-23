@@ -6,24 +6,12 @@ export const cultist: CardDefinition = {
     cost: 5,
     types: ['ACTION', 'ATTACK', 'LOOTER'],
     expansion: 'dark_ages',
-    description: '+2 Cartes. Chaque autre joueur gagne une Ruine. Vous pouvez jouer un autre Cultiste de votre main. Quand vous écartez cette carte, +3 Cartes.',
+    description: '+2 Cartes. Chaque autre joueur reçoit une Ruine. Vous pouvez jouer un Cultiste de votre main. Quand vous écartez cette carte, +3 Cartes.',
     effects: [
         { type: 'DRAW', amount: 2 },
-        {
-            type: 'OTHER_PLAYERS_EFFECT',
-            effect: { type: 'GAIN_CARD', cardId: 'ruins', destination: 'discardPile' }
-        },
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            filter: { cardIds: ['cultist'] },
-            optional: true,
-            message: 'Voulez-vous jouer un autre Cultiste ?',
-            effects: [
-                { type: 'PLAY_THIS_CARD' } // plays the chosen Cultist
-            ]
-        }
-    ],
+        { type: 'ATTACK', attackEffects: [{ type: 'GAIN_CARD', cardId: 'ruins' }] },
+        { type: 'MAY_PLAY_FROM_HAND', filter: { cardIds: ['cultist'] }, message: 'Cultiste : jouer un autre Cultiste de votre main ?' }
+    ] as any,
     onTrash: [
         { type: 'DRAW', amount: 3 }
     ]

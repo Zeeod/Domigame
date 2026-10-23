@@ -11,13 +11,5 @@ export const fortress: CardDefinition = {
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 2 }
     ],
-    onTrash: [
-        {
-            type: 'MOVE_CARDS',
-            source: 'trash',
-            destination: 'hand',
-            count: 1,
-            filter: { cardIds: ['fortress'] }
-        }
-    ]
+    onTrash: [{ type: 'FORTRESS_RETURN' }] as any
 };

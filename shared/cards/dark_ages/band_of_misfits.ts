@@ -6,8 +6,6 @@ export const bandOfMisfits: CardDefinition = {
     cost: 5,
     types: ['ACTION' as any, 'COMMAND' as any],
     expansion: 'dark_ages',
-    description: 'Jouer cette carte comme si c\'était une carte Action de la Réserve coûtant moins.',
-    effects: [
-        { type: 'PLAY_AS_SUPPLY_ACTION', maxCost: 4 } as any
-    ]
+    description: 'Jouez une carte Action non-Commande de la réserve qui coûte moins que cette carte, en la laissant dans la réserve.',
+    effects: [{ type: 'BAND_OF_MISFITS' }] as any
 };

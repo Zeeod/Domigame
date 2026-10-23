@@ -10,9 +10,7 @@ export const urchin: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'OTHER_PLAYERS_EFFECT',
-            effect: { type: 'DISCARD_DOWN_TO', amount: 4 } as any
-        }
-    ]
+        { type: 'ATTACK', attackEffects: [{ type: 'DISCARD_TO_HAND_SIZE', targetSize: 4 }] }
+    ] as any,
+    triggers: [{ trigger: 'ON_PLAY', filter: { cardTypes: ['ATTACK'] }, effects: [{ type: 'URCHIN_OFFER' }] }] as any
 };

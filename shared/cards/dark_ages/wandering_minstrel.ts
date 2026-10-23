@@ -10,6 +10,6 @@ export const wanderingMinstrel: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 2 },
-        { type: 'REVEAL_AND_SORT_ACTIONS', amount: 3 } as any
-    ]
+        { type: 'WANDERING_MINSTREL' }
+    ] as any
 };
