@@ -257,6 +257,11 @@ export class TriggerEffectHandler {
         const gainedInstanceId = typeof gainedCard === 'string' ? undefined : gainedCard.instanceId;
         const context = { gainedCardId, gainedInstanceId };
 
+        // Footpad: "In games using this, when you gain a card in an Action phase, +1 Card."
+        if (state.phase === 'ACTION' && state.kingdomCards?.includes('footpad')) {
+            state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'DRAW', amount: 1 } as any, context: {} });
+        }
+
         // Cards gained during your own turn (Smugglers looks at the previous turn of the player to its right)
         if (state.players[state.currentPlayerIndex]?.id === player.id) {
             (player.gainedThisTurn = player.gainedThisTurn || []).push(gainedCardId);

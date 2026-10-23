@@ -10,5 +10,6 @@ export const farmingVillage: CardDefinition = {
     effects: [
         { type: 'ADD_ACTIONS', amount: 2 },
         { type: 'REVEAL_UNTIL', types: ['ACTION', 'TREASURE'], destination: 'hand' }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

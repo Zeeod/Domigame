@@ -32,7 +32,7 @@ import { SupplyGenerator } from '../shared/engine/SupplyGenerator.js';
 import { VictoryChecker } from '../shared/engine/VictoryChecker.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
-import { applyKingdomRules } from '../shared/engine/KingdomRules.js';
+import { applyKingdomRules, applyKingdomSetup } from '../shared/engine/KingdomRules.js';
 import { actingPlayerFor } from '../shared/engine/Possession.js';
 import { database } from './Database.js';
 
@@ -968,7 +968,9 @@ export class GameRoomV2 {
                     }
                 }
             } else {
-                state.supply[cardId] = { cardId, count: 10, cards: [] };
+                // Victory Kingdom piles use as many cards as the basic Victory piles
+                const count = def?.types.includes('VICTORY') ? victoryCount : 10;
+                state.supply[cardId] = { cardId, count, cards: [] };
             }
         }
 
@@ -1073,6 +1075,9 @@ export class GameRoomV2 {
                 targetPiles[pileId] = { cardId: pileId, count, cards: [] };
             }
         }
+
+        // Ferryman, Joust, Baker…
+        applyKingdomSetup(state);
 
         // Add Platinum and Colony if needed
         const addPC = SupplyGenerator.shouldAddProsperity(kingdomCardIds, this.config.prosperityMode, this.id);

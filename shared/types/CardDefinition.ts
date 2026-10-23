@@ -12,7 +12,7 @@ import { EffectDefinition } from './EffectDefinition.js';
 // Card Types
 // ============================================================================
 
-export type CardType = 'TREASURE' | 'VICTORY' | 'ACTION' | 'ATTACK' | 'REACTION' | 'CURSE' | 'DURATION' | 'LOOTER' | 'SHELTER' | 'RUINS' | 'KNIGHT' | 'RESERVE' | 'TRAVELLER' | 'EVENT' | 'LANDMARK' | 'CASTLE' | 'GATHERING' | 'NIGHT' | 'PROJECT' | 'WAY' | 'ALLY' | 'PROPHECY' | 'SPIRIT' | 'ZOMBIE' | 'BOON' | 'HEX' | 'STATE' | 'ARTIFACT' | 'AUGUR' | 'CLASH' | 'FORT' | 'ODYSSEY' | 'TOWNSFOLK' | 'WIZARD' | 'LIAISON' | 'FATE' | 'DOOM' | 'SHADOW' | 'HEIRLOOM' | 'PRIZE' | 'LOOT' | 'TRAIT' | 'OMEN' | 'COMMAND';
+export type CardType = 'TREASURE' | 'VICTORY' | 'ACTION' | 'ATTACK' | 'REACTION' | 'CURSE' | 'DURATION' | 'LOOTER' | 'SHELTER' | 'RUINS' | 'KNIGHT' | 'RESERVE' | 'TRAVELLER' | 'EVENT' | 'LANDMARK' | 'CASTLE' | 'GATHERING' | 'NIGHT' | 'PROJECT' | 'WAY' | 'ALLY' | 'PROPHECY' | 'SPIRIT' | 'ZOMBIE' | 'BOON' | 'HEX' | 'STATE' | 'ARTIFACT' | 'AUGUR' | 'CLASH' | 'FORT' | 'ODYSSEY' | 'TOWNSFOLK' | 'WIZARD' | 'LIAISON' | 'FATE' | 'DOOM' | 'SHADOW' | 'HEIRLOOM' | 'PRIZE' | 'REWARD' | 'LOOT' | 'TRAIT' | 'OMEN' | 'COMMAND';
 
 // ============================================================================
 // Card Definition
@@ -72,7 +72,9 @@ export interface CardDefinition {
     /** Effects triggered when this card is moved from play to discard during cleanup (Empires - Capital) */
     onCleanup?: EffectDefinition[];
 
-    /** Effects when overpaying for a card (Guilds) */
+    /** Guilds overpay: effects run when the card is gained, with context.overpaid = $ overpaid */
+    overpayEffects?: EffectDefinition[];
+    /** Effects when overpaying for a card (Guilds) — legacy shape */
     overpay?: {
         enabled: boolean;
         effects: EffectDefinition[];

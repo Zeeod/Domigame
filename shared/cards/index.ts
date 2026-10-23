@@ -229,6 +229,7 @@ import { huntingParty } from './cornucopia/hunting_party.js';
 import { jester } from './cornucopia/jester.js';
 import { fairgrounds } from './cornucopia/fairgrounds.js';
 import { BagOfGold, Diadem, Followers, Princess, TrustySteed } from './cornucopia/prizes.js';
+import { carnival, farmhands, farrier, ferryman, footpad, infirmary, joust, shop, coronet, courser, demesne, housecarl, huge_turnip, renown } from './cornucopia/second_edition.js';
 
 // Alchemy
 import {
@@ -624,6 +625,9 @@ const ALL_CARDS: Record<string, any> = {
     followers: Followers,
     princess: Princess,
     trusty_steed: TrustySteed,
+    // Cornucopia & Guilds 2nd edition
+    carnival, farmhands, farrier, ferryman, footpad, infirmary, joust, shop,
+    coronet, courser, demesne, housecarl, huge_turnip, renown,
 
     // Guilds (Guildes)
     candlestick_maker: candlestickMaker,

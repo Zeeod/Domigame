@@ -6,7 +6,7 @@ export const stonemason: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'guilds',
-    description: 'Écartez une carte de votre main. Gagnez 2 cartes coûtant chacune moins que la carte écartée. Surprix: Gagnez 2 cartes Action coûtant exactement le surprix payé.',
+    description: 'Écartez une carte de votre main. Recevez 2 cartes coûtant chacune moins qu\'elle. Surpaiement : recevez 2 cartes Action coûtant chacune le montant surpayé.',
     effects: [
         {
             type: 'TRASH',
@@ -19,5 +19,6 @@ export const stonemason: CardDefinition = {
                 { type: 'GAIN_CARD', maxCost: 'TRASHED_COST_MINUS_1', destination: 'discardPile' }
             ]
         }
-    ] as any
+    ] as any,
+    overpayEffects: [{ type: 'STONEMASON_OVERPAY' }] as any
 };

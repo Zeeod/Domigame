@@ -6,15 +6,12 @@ export const herald: CardDefinition = {
     types: ['ACTION'],
     cost: 4,
     expansion: 'guilds',
-    description: '+1 Carte, +1 Action. Révélez la carte du dessus de votre pioche. Si c\'est une Action, jouez-la. Surprix: Mettez une carte de votre défausse sur votre pioche.',
+    description: '+1 Carte, +1 Action. Dévoilez la carte du dessus de votre pioche. Si c\'est une carte Action, jouez-la. Surpaiement : par 💰 surpayé, placez une carte de votre défausse sur votre pioche.',
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'REVEAL_TOP_DECK',
-            amount: 1,
-            onAction: [{ type: 'PLAY_CARD' }]
-        }
-    ] as any
-    // Note: Overpay needs special buy phase handling
+        { type: 'HERALD' }
+    ] as any,
+    // Note: Overpay needs special buy phase handling,
+    overpayEffects: [{ type: 'HERALD_OVERPAY' }] as any
 };

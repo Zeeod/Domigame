@@ -15,5 +15,6 @@ export const fortuneTeller: CardDefinition = {
                 { type: 'REVEAL_UNTIL', types: ['VICTORY', 'CURSE'], destination: 'deck' }
             ]
         }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

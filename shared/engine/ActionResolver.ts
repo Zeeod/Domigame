@@ -71,7 +71,7 @@ export class ActionResolver {
                         break;
 
                     case 'BUY_CARD':
-                        actionResult = this.resolveBuyCard(draft as GameState, playerId, action.cardId);
+                        actionResult = this.resolveBuyCard(draft as GameState, playerId, action.cardId, (action as any).overpay);
                         break;
 
                     case 'BUY_PROJECT':
@@ -398,7 +398,12 @@ export class ActionResolver {
         return state;
     }
 
-    private static resolveBuyCard(state: GameState, _playerId: string, cardId: string): ActionResult {
+    /** Buy with a chosen overpay amount (answer to the "overpay?" question). */
+    static buyWithOverpay(state: GameState, playerId: string, cardId: string, overpay: number): ActionResult {
+        return this.resolveBuyCard(state, playerId, cardId, overpay);
+    }
+
+    private static resolveBuyCard(state: GameState, _playerId: string, cardId: string, overpay?: number): ActionResult {
         const player = getCurrentPlayer(state);
         if (!player) return { success: false, state, error: 'No current player' };
 
@@ -427,6 +432,27 @@ export class ActionResolver {
             return { success: false, state, error: "Plus d'achats disponibles" };
         }
 
+        // Guilds — overpay: ask how much to overpay when there is something left to overpay with
+        const overpayDef = CardRegistry.get(cardId);
+        if (overpayDef?.overpayEffects && overpay === undefined) {
+            const extra = player.coins - EconomyEngine.getCardCost(state, player.id, cardId);
+            if (extra > 0) {
+                state.pendingDecision = {
+                    id: `overpay_${Date.now()}`,
+                    playerId: player.id,
+                    type: 'SELECT_OPTION',
+                    message: `Surpayer ${overpayDef.name} ?`,
+                    options: Array.from({ length: extra + 1 }, (_, n) => ({
+                        label: n === 0 ? 'Ne pas surpayer' : `Surpayer ${n} 💰`,
+                        effects: [{ type: 'BUY_WITH_OVERPAY', cardId, amount: n }]
+                    })),
+                    context: {}
+                } as any;
+                return { success: true, state };
+            }
+        }
+        const overpaid = overpayDef?.overpayEffects ? Math.max(0, Math.min(overpay || 0, player.coins - EconomyEngine.getCardCost(state, player.id, cardId))) : 0;
+
         // DETECT MIXED PILE
         let cardToGainId = cardId;
         let cardToGainInstance: any = null;
@@ -450,7 +476,7 @@ export class ActionResolver {
         if (player.coins < cardCost) return { success: false, state, error: 'Not enough coins' };
         if (potionCost > 0 && player.potions < potionCost) return { success: false, state, error: 'Not enough potions' };
 
-        player.coins -= cardCost;
+        player.coins -= cardCost + overpaid;
         player.potions -= potionCost;
 
         // Empires: Debt
@@ -483,6 +509,18 @@ export class ActionResolver {
         // Trigger ON_GAIN effects (e.g. Cemetery, Cache, Ill-Gotten Gains)
         const gainResult = TriggerEffectHandler.triggerOnGainEffects(state, gainer, cardToGainInstance);
         state = gainResult.state;
+
+        // Overpay abilities happen when the card is gained
+        if (overpaid > 0 && actualCardDef.overpayEffects) {
+            this.log(state, `${player.name} surpaie de ${overpaid} 💰.`, player.id);
+            const effects = actualCardDef.overpayEffects;
+            for (let i = effects.length - 1; i >= 0; i--) {
+                state.effectStack.push({
+                    type: 'EFFECT', playerId: gainer.id, effect: effects[i] as any,
+                    context: { overpaid, sourceCardInstanceId: cardToGainInstance.instanceId }
+                });
+            }
+        }
 
         // Seaside: Track VP bought
         if (actualCardDef.types.includes('VICTORY')) {

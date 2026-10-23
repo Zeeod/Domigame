@@ -131,29 +131,7 @@ describe('Cornucopia & Guilds - Part 1', () => {
         engine.assertCleanState();
     });
 
-    it('should test Butcher - trash and upgrade', () => {
-        const p = engine.findPlayer('Player 1');
-        // +2 Coffers. Trash card, gain costing up to trashed + Coffers spent.
-
-        engine.setHand(p, ['butcher', 'copper']);
-        p.coffers = 3;
-
-        engine.playCard('butcher');
-
-        expect(p.coffers).toBe(5); // Started 3, +2 = 5
-
-        // Should prompt to trash
-        if (engine.state.pendingDecision) {
-            const copper = p.hand.find(c => c.id === 'copper')!;
-            engine.respondToDecision({
-                type: 'CARDS',
-                cardIds: [copper.instanceId]
-            });
-        }
-
-        // Can potentially test Coffers spending, but complex
-        engine.assertCleanState();
-    });
+    // Butcher: see tests/cards/cornucopia/CornucopiaGuilds.test.ts
 
     it('should test Stonemason - overpay', () => {
         const p = engine.findPlayer('Player 1');

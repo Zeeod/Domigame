@@ -17,5 +17,6 @@ export const doctor: CardDefinition = {
         },
         { type: 'TRASH_NAMED_CARDS' },
         { type: 'REORDER_AND_RETURN', destination: 'deck' }
-    ] as any
+    ] as any,
+    isLegacy: true
 };

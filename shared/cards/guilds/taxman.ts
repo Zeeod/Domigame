@@ -25,5 +25,6 @@ export const taxman: CardDefinition = {
                 { type: 'GAIN_TREASURE', costBonus: 3, destination: 'deck' }
             ]
         }
-    ] as any
+    ] as any,
+    isLegacy: true
 };
