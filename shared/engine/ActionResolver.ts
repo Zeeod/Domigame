@@ -323,7 +323,7 @@ export class ActionResolver {
         }
 
         // Apply card effects (or Way effects)
-        let finalEffects = cardDef.effects;
+        let finalEffects = cardDef.effects?.length ? cardDef.effects : (cardDef.nightEffects || cardDef.effects);
 
         // --- ENLIGHTENMENT (Rising Sun) ---
         if (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE') && state.phase === 'ACTION') {
@@ -508,7 +508,7 @@ export class ActionResolver {
 
         // Gain card (Possession: the controller gains it instead)
         const gainer = gainRecipient(state, player);
-        gainer.discardPile.push(cardToGainInstance);
+        if ((actualCardDef as any).gainToHand) gainer.hand.push(cardToGainInstance); else gainer.discardPile.push(cardToGainInstance);
         state.lastGainedCard = cardToGainInstance;
 
         // Trigger ON_GAIN effects (e.g. Cemetery, Cache, Ill-Gotten Gains)

@@ -96,7 +96,7 @@ function runCard(pileId: string, cardId: string, strategy: Strategy): string | n
             const me = state.players.find(p => p.id === pid)!;
             me.coins = 20; me.buys = 2; me.potions = 3; me.debt = 0;
             let r = act(state, pid, { type: 'BUY_CARD', cardId: pileId });
-            if (!r.ok && !/coût|dette|potion|Mission|restriction|interdit/i.test(r.error || '')) return `acheter : ${r.error}`;
+            if (!r.ok && !/coût|dette|potion|Mission|restriction|interdit|Trompé/i.test(r.error || '')) return `acheter : ${r.error}`;
             if (r.ok) {
                 state = r.state;
                 r = resolveAll(state, strategy);

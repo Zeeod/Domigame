@@ -734,19 +734,6 @@ const ALL_CARDS: Record<string, any> = {
     // Piles
     catapult_rocks_pile, encampment_plunder_pile, gladiator_fortune_pile, patrician_emporium_pile, settlers_bustling_village_pile, castles_pile,
 
-    // Nocturne
-    ghost_town: Nocturne.ghostTown,
-    night_watchman: Nocturne.nightWatchman,
-    monastery: Nocturne.Monastery,
-    exorcist: Nocturne.Exorcist,
-    will_o_wisp: Nocturne.WillOWisp,
-    imp: Nocturne.Imp,
-    ghost: Nocturne.Ghost,
-    skulk: Nocturne.Skulk,
-    ...Object.fromEntries(Nocturne.ALL_BOONS.map(b => [b.id, b])),
-    ...Object.fromEntries(Nocturne.ALL_HEXES.map(h => [h.id, h])),
-    ...Object.fromEntries(Nocturne.ALL_HEIRLOOMS.map(h => [h.id, h])),
-    shepherd: Nocturne.Shepherd,
 
     // Alchemy
     potion: Potion,

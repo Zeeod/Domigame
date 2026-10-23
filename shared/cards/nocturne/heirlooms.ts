@@ -1,132 +1,25 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const Pasture: CardDefinition = {
-    id: 'pasture',
-    name: 'Pâturage',
-    cost: 2,
-    types: ['TREASURE', 'VICTORY', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. 1 PV par Domaine (Estate) que vous possédez.',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 }
-    ],
-    dynamicVP: true,
-    vpCalculator: (allCards: { id: string }[]) => allCards.filter(c => c.id === 'estate').length,
-    isNonSupply: true,
-}
+/** Nocturne — the 7 Heirlooms (they replace a starting Copper). */
+const hl = (id: string, name: string, cost: number, types: string[], description: string, effects: any[], extra: any = {}): CardDefinition => ({
+    id, name, cost, types, expansion: 'nocturne', isNonSupply: true, isSubCard: true, description, treasureValue: 0, effects, ...extra
+} as any);
 
-export const HauntedMirror: CardDefinition = {
-    id: 'haunted_mirror',
-    name: 'Miroir Hanté',
-    cost: 0,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. Quand vous écartez cette carte, vous pouvez écarter une carte Action ou Victoire de votre main pour gagner un Fantôme (Ghost) sur votre deck.',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 }
-    ],
-    isNonSupply: true
-}
-
-export const Goat: CardDefinition = {
-    id: 'goat',
-    name: 'Chèvre',
-    cost: 2,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. Quand vous jouez cette carte, vous pouvez écarter une carte de votre main.',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 },
-        {
-            type: 'SELECT_AND_APPLY',
-            message: 'Voulez-vous écarter une carte ?',
-            sourceZone: 'hand',
-            min: 0,
-            max: 1,
-            action: 'TRASH'
-        }
-    ],
-    isNonSupply: true
-}
-
-export const LuckyCoin: CardDefinition = {
-    id: 'lucky_coin',
-    name: 'Pièce de Chance',
-    cost: 4,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. Quand vous jouez cette carte, gagnez un Argent (Silver).',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 },
-        { type: 'GAIN_CARD', cardId: 'silver' }
-    ],
-    isNonSupply: true
-}
-
-export const MagicLamp: CardDefinition = {
-    id: 'magic_lamp',
-    name: 'Lampe Magique',
-    cost: 0,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. Quand vous jouez cette carte, si vous avez exactement 6 cartes en jeu, vous pouvez écarter ceci. Si vous le faites, gagnez 3 Vœux (Wishes).',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 },
-        {
-            type: 'CONDITION',
-            condition: 'CARDS_IN_PLAY_COUNT',
-            value: 6,
-            comparator: '==',
-            trueEffects: [
-                {
-                    type: 'CHOOSE_OPTION',
-                    message: 'Écarter la Lampe Magique pour gagner 3 Vœux ?',
-                    options: [
-                        { label: 'Oui', effects: [{ type: 'TRASH_SELF' }, { type: 'GAIN_CARD', cardId: 'wish', count: 3 }] },
-                        { label: 'Non', effects: [] }
-                    ]
-                }
-            ]
-        }
-    ],
-    isNonSupply: true
-}
-
-export const Pouch: CardDefinition = {
-    id: 'pouch',
-    name: 'Bourse',
-    cost: 2,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '1💰. +1 Achat.',
-    treasureValue: 1,
-    effects: [
-        { type: 'ADD_MONEY', amount: 1 },
-        { type: 'ADD_BUYS', amount: 1 }
-    ],
-    isNonSupply: true
-}
-
-export const CursedGold: CardDefinition = {
-    id: 'cursed_gold',
-    name: 'Or Maudit',
-    cost: 4,
-    types: ['TREASURE', 'HEIRLOOM'],
-    expansion: 'nocturne',
-    description: '3💰. Quand vous jouez cette carte, gagnez une Malédiction (Curse).',
-    treasureValue: 3,
-    effects: [
-        { type: 'ADD_MONEY', amount: 3 },
-        { type: 'GAIN_CARD', cardId: 'curse' }
-    ],
-    isNonSupply: true
-}
-
-export const ALL_HEIRLOOMS = [
-    Pasture, HauntedMirror, Goat, LuckyCoin, MagicLamp, Pouch, CursedGold
-];
+export const HauntedMirror = hl('haunted_mirror', 'Miroir hanté', 0, ['TREASURE', 'HEIRLOOM'],
+    '1 💰. Quand vous écartez cette carte, vous pouvez défausser une Action pour recevoir un Fantôme de sa pile.',
+    [{ type: 'ADD_MONEY', amount: 1 }], { onTrash: [{ type: 'HAUNTED_MIRROR' }] });
+export const MagicLamp = hl('magic_lamp', 'Lampe magique', 0, ['TREASURE', 'HEIRLOOM'],
+    '1 💰. Quand vous jouez cette carte, si vous avez au moins 6 cartes en jeu dont vous n\'avez qu\'un exemplaire, écartez-la. Si vous le faites, recevez 3 Vœux.',
+    [{ type: 'ADD_MONEY', amount: 1 }, { type: 'MAGIC_LAMP' }]);
+export const Goat = hl('goat', 'Chèvre', 2, ['TREASURE', 'HEIRLOOM'],
+    '1 💰. Quand vous jouez cette carte, vous pouvez écarter une carte de votre main.',
+    [{ type: 'ADD_MONEY', amount: 1 }, { type: 'TRASH', min: 0, max: 1, from: 'hand', message: 'Chèvre : vous pouvez écarter une carte' }]);
+export const Pasture = hl('pasture', 'Pâturage', 2, ['TREASURE', 'VICTORY', 'HEIRLOOM'],
+    '1 💰. Vaut 1 PV par Domaine que vous possédez.',
+    [{ type: 'ADD_MONEY', amount: 1 }], { dynamicVP: true, vpCalculator: (all: any[]) => all.filter((c: any) => c.id === 'estate').length });
+export const Pouch = hl('pouch', 'Bourse', 2, ['TREASURE', 'HEIRLOOM'], '1 💰. +1 Achat.',
+    [{ type: 'ADD_MONEY', amount: 1 }, { type: 'ADD_BUYS', amount: 1 }]);
+export const CursedGold = hl('cursed_gold', 'Or maudit', 4, ['TREASURE', 'HEIRLOOM'], '3 💰. Quand vous jouez cette carte, recevez une Malédiction.',
+    [{ type: 'ADD_MONEY', amount: 3 }, { type: 'GAIN_CARD', cardId: 'curse' }]);
+export const LuckyCoin = hl('lucky_coin', 'Pièce porte-bonheur', 4, ['TREASURE', 'HEIRLOOM'], '1 💰. Quand vous jouez cette carte, recevez un Argent.',
+    [{ type: 'ADD_MONEY', amount: 1 }, { type: 'GAIN_CARD', cardId: 'silver' }]);

@@ -97,7 +97,7 @@ export class GainEffectHandler {
         }
         state.lastGainedCard = newCard;
         state.lastGainedCost = EconomyEngine.getCardCost(state, player.id, newCard.id);
-        const dest = effect.destination || 'discardPile';
+        const dest = effect.destination || ((CardRegistry.get(newCard.id) as any)?.gainToHand ? 'hand' : 'discardPile');
 
         if (dest === 'exile_prompt') {
             state.pendingDecision = {

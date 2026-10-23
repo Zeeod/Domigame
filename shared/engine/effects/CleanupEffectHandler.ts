@@ -298,6 +298,8 @@ export class CleanupEffectHandler {
             // Resolve Start of Turn Triggers (Durations, Projects, etc.)
             const triggers: any[] = [];
 
+            EventBus.emit(state, { type: 'TURN_START', playerId: nextPlayer.id, context: {} });
+
             // 1. Duration Effects
             const durationTriggers = DurationManager.getStartOfTurnTriggers(state, nextPlayer);
             if (durationTriggers.length > 0) {
