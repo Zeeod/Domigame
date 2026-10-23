@@ -6,18 +6,9 @@ export const raze: CardDefinition = {
     types: ['ACTION'],
     cost: 2,
     expansion: 'adventures',
-    description: '+1 Action. Écartez cette carte ou une carte de votre main. Regardez autant de cartes du dessus de votre pioche que le coût de la carte écartée et prenez-en une en main.',
+    description: '+1 Action. Écartez cette carte ou une carte de votre main. Regardez une carte du dessus de votre pioche par 💰 que coûte la carte écartée. Prenez-en une en main et défaussez le reste.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'TRASH',
-            min: 1,
-            max: 1,
-            from: 'hand_or_play',
-            message: 'Écartez cette carte ou une carte de votre main',
-            onSuccess: [
-                { type: 'LOOK_AT_TOP_COST', pickOne: true }
-            ]
-        }
+        { type: 'RAZE' }
     ] as any
 };

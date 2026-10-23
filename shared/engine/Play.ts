@@ -62,7 +62,9 @@ export function pushPlayEffects(state: GameState, player: PlayerState, card: Car
 
     // Plain Treasures without effects (value only)
     if (def.treasureValue && (!def.effects || def.effects.length === 0)) {
-        player.coins += def.treasureValue;
+        let v = def.treasureValue;
+        if (v > 0 && player.minusCoinToken) { v--; player.minusCoinToken = false; }
+        player.coins += v;
     }
 
     const items = (def.effects || []).map((e: any) => ({

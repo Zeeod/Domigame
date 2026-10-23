@@ -14,8 +14,14 @@ export class BasicEffectHandler {
 
     static handleModifyResource(state: GameState, player: PlayerState, effect: EffectDefinition, suppressLog: boolean): EffectResult {
         const modEffect = effect as any;
-        const amount = EffectUtils.getAmount(state, player, modEffect.amount) as number;
+        let amount = EffectUtils.getAmount(state, player, modEffect.amount) as number;
         const resource = modEffect.resource;
+        // Adventures: "-$1 token: the next time you get $, you get $1 less"
+        if (resource === 'coins' && (modEffect.operation || 'add') === 'add' && amount > 0 && player.minusCoinToken) {
+            amount--;
+            player.minusCoinToken = false;
+            EffectUtils.log(state, `${player.name} reçoit 1 💰 de moins (jeton -1 💰).`, player.id);
+        }
         const operation = modEffect.operation || 'add';
 
         let oldValue = (player as any)[resource] || 0;

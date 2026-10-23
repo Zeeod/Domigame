@@ -12,6 +12,7 @@ import { AlchemyModule } from './expansions/Alchemy.js';
 import { HinterlandsModule } from './expansions/Hinterlands.js';
 import { CornucopiaModule } from './expansions/Cornucopia.js';
 import { DarkAgesModule } from './expansions/DarkAges.js';
+import { AdventuresModule } from './expansions/Adventures.js';
 import { GuildsModule } from './expansions/Guilds.js';
 import { RenaissanceModule } from './expansions/Renaissance.js';
 import { NocturneModule } from './expansions/Nocturne.js';
@@ -36,6 +37,7 @@ export function registerAllExpansions(): void {
     ExpansionLoader.load(HinterlandsModule);
     ExpansionLoader.load(CornucopiaModule);
     ExpansionLoader.load(DarkAgesModule);
+    ExpansionLoader.load(AdventuresModule);
     ExpansionLoader.load(GuildsModule);
     ExpansionLoader.load(RenaissanceModule);
     ExpansionLoader.load(NocturneModule);

@@ -10,7 +10,7 @@ export const hero: CardDefinition = {
     description: '+2 💰. Gagnez un Trésor. Quand vous défaussez du jeu, vous pouvez échanger contre un Champion.',
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
-        { type: 'GAIN_CARD', cardTypes: ['TREASURE'], destination: 'discardPile', message: 'Gagnez un Trésor' }
+        { type: 'GAIN_CARD', maxCost: 99, cardTypes: ['TREASURE'], message: 'Héros : recevez un Trésor' }
     ] as any,
     upgradesTo: 'champion'
 };

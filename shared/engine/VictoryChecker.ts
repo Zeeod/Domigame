@@ -52,7 +52,10 @@ export class VictoryChecker {
         for (const card of allCards) {
             const def = CardRegistry.get(card.id);
             if (!def) continue;
-            if (def.vpCalculator) {
+            if ((def as any).vpOnMat) {
+                const { mat, vp } = (def as any).vpOnMat;
+                if (player.mats?.[mat]?.some((c: any) => c.instanceId === card.instanceId)) score += vp;
+            } else if (def.vpCalculator) {
                 score += def.vpCalculator(allCards, (id) => CardRegistry.get(id));
             } else if (def.dynamicVP) {
                 if (card.id === 'gardens') score += Math.floor(allCards.length / 10);

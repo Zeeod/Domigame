@@ -14,7 +14,13 @@ export class DrawEffectHandler {
             ? amountInput.amount
             : amountInput;
 
-        const amount = EffectUtils.getAmount(state, player, rawAmount);
+        let amount = EffectUtils.getAmount(state, player, rawAmount);
+        // Adventures: "-1 Card token on your deck: the next time you draw cards, draw one fewer"
+        if (amount > 0 && player.minusCardToken) {
+            amount--;
+            player.minusCardToken = false;
+            EffectUtils.log(state, `${player.name} pioche une carte de moins (jeton -1 Carte).`, player.id);
+        }
         const drawnCards: CardInstance[] = [];
 
         for (let i = 0; i < amount; i++) {

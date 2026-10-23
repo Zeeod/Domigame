@@ -128,6 +128,8 @@ export interface CardDefinition {
     isLegacy?: boolean;
     /** "When you discard this other than during Clean-up" (Tunnel, Weaver, Trail…) */
     onDiscardOutsideCleanup?: any[];
+    /** VP while this card is on one of your mats at the end of the game (Distant Lands) */
+    vpOnMat?: { mat: string; vp: number };
     /** Prompt shown when offering this card's reaction */
     reactionMessage?: string;
 

@@ -12,7 +12,7 @@ import { EffectManager } from '../EffectManager.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
 import { ProphecyManager } from '../ProphecyManager.js';
 import { endPossessionTurn } from '../Possession.js';
-import { getMat } from '../Mats.js';
+import { getMat, peekMat } from '../Mats.js';
 
 export class CleanupEffectHandler {
     /**
@@ -148,6 +148,15 @@ export class CleanupEffectHandler {
                     });
                 }
 
+                // Adventures — Travellers: when discarded from play, may be exchanged for the next card
+                if ((def as any).upgradesTo) {
+                    state.effectStack.push({
+                        type: 'EFFECT', playerId: player.id,
+                        effect: { type: 'TRAVELLER_EXCHANGE', instanceId: card.instanceId, to: (def as any).upgradesTo } as any,
+                        context: { sourceCardInstanceId: card.instanceId }
+                    });
+                }
+
                 // Handle card's own onDiscard when discarded from play (e.g. Capital)
                 if (def.onDiscard) {
                     const effectItems = (Array.isArray(def.onDiscard) ? def.onDiscard : [def.onDiscard]).map((e: any) => ({
@@ -184,6 +193,9 @@ export class CleanupEffectHandler {
 
         const endingPlayerId = state.players[state.currentPlayerIndex]?.id;
         const endingPlayer = state.players[state.currentPlayerIndex];
+        // Adventures — Save: the set-aside card goes into your hand at end of turn (after drawing)
+        const saved = endingPlayer ? peekMat(endingPlayer, 'save') : [];
+        if (endingPlayer && saved.length) endingPlayer.hand.push(...getMat(endingPlayer, 'save').splice(0));
         if (endingPlayer) {
             endingPlayer.gainedLastTurn = endingPlayer.gainedThisTurn || [];
             endingPlayer.gainedThisTurn = [];

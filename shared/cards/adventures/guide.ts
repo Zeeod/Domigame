@@ -11,5 +11,6 @@ export const guide: CardDefinition = {
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'MOVE_TO_TAVERN_MAT' }
-    ] as any
+    ] as any,
+    triggers: [{ trigger: 'START_TURN', call: true, effects: [{ type: 'GUIDE' }] }] as any
 };

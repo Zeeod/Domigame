@@ -10,6 +10,7 @@ import { GameState, getCurrentPlayer } from '../engine/GameState.js';
 import { GameAction } from '../types/GameAction.js';
 import { CardRegistry } from '../cards/index.js';
 import { mapActor } from './Possession.js';
+import { activeOverrides } from './KingdomRules.js';
 import { PromptType } from './prompts/Prompt.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { EffectUtils } from './EffectUtils.js';
@@ -34,7 +35,7 @@ export class RulesValidator {
      * NEVER mutates state
      */
     static validate(state: GameState, playerId: string, action: GameAction): ValidationResult {
-        return CardRegistry.withGameOverrides(state.cardOverrides, () => {
+        return CardRegistry.withGameOverrides(activeOverrides(state), () => {
             const actor = mapActor(state, playerId, action);
             if (actor === null) return { valid: false, error: 'Un autre joueur contrôle ce tour (Possession)' };
             return this.validateWithRules(state, actor, action);
@@ -282,6 +283,12 @@ export class RulesValidator {
 
         const def = LandscapeRegistry.get(landscapeId);
         if (!def) return { valid: false, error: "landscape_definition_not_found" };
+        if ((def as any).oncePerTurn && currentPlayer.eventsThisTurn?.includes(landscapeId)) {
+            return { valid: false, error: 'Une seule fois par tour' };
+        }
+        if ((def as any).oncePerGame && (currentPlayer as any).eventsOnce?.includes(landscapeId)) {
+            return { valid: false, error: 'Une seule fois par partie' };
+        }
 
         // Cost check
         if (def.cost) {

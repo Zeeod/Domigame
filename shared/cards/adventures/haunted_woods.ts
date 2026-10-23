@@ -6,7 +6,7 @@ export const hauntedWoods: CardDefinition = {
     types: ['ACTION', 'ATTACK', 'DURATION'],
     cost: 5,
     expansion: 'adventures',
-    description: 'Jusqu\'à votre prochain tour, quand un autre joueur achète une carte, il met d\'abord sa main sur sa pioche dans l\'ordre de son choix. Au début de votre prochain tour: +3 Cartes.',
+    description: 'Jusqu\'à votre prochain tour, quand un autre joueur reçoit une carte qu\'il a achetée, il place sa main sur sa pioche dans l\'ordre de son choix. Au début de votre prochain tour : +3 Cartes.',
     effects: [
         {
             type: 'ATTACK',

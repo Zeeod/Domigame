@@ -10,11 +10,6 @@ export const magpie: CardDefinition = {
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'REVEAL_TOP_DECK',
-            amount: 1,
-            onTreasure: [{ type: 'DRAW', amount: 1 }],
-            onActionOrVictory: [{ type: 'GAIN_CARD', cardId: 'magpie', destination: 'discardPile' }]
-        }
+        { type: 'MAGPIE' }
     ] as any
 };

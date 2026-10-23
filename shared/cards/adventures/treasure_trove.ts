@@ -7,7 +7,7 @@ export const treasureTrove: CardDefinition = {
     cost: 5,
     expansion: 'adventures',
     description: '2 💰. Quand vous jouez cette carte, gagnez un Or et un Cuivre.',
-    treasureValue: 2,
+    treasureValue: 0,
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
         { type: 'GAIN_CARD', cardId: 'gold', destination: 'discardPile' },

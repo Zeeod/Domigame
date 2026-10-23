@@ -3,6 +3,7 @@ import { CardRegistry } from '../../cards/index.js';
 import { EffectManager } from '../EffectManager.js';
 import { EconomyEngine } from '../EconomyEngine.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { EventBus } from '../EventBus.js';
 import { peekMat } from '../Mats.js';
 
 export class TriggerEffectHandler {
@@ -75,13 +76,21 @@ export class TriggerEffectHandler {
         const inPlay = player.playArea || [];
         const inHand = player.hand || [];
         const onTavern = peekMat(player, 'tavern');
-        const triggerSources = [...inPlay, ...inHand, ...onTavern];
+        // A card's own triggers work while it is in play; "fromHand" ones from the hand; "call" ones
+        // (Reserve cards) from the Tavern mat, where they are optional.
+        const triggerSources = [
+            ...inPlay.map(c => ({ c, zone: 'play' })),
+            ...inHand.map(c => ({ c, zone: 'hand' })),
+            ...onTavern.map(c => ({ c, zone: 'tavern' })),
+        ];
 
-        for (const card of triggerSources) {
+        for (const { c: card, zone } of triggerSources) {
             const def = CardRegistry.get(card.id);
             if (def && def.triggers) {
                 for (let i = 0; i < def.triggers.length; i++) {
-                    const t = def.triggers[i];
+                    const t: any = def.triggers[i];
+                    const tZone = t.call ? 'tavern' : t.fromHand ? 'hand' : 'play';
+                    if (tZone !== zone) continue;
                     if (t.trigger === triggerType) {
                         // Check filter if present
                         let matches = true;
@@ -99,9 +108,31 @@ export class TriggerEffectHandler {
                                     matches = false;
                                 }
                             }
+                            if (t.filter.maxCost !== undefined && targetId
+                                && EconomyEngine.getCardCost(state, player.id, targetId) > t.filter.maxCost) matches = false;
+                            if (t.filter.minCoins !== undefined && player.coins < t.filter.minCoins) matches = false;
+                            if (t.filter.excludeTypes && targetDef
+                                && t.filter.excludeTypes.some((x: string) => targetDef.types.includes(x as any))) matches = false;
                         }
 
-                        if (matches) {
+                        if (matches && t.call) {
+                            // Reserve: "you may call this" — move it from the Tavern mat into play, then its effects
+                            triggers.push({
+                                id: `call_${card.instanceId}_${i}_${timestamp}`,
+                                sourceId: card.id,
+                                sourceInstanceId: card.instanceId,
+                                sourceType: 'CARD',
+                                description: `Appeler ${def.name}`,
+                                effects: [{
+                                    type: 'SELECT_OPTION', message: `Appeler ${def.name} ?`,
+                                    options: [
+                                        { label: 'Appeler', effects: [{ type: 'CALL_RESERVE', instanceId: card.instanceId, to: t.callTo }, ...t.effects.map((e: any) => ({ ...e, callContext: context }))] },
+                                        { label: 'Non', effects: [] }
+                                    ]
+                                }],
+                                context: { ...context, sourceCardInstanceId: card.instanceId }
+                            });
+                        } else if (matches) {
                             triggers.push({
                                 id: `trigger_${card.instanceId}_${i}_${timestamp}`,
                                 sourceId: card.id,
@@ -262,6 +293,11 @@ export class TriggerEffectHandler {
             state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'DRAW', amount: 1 } as any, context: {} });
         }
 
+        // Messenger: cards gained in your Buy phase
+        if (state.phase === 'BUY' && state.players[state.currentPlayerIndex]?.id === player.id) {
+            (player as any).buyPhaseGains = ((player as any).buyPhaseGains || 0) + 1;
+        }
+
         // Cards gained during your own turn (Smugglers looks at the previous turn of the player to its right)
         if (state.players[state.currentPlayerIndex]?.id === player.id) {
             (player.gainedThisTurn = player.gainedThisTurn || []).push(gainedCardId);
@@ -353,6 +389,7 @@ export class TriggerEffectHandler {
 
     public static handleOnPlayTriggers(state: GameState, player: PlayerState, cardId: string, cardInstanceId: string): EffectResult {
         const context = { cardId, cardInstanceId };
+        EventBus.emit(state, { type: 'CARD_PLAYED', playerId: player.id, context });
 
         // Plunder Trait Check: Playing a card from a Traited pile
         const pile = state.supply[cardId];
@@ -384,6 +421,7 @@ export class TriggerEffectHandler {
     public static handleOnBuyTriggers(state: GameState, player: PlayerState, boughtCardId: string): void {
         const boughtCost = EconomyEngine.getCardCost(state, player.id, boughtCardId);
         const context = { boughtCardId, boughtCost };
+        EventBus.emit(state, { type: 'CARD_BOUGHT', playerId: player.id, context });
 
         // Card's own onBuy effect (e.g. Mint, Farmland, Noble Brigand)
         const cardDef = CardRegistry.get(boughtCardId);

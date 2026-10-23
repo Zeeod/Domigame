@@ -8,8 +8,6 @@ export const disciple: CardDefinition = {
     expansion: 'adventures',
     isNonSupply: true,
     description: 'Vous pouvez jouer une carte Action de votre main deux fois. Gagnez une copie de cette carte. Quand vous défaussez du jeu, vous pouvez échanger contre un Maître.',
-    effects: [
-        { type: 'PLAY_ACTION_TWICE_AND_GAIN_COPY' }
-    ] as any,
+    effects: [{ type: 'DISCIPLE' }] as any,
     upgradesTo: 'teacher'
 };
