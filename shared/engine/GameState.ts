@@ -163,6 +163,8 @@ export interface GameState {
     lastNormalTurnIndex?: number;
     /** Ferryman: the set-aside Kingdom pile (in nonSupply) */
     ferrymanPile?: string;
+    /** Renaissance — Fleet: the extra round after the game end has started */
+    fleetRound?: boolean;
     players: PlayerState[];
     currentPlayerIndex: number;
     /** Queue of extra turns with metadata (Outpost, etc) */

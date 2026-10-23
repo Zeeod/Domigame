@@ -117,7 +117,7 @@ export function chooseSupply(state: GameState, cardId: string): GameState {
 /** End the current player's turn (answering any decision automatically). */
 export function endTurn(state: GameState): GameState {
     const startTurn = state.turnNumber;
-    for (let i = 0; i < 12 && state.turnNumber === startTurn; i++) {
+    for (let i = 0; i < 12 && state.turnNumber === startTurn && !state.isGameOver; i++) {
         if (state.pendingDecision) {
             state = choose(state, autoPayload(state, 'first'));
             continue;
