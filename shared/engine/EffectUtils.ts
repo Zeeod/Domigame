@@ -265,6 +265,19 @@ export class EffectUtils {
     }
 
     /**
+     * Shuffle the discard pile and put it under the deck (the deck is normally empty).
+     * Stash: "when you shuffle, you may put this anywhere in your deck" — it is put on top.
+     */
+    public static reshuffleDiscard(state: GameState, player: PlayerState): void {
+        if (player.discardPile.length === 0) return;
+        const shuffled = this.shuffle(player.discardPile, state);
+        player.discardPile = [];
+        const stashes = shuffled.filter(c => c.id === 'stash');
+        const rest = shuffled.filter(c => c.id !== 'stash');
+        player.deck = [...player.deck, ...stashes, ...rest];
+    }
+
+    /**
      * Takes up to `amount` cards off the top of the deck (reshuffling if needed) and RETURNS them:
      * the caller must put them somewhere (limbo, aside, hand…), otherwise they are lost.
      */
@@ -273,7 +286,7 @@ export class EffectUtils {
         for (let i = 0; i < amount; i++) {
             if (player.deck.length === 0 && player.discardPile.length > 0) {
                 // Shuffle discard into deck
-                player.deck = this.shuffle(player.discardPile, state);
+                this.reshuffleDiscard(state, player);
                 player.discardPile = [];
                 this.log(state, `${player.name} mélange sa défausse.`, player.id);
             }
@@ -289,7 +302,7 @@ export class EffectUtils {
         const drawn: CardInstance[] = [];
         for (let i = 0; i < amount; i++) {
             if (player.deck.length === 0 && player.discardPile.length > 0) {
-                player.deck = this.shuffle(player.discardPile, state);
+                this.reshuffleDiscard(state, player);
                 player.discardPile = [];
                 this.log(state, `${player.name} mélange sa défausse.`, player.id);
             }

@@ -895,7 +895,7 @@ export function registerCoreEffects(): void {
     EffectHandlerRegistry.register('VASSAL_EFFECT', (state, player, _effect, ctx) => {
         if (player.deck.length === 0) {
             if (player.discardPile.length === 0) return { state, needsChoice: false };
-            player.deck = EffectUtils.shuffle(player.discardPile, state);
+            EffectUtils.reshuffleDiscard(state, player);
             player.discardPile = [];
         }
 
@@ -1085,7 +1085,7 @@ export function registerCoreEffects(): void {
 
     EffectHandlerRegistry.register('REVEAL_TOP_OF_DECK', (state, player, effect, ctx) => {
         if (player.deck.length === 0 && player.discardPile.length > 0) {
-            player.deck = EffectUtils.shuffle(player.discardPile, state);
+            EffectUtils.reshuffleDiscard(state, player);
             player.discardPile = [];
         }
         if (player.deck.length === 0) return { state, needsChoice: false };

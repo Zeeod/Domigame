@@ -11,6 +11,7 @@ import { chosenInstanceIds } from '../effects/OpponentChoiceEffects.js';
 import { markPlayed, pushPlayEffects } from '../Play.js';
 import { getMat, peekMat } from '../Mats.js';
 import { GameState } from '../GameState.js';
+import { GainEffectHandler } from '../effects/GainEffectHandler.js';
 import { PlayerState } from '../PlayerState.js';
 
 /** Can `player` afford `cardId` right now (coins, potions, no debt)? */
@@ -25,6 +26,134 @@ export const PromoModule: ExpansionModule = {
     id: 'promo',
     name: 'Promotional Cards',
     effectHandlers: [
+        {
+            // Church: set aside up to 3 cards from your hand face down (back to hand next turn)
+            type: 'CHURCH',
+            handler: (state, player, _effect, ctx) => {
+                if (player.hand.length === 0) return { state, needsChoice: false };
+                state.pendingDecision = {
+                    id: `church_${Date.now()}`, playerId: player.id, type: 'CHOOSE_CARDS' as any,
+                    message: 'Église : mettez de côté jusqu\'à 3 cartes de votre main',
+                    constraints: { min: 0, max: Math.min(3, player.hand.length), sourceZone: 'hand' },
+                    context: { specialAction: 'CHURCH_SET_ASIDE', churchId: ctx?.sourceCardInstanceId }
+                } as any;
+                return { state, needsChoice: true };
+            }
+        },
+        {
+            // Church, next turn: put them into your hand, then you may trash a card from your hand
+            type: 'CHURCH_RETURN',
+            handler: (state, player, _effect, ctx) => {
+                const mat = getMat(player, 'church');
+                const mine = mat.filter(c => (c as any).setAsideBy === ctx?.sourceCardInstanceId);
+                for (const c of mine) {
+                    mat.splice(mat.indexOf(c), 1);
+                    delete (c as any).setAsideBy;
+                    player.hand.push(c);
+                }
+                state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'TRASH', min: 0, max: 1, from: 'hand', message: 'Église : vous pouvez écarter une carte de votre main' } as any, context: {} });
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            // Dismantle: trash a card from your hand. If it costs $1 or more, gain a cheaper card and a Gold.
+            type: 'DISMANTLE',
+            handler: (state, player) => {
+                const t = state.lastTrashedCard;
+                if (!t) return { state, needsChoice: false };
+                const c = EconomyEngine.getCardCost(state, player.id, t.id);
+                if (c < 1) return { state, needsChoice: false };
+                state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'GAIN_CARD', cardId: 'gold' } as any, context: {} });
+                state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'GAIN_CARD', maxCost: c - 1, message: `Démantèlement : recevez une carte coûtant jusqu'à ${c - 1} 💰` } as any, context: {} });
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            // Governor: choose one; you get the version in parentheses: each player gets +1 (+3) Cards;
+            // or each player gains a Silver (Gold); or each player may trash a card from their hand
+            // and gain a card costing exactly $1 ($2) more.
+            type: 'GOVERNOR',
+            handler: (state, player) => {
+                const each = (mine: any[], theirs: any[]) => {
+                    const i = state.players.findIndex(p => p.id === player.id);
+                    const order = [...state.players.slice(i), ...state.players.slice(0, i)];
+                    // resolve in turn order starting with you: push in reverse
+                    return order.reverse().map(p => ({ playerId: p.id, effects: p.id === player.id ? mine : theirs }));
+                };
+                const remodel = (n: number) => [{ type: 'TRASH', min: 0, max: 1, from: 'hand', message: `Gouverneur : vous pouvez écarter une carte pour en recevoir une coûtant exactement ${n} 💰 de plus`, onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: n, exact: true }] }];
+                const choices = [
+                    { label: 'Chacun pioche 1 carte (vous : 3)', plan: each([{ type: 'DRAW', amount: 3 }], [{ type: 'DRAW', amount: 1 }]) },
+                    { label: 'Chacun reçoit un Argent (vous : un Or)', plan: each([{ type: 'GAIN_CARD', cardId: 'gold' }], [{ type: 'GAIN_CARD', cardId: 'silver' }]) },
+                    { label: 'Chacun peut écarter une carte pour une à +1 💰 (vous : +2 💰)', plan: each(remodel(2), remodel(1)) },
+                ];
+                state.effectStack.push({
+                    type: 'EFFECT', playerId: player.id,
+                    effect: { type: 'SELECT_OPTION', message: 'Gouverneur : choisissez', options: choices.map(c => ({ label: c.label, effects: [{ type: 'RUN_FOR_PLAYERS', plan: c.plan }] })) } as any,
+                    context: {}
+                });
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            type: 'RUN_FOR_PLAYERS',
+            handler: (state, _player, effect: any) => {
+                for (const step of effect.plan as { playerId: string; effects: any[] }[]) {
+                    for (let i = step.effects.length - 1; i >= 0; i--) {
+                        state.effectStack.push({ type: 'EFFECT', playerId: step.playerId, effect: step.effects[i], context: {} });
+                    }
+                }
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            // Marchland (when gained): +1 Buy, and you may discard any number of cards for +$1 each
+            type: 'MARCHLAND_ON_GAIN',
+            handler: (state, player) => {
+                player.buys += 1;
+                state.effectStack.push({
+                    type: 'EFFECT', playerId: player.id,
+                    effect: { type: 'DISCARD', min: 0, max: 99, message: 'Frontière : défaussez autant de cartes que vous voulez (+1 💰 chacune)', onSuccess: [{ type: 'ADD_MONEY', amount: { type: 'COUNT_DISCARDED' } }] } as any,
+                    context: {}
+                });
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            // Walled Village: at the start of Clean-up, if you have this and no more than one other
+            // Action card in play, you may put this onto your deck.
+            type: 'WALLED_VILLAGE',
+            handler: (state, player, _effect, ctx) => {
+                const id = ctx?.sourceCardInstanceId;
+                if (!id || !player.playArea.some(c => c.instanceId === id)) return { state, needsChoice: false };
+                const actions = player.playArea.filter(c => CardRegistry.get(c.id)?.types.includes('ACTION')).length;
+                if (actions > 2) return { state, needsChoice: false };
+                state.effectStack.push({
+                    type: 'EFFECT', playerId: player.id,
+                    effect: { type: 'SELECT_OPTION', message: 'Village fortifié : le placer sur votre pioche ?', options: [
+                        { label: 'Oui', effects: [{ type: 'TOPDECK_INSTANCE', instanceId: id }] },
+                        { label: 'Non', effects: [] }
+                    ] } as any,
+                    context: {}
+                });
+                return { state, needsChoice: false };
+            }
+        },
+        {
+            // Summon: gain an Action card costing up to $4, set it aside; if you did, play it at the start of your next turn
+            type: 'SUMMON',
+            handler: (state, player) => {
+                const choices = Object.keys(state.supply).filter(id => state.supply[id].count > 0
+                    && EconomyEngine.supplyCardMatches(state, player.id, id, { maxCost: 4, cardTypes: ['ACTION'] }));
+                if (!choices.length) return { state, needsChoice: false };
+                state.pendingDecision = {
+                    id: `summon_${Date.now()}`, playerId: player.id, type: 'CHOOSE_CARDS' as any,
+                    message: 'Appel : recevez une carte Action coûtant jusqu\'à 4 💰 (jouée au début de votre prochain tour)',
+                    constraints: { min: 1, max: 1, sourceZone: 'supply', filter: { maxCost: 4, cardTypes: ['ACTION'], cardIds: choices } },
+                    context: { specialAction: 'SUMMON_GAIN' }
+                } as any;
+                return { state, needsChoice: true };
+            }
+        },
         {
             /**
              * Black Market: reveal the top 3 cards of the Black Market deck; you may buy one
@@ -134,6 +263,34 @@ export const PromoModule: ExpansionModule = {
         }
     ],
     onLoad: () => {
+        // Church: the chosen cards are set aside face down, linked to this Church
+        EffectEngine.registerDecisionHandler('CHURCH_SET_ASIDE', (state, playerId, payload, decision) => {
+            const player = state.players.find(p => p.id === playerId);
+            if (!player) return;
+            const ids = chosenInstanceIds(payload).slice(0, 3);
+            const mat = getMat(player, 'church');
+            for (const id of ids) {
+                const idx = player.hand.findIndex(c => c.instanceId === id);
+                if (idx === -1) continue;
+                const card = player.hand.splice(idx, 1)[0];
+                (card as any).setAsideBy = decision.context.churchId;
+                mat.push(card);
+            }
+        });
+        // Summon: gain the chosen card set aside; play it at the start of the next turn
+        EffectEngine.registerDecisionHandler('SUMMON_GAIN', (state, playerId, payload) => {
+            const player = state.players.find(p => p.id === playerId);
+            const cardId: string | undefined = payload.cardId;
+            if (!player || !cardId) return;
+            GainEffectHandler.handleGainCard(state, player, { cardId, destination: 'aside' });
+            const gained = state.lastGainedCard;
+            if (!gained || gained.id !== cardId) return;
+            (state.triggers = state.triggers || []).push({
+                type: 'START_TURN', playerId: player.id, once: true,
+                effects: [{ type: 'PLAY_INSTANCE_IF_OWNED', instanceId: gained.instanceId } as any],
+                description: `Appel : jouer ${CardRegistry.get(cardId)?.name || cardId}`
+            } as any);
+        });
         EffectEngine.registerDecisionHandler('BLACK_MARKET', (state, playerId, payload, decision) => {
             const player = state.players.find(p => p.id === playerId);
             if (!player) return;

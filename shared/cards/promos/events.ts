@@ -5,20 +5,7 @@ export const summon: CardDefinition = {
     name: 'Appel',
     cost: 5,
     types: ['EVENT'],
-    description: "Une seule fois par partie : recevez une carte Action coûtant jusqu'à 4 💰. Au début de votre prochain tour, jouez-la.",
-    effects: [
-        {
-            type: 'GAIN_CARD',
-            maxCost: 4,
-            destination: 'aside',
-            onSuccess: [
-                {
-                    type: 'REGISTER_TRIGGER',
-                    trigger: 'START_TURN',
-                    effects: [{ type: 'PLAY_TARGET' }]
-                }
-            ]
-        }
-    ],
+    description: "Recevez une carte Action coûtant jusqu'à 4 💰. Mettez-la de côté. Si vous l'avez fait, jouez-la au début de votre prochain tour.",
+    effects: [{ type: 'SUMMON' }] as any,
     expansion: 'promos'
 };

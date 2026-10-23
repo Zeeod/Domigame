@@ -22,7 +22,7 @@ function push(state: GameState, playerId: string, effect: any, context: any = {}
 /** Top card of the deck, shuffling the discard pile in if needed (stays on the deck). */
 function peekTop(state: GameState, player: PlayerState): CardInstance | undefined {
     if (player.deck.length === 0 && player.discardPile.length > 0) {
-        player.deck = EffectUtils.shuffle(player.discardPile, state);
+        EffectUtils.reshuffleDiscard(state, player);
         player.discardPile = [];
     }
     return player.deck[0];

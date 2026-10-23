@@ -8,7 +8,7 @@ import { TrashEffectHandler } from './TrashEffectHandler.js';
 /** Top card of the deck, reshuffling the discard if needed (undefined if none). */
 function takeTop(state: GameState, player: PlayerState): CardInstance | undefined {
     if (player.deck.length === 0 && player.discardPile.length > 0) {
-        player.deck = EffectUtils.shuffle(player.discardPile, state);
+        EffectUtils.reshuffleDiscard(state, player);
         player.discardPile = [];
     }
     return player.deck.shift();

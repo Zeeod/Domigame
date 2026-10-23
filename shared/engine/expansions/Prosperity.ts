@@ -82,7 +82,7 @@ export const ProsperityModule: ExpansionModule = {
             type: 'CRYSTAL_BALL',
             handler: (state, player) => {
                 if (player.deck.length === 0 && player.discardPile.length > 0) {
-                    player.deck = EffectUtils.shuffle(player.discardPile, state);
+                    EffectUtils.reshuffleDiscard(state, player);
                     player.discardPile = [];
                 }
                 const top = player.deck[0];
