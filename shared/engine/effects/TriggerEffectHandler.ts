@@ -303,6 +303,9 @@ export class TriggerEffectHandler {
             (player.gainedThisTurn = player.gainedThisTurn || []).push(gainedCardId);
         }
 
+        EventBus.emit(state, { type: 'CARD_GAINED', playerId: player.id, context: { gainedCardId, gainedInstanceId } });
+
+
         // "When any player gains a <type>, you may play this from your hand" (Pirate)
         for (const p of state.players) {
             for (const c of p.hand) {

@@ -11,9 +11,6 @@ export const cityQuarter: CardDefinition = {
     debtCost: 8,
     cost: 0,
     types: ['ACTION'],
-    effects: [
-        { type: 'ADD_ACTIONS', amount: 2 },
-        { type: 'ADD_CARDS_PER_ACTION_IN_PLAY', multiplier: 1 }
-    ],
+    effects: [{ type: 'ADD_ACTIONS', amount: 2 }, { type: 'CITY_QUARTER' }] as any,
     expansion: 'empires'
 };

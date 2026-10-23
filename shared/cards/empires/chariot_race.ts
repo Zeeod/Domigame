@@ -7,27 +7,9 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const chariotRace: CardDefinition = {
     id: 'chariot_race',
     name: 'Course de chars',
-    description: "+1 Action. Révélez la carte du dessus de votre deck et comparez-la à celle de votre voisin de gauche. Si la vôtre coûte plus cher, +1 💰 et +1 PV.",
+    description: '+1 Action. Dévoilez la carte du dessus de votre pioche et prenez-la en main. Le joueur à votre gauche dévoile la carte du dessus de sa pioche. Si votre carte coûte plus, +1 💰 et +1 🛡️.',
     cost: 3,
     types: ['ACTION'],
-    effects: [
-        { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'REVEAL_TOP_OF_DECK',
-            amount: 1,
-            next: [
-                {
-                    type: 'COMPARE_TOP_OF_DECK_WITH_NEIGHBOR',
-                    direction: 'LEFT',
-                    condition: 'COST_GREATER',
-                    onTrue: [
-                        { type: 'ADD_VP_TOKENS', amount: 1 },
-                        { type: 'ADD_MONEY', amount: 1 }
-                    ],
-                    onFalse: []
-                }
-            ]
-        }
-    ],
+    effects: [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'CHARIOT_RACE' }] as any,
     expansion: 'empires'
 };

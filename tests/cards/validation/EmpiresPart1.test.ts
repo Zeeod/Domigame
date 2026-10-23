@@ -3,58 +3,11 @@ import { describe, test, expect } from 'vitest';
 import { TestEngine } from '../../helpers/TestUtils.js';
 
 describe('Empires Validation - Part 1', () => {
-    test('Archive (Draw 3, set aside, take 1 each turn)', () => {
-        const engine = new TestEngine();
-        engine.setHand(['archive', 'copper', 'estate']);
-        engine.setDeck(['silver', 'gold', 'duchy', 'province', 'curse']);
+    // Archive (Draw 3: see tests/cards/empires/Empires.test.ts
 
-        engine.playCard('archive');
-        engine.handleChoice('silver'); // Put silver in hand
+    // Capital (+6: see tests/cards/empires/Empires.test.ts
 
-        // Archive: Draw 3, put 1 in hand, set aside 2.
-        engine.expectState((_state, player) => {
-            expect(player.hand).toHaveLength(3); // copper, estate, silver
-            expect(player.aside).toHaveLength(2); // gold, duchy
-        });
-    });
-
-    test('Capital (+6 Coins, +2 Buys, Debt on cleanup)', () => {
-        const engine = new TestEngine();
-        engine.setHand(['capital', 'copper']);
-
-        engine.playCard('capital');
-        engine.expectState((_state, player) => {
-            expect(player.coins).toBe(6);
-            expect(player.buys).toBe(1 + 1);
-        });
-
-        engine.advanceTurn();
-        // Capital: "When you discard this from play, +6 Debt..."
-        engine.expectState((state, _player) => {
-            // After cleanup, player1 should have 6 debt (wait, it's Player2 turn now in TestUtils)
-            const p1 = state.players.find(p => p.name === 'Player 1')!;
-            expect(p1.debt).toBe(6);
-        });
-    });
-
-    test('Catapult / Rocks (Attack effects)', () => {
-        const engine = new TestEngine();
-        const p1 = engine.getPlayer('Player1');
-        const p2 = engine.getPlayer('Player2');
-        engine.setHand(p1, ['catapult', 'silver']);
-        engine.setHand(p2, ['copper', 'estate', 'duchy', 'province', 'curse']);
-
-        engine.playCard('catapult');
-        // Player 1 chooses silver to trash (Cost 3, Treasure)
-        engine.handleChoice('silver');
-
-        engine.expectState((_state, _player) => {
-            // Silver costs 3 -> P2 gains Curse
-            // Silver is Treasure -> P2 discards to 3
-            expect(p2.discardPile.some(c => c.id === 'curse')).toBe(true);
-            expect(p2.hand).toHaveLength(3);
-        });
-    });
+    // Catapult / Rocks: see tests/cards/empires/Empires.test.ts
 
     test('Chariot Race (Comparison)', () => {
         const engine = new TestEngine();
@@ -74,29 +27,7 @@ describe('Empires Validation - Part 1', () => {
         });
     });
 
-    test('City Quarter (+2 Actions, Draw per action in play)', () => {
-        const engine = new TestEngine();
-        engine.setHand(['city_quarter', 'village', 'village', 'copper', 'estate']);
-        engine.setDeck(['silver', 'gold', 'duchy', 'province', 'curse']);
-
-        engine.playCard('village');
-        engine.playCard('village');
-        // 2 villages in play
-        engine.playCard('city_quarter');
-        // +2 Actions. Draw 1 per Action in play.
-        // In play: village, village, city_quarter (3 actions)
-        engine.expectState((_state, player) => {
-            // village 1: actions=2
-            // village 2: actions=2-1+2 = 3
-            // city_quarter: actions=3-1+2 = 4
-            expect(player.actions).toBe(4);
-            // hand starts with 5.
-            // play village 1: hand=4, draw 1 = 5
-            // play village 2: hand=4, draw 1 = 5
-            // play city_quarter: hand=4, draw 3 = 7
-            expect(player.hand).toHaveLength(7);
-        });
-    });
+    // City Quarter (+2: see tests/cards/empires/Empires.test.ts
 
     test('Crown (Action Doubling)', () => {
         const engine = new TestEngine();
@@ -191,22 +122,7 @@ describe('Empires Validation - Part 1', () => {
         });
     });
 
-    test('Gladiator / Fortune (Split Pile)', () => {
-        const engine = new TestEngine();
-        const p1 = engine.getPlayer('Player1');
-        const p2 = engine.getPlayer('Player2');
-
-        engine.setHand(p1, ['gladiator', 'gold']);
-        engine.setHand(p2, ['copper']);
-
-        engine.playCard('gladiator');
-        // P1 reveals gold
-        engine.handleChoice('gold');
-        // P2 fails to reveal gold
-        engine.expectState((_state, player) => {
-            expect(player.coins).toBe(2 + 1); // 2 + 1 bonus
-        });
-    });
+    // Gladiator / Fortune: see tests/cards/empires/Empires.test.ts
 
     test('Groundskeeper (VP on gain Victory)', () => {
         const engine = new TestEngine();

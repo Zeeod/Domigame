@@ -11,11 +11,7 @@ export const forum: CardDefinition = {
     description: "+3 Cartes. +1 Action. Défaussez 2 cartes. Lorsque vous achetez cette carte, +1 Achat.",
     cost: 5,
     types: ['ACTION'],
-    effects: [
-        { type: 'DRAW', amount: 3 },
-        { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'DISCARD', amount: 2 }
-    ],
+    effects: [{ type: 'DRAW', amount: 3 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'DISCARD', min: 2, max: 2, message: 'Forum : défaussez 2 cartes' }] as any,
     onBuy: [
         { type: 'ADD_BUYS', amount: 1 }
     ],

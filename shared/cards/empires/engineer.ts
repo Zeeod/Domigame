@@ -7,7 +7,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const engineer: CardDefinition = {
     id: 'engineer',
     name: 'Ingénieur',
-    description: "Recevez une carte coûtant jusqu'à 4 💰. Vous pouvez écarter l'Ingénieur. Si vous le faites, recevez une carte coûtant jusqu'à 4 💰.",
+    description: 'Recevez une carte coûtant jusqu\'à 4 💰. Vous pouvez écarter cette carte. Si vous le faites, recevez une carte coûtant jusqu\'à 4 💰.',
     debtCost: 4,
     cost: 0,
     types: ['ACTION'],

@@ -1,175 +1,78 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
 /**
- * Castles (Pile of 8 different cards)
+ * Empires — Castles (one pile, cheapest on top). VP computed by VictoryChecker (vpCalculator).
  */
+const castleCount = (allCards: any[], getDef: (id: string) => CardDefinition | undefined) =>
+    allCards.filter(c => getDef(c.id)?.types.includes('CASTLE' as any)).length;
 
 export const humbleCastle: CardDefinition = {
-    id: 'humble_castle',
-    name: 'Château Humble',
-    description: "1 💰. Tient lieu de Victoire.",
-    cost: 3,
-    types: ['VICTORY', 'TREASURE', 'CASTLE'],
+    id: 'humble_castle', name: 'Humble château', cost: 3, types: ['TREASURE', 'VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: '1 💰. Vaut 1 PV par Château que vous possédez.',
+    treasureValue: 0,
     effects: [{ type: 'ADD_MONEY', amount: 1 }],
-    victoryPoints: 0, // Calculated dynamically: 1 VP per Castle
-    expansion: 'empires',
-    isSubCard: true
+    dynamicVP: true,
+    vpCalculator: castleCount
 };
 
 export const crumblingCastle: CardDefinition = {
-    id: 'crumbling_castle',
-    name: 'Château en Ruines',
-    description: "+1 Carte. +1 Action. Lorsque vous recevez ou écartez cette carte, +1 PV et recevez un Argent.",
-    cost: 4,
-    types: ['VICTORY', 'ACTION', 'CASTLE'],
-    effects: [
-        { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 1 }
-    ],
-    onGain: [
-        { type: 'ADD_VICTORY_TOKENS', amount: 1 },
-        { type: 'GAIN_CARD', cardId: 'silver' }
-    ],
-    onTrash: [
-        { type: 'ADD_VICTORY_TOKENS', amount: 1 },
-        { type: 'GAIN_CARD', cardId: 'silver' }
-    ],
+    id: 'crumbling_castle', name: 'Château en ruine', cost: 4, types: ['VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: '1 PV. Quand vous recevez ou écartez cette carte, +1 🛡️ et recevez un Argent.',
     victoryPoints: 1,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [],
+    onGain: [{ type: 'ADD_VICTORY_TOKENS', amount: 1 }, { type: 'GAIN_CARD', cardId: 'silver' }] as any,
+    onTrash: [{ type: 'ADD_VICTORY_TOKENS', amount: 1 }, { type: 'GAIN_CARD', cardId: 'silver' }] as any
 };
 
 export const smallCastle: CardDefinition = {
-    id: 'small_castle',
-    name: 'Petit Château',
-    description: "Écartez ce Château ou un autre Château de votre main. Si vous le faites, recevez un Château coûtant jusqu'à 2 💰 de plus.",
-    cost: 5,
-    types: ['VICTORY', 'ACTION', 'CASTLE'],
-    effects: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            message: 'Écartez un Château (ou celui-ci) pour en gagner un plus cher',
-            filter: { cardIds: ['humble_castle', 'crumbling_castle', 'small_castle', 'haunted_castle', 'opulent_castle', 'sprawling_castle', 'grand_castle', 'kings_castle'] },
-            min: 1, max: 1,
-            destination: 'trash',
-            onSuccess: [
-                {
-                    type: 'GAIN_CARD_PLUS_COST' as any,
-                    amount: 2,
-                    filter: { cardTypes: ['VICTORY'] }
-                }
-            ]
-        } as any
-    ],
+    id: 'small_castle', name: 'Petit château', cost: 5, types: ['ACTION', 'VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: 'Écartez cette carte ou un Château de votre main. Si vous le faites, recevez un Château. 2 PV.',
     victoryPoints: 2,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [{ type: 'SMALL_CASTLE' }] as any
 };
 
 export const hauntedCastle: CardDefinition = {
-    id: 'haunted_castle',
-    name: 'Château Hanté',
-    description: "2 💰. Lorsque vous recevez cette carte, chaque autre joueur met 2 cartes de sa main sur son deck.",
-    cost: 6,
-    types: ['VICTORY', 'ACTION', 'CASTLE'],
-    effects: [{ type: 'ADD_MONEY', amount: 2 }],
-    onGain: [
-        {
-            type: 'EACH_PLAYER',
-            filter: 'OTHERS',
-            effects: [
-                {
-                    type: 'CHOOSE_FROM_ZONE',
-                    sourceZone: 'hand',
-                    message: 'Mettez 2 cartes sur votre deck',
-                    min: 2, max: 2,
-                    destination: 'deck'
-                }
-            ]
-        }
-    ],
+    id: 'haunted_castle', name: 'Château hanté', cost: 6, types: ['VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: '2 PV. Quand vous recevez cette carte pendant votre tour, recevez un Or, et chaque autre joueur ayant 5 cartes ou plus en main en place 2 sur sa pioche.',
     victoryPoints: 2,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [],
+    onGain: [{ type: 'HAUNTED_CASTLE_ON_GAIN' }] as any
 };
 
 export const opulentCastle: CardDefinition = {
-    id: 'opulent_castle',
-    name: 'Château Opulent',
-    description: "Défaussez n'importe quel nombre de cartes Victoire. +2 💰 par carte défaussée.",
-    cost: 7,
-    types: ['VICTORY', 'ACTION', 'CASTLE'],
-    effects: [
-        {
-            type: 'CHOOSE_FROM_ZONE',
-            sourceZone: 'hand',
-            message: 'Défaussez des cartes Victoire pour +2💰 chacune',
-            filter: { cardTypes: ['VICTORY'] },
-            min: 0, max: 10,
-            destination: 'discardPile',
-            onSuccess: [
-                { type: 'ADD_MONEY', amount: { type: 'COUNT_DISCARDED' } as any }
-            ]
-        } as any
-    ],
+    id: 'opulent_castle', name: 'Château opulent', cost: 7, types: ['ACTION', 'VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: 'Défaussez autant de cartes Victoire que vous voulez, en les dévoilant. +2 💰 par carte défaussée. 3 PV.',
     victoryPoints: 3,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [
+        { type: 'ARTIFICER_START' },
+        { type: 'DISCARD', min: 0, max: 99, filter: { cardTypes: ['VICTORY'] }, message: 'Château opulent : défaussez des cartes Victoire (+2 💰 chacune)' },
+        { type: 'OPULENT_CASTLE_PAY' }
+    ] as any
 };
 
 export const sprawlingCastle: CardDefinition = {
-    id: 'sprawling_castle',
-    name: 'Château Étendu',
-    description: "Lorsque vous recevez cette carte, prenez 3 Domaines ou 1 Duché.",
-    cost: 8,
-    types: ['VICTORY', 'CASTLE'],
-    onGain: [
-        {
-            type: 'CHOICE',
-            options: ['3 Domaines', '1 Duché'],
-            effects: {
-                '3 Domaines': [{ type: 'GAIN_CARD', cardId: 'estate', amount: 3 } as any],
-                '1 Duché': [{ type: 'GAIN_CARD', cardId: 'duchy' }]
-            }
-        }
-    ],
+    id: 'sprawling_castle', name: 'Château tentaculaire', cost: 8, types: ['VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: '4 PV. Quand vous recevez cette carte, recevez un Duché ou 3 Domaines.',
     victoryPoints: 4,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [],
+    onGain: [{ type: 'SELECT_OPTION', message: 'Château tentaculaire : choisissez', options: [
+        { label: 'Un Duché', effects: [{ type: 'GAIN_CARD', cardId: 'duchy' }] },
+        { label: '3 Domaines', effects: [{ type: 'GAIN_CARD', cardId: 'estate' }, { type: 'GAIN_CARD', cardId: 'estate' }, { type: 'GAIN_CARD', cardId: 'estate' }] }
+    ] }] as any
 };
 
 export const grandCastle: CardDefinition = {
-    id: 'grand_castle',
-    name: 'Grand Château',
-    description: "Lorsque vous recevez cette carte, révélez votre main. +1 PV par carte Victoire dans votre main et en jeu.",
-    cost: 9,
-    types: ['VICTORY', 'ACTION', 'CASTLE'],
-    effects: [
-        {
-            type: 'ADD_MONEY',
-            amount: { type: 'COUNT_CARDS_IN_PLAY', filter: { types: ['VICTORY'] } } as any
-        }
-    ],
-    onGain: [
-        { type: 'REVEAL_HAND' },
-        {
-            type: 'ADD_VICTORY_TOKENS',
-            amount: { type: 'COUNT_CARDS_IN_HAND', filter: { types: ['VICTORY'] } } as any
-        }
-    ],
+    id: 'grand_castle', name: 'Grand château', cost: 9, types: ['VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: '5 PV. Quand vous recevez cette carte, dévoilez votre main. +1 🛡️ par carte Victoire dans votre main et/ou en jeu.',
     victoryPoints: 5,
-    expansion: 'empires',
-    isSubCard: true
+    effects: [],
+    onGain: [{ type: 'GRAND_CASTLE_ON_GAIN' }] as any
 };
 
 export const kingsCastle: CardDefinition = {
-    id: 'kings_castle',
-    name: 'Château du Roi',
-    description: "2 PV par Château que vous possédez.",
-    cost: 10,
-    types: ['VICTORY', 'CASTLE'],
-    victoryPoints: 0, // Calculated dynamically: 2 VP per Castle
-    expansion: 'empires',
-    isSubCard: true
+    id: 'kings_castle', name: 'Château du roi', cost: 10, types: ['VICTORY', 'CASTLE'], expansion: 'empires', isSubCard: true,
+    description: 'Vaut 2 PV par Château que vous possédez.',
+    effects: [],
+    dynamicVP: true,
+    vpCalculator: (allCards, getDef) => 2 * castleCount(allCards, getDef)
 };

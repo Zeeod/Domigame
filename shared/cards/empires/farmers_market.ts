@@ -8,24 +8,9 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const farmersMarket: CardDefinition = {
     id: 'farmers_market',
     name: "Marché fermier",
-    description: "+1 Achat. S'il y a 4 PV+ sur la pile Marché Fermier, prenez-les et écartez cette carte. Sinon, ajoutez 1 PV sur la pile et +1 💰.",
+    description: '+1 Achat. S\'il y a 4 🛡️ ou plus sur la pile des Marchés fermiers, prenez-les et écartez cette carte. Sinon, ajoutez 1 🛡️ sur la pile, puis +1 💰 par 🛡️ sur la pile.',
     cost: 3,
     types: ['ACTION', 'GATHERING'],
-    effects: [
-        { type: 'ADD_BUYS', amount: 1 },
-        {
-            type: 'CONDITION',
-            condition: 'PILE_HAS_VP',
-            pileId: 'farmers_market',
-            trueEffects: [
-                { type: 'TAKE_VP_FROM_PILE', pileId: 'farmers_market' },
-                { type: 'TRASH_SELF' }
-            ],
-            falseEffects: [
-                { type: 'GATHER_VP', pileId: 'farmers_market', amount: 1 },
-                { type: 'ADD_MONEY', amount: 1 }
-            ]
-        }
-    ],
+    effects: [{ type: 'ADD_BUYS', amount: 1 }, { type: 'FARMERS_MARKET' }] as any,
     expansion: 'empires'
 };

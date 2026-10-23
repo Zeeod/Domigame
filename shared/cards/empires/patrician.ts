@@ -11,22 +11,7 @@ export const patrician: CardDefinition = {
     description: "+1 Carte. +1 Action. Révélez la carte du dessus de votre deck. Si elle coûte 5 💰 ou plus, prenez-la en main.",
     cost: 2,
     types: ['ACTION'],
-    effects: [
-        { type: 'DRAW', amount: 1 },
-        { type: 'ADD_ACTIONS', amount: 1 },
-        {
-            type: 'REVEAL_TOP_OF_DECK',
-            amount: 1,
-            onSuccess: [
-                {
-                    type: 'CONDITION',
-                    condition: { type: 'MIN_COST', amount: 5 } as any,
-                    trueEffects: [{ type: 'MOVE_CARDS', source: 'aside', destination: 'hand', count: 1 }],
-                    falseEffects: [{ type: 'MOVE_CARDS', source: 'aside', destination: 'deck', position: 'TOP', count: 1 }]
-                }
-            ]
-        }
-    ],
+    effects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'PATRICIAN' }] as any,
     expansion: 'empires',
     isSubCard: true
 };

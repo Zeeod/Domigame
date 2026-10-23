@@ -1,190 +1,30 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const fountain: CardDefinition = {
-    id: 'fountain',
-    name: 'Fontaine',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "À la fin de la partie, si vous avez au moins 15 Cuivres, 15 PV.",
-    expansion: 'empires'
-};
+/**
+ * Empires — the 21 Landmarks (official texts). Rules: expansions/Empires.ts (VP pools, hooks, scoring).
+ */
+const lm = (id: string, name: string, description: string): CardDefinition => ({
+    id, name, types: ['LANDMARK'], cost: 0, description, expansion: 'empires'
+} as any);
 
-export const wolfDen: CardDefinition = {
-    id: 'wolf_den',
-    name: 'Tanière de Loup',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "À la fin de la partie, -3 PV par carte que vous n'avez qu'en un seul exemplaire.",
-    expansion: 'empires'
-};
-
-export const aqueduct: CardDefinition = {
-    id: 'aqueduct',
-    name: 'Aqueduc',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous gagnez un Trésor, déplacez 1 PV de sa pile vers ici. Quand vous gagnez une Victoire, prenez les PV d'ici.",
-    expansion: 'empires'
-};
-
-export const arena: CardDefinition = {
-    id: 'arena',
-    name: 'Arène',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Au début de votre phase d'Achat, vous pouvez défausser une carte Action. Si vous le faites, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const banditFort: CardDefinition = {
-    id: 'bandit_fort',
-    name: 'Fort de Brigands',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, -2 PV par Argent et Or que vous possédez.",
-    expansion: 'empires'
-};
-
-export const basilica: CardDefinition = {
-    id: 'basilica',
-    name: 'Basilique',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous achetez une carte coûtant 2$ ou plus, si vous avez 2$ ou plus restants, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const baths: CardDefinition = {
-    id: 'baths',
-    name: 'Thermes',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "À la fin de votre tour, si vous n'avez pas gagné de carte, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const battlefield: CardDefinition = {
-    id: 'battlefield',
-    name: 'Champ de Bataille',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous gagnez une carte Victoire, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const colonnade: CardDefinition = {
-    id: 'colonnade',
-    name: 'Colonnade',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous achetez une carte Action si vous en avez déjà une copie en jeu, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const defiledShrine: CardDefinition = {
-    id: 'defiled_shrine',
-    name: 'Sanctuaire Profané',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous gagnez une carte Action, déplacez 1 PV d'une pile non-Rassemblement vers ici. Quand vous gagnez une Malédiction, prenez les PV d'ici.",
-    expansion: 'empires'
-};
-
-export const keep: CardDefinition = {
-    id: 'keep',
-    name: 'Donjon',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "À la fin de la partie, 5 PV par carte Trésor dont vous possédez le plus d'exemplaires (ou égalité).",
-    expansion: 'empires'
-};
-
-export const labyrinth: CardDefinition = {
-    id: 'labyrinth',
-    name: 'Labyrinthe',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous gagnez votre 2ème carte en un tour, prenez 2 PV d'ici.",
-    expansion: 'empires'
-};
-
-export const mountainPass: CardDefinition = {
-    id: 'mountain_pass',
-    name: 'Col de Montagne',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand la 1ère Province est gagnée, chaque joueur enchère une fois pour des PV (jusqu'à 40). Le meilleur enchérisseur prend les PV et autant de Dette.",
-    expansion: 'empires'
-};
-
-export const museum: CardDefinition = {
-    id: 'museum',
-    name: 'Musée',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 2 PV par carte de nom différent.",
-    expansion: 'empires'
-};
-
-export const obelisk: CardDefinition = {
-    id: 'obelisk',
-    name: 'Obélisque',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 2 PV par carte que vous possédez de la pile Action choisie au hasard au début.",
-    expansion: 'empires'
-};
-
-export const orchard: CardDefinition = {
-    id: 'orchard',
-    name: 'Verger',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 4 PV par carte Action dont vous possédez au moins 3 exemplaires.",
-    expansion: 'empires'
-};
-
-export const palace: CardDefinition = {
-    id: 'palace',
-    name: 'Palais',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 3 PV par série de [Cuivre-Argent-Or].",
-    expansion: 'empires'
-};
-
-export const tomb: CardDefinition = {
-    id: 'tomb',
-    name: 'Tombeau',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "Quand vous écartez une carte, +1 PV.",
-    expansion: 'empires'
-};
-
-export const tower: CardDefinition = {
-    id: 'tower',
-    name: 'Tour',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 1 PV par carte non-Victoire d'une pile de la réserve vide.",
-    expansion: 'empires'
-};
-
-export const triumphalArch: CardDefinition = {
-    id: 'triumphal_arch',
-    name: 'Arc de Triomphe',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, 3 PV par exemplaire de votre 2ème carte Action la plus possèdée.",
-    expansion: 'empires'
-};
-
-export const wall: CardDefinition = {
-    id: 'wall',
-    name: 'Mur',
-    types: ['LANDMARK'],
-    cost: 0,
-    description: "En fin de partie, -1 PV par carte au delà de la 15ème.",
-    expansion: 'empires'
-};
+export const aqueduct = lm('aqueduct', 'Aqueduc', 'Quand vous recevez un Trésor, déplacez 1 🛡️ de sa pile vers ici. Quand vous recevez une carte Victoire, prenez les 🛡️ d\'ici. Mise en place : 8 🛡️ sur les piles d\'Argent et d\'Or.');
+export const arena = lm('arena', 'Arène', 'Au début de votre phase Achat, vous pouvez défausser une carte Action. Si vous le faites, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const banditFort = lm('bandit_fort', 'Fort des bandits', 'Au décompte, -2 PV pour chaque Argent et chaque Or que vous possédez.');
+export const basilica = lm('basilica', 'Basilique', 'Quand vous achetez une carte, s\'il vous reste 2 💰 ou plus, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const baths = lm('baths', 'Thermes', 'Quand vous terminez votre tour sans avoir reçu de carte, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const battlefield = lm('battlefield', 'Champ de bataille', 'Quand vous recevez une carte Victoire, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const colonnade = lm('colonnade', 'Colonnade', 'Quand vous achetez une carte Action, si vous en avez une copie en jeu, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const defiledShrine = lm('defiled_shrine', 'Sanctuaire profané', 'Quand vous recevez une Action, déplacez 1 🛡️ de sa pile vers ici. Quand vous achetez une Malédiction, prenez les 🛡️ d\'ici. Mise en place : 2 🛡️ sur chaque pile Action hors Rassemblement.');
+export const fountain = lm('fountain', 'Fontaine', 'Au décompte, 15 PV si vous avez au moins 10 Cuivres.');
+export const keep = lm('keep', 'Donjon', 'Au décompte, 5 PV par Trésor de nom différent dont vous avez autant ou plus de copies que chaque autre joueur.');
+export const labyrinth = lm('labyrinth', 'Labyrinthe', 'Quand vous recevez une 2e carte pendant l\'un de vos tours, prenez 2 🛡️ d\'ici. Mise en place : 6 🛡️ par joueur ici.');
+export const mountainPass = lm('mountain_pass', 'Col de montagne', 'Quand vous êtes le premier joueur à recevoir une Province, après ce tour chaque joueur enchérit une fois, jusqu\'à 40 Dette, en finissant par vous. Le plus offrant reçoit +8 🛡️ et prend la Dette enchérie.');
+export const museum = lm('museum', 'Musée', 'Au décompte, 2 PV par carte de nom différent que vous possédez.');
+export const obelisk = lm('obelisk', 'Obélisque', 'Au décompte, 2 PV par carte que vous possédez de la pile choisie. Mise en place : choisissez une pile Action de la réserve au hasard.');
+export const orchard = lm('orchard', 'Verger', 'Au décompte, 4 PV par carte Action de nom différent dont vous avez 3 exemplaires ou plus.');
+export const palace = lm('palace', 'Palais', 'Au décompte, 3 PV par série Cuivre - Argent - Or que vous possédez.');
+export const tomb = lm('tomb', 'Tombeau', 'Quand vous écartez une carte, +1 🛡️.');
+export const tower = lm('tower', 'Tour', 'Au décompte, 1 PV par carte non-Victoire que vous possédez provenant d\'une pile vide de la réserve.');
+export const triumphalArch = lm('triumphal_arch', 'Arc de triomphe', 'Au décompte, 3 PV par exemplaire de votre 2e carte Action la plus nombreuse (en cas d\'égalité, elle compte).');
+export const wall = lm('wall', 'Mur', 'Au décompte, -1 PV par carte que vous possédez au-delà de la 15e.');
+export const wolfDen = lm('wolf_den', 'Tanière du loup', 'Au décompte, -3 PV par carte dont vous n\'avez qu\'un seul exemplaire.');

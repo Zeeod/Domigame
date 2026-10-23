@@ -27,7 +27,11 @@ export const REWARDS = ['coronet', 'courser', 'demesne', 'housecarl', 'huge_turn
  * Setup that depends on the kingdom (after the Supply is built):
  * Ferryman's set-aside pile, Joust's Rewards, Baker's starting Coffers.
  */
+/** Setup steps registered by expansions (Empires: Landmark VP, Tax…). */
+export const setupHooks: ((state: GameState) => void)[] = [];
+
 export function applyKingdomSetup(state: GameState): void {
+    for (const hook of setupHooks) hook(state);
     const kingdom = state.kingdomCards || [];
     state.nonSupply = state.nonSupply || {};
 

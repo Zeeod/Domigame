@@ -9,19 +9,15 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 export const rocks: CardDefinition = {
     id: 'rocks',
     name: 'Pierres',
-    description: "1 💰. Lorsque vous recevez ou écartez cette carte, recevez un Argent. Si vous écartez cette carte, l'Argent est reçu sur votre deck.",
+    description: '1 💰. Quand vous recevez ou écartez cette carte, recevez un Argent ; pendant votre phase Achat, placez-le sur votre pioche, sinon prenez-le en main.',
     cost: 4,
     types: ['TREASURE'],
     treasureValue: 1,
     effects: [
         { type: 'ADD_MONEY', amount: 1 }
     ],
-    onGain: [
-        { type: 'GAIN_CARD', cardId: 'silver' }
-    ],
-    onTrash: [
-        { type: 'GAIN_CARD', cardId: 'silver', destination: 'deck' }
-    ],
+    onGain: [{ type: 'ROCKS_SILVER' }] as any,
+    onTrash: [{ type: 'ROCKS_SILVER' }] as any,
     expansion: 'empires',
     isSubCard: true
 };

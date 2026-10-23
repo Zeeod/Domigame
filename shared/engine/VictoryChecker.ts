@@ -109,23 +109,10 @@ export class VictoryChecker {
     /**
      * Calculate score from a Landmark
      */
-    static calculateLandmarkScore(_state: GameState, _player: PlayerState, landmarkId: string, allCards: any[]): number {
-        switch (landmarkId) {
-            case 'fountain':
-                // 15 VP if you have at least 10 Coppers
-                const coppers = allCards.filter(c => c.id === 'copper').length;
-                return coppers >= 10 ? 15 : 0;
-            case 'wolf_den':
-                // -3 VP for each card you have exactly one copy of
-                const counts = new Map<string, number>();
-                allCards.forEach(c => counts.set(c.id, (counts.get(c.id) || 0) + 1));
-                let penalty = 0;
-                counts.forEach((count) => {
-                    if (count === 1) penalty += 3;
-                });
-                return -penalty;
-            default:
-                return 0;
-        }
+    /** "When scoring" Landmark rules, registered by expansions (Empires). */
+    static landmarkScorers: ((state: GameState, player: PlayerState, landmarkId: string, allCards: any[]) => number)[] = [];
+
+    static calculateLandmarkScore(state: GameState, player: PlayerState, landmarkId: string, allCards: any[]): number {
+        return this.landmarkScorers.reduce((sum, f) => sum + f(state, player, landmarkId, allCards), 0);
     }
 }
