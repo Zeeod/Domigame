@@ -1,231 +1,56 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const architects_guild: CardDefinition = {
-    id: 'architects_guild',
-    name: 'Guilde des architectes',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Quand vous recevez une carte, vous pouvez dépenser 2 Faveurs pour recevoir une carte coûtant moins cher (non-Victoire).",
-    effects: [], // Registered as a permanent trigger
-    expansion: 'allies'
-};
+/**
+ * Allies — the 23 Ally cards (official texts). One is used when a Liaison is in the kingdom.
+ * Their abilities live in engine/expansions/AlliesRules.ts.
+ */
+const ally = (id: string, name: string, description: string): CardDefinition => ({
+    id, name, cost: 0, types: ['ALLY'], description, effects: [], expansion: 'allies'
+} as any);
 
-export const band_of_nomads: CardDefinition = {
-    id: 'band_of_nomads',
-    name: 'Bande de nomades',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Quand vous recevez une carte coûtant 3 💰 ou plus, vous pouvez dépenser une Faveur pour +1 Action, +1 Achat ou +1 Carte.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const cave_dwellers: CardDefinition = {
-    id: 'cave_dwellers',
-    name: 'Troglodytes',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, vous pouvez dépenser une Faveur pour défausser une carte puis piocher une carte. Répétez autant que désiré.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const circle_of_witches: CardDefinition = {
-    id: 'circle_of_witches',
-    name: 'Cercle de sorcières',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Après avoir joué une Liaison, vous pouvez dépenser 3 Faveurs pour que chaque autre joueur reçoive une Malédiction.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const city_state: CardDefinition = {
-    id: 'city_state',
-    name: 'Cité-État',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Pendant votre tour, quand vous recevez une carte Action, vous pouvez dépenser 2 Faveurs pour la jouer.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const coastal_haven: CardDefinition = {
-    id: 'coastal_haven',
-    name: 'Havre côtier',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Pendant votre phase de Nettoyage, quand vous défaussez votre main, vous pouvez dépenser n'importe quel nombre de Faveurs pour garder autant de cartes en main pour votre prochain tour (vous piocherez quand même jusqu'à 5).",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const crafters_guild: CardDefinition = {
-    id: 'crafters_guild',
-    name: 'Guilde des artisans',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, vous pouvez dépenser 2 Faveurs pour recevoir une carte coûtant jusqu'à 4 💰 sur votre pioche.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const desert_guides: CardDefinition = {
-    id: 'desert_guides',
-    name: 'Guides du désert',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, vous pouvez dépenser une Faveur pour défausser votre main et piocher 5 cartes.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const family_of_inventors: CardDefinition = {
-    id: 'family_of_inventors',
-    name: 'Famille d\'inventeurs',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre phase d'Achat, vous pouvez placer un jeton Faveur (de votre réserve) sur une pile de la Réserve (non-Victoire). Les cartes de cette pile coûtent 1 💰 de moins par jeton Faveur qu'elle possède.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const fellowship_of_scribes: CardDefinition = {
-    id: 'fellowship_of_scribes',
-    name: 'Confrérie des scribes',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Après avoir joué une carte Action, si vous avez 4 cartes ou moins en main, vous pouvez dépenser une Faveur pour +1 Carte.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const forest_dwellers: CardDefinition = {
-    id: 'forest_dwellers',
-    name: 'Habitants des forêts',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, vous pouvez dépenser une Faveur pour +1 Action et +1 Achat.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const gang_of_pickpockets: CardDefinition = {
-    id: 'gang_of_pickpockets',
-    name: 'Bande de pickpockets',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, défaussez jusqu'à d'avoir que 4 cartes en main, à moins de dépenser une Faveur.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const island_folk: CardDefinition = {
-    id: 'island_folk',
-    name: 'Peuple des îles',
-    cost: 0,
-    types: ['ALLY'],
-    description: "À la fin de votre tour, vous pouvez dépenser 5 Faveurs pour prendre un tour supplémentaire après celui-ci (mais pas deux fois de suite).",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const league_of_bankers: CardDefinition = {
-    id: 'league_of_bankers',
-    name: 'Ligue des banquiers',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre phase d'Achat, +1 💰 par tranche de 4 Faveurs que vous possédez (arrondi à l'inférieur).",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const league_of_shopkeepers: CardDefinition = {
-    id: 'league_of_shopkeepers',
-    name: 'Ligue des boutiquiers',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Après avoir joué une Liaison, si vous avez 5 Faveurs ou plus, +1 💰. S'il s'agit d'une 10ème ou plus, +1 Action et +1 Achat.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const market_towns: CardDefinition = {
-    id: 'market_towns',
-    name: 'Villes de marché',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre phase d'Achat, vous pouvez dépenser une Faveur pour jouer une carte Action de votre main. Répétez autant que désiré.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const mountain_folk: CardDefinition = {
-    id: 'mountain_folk',
-    name: 'Peuple des montagnes',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre tour, vous pouvez dépenser 5 Faveurs pour +3 Cartes.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const order_of_astrologers: CardDefinition = {
-    id: 'order_of_astrologers',
-    name: 'Ordre des astrologues',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Quand vous mélangez, vous pouvez regarder les 3 premières cartes de votre deck, en défausser n'importe quel nombre et remettre le reste dans l'ordre de votre choix.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const order_of_masons: CardDefinition = {
-    id: 'order_of_masons',
-    name: 'Ordre des maçons',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Quand vous mélangez, vous pouvez piocher jusqu'à 2 cartes par 4 Faveurs que vous possédez, puis vous les défaussez.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const peaceful_cult: CardDefinition = {
-    id: 'peaceful_cult',
-    name: 'Culte paisible',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre phase d'Achat, vous pouvez dépenser n'importe quel nombre de Faveurs pour écarter autant de cartes de votre main.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const plateau_shepherds: CardDefinition = {
-    id: 'plateau_shepherds',
-    name: 'Bergers des plateaux',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Lors du décompte des points, associez vos Faveurs avec des cartes coûtant 2 💰 que vous possédez pour 2 PV par paire.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const trappers_lodge: CardDefinition = {
-    id: 'trappers_lodge',
-    name: 'Maison des trappeurs',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Quand vous recevez une carte, vous pouvez dépenser une Faveur pour la mettre sur votre pioche.",
-    effects: [],
-    expansion: 'allies'
-};
-
-export const woodcarvers_guild: CardDefinition = {
-    id: 'woodcarvers_guild',
-    name: 'Guilde des sculpteurs sur bois',
-    cost: 0,
-    types: ['ALLY'],
-    description: "Au début de votre phase d'Achat, vous pouvez dépenser une Faveur pour écarter une carte Action de votre main. Si vous le faites, recevez une carte Action coûtant jusqu'à 2 💰 de plus.",
-    effects: [],
-    expansion: 'allies'
-};
+export const architects_guild = ally('architects_guild', 'Guilde des architectes',
+    'Quand vous recevez une carte, vous pouvez dépenser 2 Faveurs pour recevoir une carte non-Victoire coûtant moins qu\'elle.');
+export const band_of_nomads = ally('band_of_nomads', 'Bande de nomades',
+    'Quand vous recevez une carte coûtant 3 💰 ou plus, vous pouvez dépenser une Faveur pour +1 Carte, ou +1 Action, ou +1 Achat.');
+export const cave_dwellers = ally('cave_dwellers', 'Troglodytes',
+    'Au début de votre tour, vous pouvez dépenser une Faveur pour défausser une carte puis piocher une carte. Répétez autant que vous voulez.');
+export const circle_of_witches = ally('circle_of_witches', 'Cercle de sorcières',
+    'Après avoir joué une Liaison, vous pouvez dépenser 3 Faveurs pour que chaque autre joueur reçoive une Malédiction.');
+export const city_state = ally('city_state', 'Cité-État',
+    'Pendant vos tours, quand vous recevez une carte Action, vous pouvez dépenser 2 Faveurs pour la jouer.');
+export const coastal_haven = ally('coastal_haven', 'Havre côtier',
+    'Quand vous défaussez votre main pendant l\'Ajustement, vous pouvez dépenser autant de Faveurs que vous voulez pour garder autant de cartes en main pour votre prochain tour (vous piochez quand même 5 cartes).');
+export const crafters_guild = ally('crafters_guild', 'Guilde des artisans',
+    'Au début de votre tour, vous pouvez dépenser 2 Faveurs pour recevoir une carte coûtant jusqu\'à 4 💰 sur votre pioche.');
+export const desert_guides = ally('desert_guides', 'Guides du désert',
+    'Au début de votre tour, vous pouvez dépenser une Faveur pour défausser votre main et piocher 5 cartes. Répétez autant que vous voulez.');
+export const family_of_inventors = ally('family_of_inventors', 'Famille d\'inventeurs',
+    'Au début de votre phase Achat, vous pouvez placer un jeton Faveur sur une pile non-Victoire de la réserve. Les cartes coûtent 1 💰 de moins par jeton Faveur sur leur pile.');
+export const fellowship_of_scribes = ally('fellowship_of_scribes', 'Confrérie des scribes',
+    'Après avoir joué une Action, si vous avez 4 cartes ou moins en main, vous pouvez dépenser une Faveur pour +1 Carte.');
+export const forest_dwellers = ally('forest_dwellers', 'Habitants des forêts',
+    'Au début de votre tour, vous pouvez dépenser une Faveur pour regarder les 3 cartes du dessus de votre pioche. Défaussez-en autant que vous voulez et remettez le reste dans l\'ordre de votre choix.');
+export const gang_of_pickpockets = ally('gang_of_pickpockets', 'Bande de pickpockets',
+    'Au début de votre tour, défaussez jusqu\'à avoir 4 cartes en main, à moins de dépenser une Faveur.');
+export const island_folk = ally('island_folk', 'Peuple des îles',
+    'À la fin de votre tour, si le tour précédent n\'était pas le vôtre, vous pouvez dépenser 5 Faveurs pour jouer un autre tour.');
+export const league_of_bankers = ally('league_of_bankers', 'Ligue des banquiers',
+    'Au début de votre phase Achat, +1 💰 par tranche de 4 Faveurs que vous avez (arrondi à l\'inférieur).');
+export const league_of_shopkeepers = ally('league_of_shopkeepers', 'Ligue des boutiquiers',
+    'Après avoir joué une Liaison, si vous avez 5 Faveurs ou plus, +1 💰 ; et si vous en avez 10 ou plus, +1 Action et +1 Achat.');
+export const market_towns = ally('market_towns', 'Villes de marché',
+    'Au début de votre phase Achat, vous pouvez dépenser une Faveur pour jouer une carte Action de votre main. Répétez autant que vous voulez.');
+export const mountain_folk = ally('mountain_folk', 'Peuple des montagnes',
+    'Au début de votre tour, vous pouvez dépenser 5 Faveurs pour +3 Cartes.');
+export const order_of_astrologers = ally('order_of_astrologers', 'Ordre des astrologues',
+    'Quand vous mélangez, vous pouvez choisir une carte par Faveur que vous dépensez, à placer sur le dessus.');
+export const order_of_masons = ally('order_of_masons', 'Ordre des maçons',
+    'Quand vous mélangez, vous pouvez choisir jusqu\'à deux cartes par Faveur que vous dépensez, à placer dans votre défausse.');
+export const peaceful_cult = ally('peaceful_cult', 'Culte paisible',
+    'Au début de votre phase Achat, vous pouvez dépenser autant de Faveurs que vous voulez pour écarter autant de cartes de votre main.');
+export const plateau_shepherds = ally('plateau_shepherds', 'Bergers des plateaux',
+    'Lors du décompte, associez vos Faveurs aux cartes que vous possédez coûtant 2 💰 : 2 PV par paire.');
+export const trappers_lodge = ally('trappers_lodge', 'Maison des trappeurs',
+    'Quand vous recevez une carte, vous pouvez dépenser une Faveur pour la placer sur votre pioche.');
+export const woodcarvers_guild = ally('woodcarvers_guild', 'Guilde des sculpteurs sur bois',
+    'Au début de votre phase Achat, vous pouvez dépenser une Faveur pour écarter une carte Action de votre main. Si vous le faites, recevez une carte Action.');

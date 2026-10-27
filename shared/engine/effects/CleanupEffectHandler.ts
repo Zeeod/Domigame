@@ -17,12 +17,21 @@ import { getMat, peekMat } from '../Mats.js';
 
 export class CleanupEffectHandler {
     /**
+     * Choices made just before the hand is discarded (Allies — Coastal Haven). A hook that
+     * returns true has queued its choice followed by a { type: 'CLEANUP_RESUME' } effect.
+     */
+    static beforeHandDiscard: ((state: GameState, player: PlayerState) => boolean)[] = [];
+
+    /**
      * Start the cleanup process for a player
      */
     public static handlePerformCleanup(state: GameState, player: PlayerState): EffectResult {
         // Recursion guard
         if (state.effectStack.some(e => (e.effect as any)?.type === 'FINALIZE_CLEANUP')) {
             return { state, needsChoice: false };
+        }
+        for (const hook of CleanupEffectHandler.beforeHandDiscard) {
+            if (hook(state, player)) return { state, needsChoice: false };
         }
 
         // 1. Move Hand to Discard with triggers
@@ -252,6 +261,14 @@ export class CleanupEffectHandler {
             }
         } else {
             state.currentPlayerIndex = ((state.lastNormalTurnIndex ?? state.currentPlayerIndex) + 1) % state.players.length;
+            // Allies — Lich: "skip a turn"
+            for (let i = 0; i < state.players.length; i++) {
+                const p = state.players[state.currentPlayerIndex] as any;
+                if (!p.skipTurns) break;
+                p.skipTurns--;
+                this.log(state, `${p.name} passe son tour (Liche).`);
+                state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
+            }
         }
         state.previousTurnPlayerId = endingPlayerId;
         state.cardsPlayedFromHandThisTurn = 0;

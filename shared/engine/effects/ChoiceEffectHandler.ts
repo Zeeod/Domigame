@@ -8,10 +8,12 @@ export class ChoiceEffectHandler {
         let min = effect.min !== undefined ? effect.min : count;
         let max = effect.max !== undefined ? effect.max : count;
 
-        // --- ELDER (Allies) ---
-        const hasElder = state.activeRestrictions?.some(r => r.type === 'ELDER_EFFECT_ACTIVE' && r.sourcePlayerId === player.id);
-        if (hasElder) {
-            min++;
+        // --- ELDER (Allies): a choice of abilities of the card played with Elder gets one more (different) option.
+        // A "may" (an option that does nothing) isn't a choice of abilities.
+        const e = (player as any).elder;
+        const opts: any[] = effect.options || [];
+        const isAbilityChoice = opts.length > max && opts.every(o => (o.effects || []).length > 0);
+        if (isAbilityChoice && e && e.turn === state.turnNumber && ctx.sourceCardInstanceId && e.ids.includes(ctx.sourceCardInstanceId)) {
             max++;
         }
 

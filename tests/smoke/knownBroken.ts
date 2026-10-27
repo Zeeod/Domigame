@@ -3,5 +3,4 @@
  * Fix a card → remove it from this list. Goal: empty list.
  */
 export const KNOWN_BROKEN: ReadonlySet<string> = new Set<string>([
-    'lich', // [first] effet(s) sans gestionnaire : SKIP_NEXT_TURN
 ]);

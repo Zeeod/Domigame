@@ -22,7 +22,6 @@ import { ZoneEffectHandler } from './effects/ZoneEffectHandler.js';
 import { CleanupEffectHandler } from './effects/CleanupEffectHandler.js';
 import { ProphecyManager } from './ProphecyManager.js';
 import { RisingSunEffectHandler } from './effects/RisingSunEffectHandler.js';
-import { AlliesEffectHandler } from './effects/AlliesEffectHandler.js';
 import { PlunderEffectHandler } from './effects/PlunderEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 import { Logger } from './Logger.js';
@@ -1133,7 +1132,6 @@ export function registerCoreEffects(): void {
     });
 
     RisingSunEffectHandler.register();
-    AlliesEffectHandler.register();
     PlunderEffectHandler.register();
 
 }
