@@ -803,18 +803,6 @@ export const AlliesRulesModule: ExpansionModule = {
             }
         },
         {
-            type: 'GAIN_FROM_TRASH_INSTANCE',
-            handler: (state, player, effect: any) => {
-                const idx = state.trash.findIndex(c => c.instanceId === effect.instanceId);
-                if (idx === -1) return done(state);
-                const card = state.trash.splice(idx, 1)[0];
-                player.discardPile.push(card);
-                state.lastGainedCard = card;
-                EffectUtils.log(state, `${player.name} reçoit ${nameOf(card.id)} depuis le rebut.`, player.id);
-                return done(state);
-            }
-        },
-        {
             // Coastal Haven, after the choice: carry on with the Clean-up
             type: 'CLEANUP_RESUME',
             handler: (state, player) => CleanupEffectHandler.handlePerformCleanup(state, player)

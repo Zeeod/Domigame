@@ -1,17 +1,33 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const avoid: CardDefinition = { id: 'avoid', name: 'Éviter', cost: 2, types: ['EVENT'], description: "Mettez de côté n'importe quel nombre de cartes de votre main. À la fin de votre phase de nettoyage, défaussez-les et +1 Carte pour chacune.", expansion: 'plunder' };
-export const bury: CardDefinition = { id: 'bury', name: 'Enterrer', cost: 1, types: ['EVENT'], description: "Mettez une carte de votre main sur votre deck ou dans votre défausse. Quand vous la piochez ou la recevez du deck, +💰.", expansion: 'plunder' };
-export const deliver: CardDefinition = { id: 'deliver', name: 'Livrer', cost: 2, types: ['EVENT'], description: "Recevez une carte coûtant jusqu'à 5 💰. Mettez-la sur votre deck.", expansion: 'plunder' };
-export const foray: CardDefinition = { id: 'foray', name: 'Incursion', cost: 3, types: ['EVENT'], description: "Recevez un Butin.", expansion: 'plunder' };
-export const invasion: CardDefinition = { id: 'invasion', name: 'Invasion', cost: 10, types: ['EVENT'], description: "Recevez 2 Butins. +1 Achat.", expansion: 'plunder' };
-export const journey: CardDefinition = { id: 'journey', name: 'Voyage', cost: 4, types: ['EVENT'], description: "Retournez votre pile de jetons Voyage. Si vous avez fait un voyage complet, +3 Cartes et +1 Action.", expansion: 'plunder' };
-export const launch: CardDefinition = { id: 'launch', name: 'Lancer', cost: 3, types: ['EVENT'], description: "Une fois par tour : retournez à votre phase d'Action.", expansion: 'plunder' };
-export const looting: CardDefinition = { id: 'looting', name: 'Pillage', cost: 5, types: ['EVENT'], description: "Recevez 2 Butins.", expansion: 'plunder' };
-export const maelstrom: CardDefinition = { id: 'maelstrom', name: 'Maelström', cost: 4, types: ['EVENT'], description: "Chaque autre joueur défausse 3 cartes. S'il ne peut pas, il reçoit une Malédiction.", expansion: 'plunder' };
-export const mirror: CardDefinition = { id: 'mirror', name: 'Miroir', cost: 3, types: ['EVENT'], description: "Une fois par tour : recevez une copie d'une carte que vous avez reçue ce tour-ci.", expansion: 'plunder' };
-export const peril: CardDefinition = { id: 'peril', name: 'Péril', cost: 2, types: ['EVENT'], description: "Écartez n'importe quel nombre de cartes de votre main. Recevez un Butin si vous avez écarté au moins 3 cartes.", expansion: 'plunder' };
-export const prepare: CardDefinition = { id: 'prepare', name: 'Préparer', cost: 1, types: ['EVENT'], description: "Mettez une carte de votre main de côté. Au début de votre prochain tour, jouez-la.", expansion: 'plunder' };
-export const prosper: CardDefinition = { id: 'prosper', name: 'Prospérer', cost: 5, types: ['EVENT'], description: "Recevez un Butin et +1 Achat.", expansion: 'plunder' };
-export const rush: CardDefinition = { id: 'rush', name: 'Précipitation', cost: 2, types: ['EVENT'], description: "Recevez une Action coûtant jusqu'à 4 💰 de la Réserve. Jouez-la.", expansion: 'plunder' };
-export const scrounge: CardDefinition = { id: 'scrounge', name: 'Récupérer', cost: 3, types: ['EVENT'], description: "Mettez une Action ou un Trésor de votre défausse sur votre deck.", expansion: 'plunder' };
+/** Plunder — the 15 Events (official texts). Rules: engine/expansions/PlunderRules.ts. */
+const ev = (id: string, name: string, cost: number, description: string, effects: any[], extra: any = {}): CardDefinition => ({
+    id, name, types: ['EVENT'], cost, description, expansion: 'plunder', effects, ...extra
+} as any);
+const BUY = { type: 'ADD_BUYS', amount: 1 };
+
+export const bury = ev('bury', 'Enterrement', 1, '+1 Achat. Placez une carte de votre défausse sous votre pioche.', [BUY, { type: 'BURY' }]);
+export const avoid = ev('avoid', 'Esquive', 2, '+1 Achat. La prochaine fois que vous mélangez ce tour-ci, choisissez jusqu\'à 3 de ces cartes à placer dans votre défausse.',
+    [BUY, { type: 'SHUFFLE_RULE', rule: 'avoid' }]);
+export const deliver = ev('deliver', 'Livraison', 2, '+1 Achat. Ce tour-ci, chaque fois que vous recevez une carte, mettez-la de côté et prenez-la en main à la fin du tour.',
+    [BUY, { type: 'DELIVER' }]);
+export const peril = ev('peril', 'Péril', 2, '+1 Achat. Vous pouvez écarter une carte Action de votre main pour recevoir un Butin.',
+    [BUY, { type: 'TRASH', min: 0, max: 1, from: 'hand', filter: { cardTypes: ['ACTION'] }, message: 'Péril : écarter une Action pour un Butin ?', onSuccess: [{ type: 'GAIN_LOOT' }] }]);
+export const rush = ev('rush', 'Ruée', 2, '+1 Achat. La prochaine fois que vous recevez une carte Action ce tour-ci, jouez-la.', [BUY, { type: 'RUSH' }]);
+export const foray = ev('foray', 'Raid', 3, 'Défaussez 3 cartes en les dévoilant. Si elles ont 3 noms différents, recevez un Butin.',
+    [{ type: 'FORAY' }]);
+export const launch = ev('launch', 'Lancement', 3, 'Une fois par tour : retournez à votre phase Action. +1 Carte, +1 Action et +1 Achat.',
+    [{ type: 'CHANGE_PHASE', phase: 'ACTION' }, { type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }, BUY], { oncePerTurn: true });
+export const mirror = ev('mirror', 'Miroir', 3, '+1 Achat. La prochaine fois que vous recevez une carte Action ce tour-ci, recevez-en un exemplaire.', [BUY, { type: 'MIRROR' }]);
+export const prepare = ev('prepare', 'Préparatifs', 3, 'Mettez votre main de côté face visible. Au début de votre prochain tour, jouez-en les Actions et Trésors dans l\'ordre de votre choix, puis défaussez le reste.',
+    [{ type: 'PREPARE' }]);
+export const scrounge = ev('scrounge', 'Récupération', 3, 'Choisissez : écartez une carte de votre main ; ou recevez un Domaine depuis le rebut et, si vous le faites, recevez une carte coûtant jusqu\'à 5 💰.',
+    [{ type: 'SCROUNGE' }]);
+export const journey = ev('journey', 'Voyage', 4, 'Ce tour-ci, vous ne défaussez pas les cartes en jeu pendant l\'Ajustement. Jouez un tour supplémentaire après celui-ci (mais pas un 3e tour d\'affilée).',
+    [{ type: 'JOURNEY' }]);
+export const maelstrom = ev('maelstrom', 'Maelström', 4, 'Écartez 3 cartes de votre main. Chaque autre joueur ayant 5 cartes ou plus en main en écarte une.',
+    [{ type: 'TRASH', min: 3, max: 3, from: 'hand', message: 'Maelström : écartez 3 cartes' }, { type: 'MAELSTROM' }]);
+export const looting = ev('looting', 'Pillage', 6, 'Recevez un Butin.', [{ type: 'GAIN_LOOT' }]);
+export const invasion = ev('invasion', 'Invasion', 10, 'Vous pouvez jouer une Attaque de votre main. Recevez un Duché. Recevez une carte Action sur votre pioche. Recevez un Butin ; jouez-le.',
+    [{ type: 'MAY_PLAY_FROM_HAND', filter: { cardTypes: ['ATTACK'] }, message: 'Invasion : jouer une Attaque de votre main ?' }, { type: 'INVASION' }]);
+export const prosper = ev('prosper', 'Prospérité', 10, 'Recevez un Butin, plus autant de Trésors de noms différents que vous voulez.', [{ type: 'GAIN_LOOT' }, { type: 'PROSPER' }]);

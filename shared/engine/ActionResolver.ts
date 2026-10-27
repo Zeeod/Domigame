@@ -29,7 +29,7 @@ import { SupplyGenerator } from './SupplyGenerator.js';
 
 // Bootstrap: register all expansion modules (cost modifiers, hooks, phases)
 import './registerExpansions.js';
-import { markPlayed } from './Play.js';
+import { markPlayed , playOverrides, applyPlayOverrides } from './Play.js';
 import { debugLog } from './debug.js';
 
 // ============================================================================
@@ -47,8 +47,8 @@ export interface ActionResult {
 // ============================================================================
 
 export class ActionResolver {
-    /** Rules that replace a played card's effects (return the new list, or undefined to keep them). */
-    static playOverrides: ((state: GameState, player: PlayerState, cardDef: any, effects: any[]) => any[] | undefined)[] = [];
+    /** Rules that replace a played card's effects (shared with Play.ts). */
+    static playOverrides = playOverrides;
 
     /**
      * Apply a validated action to the game state
@@ -187,10 +187,6 @@ export class ActionResolver {
         if (cardIndex === -1) return { success: false, state, error: 'Card not found' };
 
         const card = player.hand[cardIndex];
-        if (card.shy) {
-            return { success: false, state, error: "Cette carte est timide et ne peut pas être jouée ce tour-ci." };
-        }
-
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) return { success: false, state, error: 'Unknown card' };
 
@@ -381,12 +377,10 @@ export class ActionResolver {
             }
         }
 
-        // Expansion rules that replace what a played card does (Allies — Highwayman: "does nothing")
-        let nullified = false;
-        for (const override of ActionResolver.playOverrides) {
-            const replaced = override(state, player, cardDef, finalEffects as any[]);
-            if (replaced) { finalEffects = replaced as any; nullified = replaced.length === 0; }
-        }
+        // Expansion rules that replace what a played card does (Highwayman, Reckless, Inspiring…)
+        const overridden = applyPlayOverrides(state, player, cardDef, (finalEffects || []) as any[], card);
+        finalEffects = overridden.effects as any;
+        const nullified = overridden.nullified;
 
         // Queue the card's effects, then the "when you play" triggers on top of them (they happen
         // first: Urchin "you may first trash this", Corsair…), then resolve.

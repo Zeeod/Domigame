@@ -22,6 +22,9 @@ export class CleanupEffectHandler {
      */
     static beforeHandDiscard: ((state: GameState, player: PlayerState) => boolean)[] = [];
 
+    /** Cards that stay in play this Clean-up (Plunder — Journey). */
+    static keepInPlay: ((state: GameState, player: PlayerState, card: any) => boolean)[] = [];
+
     /**
      * Start the cleanup process for a player
      */
@@ -86,7 +89,7 @@ export class CleanupEffectHandler {
         const keepIds = DurationManager.processCleanup(state, player);
 
         player.playArea.forEach(card => {
-            if (keepIds.includes(card.instanceId)) {
+            if (keepIds.includes(card.instanceId) || CleanupEffectHandler.keepInPlay.some(f => f(state, player, card))) {
                 toKeep.push(card);
             } else if (card.princedBy) {
                 // Prince: set aside again instead of being discarded
@@ -141,24 +144,6 @@ export class CleanupEffectHandler {
         for (const card of toDiscard) {
             const def = CardRegistry.get(card.id);
             if (def) {
-                // Plunder: Tireless Trait
-                const pile = state.supply[card.id];
-                if (pile && pile.traits?.includes('tireless')) {
-                    state.effectStack.push({
-                        type: 'EFFECT',
-                        playerId: player.id,
-                        effect: {
-                            type: 'SELECT_OPTION',
-                            message: `Infatigable : Voulez-vous mettre votre ${def.name} sur votre deck ?`,
-                            options: [
-                                { label: 'Oui', effects: [{ type: 'MOVE_TO_ZONE', sourceCardInstanceId: card.instanceId, destination: 'deck' }] },
-                                { label: 'Non', effects: [] }
-                            ]
-                        } as any,
-                        context: { sourceCardId: 'tireless', sourceCardInstanceId: card.instanceId }
-                    });
-                }
-
                 // Plunder — Reckless: when you discard it from play, return it to its pile
                 if ((card as any).reckless) {
                     delete (card as any).reckless;
@@ -290,18 +275,6 @@ export class CleanupEffectHandler {
 
         const nextPlayer = getCurrentPlayer(state);
         if (nextPlayer) {
-            // Plunder: Reset shy flag on all cards of the next player
-            const zones = [nextPlayer.hand, nextPlayer.deck, nextPlayer.discardPile, nextPlayer.playArea];
-            zones.forEach(zone => {
-                zone.forEach(c => { if (c.shy) c.shy = undefined; });
-            });
-            // Also check mats
-            if (nextPlayer.mats) {
-                for (const k in nextPlayer.mats) {
-                    nextPlayer.mats[k].forEach(c => { if (c.shy) c.shy = undefined; });
-                }
-            }
-
             nextPlayer.turnNumber++;
             resetTurnResources(nextPlayer);
             const msg = `Tour ${nextPlayer.turnNumber} - ${nextPlayer.name}`;

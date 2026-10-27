@@ -1,17 +1,25 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const cheap: CardDefinition = { id: 'cheap', name: 'Bon Marché', cost: 0, types: ['TRAIT'], description: "Les cartes de cette pile coûtent 1 💰 de moins.", expansion: 'plunder' };
-export const cursed: CardDefinition = { id: 'cursed', name: 'Maudit', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, recevez une Malédiction.", expansion: 'plunder', onGain: [{ type: 'GAIN_CARD', cardId: 'curse' }] };
-export const fated: CardDefinition = { id: 'fated', name: 'Appelé', cost: 0, types: ['TRAIT'], description: "Quand vous mélangez, vous pouvez mettre une carte de cette pile sur votre deck.", expansion: 'plunder' };
-export const fawning: CardDefinition = { id: 'fawning', name: 'Servile', cost: 0, types: ['TRAIT'], description: "Quand vous achetez une carte de cette pile, +1 Faveur par Action que vous avez en jeu.", expansion: 'plunder', onBuy: [{ type: 'ADD_FAVORS', amount: 1, multiplier: 'ACTIONS_IN_PLAY' }] };
-export const friendly: CardDefinition = { id: 'friendly', name: 'Amical', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, vous pouvez défausser une carte pour +1 Carte.", expansion: 'plunder', onGain: [{ type: 'SELECT_OPTION', message: "Amical : Voulez-vous défausser une carte pour +1 Carte ?", options: [{ label: 'Oui', effects: [{ type: 'DISCARD', amount: 1, next: [{ type: 'DRAW', amount: 1 }] }] }, { label: 'Non', effects: [] }] }] };
-export const hasty: CardDefinition = { id: 'hasty', name: 'Hâtif', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, vous pouvez la mettre sur votre deck.", expansion: 'plunder', onGain: [{ type: 'SELECT_OPTION', message: "Hâtif : Voulez-vous mettre cette carte sur votre deck ?", options: [{ label: 'Oui', effects: [{ type: 'MOVE_GAINED_CARD', destination: 'deck' }] }, { label: 'Non', effects: [] }] }] };
-export const inherited: CardDefinition = { id: 'inherited', name: 'Hérité', cost: 0, types: ['TRAIT'], description: "Les cartes de cette pile ont le type Héritage et comptent comme des cartes de départ.", expansion: 'plunder' };
-export const inspiring: CardDefinition = { id: 'inspiring', name: 'Inspirant', cost: 0, types: ['TRAIT'], description: "Quand vous jouez une carte de cette pile, +1 Action.", expansion: 'plunder', onPlay: [{ type: 'ADD_ACTIONS', amount: 1 }] };
-export const nearby: CardDefinition = { id: 'nearby', name: 'Proche', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, vous pouvez recevoir un Argent.", expansion: 'plunder', onGain: [{ type: 'SELECT_OPTION', message: "Proche : Voulez-vous recevoir un Argent ?", options: [{ label: 'Oui', effects: [{ type: 'GAIN_CARD', cardId: 'silver' }] }, { label: 'Non', effects: [] }] }] };
-export const patient: CardDefinition = { id: 'patient', name: 'Patient', cost: 0, types: ['TRAIT'], description: "À la fin de votre phase d'Achat, vous pouvez mettre une carte de cette pile de côté pour la jouer au début de votre prochain tour.", expansion: 'plunder' };
-export const pious: CardDefinition = { id: 'pious', name: 'Pieux', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, vous pouvez écarter une carte de votre main.", expansion: 'plunder', onGain: [{ type: 'SELECT_OPTION', message: "Pieux : Voulez-vous écarter une carte de votre main ?", options: [{ label: 'Oui', effects: [{ type: 'TRASH', amount: 1, source: 'hand' }] }, { label: 'Non', effects: [] }] }] };
-export const reckless: CardDefinition = { id: 'reckless', name: 'Téméraire', cost: 0, types: ['TRAIT'], description: "Suivez deux fois les instructions des cartes de cette pile que vous jouez. Quand vous en défaussez une du jeu, remettez-la dans sa pile.", expansion: 'plunder', onPlay: [{ type: 'PLAY_AGAIN' }] } as any;
-export const rich: CardDefinition = { id: 'rich', name: 'Riche', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, recevez un Argent.", expansion: 'plunder', onGain: [{ type: 'GAIN_CARD', cardId: 'silver' }] };
-export const shy: CardDefinition = { id: 'shy', name: 'Timide', cost: 0, types: ['TRAIT'], description: "Quand vous recevez une carte de cette pile, vous ne pouvez pas la jouer ce tour-ci.", expansion: 'plunder' };
-export const tireless: CardDefinition = { id: 'tireless', name: 'Infatigable', cost: 0, types: ['TRAIT'], description: "Quand vous défaussez une carte de cette pile du jeu, vous pouvez la mettre sur votre deck.", expansion: 'plunder' };
+/**
+ * Plunder — the 15 Traits (official texts). Each is put on a Kingdom Action or Treasure pile;
+ * "X cards" are the cards of that pile. Rules: engine/expansions/PlunderRules.ts.
+ */
+const trait = (id: string, name: string, description: string): CardDefinition => ({
+    id, name, cost: 0, types: ['TRAIT'], description, effects: [], expansion: 'plunder'
+} as any);
+
+export const cheap = trait('cheap', 'Bon marché', 'Les cartes Bon marché coûtent 1 💰 de moins.');
+export const cursed = trait('cursed', 'Maudit', 'Quand vous recevez une carte Maudite, recevez un Butin et une Malédiction.');
+export const fated = trait('fated', 'Destiné', 'Quand vous mélangez, vous pouvez parcourir les cartes et dévoiler les cartes Destinées pour les placer sur le dessus ou sous la pioche.');
+export const fawning = trait('fawning', 'Flatteur', 'Quand vous recevez une Province, recevez une carte Flatteuse.');
+export const friendly = trait('friendly', 'Amical', 'Au début de votre phase Ajustement, vous pouvez défausser une carte Amicale pour recevoir une carte Amicale.');
+export const hasty = trait('hasty', 'Pressé', 'Quand vous recevez une carte Pressée, mettez-la de côté et jouez-la au début de votre prochain tour.');
+export const inherited = trait('inherited', 'Hérité', 'Mise en place : vous commencez la partie avec une carte Héritée à la place d\'une carte de départ de votre choix.');
+export const inspiring = trait('inspiring', 'Inspirant', 'Après avoir joué une carte Inspirante pendant votre tour, vous pouvez jouer une carte Action de votre main dont vous n\'avez pas d\'exemplaire en jeu.');
+export const nearby = trait('nearby', 'Proche', 'Quand vous recevez une carte Proche, +1 Achat.');
+export const patient = trait('patient', 'Patient', 'Au début de votre phase Ajustement, vous pouvez mettre de côté des cartes Patientes de votre main pour les jouer au début de votre prochain tour.');
+export const pious = trait('pious', 'Pieux', 'Quand vous recevez une carte Pieuse, vous pouvez écarter une carte de votre main.');
+export const reckless = trait('reckless', 'Téméraire', 'Suivez deux fois les instructions des cartes Téméraires jouées. Quand vous en défaussez une du jeu, remettez-la sur sa pile.');
+export const rich = trait('rich', 'Riche', 'Quand vous recevez une carte Riche, recevez un Argent.');
+export const shy = trait('shy', 'Timide', 'Au début de votre tour, vous pouvez défausser une carte Timide pour +2 Cartes.');
+export const tireless = trait('tireless', 'Infatigable', 'Quand vous défaussez une carte Infatigable du jeu, mettez-la de côté et placez-la sur votre pioche à la fin du tour.');
