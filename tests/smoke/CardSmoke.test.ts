@@ -30,7 +30,16 @@ function newGame(pileId: string): GameState {
     room.players.forEach(p => (p.isReady = true));
     room.startGame(kingdom);
     const t = (room as any).turnTimer; if (t) clearTimeout(t);
-    return room.gameState;
+    // Setup choices (Plunder — Inherited): answered with the first option
+    let state = room.gameState;
+    if (state.pendingDecision) {
+        const r = resolveAll(state, 'first' as Strategy);
+        if (r.ok) state = r.state;
+        // The test deals its own hands next: start again from the Action phase
+        state.phase = 'ACTION';
+        state.phaseIndex = state.phasePipeline!.indexOf('ACTION');
+    }
+    return state;
 }
 
 /** Which cards to exercise for a Kingdom pile (split/mixed piles: each card in it). */
