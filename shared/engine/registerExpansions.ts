@@ -24,7 +24,7 @@ import { RenaissanceModule } from './expansions/Renaissance.js';
 import { NocturneModule } from './expansions/Nocturne.js';
 import { SeasideModule } from './expansions/Seaside.js';
 import { PlunderModule } from './expansions/Plunder.js';
-import { RisingSunModule } from './expansions/RisingSun.js';
+import { RisingSunCardsModule } from './expansions/RisingSunCards.js';
 import { MenagerieModule } from './expansions/Menagerie.js';
 import { PromoModule } from './expansions/Promo.js';
 import './registerCoreEffects.js';
@@ -55,7 +55,7 @@ export function registerAllExpansions(): void {
     ExpansionLoader.load(NocturneModule);
     ExpansionLoader.load(SeasideModule);
     ExpansionLoader.load(PlunderModule);
-    ExpansionLoader.load(RisingSunModule);
+    ExpansionLoader.load(RisingSunCardsModule);
     ExpansionLoader.load(MenagerieModule);
     ExpansionLoader.load(PromoModule);
 }

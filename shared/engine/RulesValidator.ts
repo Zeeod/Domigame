@@ -7,6 +7,8 @@
  */
 
 import { GameState, getCurrentPlayer } from '../engine/GameState.js';
+import { canPlayShadowFromDeck } from './Shadows.js';
+import { ProphecyManager } from './ProphecyManager.js';
 import { GameAction } from '../types/GameAction.js';
 import { CardRegistry } from '../cards/index.js';
 import { mapActor } from './Possession.js';
@@ -132,8 +134,9 @@ export class RulesValidator {
             }
         }
 
-        // Find card in hand
-        const card = currentPlayer.hand.find(c => c.instanceId === cardInstanceId);
+        // Find card in hand (or a Shadow card in the deck, playable as if in hand)
+        const card = currentPlayer.hand.find(c => c.instanceId === cardInstanceId)
+            || (canPlayShadowFromDeck(state, currentPlayer, cardInstanceId) ? currentPlayer.deck.find(c => c.instanceId === cardInstanceId) : undefined);
         if (!card) {
             return { valid: false, error: 'Carte non trouvée dans la main' };
         }
@@ -150,11 +153,9 @@ export class RulesValidator {
         }
 
         // Phase-specific validation
-        const isEnlightenmentFulfilled = state.activeProphecyId === 'enlightenment' &&
-            state.landscapeState['enlightenment']?.tokens?.sun === 0;
 
         if (state.phase === 'ACTION') {
-            if (cardDef.types.includes('ACTION') || (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE'))) {
+            if (cardDef.types.includes('ACTION')) {
                 if (currentPlayer.actions <= 0) {
                     return { valid: false, error: "Plus d'actions disponibles" };
                 }
@@ -198,7 +199,8 @@ export class RulesValidator {
             return { valid: false, error: "Pendant le tour de la Mission, vous ne pouvez pas acheter de cartes" };
         }
 
-        if (currentPlayer.buys <= 0) {
+        const actionsAsBuys = ProphecyManager.isActive(state, 'flourishing_trade') ? currentPlayer.actions : 0;
+        if (currentPlayer.buys + actionsAsBuys <= 0) {
             return { valid: false, error: "Plus d'achats disponibles" };
         }
 

@@ -1,6 +1,7 @@
 import { GameState, PlayerState, EffectResult } from '../GameState.js';
 import { PromptType } from '../prompts/Prompt.js';
 import { EffectUtils } from '../EffectUtils.js';
+import { deckShadows } from '../Shadows.js';
 
 export class ChoiceEffectHandler {
     public static handleChooseOption(state: GameState, player: PlayerState, effect: any, ctx: any = {}): EffectResult {
@@ -85,6 +86,10 @@ export class ChoiceEffectHandler {
                                 player.aside;
 
         availableCards = availableCards || [];
+        // Rising Sun: "play a card from your hand" (Throne Room…) can play a Shadow card from the deck
+        if (sourceZone === 'HAND' && effect.destination === 'playArea' && state.phase === 'ACTION') {
+            availableCards = [...availableCards, ...deckShadows(player)];
+        }
         const validCards = EffectUtils.filterCards(availableCards, effect.filter);
 
         if (validCards.length === 0 || (validCards.length < minAmount && effect.onNoMatch)) {

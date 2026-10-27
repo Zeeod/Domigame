@@ -10,7 +10,6 @@ import { resetTurnResources } from '../PlayerState.js';
 import { ZoneManager } from '../ZoneManager.js';
 import { EffectManager } from '../EffectManager.js';
 import { TriggerEffectHandler } from './TriggerEffectHandler.js';
-import { ProphecyManager } from '../ProphecyManager.js';
 import { endPossessionTurn } from '../Possession.js';
 import { EventBus } from '../EventBus.js';
 import { getMat, peekMat } from '../Mats.js';
@@ -287,9 +286,6 @@ export class CleanupEffectHandler {
             });
 
             this.log(state, msg);
-
-            // Prophecy check for TURN_START (e.g. Sickness)
-            ProphecyManager.checkFulfillment(state, 'TURN_START', {});
 
             if (state.activeEnchantresses?.includes(nextPlayer.id)) {
                 state.activeEnchantresses = state.activeEnchantresses.filter(id => id !== nextPlayer.id);

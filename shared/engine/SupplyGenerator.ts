@@ -335,7 +335,8 @@ export class SupplyGenerator {
         });
 
         if (hasOmens && !selected.some(id => CardRegistry.get(id)?.types.includes('PROPHECY' as any))) {
-            const prophecy = validCandidates.find(c => c.types.includes('PROPHECY') && !selected.includes(c.id));
+            const prophecy = shuffled.find(c => c.types.includes('PROPHECY') && !selected.includes(c.id))
+                || validCandidates.find(c => c.types.includes('PROPHECY') && !selected.includes(c.id));
             if (prophecy) selected.push(prophecy.id);
         }
 
