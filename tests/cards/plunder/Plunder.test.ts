@@ -6,6 +6,7 @@ import { makeGame, cards, player, play, choose, chooseCards, chooseSupply, choos
 import { createCardInstance } from '../../../shared/engine/CardInstance.js';
 import { EconomyEngine } from '../../../shared/engine/EconomyEngine.js';
 import { getMat, peekMat } from '../../../shared/engine/Mats.js';
+import { ActionResolver } from '../../../shared/engine/ActionResolver.js';
 
 const ids = (cs: { id: string }[]) => cs.map(c => c.id);
 const toBuy = (s: any) => { s.phase = 'BUY'; s.phaseIndex = s.phasePipeline!.indexOf('BUY'); return s; };
@@ -797,4 +798,42 @@ describe('Alliés — choix au mélange', () => {
     });
 
     void getMat;
+});
+
+describe('Pillage — Hérité', () => {
+    const start = (kingdom: string[]) => {
+        const s = makeGame(kingdom);
+        s.landscapes = ['inherited'];
+        s.supply[kingdom[0]].traits = ['inherited'];
+        for (const p of s.players) { p.hand = cards(...Array(7).fill('copper'), 'estate', 'estate', 'estate'); p.deck = []; }
+        ActionResolver.startGame(s);
+        return s;
+    };
+    const all = (s: any, id: string) => [...player(s, id).hand, ...player(s, id).deck].map(c => c.id);
+
+    it('chaque joueur, dans l\'ordre, remplace une carte de départ par une carte Héritée', () => {
+        let s = start(['village']);
+        const copper = s.supply.copper.count;
+        expect(s.pendingDecision?.playerId).toBe('p1');
+        s = chooseOption(s, 1); // Estate
+        expect(s.pendingDecision?.playerId).toBe('p2');
+        s = choose(s, { type: 'OPTION', optionIndex: 0 }, 'p2'); // Copper
+        expect(all(s, 'p1').filter(id => id === 'estate').length).toBe(2);
+        expect(all(s, 'p1')).toContain('village');
+        expect(all(s, 'p2').filter(id => id === 'copper').length).toBe(6);
+        expect(all(s, 'p2')).toContain('village');
+        expect(player(s).hand.length).toBe(5);
+        expect(player(s, 'p2').hand.length).toBe(5);
+        expect(s.supply.village.count).toBe(8);
+        expect(s.supply.copper.count).toBe(copper + 1); // the Copper goes back to its pile
+        expect(s.trash.length).toBe(0);
+    });
+
+    it('la carte Héritée n\'est pas « reçue » (pas d\'effet quand on la reçoit)', () => {
+        let s = start(['village']);
+        s = chooseOption(s, 0);
+        s = choose(s, { type: 'OPTION', optionIndex: 0 }, 'p2');
+        expect(player(s).gainedThisTurn || []).toEqual([]);
+        expect(player(s).discardPile).toEqual([]);
+    });
 });

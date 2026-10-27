@@ -52,6 +52,9 @@ export class ActionResolver {
     /** Rules that replace a played card's effects (shared with Play.ts). */
     static playOverrides = playOverrides;
 
+    /** Setup choices made once the starting hands are dealt (Plunder — Inherited). */
+    static startGameHooks: ((state: GameState) => void)[] = [];
+
     /**
      * Apply a validated action to the game state
      * Uses Immer to ensure immutability and handle structural sharing.
@@ -922,6 +925,8 @@ export class ActionResolver {
 
         // Ensure first player has resources (resetTurnResources already called above for all, but let's be explicit for first player)
         resetTurnResources(firstPlayer);
+
+        for (const hook of ActionResolver.startGameHooks) hook(state);
     }
 
     // ========================================================================

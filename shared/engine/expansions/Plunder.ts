@@ -20,6 +20,7 @@ import { getMat, peekMat } from '../Mats.js';
 import { setupHooks } from '../KingdomRules.js';
 import { DurationManager } from '../DurationManager.js';
 import { LOOT_IDS } from '../../cards/plunder/loot.js';
+import { ActionResolver } from '../ActionResolver.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
 const def = (id: string) => CardRegistry.get(id);
@@ -292,6 +293,45 @@ export const PlunderModule: ExpansionModule = {
     ],
 
     effectHandlers: [
+        {
+            // Inherited (setup): choose which starting card to replace with an Inherited card
+            type: 'INHERITED_PICK',
+            handler: (state, player) => {
+                const pile = traitPile(state, 'inherited');
+                if (!pile || (state.supply[pile]?.count || 0) <= 0) return done(state);
+                const kinds = [...new Set([...player.hand, ...player.deck].map(c => c.id))].sort((a, b) => nameOf(a).localeCompare(nameOf(b)));
+                if (!kinds.length) return done(state);
+                if (kinds.length === 1) { push(state, player.id, { type: 'INHERITED_REPLACE', cardId: kinds[0] }); return done(state); }
+                const p = state.supply[pile];
+                const top = p.cards?.length ? p.cards[p.cards.length - 1].id : pile;
+                push(state, player.id, options(`Hérité : quelle carte de départ remplacer par ${nameOf(top)} ?`,
+                    kinds.map(id => ({ label: nameOf(id), effects: [{ type: 'INHERITED_REPLACE', cardId: id }] }))));
+                return done(state);
+            }
+        },
+        {
+            type: 'INHERITED_REPLACE',
+            handler: (state, player, effect: any) => {
+                const pile = traitPile(state, 'inherited');
+                const p = pile ? state.supply[pile] : undefined;
+                if (!pile || !p || p.count <= 0) return done(state);
+                const zone = player.hand.some(c => c.id === effect.cardId) ? player.hand : player.deck;
+                const idx = zone.findIndex(c => c.id === effect.cardId);
+                if (idx === -1) return done(state);
+                const old = zone.splice(idx, 1)[0];
+                // Coppers go back to their pile; other starting cards (Estates, Shelters, Heirlooms) leave the game
+                if (old.id === 'copper' && state.supply.copper) state.supply.copper.count += 1;
+                // The Inherited card is taken, not gained: "when you gain" abilities do not happen
+                const card = p.cards?.length ? p.cards.pop()! : createCardInstance(pile);
+                p.count -= 1;
+                EffectUtils.log(state, `${player.name} remplace un(e) ${nameOf(old.id)} par ${nameOf(card.id)} (Hérité).`, player.id);
+                // The starting cards are reshuffled and a new hand of 5 is drawn
+                player.deck = EffectUtils.shuffle([...player.hand, ...player.deck, card], state);
+                player.hand = [];
+                EffectUtils.drawCards(state, player, 5);
+                return done(state);
+            }
+        },
         {
             type: 'GAIN_LOOT',
             handler: (state, player, effect: any) => { gainLoot(state, player, effect.destination === 'hand' ? 'hand' : 'discardPile'); return done(state); }
@@ -821,6 +861,13 @@ export const PlunderModule: ExpansionModule = {
 
     onLoad: () => {
         if (!setupHooks.includes(setupPlunder)) setupHooks.push(setupPlunder);
+        // Inherited: once the starting hands are dealt, each player in turn order picks the card to replace
+        addOnce(ActionResolver.startGameHooks, 'plunder:inherited', (state) => {
+            if (!traitPile(state, 'inherited') || (state as any).inheritedDone) return;
+            (state as any).inheritedDone = true;
+            for (const p of [...state.players].reverse()) push(state, p.id, { type: 'INHERITED_PICK' });
+            EffectEngine.processStack(state);
+        });
         const owned = (state: GameState, id: string) => state.players.find(p => p.id === id);
         const pick = (state: GameState, playerId: string, payload: any, decision: any) => {
             const player = owned(state, playerId);

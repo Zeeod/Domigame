@@ -89,8 +89,8 @@ Les échecs sont regroupés par cause probable. Corriger famille par famille : u
 Soleil Levant compris (25 cartes Royaume, 15 Prophéties, Ombres, 10 Événements — `tests/cards/rising_sun/`).
 Écarts connus de Soleil Levant : Grand chef ne donne pas +1 Action au Présage qui retire le dernier Soleil ;
 Vent divin ne refait pas la mise en place spéciale des nouvelles piles (Allié, Potion…) ; Tanuki ne compare pas
-les coûts en Dette. Il reste :
-- **Hérité** (Trait de Pillage) : à la mise en place, chaque joueur choisit la carte de départ à remplacer.
+les coûts en Dette. Hérité (Pillage) est fait : au début de la partie, chaque joueur choisit la carte de départ
+remplacée, puis repioche une main de 5. Aucune carte n'est plus exclue faute de code (`shared/cards/unfinished.ts`).
 
 Pour chaque extension, dans l'ordre :
 1. Coder les cartes manquantes et les coquilles.
