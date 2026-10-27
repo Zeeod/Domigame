@@ -89,9 +89,9 @@ export const enlarge = k('enlarge', 'Agrandir', 5, ['ACTION', 'DURATION'],
     'Maintenant et au début de votre prochain tour : écartez une carte de votre main et recevez-en une coûtant jusqu\'à 2 💰 de plus.',
     [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Agrandir : écartez une carte', onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 2 }] }],
     { durationEffects: [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Agrandir : écartez une carte', onSuccess: [{ type: 'GAIN_CARD_PLUS_COST', costBonus: 2 }] }] });
-export const figurine = k('figurine', 'Figurine', 5, ['TREASURE'], '2 💰. Vous pouvez défausser une carte Action pour +1 Carte et +1 Achat.',
-    [{ type: 'ADD_MONEY', amount: 2 }, { type: 'DISCARD', min: 0, max: 1, filter: { cardTypes: ['ACTION'] }, message: 'Figurine : défausser une Action pour +1 Carte et +1 Achat ?',
-        onSuccess: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_BUYS', amount: 1 }] }], { treasureValue: 0 });
+export const figurine = k('figurine', 'Figurine', 5, ['TREASURE'], '+2 Cartes. Vous pouvez défausser une carte Action pour +1 Achat et +1 💰.',
+    [{ type: 'DRAW', amount: 2 }, { type: 'DISCARD', min: 0, max: 1, filter: { cardTypes: ['ACTION'] }, message: 'Figurine : défausser une Action pour +1 Achat et +1 💰 ?',
+        onSuccess: [{ type: 'ADD_BUYS', amount: 1 }, { type: 'ADD_MONEY', amount: 1 }] }], { treasureValue: 0 });
 export const first_mate = k('first_mate', 'Second', 5, ['ACTION'],
     'Jouez autant de cartes Action de même nom que vous voulez depuis votre main, puis piochez jusqu\'à avoir 6 cartes en main.',
     [{ type: 'FIRST_MATE' }]);

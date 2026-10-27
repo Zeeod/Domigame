@@ -38,7 +38,7 @@ function ask(state: GameState, player: PlayerState, step: string, message: strin
 function shuffleChoice(state: GameState, player: PlayerState): any | undefined {
     if (!player.discardPile.length) return undefined;
     const steps: string[] = [];
-    if ((player as any).avoidTurn === state.turnNumber) steps.push('avoid');
+    if ((player as any).avoid?.turn === state.turnNumber) steps.push('avoid');
     if (allyIs(state, 'order_of_masons') && (player.favors || 0) > 0 && player.discardPile.length > 1) steps.push('masons');
     if (allyIs(state, 'order_of_astrologers') && (player.favors || 0) > 0 && player.discardPile.length > 1) steps.push('astrologers');
     const fp = fatedPile(state);
@@ -66,9 +66,12 @@ export const ShuffleRulesModule: ExpansionModule = {
                 const fp = fatedPile(state);
                 const favors = player.favors || 0;
                 switch (effect.step) {
-                    case 'avoid':
-                        (player as any).avoidTurn = undefined;
-                        return ask(state, player, 'keep', 'Esquive : choisissez jusqu\'à 3 cartes qui restent dans votre défausse', free(player), 3);
+                    case 'avoid': {
+                        // Cumulative: up to 3 cards per Avoid bought this turn
+                        const n = (player as any).avoid?.n || 3;
+                        (player as any).avoid = undefined;
+                        return ask(state, player, 'keep', `Esquive : choisissez jusqu'à ${n} cartes qui restent dans votre défausse`, free(player), n);
+                    }
                     case 'masons':
                         return ask(state, player, 'masons', `Ordre des maçons : jusqu'à 2 cartes par Faveur dépensée restent dans votre défausse (${favors} Faveur(s))`, free(player), 2 * favors);
                     case 'astrologers':
