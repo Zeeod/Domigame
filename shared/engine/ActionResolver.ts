@@ -407,7 +407,12 @@ export class ActionResolver {
         return this.resolveBuyCard(state, playerId, cardId, overpay);
     }
 
-    private static resolveBuyCard(state: GameState, _playerId: string, cardId: string, overpay?: number): ActionResult {
+    /** Buy without paying its cost (Animal Fair: an Action card was trashed instead). */
+    static buyFree(state: GameState, playerId: string, cardId: string): ActionResult {
+        return this.resolveBuyCard(state, playerId, cardId, 0, true);
+    }
+
+    private static resolveBuyCard(state: GameState, _playerId: string, cardId: string, overpay?: number, free = false): ActionResult {
         const player = getCurrentPlayer(state);
         if (!player) return { success: false, state, error: 'No current player' };
 
@@ -434,6 +439,24 @@ export class ActionResolver {
         const availableBuys = player.buys + (isFlourishingTradeFulfilled ? player.actions : 0);
         if (availableBuys <= 0) {
             return { success: false, state, error: "Plus d'achats disponibles" };
+        }
+
+        // Menagerie — Animal Fair: pay its cost, or trash an Action card from your hand instead
+        const altDef: any = CardRegistry.get(cardId);
+        if (!free && overpay === undefined && altDef?.altCostTrashAction && player.hand.some(c => CardRegistry.get(c.id)?.types.includes('ACTION'))) {
+            const canPay = player.coins >= EconomyEngine.getCardCost(state, player.id, cardId);
+            state.pendingDecision = {
+                id: `altcost_${Date.now()}`, playerId: player.id, type: 'SELECT_OPTION',
+                message: `${altDef.name} : payer son coût ou écarter une carte Action de votre main ?`,
+                options: [
+                    ...(canPay ? [{ label: 'Payer son coût', effects: [{ type: 'BUY_WITH_OVERPAY', cardId, amount: 0 }] }] : []),
+                    { label: 'Écarter une Action', effects: [
+                        { type: 'TRASH', min: 1, max: 1, from: 'hand', filter: { cardTypes: ['ACTION'] }, message: 'Écartez une carte Action', onSuccess: [{ type: 'BUY_FREE', cardId }] }
+                    ] }
+                ],
+                context: {}
+            } as any;
+            return { success: true, state };
         }
 
         // Guilds — overpay: ask how much to overpay when there is something left to overpay with
@@ -477,11 +500,13 @@ export class ActionResolver {
         const cardCost = EconomyEngine.getCardCost(state, player.id, cardToGainId);
         const potionCost = actualCardDef.potionCost || 0;
 
-        if (player.coins < cardCost) return { success: false, state, error: 'Not enough coins' };
-        if (potionCost > 0 && player.potions < potionCost) return { success: false, state, error: 'Not enough potions' };
+        if (!free && player.coins < cardCost) return { success: false, state, error: 'Not enough coins' };
+        if (!free && potionCost > 0 && player.potions < potionCost) return { success: false, state, error: 'Not enough potions' };
 
-        player.coins -= cardCost + overpaid;
-        player.potions -= potionCost;
+        if (!free) {
+            player.coins -= cardCost + overpaid;
+            player.potions -= potionCost;
+        }
 
         // Empires: Debt
         if (actualCardDef.debtCost) {

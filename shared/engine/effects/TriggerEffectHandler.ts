@@ -314,6 +314,7 @@ export class TriggerEffectHandler {
                 const cond = def.reactionCondition;
                 if (cond?.type === 'GAIN_TYPE' && !CardRegistry.get(gainedCardId)?.types.includes(cond.value)) continue;
                 if (cond?.type === 'GAIN_ID' && gainedCardId !== cond.value) continue;
+                if (cond?.type === 'MULTI_TYPE' && (CardRegistry.get(gainedCardId)?.types.length || 0) < 2) continue;
                 if (cond?.othersOnly && p.id === player.id) continue;
                 state.effectStack.push({
                     type: 'EFFECT',
