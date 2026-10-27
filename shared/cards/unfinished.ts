@@ -13,13 +13,8 @@
 /** Cards with a text but no effect at all. */
 export const SHELL_CARDS: ReadonlySet<string> = new Set([
 
-    // Allies — cartes Allié
-    'architects_guild', 'band_of_nomads', 'cave_dwellers', 'circle_of_witches', 'city_state',
-    'coastal_haven', 'crafters_guild', 'desert_guides', 'family_of_inventors',
-    'fellowship_of_scribes', 'forest_dwellers', 'gang_of_pickpockets', 'island_folk',
-    'league_of_bankers', 'league_of_shopkeepers', 'market_towns', 'mountain_folk',
-    'order_of_astrologers', 'order_of_masons', 'peaceful_cult', 'plateau_shepherds',
-    'trappers_lodge', 'woodcarvers_guild',
+    // Allies — « quand vous mélangez » : le moteur ne peut pas encore interrompre un mélange
+    'order_of_astrologers', 'order_of_masons',
 
     // Plunder — Événements et Traits
     'avoid', 'bury', 'deliver', 'foray', 'invasion', 'journey', 'launch', 'looting', 'maelstrom',

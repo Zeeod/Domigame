@@ -30,6 +30,9 @@ export interface ValidationResult {
 // ============================================================================
 
 export class RulesValidator {
+    /** Rules that forbid playing a card from hand: return an error message, or undefined. */
+    static playRestrictions: ((state: GameState, player: any, cardId: string) => string | undefined)[] = [];
+
     /**
      * Validate an action for a player
      * NEVER mutates state
@@ -138,6 +141,12 @@ export class RulesValidator {
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) {
             return { valid: false, error: 'Carte inconnue' };
+        }
+
+        // Expansion restrictions (Allies — Warlord)
+        for (const rule of RulesValidator.playRestrictions) {
+            const error = rule(state, currentPlayer, card.id);
+            if (error) return { valid: false, error };
         }
 
         // Phase-specific validation

@@ -312,9 +312,10 @@ export class SupplyGenerator {
             }
 
             // Find first candidate that matches type AND not already selected
+            // (Allies and Prophecies are never drawn at random: they come with Liaisons / Omens)
             const pickIndex = shuffled.findIndex(c => {
                 if (selected.includes(c.id)) return false;
-                if (!typeFilter) return true;
+                if (!typeFilter) return !c.types.includes('ALLY' as any) && !c.types.includes('PROPHECY' as any);
                 return c.types.includes(typeFilter as any);
             });
 
@@ -336,6 +337,18 @@ export class SupplyGenerator {
         if (hasOmens && !selected.some(id => CardRegistry.get(id)?.types.includes('PROPHECY' as any))) {
             const prophecy = validCandidates.find(c => c.types.includes('PROPHECY') && !selected.includes(c.id));
             if (prophecy) selected.push(prophecy.id);
+        }
+
+        // Allies: exactly one Ally when a Liaison is in the kingdom (a split pile counts by its cards)
+        const hasLiaison = (options.kingdomCardIds || []).some(id => {
+            const d = CardRegistry.get(id);
+            return d?.types.includes('LIAISON' as any) || (d?.mixedPile?.cards || []).some(c => CardRegistry.get(c)?.types.includes('LIAISON' as any));
+        });
+        const allies = selected.filter(id => CardRegistry.get(id)?.types.includes('ALLY' as any));
+        if (hasLiaison && allies.length === 0) {
+            const ally = shuffled.find(c => c.types.includes('ALLY') && !selected.includes(c.id))
+                || validCandidates.find(c => c.types.includes('ALLY') && !selected.includes(c.id));
+            if (ally) selected.push(ally.id);
         }
 
         return selected;

@@ -19,7 +19,7 @@ import { activeOverrides } from './KingdomRules.js';
 import { createCardInstance } from './CardInstance.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { TurnMachine } from './TurnMachine.js';
-import { resetTurnResources } from './PlayerState.js';
+import { resetTurnResources, PlayerState } from './PlayerState.js';
 import { Logger } from './Logger.js';
 import { EffectUtils } from './EffectUtils.js';
 import { LandscapeRegistry } from '../cards/landscapes/index.js';
@@ -47,6 +47,9 @@ export interface ActionResult {
 // ============================================================================
 
 export class ActionResolver {
+    /** Rules that replace a played card's effects (return the new list, or undefined to keep them). */
+    static playOverrides: ((state: GameState, player: PlayerState, cardDef: any, effects: any[]) => any[] | undefined)[] = [];
+
     /**
      * Apply a validated action to the game state
      * Uses Immer to ensure immutability and handle structural sharing.
@@ -378,6 +381,13 @@ export class ActionResolver {
             }
         }
 
+        // Expansion rules that replace what a played card does (Allies — Highwayman: "does nothing")
+        let nullified = false;
+        for (const override of ActionResolver.playOverrides) {
+            const replaced = override(state, player, cardDef, finalEffects as any[]);
+            if (replaced) { finalEffects = replaced as any; nullified = replaced.length === 0; }
+        }
+
         // Queue the card's effects, then the "when you play" triggers on top of them (they happen
         // first: Urchin "you may first trash this", Corsair…), then resolve.
         // "Directly after resolving an Action" (Coin of the Realm, Royal Carriage): queued under its effects
@@ -394,7 +404,7 @@ export class ActionResolver {
         state = EffectEngine.processStack(state).state;
 
         // Add treasure/potion values
-        if (cardDef.potionValue) {
+        if (cardDef.potionValue && !nullified) {
             player.potions += cardDef.potionValue;
             this.log(state, `${player.name} gagne +${cardDef.potionValue} Potion(s).`, player.id);
         }
