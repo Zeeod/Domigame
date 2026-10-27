@@ -17,10 +17,6 @@ export const SHELL_CARDS: ReadonlySet<string> = new Set([
     'inherited',
 
 
-    // Rising Sun — Événements
-    'amass', 'asceticism', 'continue', 'credit', 'foresight', 'gather', 'kintsugi', 'practice',
-    'receive_tribute', 'sea_trade',
-
 
 ]);
 

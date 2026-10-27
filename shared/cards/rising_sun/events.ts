@@ -1,91 +1,23 @@
 import { CardDefinition } from '../../types/CardDefinition.js';
 
-export const amass: CardDefinition = {
-    id: 'amass',
-    name: 'Amasser',
-    cost: 2,
-    types: ['EVENT'],
-    description: "Si vous n'avez pas de cartes Action en jeu, recevez une Action coûtant jusqu'à 5 💰.",
-    expansion: 'rising_sun'
-};
+/** Rising Sun — the 10 Events (official texts). Rules: engine/expansions/RisingSunRules.ts. */
+const ev = (id: string, name: string, cost: number, description: string, effects: any[], extra: any = {}): CardDefinition => ({
+    id, name, types: ['EVENT'], cost, description, expansion: 'rising_sun', effects, ...extra
+} as any);
 
-export const asceticism: CardDefinition = {
-    id: 'asceticism',
-    name: 'Ascétisme',
-    cost: 2,
-    types: ['EVENT'],
-    description: "Payez n'importe quel montant de 💰 pour écarter autant de cartes de votre main.",
-    expansion: 'rising_sun'
-};
-
-export const continue_event: CardDefinition = {
-    id: 'continue',
-    name: 'Continuer',
-    cost: 8,
-    types: ['EVENT'],
-    description: "Une fois par tour : Recevez une Action non-Attaque coûtant jusqu'à 4 💰. Revenez à votre phase d'Action et +1 Action et +1 Achat.",
-    expansion: 'rising_sun'
-};
-
-export const credit: CardDefinition = {
-    id: 'credit',
-    name: 'Crédit',
-    cost: 2,
-    types: ['EVENT'],
-    description: "Recevez une Action ou un Trésor coûtant jusqu'à 8 💰. +1 Dette égale à son coût.",
-    expansion: 'rising_sun'
-};
-
-export const foresight: CardDefinition = {
-    id: 'foresight',
-    name: 'Prévoyance',
-    cost: 2,
-    types: ['EVENT'],
-    description: "Révélez les cartes de votre pioche jusqu'à révéler une Action. Mettez-la de côté et défaussez le reste. Mettez-la dans votre main à la fin de votre tour.",
-    expansion: 'rising_sun'
-};
-
-export const gather: CardDefinition = {
-    id: 'gather',
-    name: 'Rassembler',
-    cost: 7,
-    types: ['EVENT'],
-    description: "Recevez une carte coûtant exactement 3 💰, une coûtant exactement 4 💰 et une coûtant exactement 5 💰.",
-    expansion: 'rising_sun'
-};
-
-export const kintsugi: CardDefinition = {
-    id: 'kintsugi',
-    name: 'Kintsugi',
-    cost: 3,
-    types: ['EVENT'],
-    description: "Écartez une carte de votre main. Si vous avez reçu un Or, recevez une carte coûtant jusqu'à 2 💰 de plus que celle écartée.",
-    expansion: 'rising_sun'
-};
-
-export const practice: CardDefinition = {
-    id: 'practice',
-    name: 'Entraînement',
-    cost: 3,
-    types: ['EVENT'],
-    description: "Vous pouvez jouer une Action de votre main deux fois.",
-    expansion: 'rising_sun'
-};
-
-export const receive_tribute: CardDefinition = {
-    id: 'receive_tribute',
-    name: 'Recevoir le Tribut',
-    cost: 5,
-    types: ['EVENT'],
-    description: "Si vous avez reçu au moins 3 cartes ce tour-ci, recevez jusqu'à 3 Actions de noms différents dont vous n'avez pas d'exemplaire en jeu.",
-    expansion: 'rising_sun'
-};
-
-export const sea_trade: CardDefinition = {
-    id: 'sea_trade',
-    name: 'Commerce Maritime',
-    cost: 4,
-    types: ['EVENT'],
-    description: "+1 Carte par carte Action que vous avez en jeu. Écartez jusqu'à autant de cartes de votre main.",
-    expansion: 'rising_sun'
-};
+export const amass = ev('amass', 'Amasser', 2, 'Si vous n\'avez aucune carte Action en jeu, recevez une carte Action coûtant jusqu\'à 5 💰.', [{ type: 'AMASS' }]);
+export const asceticism = ev('asceticism', 'Ascétisme', 2, 'Payez autant de 💰 que vous voulez pour écarter autant de cartes de votre main.', [{ type: 'ASCETICISM' }]);
+export const credit = ev('credit', 'Crédit', 2, 'Recevez une carte Action ou Trésor coûtant jusqu\'à 8 💰. Prenez autant de Dette que son coût.', [{ type: 'CREDIT' }]);
+export const foresight = ev('foresight', 'Prévoyance', 2, 'Dévoilez des cartes de votre pioche jusqu\'à dévoiler une Action. Mettez-la de côté et défaussez le reste. Prenez-la en main à la fin du tour.',
+    [{ type: 'FORESIGHT' }]);
+export const kintsugi = ev('kintsugi', 'Kintsugi', 3, 'Écartez une carte de votre main. Si vous avez reçu un Or pendant cette partie, recevez une carte coûtant jusqu\'à 2 💰 de plus que la carte écartée.',
+    [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Kintsugi : écartez une carte', onSuccess: [{ type: 'KINTSUGI' }] }]);
+export const practice = ev('practice', 'Entraînement', 3, 'Vous pouvez jouer deux fois une carte Action de votre main.', [{ type: 'PRACTICE' }]);
+export const sea_trade = ev('sea_trade', 'Commerce maritime', 4, '+1 Carte par carte Action que vous avez en jeu. Écartez jusqu\'à autant de cartes de votre main.', [{ type: 'SEA_TRADE' }]);
+export const receive_tribute = ev('receive_tribute', 'Recevoir le tribut', 5,
+    'Si vous avez reçu au moins 3 cartes ce tour-ci, recevez jusqu\'à 3 cartes Action de noms différents dont vous n\'avez pas d\'exemplaire en jeu.', [{ type: 'RECEIVE_TRIBUTE' }]);
+export const gather = ev('gather', 'Rassemblement', 7, 'Recevez une carte coûtant exactement 3 💰, une carte coûtant exactement 4 💰 et une carte coûtant exactement 5 💰.',
+    [3, 4, 5].map(n => ({ type: 'GAIN_EXACT', cost: n })));
+export const continue_event = ev('continue', 'Continuer', 8,
+    'Une fois par tour : recevez une carte Action non-Attaque coûtant jusqu\'à 4 💰. Retournez à votre phase Action et jouez-la. +1 Action et +1 Achat.',
+    [{ type: 'CONTINUE' }], { oncePerTurn: true });

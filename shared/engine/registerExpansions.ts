@@ -18,6 +18,7 @@ import { NocturneRulesModule } from './expansions/NocturneRules.js';
 import { MenagerieRulesModule } from './expansions/MenagerieRules.js';
 import { AlliesRulesModule } from './expansions/AlliesRules.js';
 import { ShuffleRulesModule } from './expansions/ShuffleRules.js';
+import { RisingSunRulesModule } from './expansions/RisingSunRules.js';
 import { GuildsModule } from './expansions/Guilds.js';
 import { RenaissanceModule } from './expansions/Renaissance.js';
 import { NocturneModule } from './expansions/Nocturne.js';
@@ -48,6 +49,7 @@ export function registerAllExpansions(): void {
     ExpansionLoader.load(MenagerieRulesModule);
     ExpansionLoader.load(AlliesRulesModule);
     ExpansionLoader.load(ShuffleRulesModule);
+    ExpansionLoader.load(RisingSunRulesModule);
     ExpansionLoader.load(GuildsModule);
     ExpansionLoader.load(RenaissanceModule);
     ExpansionLoader.load(NocturneModule);
