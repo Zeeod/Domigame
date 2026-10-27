@@ -326,13 +326,13 @@ describe('Pillage — cartes Royaume', () => {
         expect(ids(s.trash)).toEqual(['copper', 'copper']);
     });
 
-    it('Figurine : défausse une Action pour +1 Carte +1 Achat', () => {
+    it('Figurine : +2 Cartes, défausse une Action pour +1 Achat +1 💰', () => {
         let s = toBuy(makeGame([]));
         player(s).hand = cards('figurine', 'village');
         player(s).deck = cards(...filler());
         s = play(s, 'figurine');
         s = chooseCards(s, ['village']);
-        expect([player(s).coins, player(s).buys, player(s).hand.length]).toEqual([2, 2, 1]);
+        expect([player(s).coins, player(s).buys, player(s).hand.length]).toEqual([1, 2, 2]);
     });
 
     it('Second : joue des Actions de même nom, puis pioche jusqu\'à 6', () => {

@@ -85,6 +85,15 @@ Les échecs sont regroupés par cause probable. Corriger famille par famille : u
 
 ## Phase 2 — Compléter toutes les extensions (taille XL)
 
+**État au 27/10/2026** : toutes les extensions sont vérifiées carte par carte (commits « Phase 2 (n/n) »),
+sauf Soleil Levant, dont seuls les 10 Événements sont faits. Il reste :
+- **Soleil Levant** : réécrire les 25 cartes Royaume et les 15 Prophéties d'après le livret 2024
+  (beaucoup de textes actuels sont faux : Aristocrate, Changement, Mine d'or, Émissaire impérial,
+  Courtier en riz…), les coûts en Dette (Artiste, Daimyo, Sanctuaire de montagne), les jetons Soleil
+  selon le nombre de joueurs, la pile Attaque d'Armée en approche, et l'**Ombre** : une carte Ombre se
+  place sous la pioche au mélange et peut être jouée depuis la pioche (moteur **et** interface).
+- **Hérité** (Trait de Pillage) : à la mise en place, chaque joueur choisit la carte de départ à remplacer.
+
 Pour chaque extension, dans l'ordre :
 1. Coder les cartes manquantes et les coquilles.
 2. Écrire au moins **un test par carte** dans `tests/cards/<extension>/`.

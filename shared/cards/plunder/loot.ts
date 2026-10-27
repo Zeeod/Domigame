@@ -30,7 +30,7 @@ export const sextant = loot('sextant', 'Sextant', [], '3 💰. +1 Achat. Regarde
     [$3, BUY, { type: 'LOOK_DISCARD_REORDER', amount: 5, label: 'Sextant' }]);
 export const shield = loot('shield', 'Bouclier', ['REACTION'], '3 💰. +1 Achat. Quand un autre joueur joue une Attaque, vous pouvez d\'abord dévoiler cette carte de votre main pour ne pas être affecté.',
     [$3, BUY], { isReaction: true, reactionTrigger: 'ATTACK', blocksAttack: true });
-export const spell_scroll = loot('spell_scroll', 'Parchemin de sort', [], 'Écartez cette carte pour recevoir une carte moins chère. Si c\'est une carte Action ou Trésor, vous pouvez la jouer.',
+export const spell_scroll = loot('spell_scroll', 'Parchemin de sort', ['ACTION'], 'Écartez cette carte pour recevoir une carte moins chère. Si c\'est une carte Action ou Trésor, vous pouvez la jouer.',
     [{ type: 'SPELL_SCROLL' }]);
 export const staff = loot('staff', 'Bâton', [], '3 💰. +1 Achat. Vous pouvez jouer une carte Action de votre main.',
     [$3, BUY, { type: 'MAY_PLAY_FROM_HAND', filter: { cardTypes: ['ACTION'] }, message: 'Bâton : jouer une Action de votre main ?' }]);

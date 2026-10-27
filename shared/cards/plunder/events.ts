@@ -23,8 +23,8 @@ export const prepare = ev('prepare', 'Préparatifs', 3, 'Mettez votre main de c�
     [{ type: 'PREPARE' }]);
 export const scrounge = ev('scrounge', 'Récupération', 3, 'Choisissez : écartez une carte de votre main ; ou recevez un Domaine depuis le rebut et, si vous le faites, recevez une carte coûtant jusqu\'à 5 💰.',
     [{ type: 'SCROUNGE' }]);
-export const journey = ev('journey', 'Voyage', 4, 'Ce tour-ci, vous ne défaussez pas les cartes en jeu pendant l\'Ajustement. Jouez un tour supplémentaire après celui-ci (mais pas un 3e tour d\'affilée).',
-    [{ type: 'JOURNEY' }]);
+export const journey = ev('journey', 'Voyage', 4, 'Une fois par tour : si le tour précédent n\'était pas le vôtre, vous ne défaussez pas les cartes en jeu pendant l\'Ajustement de ce tour, et vous jouez un tour supplémentaire après celui-ci.',
+    [{ type: 'JOURNEY' }], { oncePerTurn: true });
 export const maelstrom = ev('maelstrom', 'Maelström', 4, 'Écartez 3 cartes de votre main. Chaque autre joueur ayant 5 cartes ou plus en main en écarte une.',
     [{ type: 'TRASH', min: 3, max: 3, from: 'hand', message: 'Maelström : écartez 3 cartes' }, { type: 'MAELSTROM' }]);
 export const looting = ev('looting', 'Pillage', 6, 'Recevez un Butin.', [{ type: 'GAIN_LOOT' }]);

@@ -174,7 +174,8 @@ export const PlunderModule: ExpansionModule = {
                 if ((p as any).deliverTurn === state.turnNumber && isCurrent(state, p) && iid) push(state, p.id, { type: 'DELIVER_ASIDE', instanceId: iid });
                 if (isType(cid, 'ACTION') && isCurrent(state, p)) {
                     if ((p as any).rushTurn === state.turnNumber && iid) { (p as any).rushTurn = undefined; push(state, p.id, { type: 'PLAY_INSTANCE_IF_OWNED', instanceId: iid }); }
-                    if ((p as any).mirrorTurn === state.turnNumber) { (p as any).mirrorTurn = undefined; push(state, p.id, { type: 'GAIN_CARD', cardId: cid }); }
+                    const m = (p as any).mirror;
+                    if (m?.turn === state.turnNumber && m.n > 0) { (p as any).mirror = undefined; for (let i = 0; i < m.n; i++) push(state, p.id, { type: 'GAIN_CARD', cardId: cid }); }
                 }
                 if (isType(cid, 'TREASURE') && (p as any).miningRoadTurn === state.turnNumber && isCurrent(state, p) && iid) {
                     (p as any).miningRoadTurn = undefined;
@@ -430,7 +431,7 @@ export const PlunderModule: ExpansionModule = {
             // Taskmaster: if you gain a card costing exactly $5 this turn, repeat this ability next turn
             type: 'TASKMASTER',
             handler: (state, player, _e, ctx: any) => {
-                ((state as any).taskmasters = (state as any).taskmasters || []).push({ playerId: player.id, instanceId: ctx?.sourceCardInstanceId, turn: state.turnNumber });
+                ((state as any).taskmasters = (state as any).taskmasters || []).push({ playerId: player.id, instanceId: ctx?.sourceCardInstanceId, turn: state.turnNumber, from: (player.gainedThisTurn || []).length });
                 return done(state);
             }
         },
@@ -442,7 +443,7 @@ export const PlunderModule: ExpansionModule = {
                 if (id && !state.durations?.some(d => d.cardInstanceId === id)) {
                     DurationManager.register(state, { cardInstanceId: id, cardId: 'taskmaster', playerId: player.id, turnsRemaining: 1, effects: def('taskmaster')?.durationEffects || [] } as any);
                 }
-                ((state as any).taskmasters = (state as any).taskmasters || []).push({ playerId: player.id, instanceId: id, turn: state.turnNumber });
+                ((state as any).taskmasters = (state as any).taskmasters || []).push({ playerId: player.id, instanceId: id, turn: state.turnNumber, from: (player.gainedThisTurn || []).length });
                 return done(state);
             }
         },
@@ -714,10 +715,10 @@ export const PlunderModule: ExpansionModule = {
                 return done(state);
             }
         },
-        { type: 'SHUFFLE_RULE', handler: (state, player, effect: any) => { if (effect.rule === 'avoid') (player as any).avoidTurn = state.turnNumber; return done(state); } },
+        { type: 'SHUFFLE_RULE', handler: (state, player, effect: any) => { if (effect.rule === 'avoid') { const a = (player as any).avoid; (player as any).avoid = { turn: state.turnNumber, n: (a?.turn === state.turnNumber ? a.n : 0) + 3 }; } return done(state); } },
         { type: 'DELIVER', handler: (state, player) => { (player as any).deliverTurn = state.turnNumber; return done(state); } },
         { type: 'RUSH', handler: (state, player) => { (player as any).rushTurn = state.turnNumber; return done(state); } },
-        { type: 'MIRROR', handler: (state, player) => { (player as any).mirrorTurn = state.turnNumber; return done(state); } },
+        { type: 'MIRROR', handler: (state, player) => { const m = (player as any).mirror; (player as any).mirror = { turn: state.turnNumber, n: (m?.turn === state.turnNumber ? m.n : 0) + 1 }; return done(state); } },
         {
             // Foray: discard 3 cards, revealing them; 3 different names → a Loot
             type: 'FORAY',
@@ -766,6 +767,7 @@ export const PlunderModule: ExpansionModule = {
             // Journey: no discarding from play this Clean-up; an extra turn after this one
             type: 'JOURNEY',
             handler: (state, player) => {
+                if (state.previousTurnPlayerId === player.id) return done(state);
                 (player as any).journeyTurn = state.turnNumber;
                 push(state, player.id, { type: 'SCHEDULE_EXTRA_TURN', turnType: 'EXTRA' });
                 return done(state);
@@ -886,7 +888,7 @@ export const PlunderModule: ExpansionModule = {
         addOnce(CleanupEffectHandler.beforeHandDiscard, 'plunder:cleanup_start', (state, player) => {
             const tms = ((state as any).taskmasters || []) as any[];
             for (const t of tms.filter(t => t.playerId === player.id && t.turn === state.turnNumber)) {
-                const gained5 = (player.gainedThisTurn || []).some(id => costOf(state, player, id) === 5 && !def(id)?.debtCost && !def(id)?.potionCost);
+                const gained5 = (player.gainedThisTurn || []).slice(t.from || 0).some(id => costOf(state, player, id) === 5 && !def(id)?.debtCost && !def(id)?.potionCost);
                 if (!gained5 && state.durations) state.durations = state.durations.filter(d => d.cardInstanceId !== t.instanceId);
             }
             (state as any).taskmasters = tms.filter(t => t.turn !== state.turnNumber || t.playerId !== player.id);
