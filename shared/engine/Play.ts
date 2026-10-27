@@ -6,6 +6,22 @@ import { EffectUtils } from './EffectUtils.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 
 /**
+ * Rules that replace what a played card does (Allies — Highwayman; Plunder — Reckless, Inspiring).
+ * Return the new list of effects ([] = "does nothing"), or undefined to keep them.
+ */
+export const playOverrides: ((state: GameState, player: PlayerState, cardDef: any, effects: any[], card: CardInstance) => any[] | undefined)[] = [];
+
+export function applyPlayOverrides(state: GameState, player: PlayerState, cardDef: any, effects: any[], card: CardInstance): { effects: any[]; nullified: boolean } {
+    let out = effects;
+    let nullified = false;
+    for (const override of playOverrides) {
+        const replaced = override(state, player, cardDef, out, card);
+        if (replaced) { out = replaced; nullified = replaced.length === 0; }
+    }
+    return { effects: out, nullified };
+}
+
+/**
  * Bookkeeping common to EVERY play of a card (normal play, Throne Room replays,
  * Vassal, Golem, plays from a mat…). Call it BEFORE the card's effects resolve,
  * so that "first time you play X this turn" conditions see the right count.
@@ -60,14 +76,16 @@ export function pushPlayEffects(state: GameState, player: PlayerState, card: Car
         }
     }
 
+    const { effects, nullified } = applyPlayOverrides(state, player, def, (def.effects || []) as any[], card);
+
     // Plain Treasures without effects (value only)
-    if (def.treasureValue && (!def.effects || def.effects.length === 0)) {
+    if (!nullified && def.treasureValue && (!def.effects || def.effects.length === 0)) {
         let v = def.treasureValue;
         if (v > 0 && player.minusCoinToken) { v--; player.minusCoinToken = false; }
         player.coins += v;
     }
 
-    const items = (def.effects || []).map((e: any) => ({
+    const items = effects.map((e: any) => ({
         type: 'EFFECT' as const,
         playerId: player.id,
         effect: e,

@@ -13,13 +13,8 @@
 /** Cards with a text but no effect at all. */
 export const SHELL_CARDS: ReadonlySet<string> = new Set([
 
-    // Allies — « quand vous mélangez » : le moteur ne peut pas encore interrompre un mélange
-    'order_of_astrologers', 'order_of_masons',
-
-    // Plunder — Événements et Traits
-    'avoid', 'bury', 'deliver', 'foray', 'invasion', 'journey', 'launch', 'looting', 'maelstrom',
-    'mirror', 'peril', 'prepare', 'prosper', 'rush', 'scrounge',
-    'cheap', 'fated', 'inherited', 'patient', 'shy', 'tireless',
+    // Plunder — Hérité : choix d'une carte de départ à la mise en place, pas encore géré
+    'inherited',
 
 
     // Rising Sun — Événements

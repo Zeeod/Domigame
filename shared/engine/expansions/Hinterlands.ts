@@ -29,6 +29,11 @@ function findOwned(player: PlayerState, instanceId: string): CardInstance | unde
         const c = (player[zone] as CardInstance[] | undefined)?.find(x => x.instanceId === instanceId);
         if (c) return c;
     }
+    // Set aside on a mat (Prepare, Quartermaster…)
+    for (const mat of Object.values(player.mats || {})) {
+        const c = (mat as CardInstance[]).find(x => x.instanceId === instanceId);
+        if (c) return c;
+    }
     return undefined;
 }
 /** "You may play it" — only while the card is still where the event left it. */

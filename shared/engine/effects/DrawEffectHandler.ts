@@ -8,6 +8,12 @@ import { discardCards } from '../Discard.js';
 import { debugLog } from '../debug.js';
 
 export class DrawEffectHandler {
+    /**
+     * "When you shuffle" choices (Avoid, Fated, Order of Astrologers / Masons). A hook returns the effect
+     * that asks the choices and then shuffles, or undefined. The draw pauses and resumes after it.
+     */
+    static shuffleHooks: ((state: GameState, player: PlayerState) => any | undefined)[] = [];
+
     public static handleDraw(state: GameState, player: PlayerState, amountInput: any, _suppressLog: boolean = false): EffectResult {
         // Fix: logic to extract 'amount' if the input is an EffectDefinition
         const rawAmount = (amountInput && typeof amountInput === 'object' && 'amount' in amountInput)
@@ -28,6 +34,14 @@ export class DrawEffectHandler {
                 if (player.discardPile.length === 0) {
                     debugLog('[DrawEffectHandler] Empty deck and discard, stopping draw');
                     break;
+                }
+                // A choice to make while shuffling: draw the rest once it is made
+                const shuffleChoice = DrawEffectHandler.shuffleHooks.map(h => h(state, player)).find(Boolean);
+                if (shuffleChoice) {
+                    state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'DRAW', amount: amount - i } as any, context: { suppressLog: _suppressLog } });
+                    state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: shuffleChoice, context: {} });
+                    if (drawnCards.length > 0) TriggerEffectHandler.handleOnDrawTriggers(state, player, drawnCards);
+                    return { state, needsChoice: false };
                 }
                 EffectUtils.log(state, `${player.name} mélange sa pioche.`, player.id);
                 EffectUtils.reshuffleDiscard(state, player);

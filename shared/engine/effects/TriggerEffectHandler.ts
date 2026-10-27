@@ -337,34 +337,6 @@ export class TriggerEffectHandler {
         const cardCost = EconomyEngine.getCardCost(state, player.id, gainedCardId);
         ProphecyManager.checkFulfillment(state, 'GAIN_CARD', { ...context, cardId: gainedCardId, cardType: gainedDef?.types, cardCost });
 
-        // Plunder Trait Check: Gaining a card from a Traited pile
-        const pile = state.supply[gainedCardId];
-        if (pile && pile.traits) {
-            for (const traitId of pile.traits) {
-                // Apply flags to the instance if possible
-                if (typeof gainedCard !== 'string') {
-                    if (traitId === 'shy') gainedCard.shy = true;
-                    if (traitId === 'inherited') {
-                        gainedCard.inherited = true;
-                        gainedCard.additionalTypes = [...(gainedCard.additionalTypes || []), 'HERITAGE'];
-                    }
-                }
-
-                const traitDef = CardRegistry.get(traitId);
-                if (traitDef?.onGain) {
-                    const effects = Array.isArray(traitDef.onGain) ? traitDef.onGain : [traitDef.onGain];
-                    for (let i = effects.length - 1; i >= 0; i--) {
-                        state.effectStack.push({
-                            type: 'EFFECT',
-                            playerId: player.id,
-                            effect: effects[i],
-                            context: { suppressLog: false, sourceCardId: traitId, gainedCardId }
-                        });
-                    }
-                }
-            }
-        }
-
         const triggers = this.scanForTriggers(state, player, 'ON_GAIN', context);
         if (triggers.length > 0) {
             EffectManager.resolveTriggers(state, player, triggers, "Lors du gain : choisissez l'ordre des effets");
@@ -395,25 +367,6 @@ export class TriggerEffectHandler {
         const context = { cardId, cardInstanceId };
         EventBus.emit(state, { type: 'CARD_PLAYED', playerId: player.id, context });
 
-        // Plunder Trait Check: Playing a card from a Traited pile
-        const pile = state.supply[cardId];
-        if (pile && pile.traits) {
-            for (const traitId of pile.traits) {
-                const traitDef = CardRegistry.get(traitId);
-                if (traitDef?.onPlay) {
-                    const effects = Array.isArray(traitDef.onPlay) ? traitDef.onPlay : [traitDef.onPlay];
-                    for (let i = effects.length - 1; i >= 0; i--) {
-                        state.effectStack.push({
-                            type: 'EFFECT',
-                            playerId: player.id,
-                            effect: effects[i],
-                            context: { suppressLog: false, sourceCardId: traitId, playedCardId: cardId, playedCardInstanceId: cardInstanceId }
-                        });
-                    }
-                }
-            }
-        }
-
         const triggers = this.scanForTriggers(state, player, 'ON_PLAY', context);
 
         if (triggers.length > 0) {
@@ -441,25 +394,6 @@ export class TriggerEffectHandler {
             }
         }
 
-        // Plunder Trait Check: Buying a card from a Traited pile
-        const pile = state.supply[boughtCardId];
-        if (pile && pile.traits) {
-            for (const traitId of pile.traits) {
-                const traitDef = CardRegistry.get(traitId);
-                if (traitDef?.onBuy) {
-                    const effects = Array.isArray(traitDef.onBuy) ? traitDef.onBuy : [traitDef.onBuy];
-                    for (let i = effects.length - 1; i >= 0; i--) {
-                        state.effectStack.push({
-                            type: 'EFFECT',
-                            playerId: player.id,
-                            effect: effects[i],
-                            context: { suppressLog: false, sourceCardId: traitId, boughtCardId }
-                        });
-                    }
-                }
-            }
-        }
-
         const triggers = this.scanForTriggers(state, player, 'ON_BUY', context);
         if (triggers.length > 0) {
             EffectManager.resolveTriggers(state, player, triggers, "À l'achat : choisissez l'ordre des effets");
@@ -468,42 +402,6 @@ export class TriggerEffectHandler {
 
     public static handleBuyPhaseEnd(state: GameState, player: PlayerState): void {
         const context = {};
-
-        // Plunder Trait Check: Patient
-        for (const pileId in state.supply) {
-            const pile = state.supply[pileId];
-            if (pile.traits?.includes('patient')) {
-                const candidates = player.hand.filter(c => c.id === pileId);
-                if (candidates.length > 0) {
-                    state.effectStack.push({
-                        type: 'EFFECT',
-                        playerId: player.id,
-                        effect: {
-                            type: 'SELECT_OPTION',
-                            message: `Patient : Voulez-vous mettre de côté un(e) ${CardRegistry.get(pileId)?.name} pour le/la jouer au début de votre prochain tour ?`,
-                            options: [
-                                {
-                                    label: 'Oui',
-                                    effects: [
-                                        {
-                                            type: 'CHOOSE_CARDS',
-                                            message: 'Choisissez la carte à mettre de côté',
-                                            constraints: { min: 1, max: 1, sourceZone: 'hand', filter: { cardIds: [pileId] } },
-                                            onSelect: [
-                                                { type: 'MOVE_TO_MAT', mat: 'patient_aside' },
-                                                { type: 'REGISTER_TRIGGER', trigger: 'TURN_START', duration: 'ONCE', effects: [{ type: 'PLAY_FROM_MAT', mat: 'patient_aside' }] }
-                                            ]
-                                        } as any
-                                    ]
-                                },
-                                { label: 'Non', effects: [] }
-                            ]
-                        },
-                        context: { sourceCardId: 'patient', pileId }
-                    });
-                }
-            }
-        }
 
         const triggers = this.scanForTriggers(state, player, 'BUY_PHASE_END', context);
         if (triggers.length > 0) {
