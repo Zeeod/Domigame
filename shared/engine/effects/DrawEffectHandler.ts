@@ -40,7 +40,6 @@ export class DrawEffectHandler {
                 if (shuffleChoice) {
                     state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'DRAW', amount: amount - i } as any, context: { suppressLog: _suppressLog } });
                     state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: shuffleChoice, context: {} });
-                    if (drawnCards.length > 0) TriggerEffectHandler.handleOnDrawTriggers(state, player, drawnCards);
                     return { state, needsChoice: false };
                 }
                 EffectUtils.log(state, `${player.name} mélange sa pioche.`, player.id);
@@ -76,9 +75,6 @@ export class DrawEffectHandler {
             EffectUtils.log(state, msg, player.id, `Vous piochez ${drawnCards.length} carte${drawnCards.length > 1 ? 's' : ''} : ${cardNames}.`, {
                 type: 'DRAW', cardIds: drawnCards.map(c => c.id), forPlayerId: player.id
             });
-
-            // Rising Sun: Shadow cards check
-            TriggerEffectHandler.handleOnDrawTriggers(state, player, drawnCards);
         }
         return { state, needsChoice: false };
     }
@@ -123,9 +119,6 @@ export class DrawEffectHandler {
         } else {
             player.hand.push(card);
             EffectUtils.log(state, `${player.name} pioche ${def?.name || card.id}.`, player.id);
-
-            // Rising Sun: Shadow cards check
-            TriggerEffectHandler.handleOnDrawTriggers(state, player, [card]);
 
             state.effectStack.push({
                 type: 'EFFECT',

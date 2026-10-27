@@ -1,5 +1,7 @@
 
 import { GameState, getCurrentPlayer } from './GameState.js';
+import { ProphecyManager } from './ProphecyManager.js';
+import { deckShadows } from './Shadows.js';
 import { CardRegistry } from '../cards/index.js';
 import { PhaseEngine } from './PhaseEngine.js';
 import { CleanupEffectHandler } from './effects/CleanupEffectHandler.js';
@@ -18,6 +20,8 @@ export function registerDefaultPhases(): void {
         autoSkip: (state: GameState) => {
             const player = getCurrentPlayer(state);
             if (!player) return true;
+            // Rising Sun: a Shadow card in the deck can be played as if in hand
+            if (player.actions > 0 && deckShadows(player).length > 0) return false;
             return !player.hand.some(card => {
                 const def = CardRegistry.get(card.id);
                 return def?.types.includes('ACTION');
@@ -38,8 +42,7 @@ export function registerDefaultPhases(): void {
         autoSkip: (state: GameState) => {
             const player = getCurrentPlayer(state);
             if (!player) return true;
-            const isFlourishingTrade = state.activeProphecyId === 'flourishing_trade' &&
-                state.landscapeState?.['flourishing_trade']?.tokens?.sun === 0;
+            const isFlourishingTrade = ProphecyManager.isActive(state, 'flourishing_trade');
             const availableBuys = player.buys + (isFlourishingTrade ? player.actions : 0);
             return availableBuys <= 0;
         }

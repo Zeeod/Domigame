@@ -2,7 +2,6 @@ import { GameState, PlayerState, EffectResult, CardInstance } from '../GameState
 import { CardRegistry } from '../../cards/index.js';
 import { EffectManager } from '../EffectManager.js';
 import { EconomyEngine } from '../EconomyEngine.js';
-import { ProphecyManager } from '../ProphecyManager.js';
 import { EventBus } from '../EventBus.js';
 import { peekMat } from '../Mats.js';
 
@@ -198,11 +197,8 @@ export class TriggerEffectHandler {
             if (fired.length) state.triggers = state.triggers.filter(t => !fired.includes(t));
         }
 
-        // 3. Hand Reactions & Shadows
-        if (triggerType === 'ON_DRAW') {
-            const shadowTriggers = this.getShadowTriggers(player, context);
-            triggers.push(...shadowTriggers);
-        } else {
+        // 3. Hand Reactions
+        if (triggerType !== 'ON_DRAW') {
             const reactionType = triggerType.startsWith('ON_') ? triggerType.substring(3) : triggerType;
             const handReactions = this.getHandReactionTriggers(player, reactionType, context);
             triggers.push(...handReactions);
@@ -332,10 +328,6 @@ export class TriggerEffectHandler {
             }
         }
 
-        // Prophecy Check
-        const gainedDef = CardRegistry.get(gainedCardId);
-        const cardCost = EconomyEngine.getCardCost(state, player.id, gainedCardId);
-        ProphecyManager.checkFulfillment(state, 'GAIN_CARD', { ...context, cardId: gainedCardId, cardType: gainedDef?.types, cardCost });
 
         const triggers = this.scanForTriggers(state, player, 'ON_GAIN', context);
         if (triggers.length > 0) {
@@ -345,7 +337,7 @@ export class TriggerEffectHandler {
         // Menagerie — Exile: when you gain a card, you may discard its copies from your Exile mat
         const exiled = peekMat(player, 'exile').filter(c => c.id === gainedCardId);
         if (exiled.length > 0) {
-            const name = gainedDef?.name || gainedCardId;
+            const name = CardRegistry.get(gainedCardId)?.name || gainedCardId;
             state.effectStack.push({
                 type: 'EFFECT',
                 playerId: player.id,
@@ -409,52 +401,4 @@ export class TriggerEffectHandler {
         }
     }
 
-    /**
-     * Rising Sun: Shadows are played when a card is drawn.
-     */
-    public static handleOnDrawTriggers(state: GameState, player: PlayerState, drawnCards: CardInstance[]): void {
-        if (drawnCards.length === 0) return;
-
-        const context = { drawnIds: drawnCards.map(c => c.id) };
-        const triggers = this.scanForTriggers(state, player, 'ON_DRAW', context);
-
-        if (triggers.length > 0) {
-            EffectManager.resolveTriggers(state, player, triggers, "Effets de pioche (Ombres) : choisissez l'ordre");
-        }
-    }
-
-    public static getShadowTriggers(player: PlayerState, context: any): any[] {
-        // Shadow cards in hand can be played when ANY card is drawn
-        const shadows = player.hand.filter(c => {
-            const def = CardRegistry.get(c.id);
-            return def?.types.includes('SHADOW');
-        });
-
-        return shadows.map(c => {
-            const def = CardRegistry.get(c.id)!;
-            return {
-                id: `shadow_${c.instanceId}_${Date.now()}`,
-                sourceId: c.id,
-                sourceInstanceId: c.instanceId,
-                sourceType: 'CARD',
-                description: `Ombre : ${def.name}`,
-                effects: [
-                    {
-                        type: 'SELECT_OPTION',
-                        message: `Voulez-vous jouer votre ${def.name} ?`,
-                        options: [
-                            {
-                                label: 'Oui',
-                                effects: [
-                                    { type: 'PLAY_THIS_CARD' } as any
-                                ]
-                            },
-                            { label: 'Non', effects: [] }
-                        ]
-                    } as any
-                ],
-                context: { ...context, sourceCardInstanceId: c.instanceId }
-            };
-        });
-    }
 }

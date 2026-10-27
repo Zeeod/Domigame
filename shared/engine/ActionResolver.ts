@@ -6,6 +6,8 @@
  */
 
 import { produce, setAutoFreeze } from 'immer';
+import { ProphecyManager } from './ProphecyManager.js';
+import { canPlayShadowFromDeck, takeShadowToHand } from './Shadows.js';
 setAutoFreeze(false);
 
 import { GameState, getCurrentPlayer } from './GameState.js';
@@ -182,6 +184,9 @@ export class ActionResolver {
         }
         debugLog(`[ActionResolver] resolvePlayCard: player=${player.name}, card=${cardInstanceId}, way=${wayId}`);
 
+        // Rising Sun: a Shadow card is played from the deck as if in hand
+        if (canPlayShadowFromDeck(state, player, cardInstanceId)) takeShadowToHand(player, cardInstanceId);
+
         // Find and move card
         const cardIndex = player.hand.findIndex(c => c.instanceId === cardInstanceId);
         if (cardIndex === -1) return { success: false, state, error: 'Card not found' };
@@ -192,22 +197,18 @@ export class ActionResolver {
 
         const isTreasure = cardDef.types.includes('TREASURE');
 
-        const isEnlightenmentFulfilled = state.activeProphecyId === 'enlightenment' &&
-            state.landscapeState['enlightenment']?.tokens?.sun === 0;
-
         const isNight = cardDef.types.includes('NIGHT');
         const isAction = cardDef.types.includes('ACTION');
 
         // 1. Playing a Treasure (that is not also an Action) in the Action phase starts the Buy phase.
-        // Exception: Enlightenment makes Treasures Actions in Action phase
-        if (isTreasure && !isAction && state.phase === 'ACTION' && !isEnlightenmentFulfilled) {
+        if (isTreasure && !isAction && state.phase === 'ACTION') {
             TurnMachine.endActionPhase(state);
         }
 
         // Phase restrictions — a card with several types may be played in the phase of any of them
         // (Crown: Action in the Action phase, Treasure in the Buy phase; Werewolf: Action or Night).
         if (state.phase === 'ACTION') {
-            if (!isAction && !(isTreasure && isEnlightenmentFulfilled)) return { success: false, state, error: 'Cannot play this card in Action phase' };
+            if (!isAction) return { success: false, state, error: 'Cannot play this card in Action phase' };
         } else if (state.phase === 'BUY') {
             if (!isTreasure) return { success: false, state, error: 'Can only play Treasures in Buy phase' };
         } else if (state.phase === 'NIGHT') {
@@ -281,9 +282,6 @@ export class ActionResolver {
         const cardDef = CardRegistry.get(card.id);
         if (!cardDef) return state;
 
-        const isEnlightenmentFulfilled = state.activeProphecyId === 'enlightenment' &&
-            state.landscapeState['enlightenment']?.tokens?.sun === 0;
-
         // Log treasure play if requested (for PLAY_ALL_TREASURES)
         if (logTreasurePlay) {
             const treasureValue = cardDef.treasureValue || 0;
@@ -311,7 +309,7 @@ export class ActionResolver {
 
         // Pay action cost — only when played as an Action, i.e. in the Action phase
         // (Crown played as a Treasure in the Buy phase, or Werewolf in the Night phase, cost nothing)
-        if (state.phase === 'ACTION' && (cardDef.types.includes('ACTION') || (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE')))) {
+        if (state.phase === 'ACTION' && cardDef.types.includes('ACTION')) {
             player.actions--;
             player.actionsPlayed++;
         }
@@ -324,16 +322,7 @@ export class ActionResolver {
         // Apply card effects (or Way effects)
         let finalEffects = cardDef.effects?.length ? cardDef.effects : (cardDef.nightEffects || cardDef.effects);
 
-        // --- ENLIGHTENMENT (Rising Sun) ---
-        if (isEnlightenmentFulfilled && cardDef.types.includes('TREASURE') && state.phase === 'ACTION') {
-            // "Instead of following its instructions, +1 Card and +1 Action"
-            finalEffects = [
-                { type: 'DRAW', amount: 1 },
-                { type: 'ADD_ACTIONS', amount: 1 }
-            ] as any;
-            this.log(state, `${player.name} joue ${cardDef.name} via Illumination : +1 Carte, +1 Action.`, player.id);
-        }
-        else if (wayId) {
+        if (wayId) {
             const wayDef = LandscapeRegistry.get(wayId);
             debugLog(`[ActionResolver] wayId=${wayId}, wayDef=${wayDef?.name}, onPlay=${!!wayDef?.onPlay}`);
             if (wayDef && wayDef.onPlay) {
@@ -431,8 +420,7 @@ export class ActionResolver {
             return { success: false, state, error: 'No supply pile' };
         }
 
-        const isFlourishingTradeFulfilled = state.activeProphecyId === 'flourishing_trade' &&
-            state.landscapeState['flourishing_trade']?.tokens?.sun === 0;
+        const isFlourishingTradeFulfilled = ProphecyManager.isActive(state, 'flourishing_trade');
 
         // Rule: Cannot buy if you have debt
         if (player.debt > 0) {
@@ -595,7 +583,9 @@ export class ActionResolver {
         this.log(state, msg, player.id);
 
         // Auto-end turn if no buys remaining AND no pending effects/decisions
-        if (player.buys === 0 && !state.pendingDecision && state.effectStack.length === 0) {
+        // (Flourishing Trade: Actions left can be used as Buys)
+        const actionsAsBuys = ProphecyManager.isActive(state, 'flourishing_trade') ? player.actions : 0;
+        if (player.buys + actionsAsBuys <= 0 && !state.pendingDecision && state.effectStack.length === 0) {
             TurnMachine.endBuyPhaseToNight(state);
         }
 

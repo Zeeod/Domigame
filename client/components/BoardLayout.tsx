@@ -26,6 +26,7 @@ import { SmartCardOverlay, mapDecisionToOverlayProps } from './SmartCardOverlay'
 import { KingdomOverviewModal } from './KingdomOverviewModal';
 import { TavernMat } from './TavernMat';
 import { ExileMat } from './ExileMat';
+import { ShadowDeckZone } from './ShadowDeckZone';
 import { SpectatorBar } from './SpectatorBar';
 import { DeckStatsPanel } from './DeckStatsPanel';
 import { RoomState } from '../hooks/useSocket';
@@ -1414,6 +1415,17 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 )}
                                 {myPlayer?.exileMat && myPlayer.exileMat.length > 0 && (
                                     <ExileMat cards={myPlayer.exileMat as any[]} />
+                                )}
+                                {myPlayer?.deckShadows && myPlayer.deckShadows.length > 0 && (
+                                    <ShadowDeckZone
+                                        cards={myPlayer.deckShadows as any[]}
+                                        canPlay={isMyTurn && pub.phase === 'ACTION' && !pendingDecision && (myPlayer.actions ?? 0) > 0}
+                                        onPlay={(instanceId) => onPlayCard(instanceId)}
+                                        choosable={pendingDecision?.playerId === playerId
+                                            ? ((pendingDecision?.context as any)?.cards || []).map((c: any) => c.instanceId)
+                                            : []}
+                                        onChoose={(instanceId) => pendingDecision && onSendDecision(pendingDecision.id, { type: 'CARDS', cardInstanceIds: [instanceId] })}
+                                    />
                                 )}
 
                                 {/* Other Generic Mats */}

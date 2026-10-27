@@ -28,6 +28,8 @@ export interface PublicPlayerState {
     playArea: SerializedCard[];
     aside: SerializedCard[];
     limbo: SerializedCard[];
+    /** Rising Sun: Shadow cards in the deck (their backs are unique, so this is public) */
+    deckShadows?: SerializedCard[];
     topDiscard?: SerializedCard;
 
     // Generic Storage (New)

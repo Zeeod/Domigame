@@ -215,7 +215,8 @@ export const EmpiresModule: ExpansionModule = {
                 if (landmarkActive(state, 'colonnade') && isType(cid, 'ACTION') && player.playArea.some(c => c.id === cid)) takeFromLandmark(state, player, 'colonnade', 2);
                 if (landmarkActive(state, 'defiled_shrine') && cid === 'curse') takeFromLandmark(state, player, 'defiled_shrine', 999);
                 const pile = pileOf(state, cid);
-                const debt = pile ? state.supply[pile].tokens?.debt || 0 : 0;
+                // Tax: buying a card takes the Debt on its pile (only in games using Tax)
+                const debt = pile && (state.landscapes || []).includes('tax') ? state.supply[pile].tokens?.debt || 0 : 0;
                 if (pile && debt > 0) {
                     state.supply[pile].tokens!.debt = 0;
                     player.debt = (player.debt || 0) + debt;

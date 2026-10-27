@@ -825,6 +825,14 @@ export class CardRegistry {
     }
 
     /** Run fn with a game's card overrides active (nesting-safe). */
+    /**
+     * Replace the overrides in force for the action being resolved (a rule changed card types mid-action,
+     * e.g. Enlightenment). withGameOverrides restores the previous ones when the action ends.
+     */
+    static useOverridesNow(overrides: CardOverrides | undefined): void {
+        activeOverrides = overrides;
+    }
+
     static withGameOverrides<T>(overrides: CardOverrides | undefined, fn: () => T): T {
         const prev = activeOverrides;
         activeOverrides = overrides;

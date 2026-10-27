@@ -20,8 +20,6 @@ import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { ExpansionEffectHandler } from './effects/ExpansionEffectHandler.js';
 import { ZoneEffectHandler } from './effects/ZoneEffectHandler.js';
 import { CleanupEffectHandler } from './effects/CleanupEffectHandler.js';
-import { ProphecyManager } from './ProphecyManager.js';
-import { RisingSunEffectHandler } from './effects/RisingSunEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 import { Logger } from './Logger.js';
 import { DurationManager } from './DurationManager.js';
@@ -404,11 +402,6 @@ export function registerCoreEffects(): void {
     EffectHandlerRegistry.register('REGISTER_TRIGGER', (state, player, effect, ctx) =>
         TriggerEffectHandler.handleRegisterTrigger(state, player, { ...effect, attackerId: ctx.attackerId }, ctx.sourceCardInstanceId)
     );
-
-    EffectHandlerRegistry.register('REMOVE_SUN_TOKEN', (state, _player, _effect, _ctx) => {
-        ProphecyManager.removeSunToken(state);
-        return { state, needsChoice: false };
-    });
 
     // ========================================================================
     // Zone Effects
@@ -1130,7 +1123,6 @@ export function registerCoreEffects(): void {
         return { state, needsChoice: false };
     });
 
-    RisingSunEffectHandler.register();
 
 }
 

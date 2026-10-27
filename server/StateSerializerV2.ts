@@ -9,6 +9,7 @@
  */
 
 import { GameState } from '../shared/engine/GameState.js';
+import { deckShadows } from '../shared/engine/Shadows.js';
 import { PlayerState } from '../shared/engine/PlayerState.js';
 import { CardInstance } from '../shared/engine/CardInstance.js';
 import { peekMat } from '../shared/engine/Mats.js';
@@ -403,6 +404,7 @@ export class StateSerializerV2 {
             playArea: player.playArea.map(c => this.serializeCard(c)),
             aside: player.aside.map(c => this.serializeCard(c)),
             limbo: player.limbo.map(c => this.serializeCard(c)),
+            deckShadows: deckShadows(player).map(c => this.serializeCard(c)),
             topDiscard,
 
             actions: player.actions,

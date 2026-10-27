@@ -273,6 +273,7 @@ export class EffectUtils {
     /**
      * Shuffle the discard pile and put it under the deck (the deck is normally empty).
      * Stash: "when you shuffle, you may put this anywhere in your deck" — it is put on top.
+     * Shadow cards (Rising Sun) go on the bottom.
      */
     public static reshuffleDiscard(state: GameState, player: PlayerState): void {
         if (player.discardPile.length === 0) return;
@@ -285,7 +286,10 @@ export class EffectUtils {
             const best = rest.reduce((a, b) => cost(b.id) > cost(a.id) ? b : a);
             rest = [best, ...rest.filter(c => c !== best)];
         }
-        player.deck = [...player.deck, ...stashes, ...rest];
+        // Rising Sun: Shadow cards go on the bottom when shuffled
+        const shadows = rest.filter(c => CardRegistry.get(c.id)?.types.includes('SHADOW' as any));
+        if (shadows.length) rest = rest.filter(c => !shadows.includes(c));
+        player.deck = [...player.deck, ...stashes, ...rest, ...shadows];
     }
 
     /**
