@@ -203,7 +203,8 @@ export class RulesValidator {
         }
 
         const cardCost = EconomyEngine.getCardCost(state, playerId, cardId);
-        if (currentPlayer.coins < cardCost) {
+        const altCost = !!(CardRegistry.get(cardId) as any)?.altCostTrashAction && currentPlayer.hand.some(c => CardRegistry.get(c.id)?.types.includes('ACTION'));
+        if (currentPlayer.coins < cardCost && !altCost) {
             return { valid: false, error: 'Pas assez de pièces' };
         }
 
@@ -420,6 +421,14 @@ export class RulesValidator {
                             availableCards = availableCards || [];
                             const validCards = EffectUtils.filterCards(availableCards, state.pendingDecision.constraints?.filter);
                             effectiveMin = Math.min(min, validCards.length);
+                            // A card of that zone that doesn't match the filter can't be chosen
+                            // (decisions listing their own candidates are checked by their handler)
+                            const ctx: any = state.pendingDecision.context || {};
+                            if (ctx.specialAction === 'TRASH' && !ctx.cards && !ctx.candidates) {
+                                const ids = new Set(validCards.map(c => c.instanceId));
+                                const bad = (payload.cardInstanceIds as string[] || []).find(id => availableCards.some(c => c.instanceId === id) && !ids.has(id));
+                                if (bad) return { valid: false, error: 'Cette carte ne peut pas être choisie' };
+                            }
                         }
                     }
 

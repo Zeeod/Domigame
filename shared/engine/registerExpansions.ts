@@ -15,6 +15,7 @@ import { DarkAgesModule } from './expansions/DarkAges.js';
 import { AdventuresModule } from './expansions/Adventures.js';
 import { EmpiresModule } from './expansions/Empires.js';
 import { NocturneRulesModule } from './expansions/NocturneRules.js';
+import { MenagerieRulesModule } from './expansions/MenagerieRules.js';
 import { GuildsModule } from './expansions/Guilds.js';
 import { RenaissanceModule } from './expansions/Renaissance.js';
 import { NocturneModule } from './expansions/Nocturne.js';
@@ -42,6 +43,7 @@ export function registerAllExpansions(): void {
     ExpansionLoader.load(AdventuresModule);
     ExpansionLoader.load(EmpiresModule);
     ExpansionLoader.load(NocturneRulesModule);
+    ExpansionLoader.load(MenagerieRulesModule);
     ExpansionLoader.load(GuildsModule);
     ExpansionLoader.load(RenaissanceModule);
     ExpansionLoader.load(NocturneModule);

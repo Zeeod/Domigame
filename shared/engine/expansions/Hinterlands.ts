@@ -53,7 +53,7 @@ export const HinterlandsModule: ExpansionModule = {
             handler: (state, player, effect: any) => {
                 const max = EconomyEngine.getCardCost(state, player.id, effect.cardId) - 1;
                 if (max < 0) return done(state);
-                return GainEffectHandler.promptGainFromSupply(state, player, { maxCost: max, ...(effect.filter || {}) }, {},
+                return GainEffectHandler.promptGainFromSupply(state, player, { maxCost: max, ...(effect.filter || {}) }, effect.destination ? { destination: effect.destination } : {},
                     `Recevez une carte coûtant moins que ${nameOf(effect.cardId)} (jusqu'à ${max} 💰)`);
             }
         },

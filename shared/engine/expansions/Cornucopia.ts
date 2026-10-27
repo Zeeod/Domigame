@@ -68,6 +68,13 @@ export const CornucopiaModule: ExpansionModule = {
                 return { state, needsChoice: !!state.pendingDecision };
             }
         },
+        {
+            type: 'BUY_FREE',
+            handler: (state, player, effect: any) => {
+                ActionResolver.buyFree(state, player.id, effect.cardId);
+                return { state, needsChoice: !!state.pendingDecision };
+            }
+        },
         // ---------------------------------------------------------------- Cornucopia
         {
             // Horn of Plenty: gain a card costing up to $1 per differently named card you have in play.

@@ -31,9 +31,6 @@ export const SHELL_CARDS: ReadonlySet<string> = new Set([
     'amass', 'asceticism', 'continue', 'credit', 'foresight', 'gather', 'kintsugi', 'practice',
     'receive_tribute', 'sea_trade',
 
-    // Menagerie — Événements + 1 Voie
-    'banish', 'commerce', 'enhance', 'invest', 'march', 'populate', 'pursue', 'stampede',
-    'transport', 'way_of_the_mouse',
 
 ]);
 

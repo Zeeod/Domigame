@@ -192,7 +192,7 @@ export const ProsperityModule: ExpansionModule = {
             // Watchtower reaction: trash the gained card, or put it onto your deck.
             type: 'GAINED_CARD_TO',
             handler: (state, player, effect: any, ctx: any) => {
-                const id = ctx?.gainedInstanceId || state.lastGainedCard?.instanceId;
+                const id = effect.callContext?.gainedInstanceId || ctx?.gainedInstanceId || state.lastGainedCard?.instanceId;
                 if (!id || !findOwned(player, id)) return done(state);
                 const card = EffectUtils.removeCardFromPlayer(state, player, id)!;
                 if (effect.to === 'trash') TrashEffectHandler.trashCard(state, player, card);
