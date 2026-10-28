@@ -34,6 +34,7 @@ import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
 import { applyKingdomRules, applyKingdomSetup } from '../shared/engine/KingdomRules.js';
 import { actingPlayerFor } from '../shared/engine/Possession.js';
+import { autoPayload } from '../shared/bot/AutoDecision.js';
 import { database } from './Database.js';
 
 // ============================================================================
@@ -54,6 +55,8 @@ export interface RoomPlayer {
     spectatorFollowId?: string;
     spectatorRevealAll?: boolean;
     hasSurrendered?: boolean;
+    /** When the player lost their connection (cleared when they come back) */
+    disconnectedAt?: number;
 }
 
 interface RewindRequest {
@@ -72,6 +75,8 @@ export interface RoomConfig {
     enabledExpansions?: string[];
     landscapeInstructions?: string[];
     turnTimeoutMs?: number; // 0 for disabled
+    /** Delay before a disconnected player's decisions and turns are played automatically (default 30s) */
+    disconnectGraceMs?: number;
 }
 
 // ============================================================================
@@ -378,30 +383,15 @@ export class GameRoomV2 {
                     return;
                 }
 
-                // If active player left/surrendered, we must advance the game
+                // The game goes on without them: after a grace period (time to refresh the page) their
+                // decisions are answered and their turns passed automatically; at once if they left.
+                player.disconnectedAt = Date.now();
                 if (this.gameState) {
-                    const activePlayerId = this.gameState.players[this.gameState.currentPlayerIndex]?.id;
-                    if (activePlayerId === playerId) {
-                        if (reason === 'disconnect') {
-                            this.logger.info('GAME', `Active player disconnected. Waiting 5s for reconnect before ending turn...`);
-                            // Grace period for refresh
-                            setTimeout(() => {
-                                // Check if still disconnected (and still active player)
-                                const p = this.players.find(x => x.id === playerId);
-                                const currentActive = this.gameState?.players[this.gameState?.currentPlayerIndex]?.id;
-
-                                if (p && !p.isConnected && currentActive === playerId) {
-                                    this.logger.info('GAME', `Active player disconnect timeout. Ending turn.`);
-                                    this.handleDisconnectTurn();
-                                } else {
-                                    this.logger.info('GAME', `Active player reconnected or turn changed. Aborting disconnect turn skip.`);
-                                }
-                            }, 30000); // 30 seconds for active player
-                        } else {
-                            // Immediate skip for explicit leave/surrender
-                            this.logger.info('GAME', `Active player surrendered/left. Ending turn.`);
-                            this.handleDisconnectTurn();
-                        }
+                    if (reason === 'disconnect') {
+                        this.logger.info('GAME', `${player.name} disconnected. Autopilot in ${this.graceMs() / 1000}s if not back.`);
+                        setTimeout(() => this.scheduleBotTurnIfNeeded(), this.graceMs() + 50);
+                    } else {
+                        this.scheduleBotTurnIfNeeded();
                     }
                 }
             }
@@ -472,50 +462,44 @@ export class GameRoomV2 {
         }
     }
 
+    private graceMs(): number {
+        return this.config.disconnectGraceMs ?? 30000;
+    }
+
     /**
-     * Handle turn skipping for disconnected/surrendered players
+     * A human player whose decisions and turns are played automatically: they left / surrendered,
+     * or have been disconnected longer than the grace period. Only while someone is still playing
+     * (if every human is gone, the game waits for them).
      */
-    private handleDisconnectTurn() {
-        if (!this.gameState || this.gameState.isGameOver) return;
+    private isAutoPiloted(p?: RoomPlayer): boolean {
+        if (!p || p.isBot) return false;
+        const away = p.hasSurrendered || (!p.isConnected && p.disconnectedAt !== undefined && Date.now() - p.disconnectedAt >= this.graceMs());
+        if (!away) return false;
+        return this.players.some(x => !x.isBot && !x.isSpectator && x.isConnected && !x.hasSurrendered);
+    }
 
-        let attempts = 0;
-        const maxAttempts = this.gameState.players.length * 2; // Prevent infinite loop
+    private autopilotBots = new Map<string, BotInterface>();
 
-        while (attempts < maxAttempts) {
-            // Check if current player is connected
-            const currentPlayerId = this.gameState.players[this.gameState.currentPlayerIndex].id;
-            const roomPlayer = this.players.find(p => p.id === currentPlayerId);
-
-            console.log(`[handleDisconnectTurn] Checking player ${roomPlayer?.name ?? currentPlayerId}. isConnected: ${roomPlayer?.isConnected}, hasSurrendered: ${roomPlayer?.hasSurrendered}, isBot: ${roomPlayer?.isBot}`);
-
-            // If player is connected and HAS NOT surrendered, it's their turn. Stop skipping.
-            if (roomPlayer && roomPlayer.isConnected && !roomPlayer.hasSurrendered) {
-                break;
-            }
-
-            this.logger.info('GAME', `FORCED Turn Skip: Player ${roomPlayer?.name ?? currentPlayerId} is disconnected or surrendered.`);
-
-            // Force Phase change to BUY then end it to move to CLEANUP -> NEXT TURN
-            // This is safer than just jumping to next player manually.
-            if (this.gameState.phase === 'ACTION') {
-                this.gameState.phase = 'BUY';
-                this.logger.info('GAME', 'Skipping ACTION phase for disconnected player.');
-            }
-
-            if (this.gameState.phase === 'BUY') {
-                this.logger.info('GAME', 'Ending BUY phase for disconnected player.');
-                TurnMachine.endBuyPhase(this.gameState);
-            } else if (this.gameState.phase === 'NIGHT') {
-                // Safety for expansions
-                PhaseEngine.advancePhase(this.gameState);
-            }
-
-            attempts++;
+    /**
+     * Answer the pending decision for `deciderId` (seat `seatId`): the bot's answer if it is valid,
+     * otherwise the most neutral one (minimum cards / first option). Returns false if nothing worked.
+     */
+    private autoAnswerDecision(deciderId: string, seatId: string, bot?: BotInterface): boolean {
+        const d = this.gameState?.pendingDecision;
+        if (!d) return false;
+        const answers: GameAction[] = [];
+        try {
+            const b = bot ?? this.autopilotBots.get(deciderId) ?? createBot('greedy');
+            if (!bot) this.autopilotBots.set(deciderId, b);
+            const a = b.resolveChoice ? b.resolveChoice(this.gameState, seatId) : b.chooseAction(this.gameState, seatId);
+            if (a) answers.push(a);
+        } catch (e) {
+            this.logger.error('AUTO_DECISION', `Bot answer failed: ${e}`);
         }
-
-        if (attempts >= maxAttempts) {
-            this.broadcastGameState();
-        }
+        answers.push({ type: 'CHOOSE', choiceId: d.id, payload: autoPayload(this.gameState, 'first') } as any);
+        for (const a of answers) if (this.handleActionByPlayerId(deciderId, a)) return true;
+        this.logger.error('AUTO_DECISION', `No valid automatic answer for decision ${d.type}/${(d as any).context?.specialAction ?? '-'}`);
+        return false;
     }
 
     reconnectPlayer(socket: Socket, playerId: string): RoomPlayer | null {
@@ -524,6 +508,7 @@ export class GameRoomV2 {
 
         player.socketId = socket.id;
         player.isConnected = true;
+        player.disconnectedAt = undefined; // back in control (unless they surrendered)
         this.socketToPlayer.set(socket.id, playerId);
         socket.join(this.id);
 
@@ -583,12 +568,8 @@ export class GameRoomV2 {
         this.logger.info('GAME', `Turn Timeout for player ${activeId}. Forcing end of phase/choice.`);
 
         if (this.gameState.pendingDecision) {
-            // Force skip decision if optional, or pick first option
-            const action = this.gameState.pendingDecision.optional
-                ? { type: 'CHOOSE', choiceId: this.gameState.pendingDecision.id, payload: { type: 'PASS' } }
-                : { type: 'CHOOSE', choiceId: this.gameState.pendingDecision.id, payload: { type: 'OPTION', optionIndex: 0 } } as any;
-
-            this.handleActionByPlayerId(activeId, action);
+            // Answer it for them, whatever its kind (cards, options, Supply…)
+            this.autoAnswerDecision(actingPlayerFor(this.gameState, activeId), activeId);
         } else {
             // Force end phase
             this.handleActionByPlayerId(activeId, { type: 'END_PHASE' });
@@ -598,7 +579,13 @@ export class GameRoomV2 {
     /**
      * Helper to bypass socketId requirement for internal actions
      */
-    private handleActionByPlayerId(playerId: string, action: GameAction): void {
+    private handleActionByPlayerId(playerId: string, action: GameAction): boolean {
+        // Same checks as a player's action
+        const validation = RulesValidator.validate(this.gameState, playerId, action);
+        if (!validation.valid) {
+            this.logger.warn('AUTO_ACTION', `Refused ${action.type} for ${playerId}: ${validation.error}`);
+            return false;
+        }
         const result = ActionResolver.resolve(this.gameState, playerId, action);
         if (result.success) {
             this.gameState = produce(result.state, draft => {
@@ -611,7 +598,10 @@ export class GameRoomV2 {
             });
 
             this.onStateChanged();
+            return true;
         }
+        this.logger.warn('AUTO_ACTION', `Failed ${action.type} for ${playerId}: ${result.error}`);
+        return false;
     }
 
     private actionsSinceLastSave: number = 0;
@@ -1232,9 +1222,7 @@ export class GameRoomV2 {
         // Check invariants after action state change (dev only)
         GameInvariants.check(this.gameState, 'Post-Action');
 
-        this.handleDisconnectTurn();
-
-        // Broadcast & Timer
+        // Broadcast & Timer (onStateChanged also plays for bots and absent players)
         this.broadcastRoomState();
         this.onStateChanged();
 
@@ -1419,70 +1407,54 @@ export class GameRoomV2 {
     protected scheduleBotTurnIfNeeded(): void {
         if (!this.gameState || this.gameState.isGameOver) return;
 
-        // 1. Check for pending decisions (reactions, discards, etc.)
+        // 1. A pending decision (reaction, discard…) for a bot, or for a player who is away
         if (this.gameState.pendingDecision) {
             const decisionId = this.gameState.pendingDecision.id;
             // The seat the decision is for, and who answers it (Possession: the controller)
             const seatId = this.gameState.pendingDecision.playerId;
             const deciderId = actingPlayerFor(this.gameState, seatId);
             const roomPlayer = this.players.find(p => p.id === deciderId);
+            const bot = roomPlayer?.isBot ? this.bots.get(deciderId) : undefined;
+            if (!bot && !this.isAutoPiloted(roomPlayer)) return; // wait for the player
 
-            if (roomPlayer?.isBot) {
-                const bot = this.bots.get(deciderId);
-                if (bot) {
-                    // Reduced delay for pro feel (400-800ms)
-                    const delay = Math.random() * 400 + 400;
-                    setTimeout(() => {
-                        // Re-check game state in case it changed while waiting
-                        if (this.gameState?.pendingDecision?.id !== decisionId) return;
-
-                        const action = bot.resolveChoice
-                            ? bot.resolveChoice(this.gameState, seatId)
-                            : bot.chooseAction(this.gameState, seatId);
-
-                        if (action) {
-                            this.handleActionByPlayerId(deciderId, action);
-                        } else {
-                            this.logger.error('BOT_DECISION', `Bot ${bot.name} failed to resolve choice.`);
-                            // Force end phase if bot fails to decide
-                            this.handleActionByPlayerId(deciderId, { type: 'END_PHASE' });
-                        }
-                    }, delay);
+            const delay = Math.random() * 400 + 400;
+            setTimeout(() => {
+                // Re-check: the decision may be answered, or the player back
+                if (this.gameState?.pendingDecision?.id !== decisionId) return;
+                if (!bot && !this.isAutoPiloted(this.players.find(p => p.id === deciderId))) return;
+                if (!this.autoAnswerDecision(deciderId, seatId, bot)) {
+                    this.logger.error('BOT_DECISION', `No valid answer for ${roomPlayer?.name}'s decision.`);
                 }
-            }
-            // If pending decision is for a human, do nothing here, wait for their input
+            }, delay);
             return;
         }
 
-        // 2. If no pending decision, check if it's a bot's turn to play
+        // 2. No pending decision: a bot's turn, or the turn of a player who is away (passed)
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         if (!currentPlayer) return;
 
         const actorId = actingPlayerFor(this.gameState, currentPlayer.id);
         const roomPlayer = this.players.find(p => p.id === actorId);
+        const bot = roomPlayer?.isBot ? this.bots.get(actorId) : undefined;
+        if (!bot && !this.isAutoPiloted(roomPlayer)) return;
 
-        // console.log(`[scheduleBotTurnIfNeeded] Player: ${currentPlayer.name} (id: ${currentPlayer.id}), isBot: ${roomPlayer?.isBot}, isConnected: ${roomPlayer?.isConnected}`);
-
-        if (!roomPlayer || !roomPlayer.isBot) return;
-
-        const bot = this.bots.get(actorId);
-        if (!bot) return;
-
+        const turn = this.gameState.turnNumber;
         const delay = Math.random() * 400 + 400; // 0.4 - 0.8 seconds
         setTimeout(() => {
             // Re-check game state in case it changed while waiting
             const currentPlayerAfterDelay = this.gameState.players[this.gameState.currentPlayerIndex];
-            if (!currentPlayerAfterDelay || currentPlayerAfterDelay.id !== currentPlayer.id) return;
-            if (this.gameState?.pendingDecision) return; // Wait if a decision popped up
+            if (!currentPlayerAfterDelay || currentPlayerAfterDelay.id !== currentPlayer.id || this.gameState.turnNumber !== turn) return;
+            if (this.gameState?.pendingDecision || this.gameState.isGameOver) return; // Wait if a decision popped up
 
-            const action = bot.chooseAction(this.gameState, currentPlayer.id);
-            if (action) {
-                this.handleActionByPlayerId(actorId, action);
-            } else {
-                this.logger.error('BOT_ACTION', `Bot ${bot.name} failed to resolve action.`);
-                // Force end phase if bot fails to act
-                this.handleActionByPlayerId(actorId, { type: 'END_PHASE' });
+            if (bot) {
+                const action = bot.chooseAction(this.gameState, currentPlayer.id);
+                if (action && this.handleActionByPlayerId(actorId, action)) return;
+                this.logger.error('BOT_ACTION', `Bot ${bot.name} failed to act: ending its phase.`);
+            } else if (!this.isAutoPiloted(this.players.find(p => p.id === actorId))) {
+                return; // they came back
             }
+            // A player who is away passes their turn: phases end one after another
+            this.handleActionByPlayerId(actorId, { type: 'END_PHASE' });
         }, delay);
     }
 

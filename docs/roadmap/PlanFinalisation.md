@@ -164,7 +164,10 @@ chaque action). Version courte dans la suite : `tests/integration/Stress.test.ts
 - [x] Les bots terminent leurs parties.
 - [x] Test de stress multi-extensions avec invariants (cartes conservées, pas de décision bloquée, pas de boucle).
 - [x] Parties à 3 et 4 joueurs.
-- [ ] Déconnexion et reconnexion en pleine décision (attaque, réaction).
+- [x] Déconnexion et reconnexion en pleine décision : après 30 s d'absence (`disconnectGraceMs`), les décisions du joueur
+  sont prises par un bot et ses tours passés (via le moteur, actions validées) ; il reprend la main en se reconnectant.
+  Un abandon est traité tout de suite ; si plus aucun humain n'est connecté, la partie attend. Le minuteur de tour
+  sait répondre à tout type de choix. Tests : `tests/server/Reconnection.test.ts`.
 
 ---
 
