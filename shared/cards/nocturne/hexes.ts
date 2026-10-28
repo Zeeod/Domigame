@@ -23,7 +23,7 @@ export const War = hex('war', 'Guerre', 'Dévoilez des cartes de votre pioche ju
 
 export const ALL_HEXES = [BadOmens, Delusion, Envy, Famine, Fear, Greed, Haunting, Locusts, Misery, Plague, Poverty, War];
 
-export const LostInTheWoods = st('lost_in_the_woods', 'Perdu dans les bois', 'Au début de votre tour, vous pouvez défausser une carte pour recevoir une Faveur.');
+export const LostInTheWoods = st('lost_in_the_woods', 'Perdu dans les bois', 'Au début de votre tour, vous pouvez défausser une carte pour recevoir un Bienfait.');
 export const Deluded = st('deluded', 'Trompé', 'Au début de votre phase Achat, rendez cet État : vous ne pouvez pas acheter de carte Action ce tour-ci.');
 export const Envious = st('envious', 'Envieux', 'Au début de votre phase Achat, rendez cet État : l\'Argent et l\'Or rapportent 1 💰 ce tour-ci.');
 export const Miserable = st('miserable', 'Misérable', '-2 PV.');

@@ -18,8 +18,8 @@ const pass = (s: any) => choose(s, { type: 'CARDS', cardInstanceIds: [] });
 const nextBoon = (s: any, id: string) => { s.boonDeck = [id, ...s.boonDeck.filter((b: string) => b !== id)]; return s; };
 const nextHex = (s: any, id: string) => { s.hexDeck = [id, ...s.hexDeck.filter((b: string) => b !== id)]; return s; };
 
-describe('Nocturne — Faveurs et Maléfices', () => {
-    it('Barde : +2 💰 et une Faveur (Don de la montagne : un Argent)', () => {
+describe('Nocturne — Bienfaits et Maléfices', () => {
+    it('Barde : +2 💰 et un Bienfait (Don de la montagne : un Argent)', () => {
         let s = nextBoon(makeGame(['bard']), 'the_mountains_gift');
         player(s).hand = cards('bard');
         s = play(s, 'bard');
@@ -28,7 +28,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect(s.boonDiscard).toContain('the_mountains_gift');
     });
 
-    it('Faveurs gardées jusqu\'à l\'Ajustement (Don des champs : +1 Action +1 💰)', () => {
+    it('Bienfaits gardés jusqu\'à l\'Ajustement (Don des champs : +1 Action +1 💰)', () => {
         let s = nextBoon(makeGame(['bard']), 'the_fields_gift');
         player(s).hand = cards('bard');
         player(s).deck = cards(...filler());
@@ -82,7 +82,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         s = buy(s, 'silver', 'p2');
     });
 
-    it('Druide : reçoit une des 3 Faveurs mises de côté', () => {
+    it('Druide : reçoit un des 3 Bienfaits mis de côté', () => {
         let s = makeGame(['druid']);
         const boons = (s.landscapeState as any).druid_boons.state.boons;
         expect(boons.length).toBe(3);
@@ -93,7 +93,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect((s.landscapeState as any).druid_boons.state.boons).toEqual(boons);
     });
 
-    it('Fou : prend Perdu dans les bois et reçoit 3 Faveurs', () => {
+    it('Fou : prend Perdu dans les bois et reçoit 3 Bienfaits', () => {
         let s = makeGame(['fool']);
         s.boonDeck = ['the_mountains_gift', 'the_seas_gift', 'the_fields_gift', ...s.boonDeck.filter((b: string) => !['the_mountains_gift', 'the_seas_gift', 'the_fields_gift'].includes(b))];
         player(s).hand = cards('fool');
@@ -104,7 +104,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect(ids(player(s).discardPile)).toContain('silver');
     });
 
-    it('Lutin : défausse la Faveur du dessus ; s\'écarte pour la recevoir deux fois', () => {
+    it('Lutin : défausse le Bienfait du dessus ; s\'écarte pour la recevoir deux fois', () => {
         let s = nextBoon(makeGame(['pixie']), 'the_mountains_gift');
         player(s).hand = cards('pixie');
         player(s).deck = cards(...filler());
@@ -114,7 +114,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect(ids(s.trash)).toEqual(['pixie']);
     });
 
-    it('Bosquet sacré : +1 Achat +3 💰, les autres peuvent recevoir la Faveur', () => {
+    it('Bosquet sacré : +1 Achat +3 💰, les autres peuvent recevoir le Bienfait', () => {
         let s = nextBoon(makeGame(['sacred_grove']), 'the_mountains_gift');
         player(s).hand = cards('sacred_grove');
         s = play(s, 'sacred_grove');
@@ -124,7 +124,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect(ids(player(s, 'p2').discardPile)).toEqual(['silver']);
     });
 
-    it('Traqueur : +1 💰, une Faveur, les cartes reçues peuvent aller sur la pioche', () => {
+    it('Traqueur : +1 💰, un Bienfait, les cartes reçues peuvent aller sur la pioche', () => {
         let s = nextBoon(makeGame(['tracker']), 'the_mountains_gift');
         player(s).hand = cards('tracker');
         s = play(s, 'tracker');
@@ -132,7 +132,7 @@ describe('Nocturne — Faveurs et Maléfices', () => {
         expect(player(s).deck[0].id).toBe('silver');
     });
 
-    it('Idole : impaire → Faveur ; paire → Malédiction aux autres', () => {
+    it('Idole : impaire → Bienfait ; paire → Malédiction aux autres', () => {
         let s = nextBoon(toBuy(makeGame(['idol'])), 'the_seas_gift');
         player(s).hand = cards('idol', 'idol');
         player(s).deck = cards(...filler());

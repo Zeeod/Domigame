@@ -8,10 +8,10 @@ const k = (id: string, name: string, cost: number, types: string[], description:
     id, name, cost, types, expansion: 'nocturne', description, effects, ...extra
 } as any);
 
-export const Bard = k('bard', 'Barde', 4, ['ACTION', 'FATE'], '+2 💰. Recevez une Faveur.',
+export const Bard = k('bard', 'Barde', 4, ['ACTION', 'FATE'], '+2 💰. Recevez un Bienfait.',
     [{ type: 'ADD_MONEY', amount: 2 }, { type: 'RECEIVE_BOON' }]);
 export const BlessedVillage = k('blessed_village', 'Village béni', 4, ['ACTION', 'FATE'],
-    '+1 Carte, +2 Actions. Quand vous recevez cette carte, prenez une Faveur. Recevez-la maintenant ou au début de votre prochain tour.',
+    '+1 Carte, +2 Actions. Quand vous recevez cette carte, prenez un Bienfait. Recevez-le maintenant ou au début de votre prochain tour.',
     [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 2 }], { onGain: [{ type: 'BLESSED_VILLAGE_ON_GAIN' }] });
 export const Cemetery = k('cemetery', 'Cimetière', 4, ['VICTORY'], '2 PV. Quand vous recevez cette carte, écartez jusqu\'à 4 cartes de votre main. Héritage : Miroir hanté.',
     [], { victoryPoints: 2, heirloom: 'haunted_mirror', onGain: [{ type: 'TRASH', min: 0, max: 4, from: 'hand', message: 'Cimetière : vous pouvez écarter jusqu\'à 4 cartes' }] });
@@ -34,7 +34,7 @@ export const DenOfSin = k('den_of_sin', 'Antre du vice', 5, ['NIGHT', 'DURATION'
 export const DevilsWorkshop = k('devils_workshop', 'Atelier du diable', 4, ['NIGHT'],
     'Si le nombre de cartes que vous avez reçues ce tour-ci est 2 ou plus, recevez un Diablotin ; 1, recevez une carte coûtant jusqu\'à 4 💰 ; 0, recevez un Or.',
     [{ type: 'DEVILS_WORKSHOP' }]);
-export const Druid = k('druid', 'Druide', 2, ['ACTION', 'FATE'], '+1 Achat. Recevez l\'une des Faveurs mises de côté (laissez-la en place). Mise en place : mettez de côté face visible les 3 premières Faveurs.',
+export const Druid = k('druid', 'Druide', 2, ['ACTION', 'FATE'], '+1 Achat. Recevez l\'un des Bienfaits mis de côté (laissez-le en place). Mise en place : mettez de côté face visible les 3 premiers Bienfaits.',
     [{ type: 'ADD_BUYS', amount: 1 }, { type: 'DRUID_CHOOSE_BOON' }]);
 export const Exorcist = k('exorcist', 'Exorciste', 4, ['NIGHT'], 'Écartez une carte de votre main. Recevez un Esprit moins cher d\'une des piles d\'Esprits.',
     [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Exorciste : écartez une carte', onSuccess: [{ type: 'EXORCIST_GAIN' }] }]);
@@ -42,7 +42,7 @@ export const FaithfulHound = k('faithful_hound', 'Chien fidèle', 2, ['ACTION', 
     '+2 Cartes. Quand vous défaussez cette carte hors Ajustement, vous pouvez la mettre de côté et la prendre en main à la fin du tour.',
     [{ type: 'DRAW', amount: 2 }], { onDiscardOutsideCleanup: [{ type: 'FAITHFUL_HOUND' }] });
 export const Fool = k('fool', 'Fou', 3, ['ACTION', 'FATE'],
-    'Si vous n\'êtes pas le joueur qui a Perdu dans les bois, prenez-le, prenez 3 Faveurs et recevez-les dans l\'ordre de votre choix. Héritage : Pièce porte-bonheur.',
+    'Si vous n\'êtes pas le joueur qui a Perdu dans les bois, prenez-le, prenez 3 Bienfaits et recevez-les dans l\'ordre de votre choix. Héritage : Pièce porte-bonheur.',
     [{ type: 'FOOL' }], { heirloom: 'lucky_coin' });
 export const GhostTown = k('ghost_town', 'Ville fantôme', 3, ['NIGHT', 'DURATION'], 'Au début de votre prochain tour, +1 Carte et +1 Action. Cette carte est reçue en main (au lieu de votre défausse).',
     [], { durationEffects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }], gainToHand: true });
@@ -50,7 +50,7 @@ export const Guardian = k('guardian', 'Gardien', 2, ['NIGHT', 'DURATION'],
     'Jusqu\'à votre prochain tour, quand un autre joueur joue une carte Attaque, elle ne vous affecte pas. Au début de votre prochain tour, +1 💰. Cette carte est reçue en main.',
     [], { durationEffects: [{ type: 'ADD_MONEY', amount: 1 }], gainToHand: true, blocksAttack: true });
 export const Idol = k('idol', 'Idole', 5, ['TREASURE', 'ATTACK', 'FATE'],
-    '2 💰. Quand vous jouez cette carte, si vous avez alors un nombre impair d\'Idoles en jeu, recevez une Faveur ; si c\'est un nombre pair, chaque autre joueur reçoit une Malédiction.',
+    '2 💰. Quand vous jouez cette carte, si vous avez alors un nombre impair d\'Idoles en jeu, recevez un Bienfait ; si c\'est un nombre pair, chaque autre joueur reçoit une Malédiction.',
     [{ type: 'ADD_MONEY', amount: 2 }, { type: 'IDOL' }], { treasureValue: 0 });
 export const Leprechaun = k('leprechaun', 'Farfadet', 3, ['ACTION', 'DOOM'],
     'Recevez un Or. Si vous avez exactement 7 cartes en jeu, recevez un Vœu de sa pile. Sinon, recevez un Maléfice.',
@@ -64,7 +64,7 @@ export const NightWatchman = k('night_watchman', 'Veilleur de nuit', 3, ['NIGHT'
     'Regardez les 5 cartes du dessus de votre pioche, défaussez-en autant que vous voulez et remettez les autres dans l\'ordre de votre choix. Cette carte est reçue en main.',
     [{ type: 'NIGHT_WATCHMAN' }], { gainToHand: true });
 export const Pixie = k('pixie', 'Lutin', 2, ['ACTION', 'FATE'],
-    '+1 Carte, +1 Action. Défaussez la Faveur du dessus. Vous pouvez écarter cette carte pour recevoir deux fois cette Faveur. Héritage : Chèvre.',
+    '+1 Carte, +1 Action. Défaussez le Bienfait du dessus. Vous pouvez écarter cette carte pour recevoir deux fois ce Bienfait. Héritage : Chèvre.',
     [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'PIXIE' }], { heirloom: 'goat' });
 export const Pooka = k('pooka', 'Pooka', 5, ['ACTION'],
     'Vous pouvez écarter un Trésor autre qu\'un Or maudit de votre main pour +4 Cartes. Héritage : Or maudit.',
@@ -74,7 +74,7 @@ export const Raider = k('raider', 'Pillard', 6, ['NIGHT', 'DURATION', 'ATTACK'],
     'Chaque autre joueur ayant 5 cartes ou plus en main défausse une copie d\'une carte que vous avez en jeu (ou dévoile qu\'il ne peut pas). Au début de votre prochain tour, +3 💰.',
     [{ type: 'ATTACK', attackEffects: [{ type: 'RAIDER_HIT' }] }], { durationEffects: [{ type: 'ADD_MONEY', amount: 3 }] });
 export const SacredGrove = k('sacred_grove', 'Bosquet sacré', 5, ['ACTION', 'FATE'],
-    '+1 Achat, +3 💰. Recevez une Faveur. Si elle ne donne pas +1 💰, chaque autre joueur peut la recevoir.',
+    '+1 Achat, +3 💰. Recevez un Bienfait. S\x27il ne donne pas +1 💰, chaque autre joueur peut le recevoir.',
     [{ type: 'ADD_BUYS', amount: 1 }, { type: 'ADD_MONEY', amount: 3 }, { type: 'SACRED_GROVE' }]);
 export const SecretCave = k('secret_cave', 'Grotte secrète', 3, ['ACTION', 'DURATION'],
     '+1 Carte, +1 Action. Vous pouvez défausser 3 cartes. Si vous le faites, au début de votre prochain tour, +3 💰. Héritage : Lampe magique.',
@@ -92,7 +92,7 @@ export const Tormentor = k('tormentor', 'Tourmenteur', 5, ['ACTION', 'ATTACK', '
     '+2 💰. Si vous n\'avez pas d\'autres cartes en jeu, recevez un Diablotin de sa pile. Sinon, chaque autre joueur reçoit le prochain Maléfice.',
     [{ type: 'ADD_MONEY', amount: 2 }, { type: 'TORMENTOR' }]);
 export const Tracker = k('tracker', 'Traqueur', 2, ['ACTION', 'FATE'],
-    '+1 💰. Recevez une Faveur. Ce tour-ci, quand vous recevez une carte, vous pouvez la placer sur votre pioche. Héritage : Bourse.',
+    '+1 💰. Recevez un Bienfait. Ce tour-ci, quand vous recevez une carte, vous pouvez la placer sur votre pioche. Héritage : Bourse.',
     [{ type: 'ADD_MONEY', amount: 1 },
         { type: 'REGISTER_TRIGGER', trigger: 'ON_GAIN', duration: 'TURN', repeat: true, description: 'Traqueur',
             effects: [{ type: 'SELECT_OPTION', message: 'Traqueur : placer la carte reçue sur votre pioche ?', options: [
