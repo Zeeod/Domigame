@@ -1041,7 +1041,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
 
                             if (pendingDecision && (pendingDecision.type === PromptType.REORDER || pendingDecision.type === 'REORDER')) {
-                                const reorderCards = inspectorCards.length > 0 ? inspectorCards : (pub.players.find(p => p.id === playerId)?.aside || []);
+                                // The cards to put in order are listed in the decision itself
+                                const decisionCards: any[] = (pendingDecision as any).cards || pendingDecision.context?.cards || [];
+                                const reorderCards = decisionCards.length > 0 ? decisionCards : inspectorCards.length > 0 ? inspectorCards : (pub.players.find(p => p.id === playerId)?.aside || []);
                                 return (
                                     <DraggableWindow
                                         title={pendingDecision.message}

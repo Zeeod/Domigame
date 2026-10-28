@@ -77,7 +77,7 @@ const KEPT_BOONS = ['the_fields_gift', 'the_forests_gift', 'the_rivers_gift'];
 function receiveBoon(state: GameState, player: PlayerState, boonId: string, keep = true) {
     const b = def(boonId);
     if (!b) return;
-    EffectUtils.log(state, `${player.name} reçoit la Faveur ${b.name}.`, player.id);
+    EffectUtils.log(state, `${player.name} reçoit le Bienfait ${b.name}.`, player.id);
     if (keep) {
         if (KEPT_BOONS.includes(boonId)) ((state as any).boonsKept = (state as any).boonsKept || []).push(boonId);
         else state.boonDiscard.push(boonId);
@@ -143,7 +143,7 @@ export const NocturneRulesModule: ExpansionModule = {
             handler: (state, event: any) => {
                 const player = state.players.find(p => p.id === event.playerId);
                 if (!player || !playerStates(player).includes('lost_in_the_woods') || !player.hand.length) return;
-                push(state, player.id, { type: 'DISCARD', min: 0, max: 1, message: 'Perdu dans les bois : défausser une carte pour recevoir une Faveur ?', onSuccess: [{ type: 'RECEIVE_BOON' }] });
+                push(state, player.id, { type: 'DISCARD', min: 0, max: 1, message: 'Perdu dans les bois : défausser une carte pour recevoir un Bienfait ?', onSuccess: [{ type: 'RECEIVE_BOON' }] });
             }
         },
         {
@@ -222,7 +222,7 @@ export const NocturneRulesModule: ExpansionModule = {
             handler: (state, player) => {
                 const boons: string[] = (state.landscapeState as any)?.druid_boons?.state?.boons || [];
                 if (!boons.length) return done(state);
-                push(state, player.id, options('Druide : quelle Faveur recevoir ?', boons.map(b => ({ label: nameOf(b), effects: [{ type: 'RECEIVE_BOON', boonId: b }] }))));
+                push(state, player.id, options('Druide : quel Bienfait recevoir ?', boons.map(b => ({ label: nameOf(b), effects: [{ type: 'RECEIVE_BOON', boonId: b }] }))));
                 return done(state);
             }
         },
@@ -411,7 +411,7 @@ export const NocturneRulesModule: ExpansionModule = {
             handler: (state, player, effect: any) => {
                 (state.triggers = state.triggers || []).push({
                     type: 'START_TURN', playerId: player.id, once: true,
-                    effects: [{ type: 'RECEIVE_BOON_KEEP', boonId: effect.boonId } as any], description: `Faveur : ${nameOf(effect.boonId)}`
+                    effects: [{ type: 'RECEIVE_BOON_KEEP', boonId: effect.boonId } as any], description: `Bienfait : ${nameOf(effect.boonId)}`
                 } as any);
                 return done(state);
             }
@@ -551,7 +551,7 @@ export const NocturneRulesModule: ExpansionModule = {
                 const boons: string[] = effect.boons || [];
                 if (!boons.length) return done(state);
                 if (boons.length === 1) { receiveBoon(state, player, boons[0]); return done(state); }
-                push(state, player.id, options('Fou : quelle Faveur recevoir maintenant ?', boons.map((b, i) => ({
+                push(state, player.id, options('Fou : quel Bienfait recevoir maintenant ?', boons.map((b, i) => ({
                     label: nameOf(b), effects: [{ type: 'RECEIVE_BOON_KEEP', boonId: b }, { type: 'FOOL_RECEIVE', boons: boons.filter((_, j) => j !== i) }]
                 }))));
                 return done(state);
@@ -650,7 +650,7 @@ export const NocturneRulesModule: ExpansionModule = {
                 const id = drawBoon(state);
                 if (!id) return done(state);
                 state.boonDiscard.push(id);
-                EffectUtils.log(state, `Lutin : la Faveur défaussée est ${nameOf(id)}.`, player.id);
+                EffectUtils.log(state, `Lutin : le Bienfait défaussé est ${nameOf(id)}.`, player.id);
                 push(state, player.id, options(`Lutin : l'écarter pour recevoir deux fois ${nameOf(id)} ?`, [
                     { label: 'Oui', effects: [{ type: 'PIXIE_TRASH', boonId: id }] },
                     { label: 'Non', effects: [] }

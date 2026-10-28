@@ -81,7 +81,9 @@ export const UniversalOverlay: React.FC<UniversalOverlayProps> = ({
             }
             setOrderedItems(items);
         }
-    }, [mode, cards, cardToInsert, deckCount]);
+        // Only when the cards themselves change (not on every state refresh: that would undo a drag in progress)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mode, cards.map(c => c.instanceId).join(','), cardToInsert?.instanceId, deckCount]);
 
 
     useEffect(() => {
@@ -218,8 +220,8 @@ export const UniversalOverlay: React.FC<UniversalOverlayProps> = ({
                 ) : (
                     <div className="reorder-layout">
                         <div className="direction-indicators">
-                            <span className="indicator deep">{mode === 'INSERT' ? '← DESSUS' : '← BAS (Deep)'}</span>
-                            <span className="indicator surface">{mode === 'INSERT' ? 'DESSOUS →' : 'HAUT (Top) →'}</span>
+                            <span className="indicator deep">{mode === 'INSERT' ? '← DESSUS' : '← Dessous de la pioche'}</span>
+                            <span className="indicator surface">{mode === 'INSERT' ? 'DESSOUS →' : 'Dessus de la pioche →'}</span>
                         </div>
                         <Reorder.Group
                             axis="x"
