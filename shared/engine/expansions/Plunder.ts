@@ -17,10 +17,9 @@ import { createCardInstance } from '../CardInstance.js';
 import { discardCard, discardCards } from '../Discard.js';
 import { playCardNow, playOverrides } from '../Play.js';
 import { getMat, peekMat } from '../Mats.js';
-import { setupHooks } from '../KingdomRules.js';
+import { setupHooks, startGameHooks } from '../KingdomRules.js';
 import { DurationManager } from '../DurationManager.js';
 import { LOOT_IDS } from '../../cards/plunder/loot.js';
-import { ActionResolver } from '../ActionResolver.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
 const def = (id: string) => CardRegistry.get(id);
@@ -176,7 +175,7 @@ export const PlunderModule: ExpansionModule = {
                 if (isType(cid, 'ACTION') && isCurrent(state, p)) {
                     if ((p as any).rushTurn === state.turnNumber && iid) { (p as any).rushTurn = undefined; push(state, p.id, { type: 'PLAY_INSTANCE_IF_OWNED', instanceId: iid }); }
                     const m = (p as any).mirror;
-                    if (m?.turn === state.turnNumber && m.n > 0) { (p as any).mirror = undefined; for (let i = 0; i < m.n; i++) push(state, p.id, { type: 'GAIN_CARD', cardId: cid }); }
+                    if (m && m.turn === state.turnNumber && m.n > 0) { (p as any).mirror = undefined; for (let i = 0; i < m.n; i++) push(state, p.id, { type: 'GAIN_CARD', cardId: cid }); }
                 }
                 if (isType(cid, 'TREASURE') && (p as any).miningRoadTurn === state.turnNumber && isCurrent(state, p) && iid) {
                     (p as any).miningRoadTurn = undefined;
@@ -862,7 +861,7 @@ export const PlunderModule: ExpansionModule = {
     onLoad: () => {
         if (!setupHooks.includes(setupPlunder)) setupHooks.push(setupPlunder);
         // Inherited: once the starting hands are dealt, each player in turn order picks the card to replace
-        addOnce(ActionResolver.startGameHooks, 'plunder:inherited', (state) => {
+        addOnce(startGameHooks, 'plunder:inherited', (state) => {
             if (!traitPile(state, 'inherited') || (state as any).inheritedDone) return;
             (state as any).inheritedDone = true;
             for (const p of [...state.players].reverse()) push(state, p.id, { type: 'INHERITED_PICK' });

@@ -30,6 +30,9 @@ export const REWARDS = ['coronet', 'courser', 'demesne', 'housecarl', 'huge_turn
 /** Setup steps registered by expansions (Empires: Landmark VP, Tax…). */
 export const setupHooks: ((state: GameState) => void)[] = [];
 
+/** Setup choices made once the starting hands are dealt (Plunder — Inherited). */
+export const startGameHooks: ((state: GameState) => void)[] = [];
+
 export function applyKingdomSetup(state: GameState): void {
     for (const hook of setupHooks) hook(state);
     const kingdom = state.kingdomCards || [];

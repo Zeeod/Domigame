@@ -220,7 +220,7 @@ export const RisingSunCardsModule: ExpansionModule = {
                 const p = state.players.find(x => x.id === event.playerId) as any;
                 const cid: string = event.context?.cardId;
                 if (!p || !cid || isType(cid, 'COMMAND') || !isType(cid, 'ACTION')) return;
-                if (p.daimyo?.turn !== state.turnNumber || !p.daimyo.n) return;
+                if (!p.daimyo || p.daimyo.turn !== state.turnNumber || !p.daimyo.n) return;
                 const n = p.daimyo.n;
                 p.daimyo = undefined;
                 for (let i = 0; i < n; i++) push(state, p.id, { type: 'DAIMYO_REPLAY', cardId: cid, instanceId: event.context.cardInstanceId });
@@ -535,7 +535,7 @@ export const RisingSunCardsModule: ExpansionModule = {
         addOnce(CleanupEffectHandler.beforeHandDiscard, 'rising_sun:cleanup_start', (state, player) => {
             const p = player as any;
             const rs = p.riverShrine;
-            if (rs?.turn === state.turnNumber && rs.n > 0) {
+            if (rs && rs.turn === state.turnNumber && rs.n > 0) {
                 const n = rs.n;
                 rs.n = 0;
                 if (p.gainedInBuyTurn !== state.turnNumber) {

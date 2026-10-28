@@ -904,7 +904,8 @@ export class CardRegistry {
      * Get IDs of all cards that can be kingdom cards (Action or Victory, but not basic supply, landscapes or auxiliary cards)
      */
     static getKingdomCandidates(): string[] {
-        const basic = new Set([...this.getBasicSupply(), 'potion']);
+        // Basic and Prosperity non-Kingdom piles (Platinum, Colony), Potion, and the Ruins pile (added by Looters)
+        const basic = new Set([...this.getBasicSupply(), 'potion', 'platinum', 'colony', 'ruins']);
 
         // Use a Map to deduplicate by Card ID (since ALL_CARDS has aliases)
         const uniqueCards = new Map<string, CardDefinition>();

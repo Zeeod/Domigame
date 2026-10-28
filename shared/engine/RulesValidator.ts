@@ -213,13 +213,18 @@ export class RulesValidator {
             return { valid: false, error: "Vous devez rembourser votre dette avant de pouvoir acheter d'autres cartes" };
         }
 
-        const cardCost = EconomyEngine.getCardCost(state, playerId, cardId);
-        const altCost = !!(CardRegistry.get(cardId) as any)?.altCostTrashAction && currentPlayer.hand.some(c => CardRegistry.get(c.id)?.types.includes('ACTION'));
+        // Split / mixed piles: the card bought is the one on top
+        const pileState = state.supply[cardId];
+        const topId = pileState?.isMixed && pileState.cards?.length ? pileState.cards[pileState.cards.length - 1].id : cardId;
+        const topDef = CardRegistry.get(topId) || cardDef;
+
+        const cardCost = EconomyEngine.getCardCost(state, playerId, topId);
+        const altCost = !!(topDef as any)?.altCostTrashAction && currentPlayer.hand.some(c => CardRegistry.get(c.id)?.types.includes('ACTION'));
         if (currentPlayer.coins < cardCost && !altCost) {
             return { valid: false, error: 'Pas assez de pièces' };
         }
 
-        const potionCost = cardDef.potionCost || 0;
+        const potionCost = topDef.potionCost || 0;
         if (potionCost > 0 && (currentPlayer.potions || 0) < potionCost) {
             return { valid: false, error: 'Pas assez de potions' };
         }
