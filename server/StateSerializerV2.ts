@@ -444,6 +444,8 @@ export class StateSerializerV2 {
             // Adventures
             tavernMat: peekMat(player, 'tavern').map(c => this.serializeCard(c)),
             journeyTokenFaceUp: player.journeyTokenFaceUp || false,
+            // Adventures: where this player's tokens are (token → Supply pile)
+            advTokens: { ...((player as any).advTokens || {}) },
             minusCoinToken: player.minusCoinToken || false,
             minusCardToken: player.minusCardToken || false,
             permanentDurations: (player.permanentDurations || []).map(c => this.serializeCard(c)),

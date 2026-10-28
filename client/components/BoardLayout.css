@@ -1021,3 +1021,69 @@ body {
     opacity: 1;
     transform: scale(1.1);
 }
+/* Menagerie — choice between playing an Action normally or as a Way */
+.way-prompt-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+}
+.way-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 280px;
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 18px;
+    border-radius: 12px;
+    background: #1f2a33;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+.way-prompt-title {
+    font-weight: bold;
+    color: #f1c40f;
+    text-align: center;
+}
+.way-option {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.way-option-text {
+    font-size: 0.75rem;
+    font-weight: normal;
+    opacity: 0.85;
+    text-transform: none;
+}
+.way-prompt-cancel {
+    background: transparent;
+    border: none;
+    color: #b0bec5;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* What a player owns outside their deck: Artifacts, Projects, Boons, States… */
+.player-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+.player-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #eceff1;
+    cursor: help;
+    white-space: nowrap;
+}

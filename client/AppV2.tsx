@@ -3,6 +3,7 @@
  */
 
 import React, { useState } from 'react';
+import { CardRegistry } from '../shared/cards/index';
 import { useSocket } from './hooks/useSocket';
 import { Lobby } from './components/Lobby';
 import { BoardLayout } from './components/BoardLayout';
@@ -155,8 +156,14 @@ export const AppV2: React.FC = () => {
                                 gameState={gameState}
                                 playerId={playerId}
                                 isHost={isHost}
-                                onPlayCard={(instanceId) => sendAction({ type: 'PLAY_CARD', cardInstanceId: instanceId })}
-                                onBuyCard={(cardId) => sendAction({ type: 'BUY_CARD', cardId })}
+                                onPlayCard={(instanceId, wayId) => sendAction({ type: 'PLAY_CARD', cardInstanceId: instanceId, ...(wayId ? { wayId } : {}) } as any)}
+                                onBuyCard={(cardId) => {
+                                    // Events and Projects are bought with their own actions (they are not Supply piles)
+                                    const types = CardRegistry.get(cardId)?.types || [];
+                                    if (types.includes('PROJECT' as any)) sendAction({ type: 'BUY_PROJECT', projectId: cardId });
+                                    else if (types.includes('EVENT' as any)) sendAction({ type: 'BUY_LANDSCAPE', landscapeId: cardId } as any);
+                                    else sendAction({ type: 'BUY_CARD', cardId });
+                                }}
                                 onEndPhase={() => sendAction({ type: 'END_PHASE' })}
                                 onChoose={(choiceId, payload) => sendAction({ type: 'CHOOSE', choiceId, payload })}
                                 onToggleReady={() => sendAction({ type: 'TOGGLE_READY' })}
