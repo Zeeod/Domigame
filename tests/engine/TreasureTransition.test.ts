@@ -2,6 +2,8 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { GameRoomV2 } from '../../server/GameRoomV2';
 import { GameState } from '../../shared/engine/GameState';
 
+const KINGDOM = ['village', 'smithy', 'market', 'cellar', 'moat', 'workshop', 'festival', 'laboratory', 'chapel', 'remodel'];
+
 describe('Validation des Transitions de Phase par les Trésors', () => {
     let room: GameRoomV2;
     let state: GameState;
@@ -23,7 +25,7 @@ describe('Validation des Transitions de Phase par les Trésors', () => {
         room.players.forEach(p => p.isReady = true);
 
         // Initialize Game
-        room.startGame(['village', 'smithy', 'market']);
+        room.startGame(KINGDOM);
         state = room.gameState;
 
         console.log('DEBUG TEST: Pipeline =', state.phasePipeline);
