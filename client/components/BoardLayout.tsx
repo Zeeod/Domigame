@@ -47,6 +47,8 @@ interface BoardLayoutProps {
     onAcknowledgeReveal: () => void;
     onPlayAllTreasures?: () => void;
     onPayDebt?: (amount: number) => void;
+    onSpendCoffers?: (amount: number) => void;
+    onSpendVillagers?: (amount: number) => void;
     onRequestRewind?: (logId: string) => void;
     roomState?: RoomState;
     onConfigureSpectator?: (options: { followId?: string, revealAll?: boolean }) => void;
@@ -95,6 +97,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     isHost,
     onPlayAllTreasures,
     onPayDebt,
+    onSpendCoffers,
+    onSpendVillagers,
     onRequestRewind,
     roomState,
     onConfigureSpectator
@@ -696,7 +700,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         canBuy={isMyTurn && pub.phase === 'BUY' && (myPlayer?.buys ?? 0) > 0}
                         coins={myPlayer?.coins ?? 0}
                         costReduction={myPlayer?.costReduction ?? 0}
-                        pendingDecision={pendingDecision}
+                        pendingDecision={isMyChoice ? pendingDecision : undefined}
                         onChoose={onSendDecision}
                         landscapeState={pub.landscapeState}
                     />
@@ -1135,11 +1139,13 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     canBuy={isMyTurn && pub.phase === 'BUY' && (myPlayer?.buys ?? 0) > 0}
                                     coins={myPlayer?.coins ?? 0}
                                     costReduction={myPlayer?.costReduction ?? 0}
-                                    pendingDecision={pendingDecision}
+                                    pendingDecision={isMyChoice ? pendingDecision : undefined}
                                     onChoose={onSendDecision}
                                     onToggleSupply={isSelectionMode ? handleSupplySelection : undefined}
                                     selectedDetails={selectedCards.filter(c => c.source === 'SUPPLY').map(c => c.cardId)}
                                     landscapes={pub.landscapes}
+                                    landscapeState={pub.landscapeState}
+                                    setAsideForGame={pub.setAsideForGame}
                                 />
                             </div>
                         )}
@@ -1234,6 +1240,11 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 showConfirm={showConfirm && (pendingDecision?.type !== PromptType.CHOOSE_CARDS || !isHandLocked)}
                                 onEndPhase={onEndPhase}
                                 onPayDebt={onPayDebt}
+                                onSpendCoffers={onSpendCoffers}
+                                onSpendVillagers={onSpendVillagers}
+                                debt={myPlayer?.debt ?? 0}
+                                coffers={myPlayer?.coffers ?? 0}
+                                villagers={myPlayer?.villagers ?? 0}
                                 tokens={myPlayer?.tokens ?? {}}
                             />
                         );

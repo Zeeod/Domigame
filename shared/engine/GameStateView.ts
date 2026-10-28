@@ -2,6 +2,7 @@
 import { GameState, PlayerState, CardInstance } from './GameState.js';
 import { produce } from 'immer';
 import { StatsCalculator } from './StatsCalculator.js';
+import { isShadow } from './Shadows.js';
 
 /**
  * GameStateView - Handles "Fog of War" by sanitizing the state for a specific player.
@@ -57,7 +58,7 @@ export class GameStateView {
             sanitized.hand = player.hand.map(c => this.createHiddenCard(c.instanceId));
 
             // Mask opponent's deck (count only)
-            sanitized.deck = player.deck.map(c => this.createHiddenCard(c.instanceId));
+            sanitized.deck = player.deck.map(c => isShadow(c.id) ? c : this.createHiddenCard(c.instanceId)); // Shadows have unique backs
 
             // Mask opponent's discard (Optional: in Dominion discard is public, 
             // but some engine versions keep it hidden or only top card. 
@@ -66,7 +67,7 @@ export class GameStateView {
             // sanitized.discardPile = ... (keeping as is)
         } else {
             // Mask own deck order
-            sanitized.deck = player.deck.map(c => this.createHiddenCard(c.instanceId));
+            sanitized.deck = player.deck.map(c => isShadow(c.id) ? c : this.createHiddenCard(c.instanceId)); // Shadows have unique backs
 
             // Calculate deck stats for viewer
             sanitized.deckStats = StatsCalculator.calculate(state, player.id);

@@ -422,7 +422,11 @@ export class ActionResolver {
 
         const isFlourishingTradeFulfilled = ProphecyManager.isActive(state, 'flourishing_trade');
 
-        // Rule: Cannot buy if you have debt
+        // Rule: no buying with Debt. Pay it off first with $ if possible (done automatically)
+        if (player.debt > 0 && player.coins >= player.debt) {
+            const paid = player.debt;
+            this.resolvePayDebt(state, player.id, paid);
+        }
         if (player.debt > 0) {
             return { success: false, state, error: "Vous devez rembourser votre dette avant de pouvoir acheter d'autres cartes" };
         }
@@ -745,7 +749,7 @@ export class ActionResolver {
         const player = state.players.find(p => p.id === playerId);
         if (!player) return { success: false, state, error: 'Player not found' };
         player.debt -= amount;
-        player.tokens.debt = (player.tokens.debt || 0) - amount;
+        if (player.tokens) player.tokens.debt = Math.max(0, (player.tokens.debt || 0) - amount);
         player.coins -= amount;
         this.log(state, `${player.name} rembourse ${amount} 💰 de sa dette (reste: ${player.debt} dette(s))`, player.id);
         return { success: true, state };

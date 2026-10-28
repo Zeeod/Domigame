@@ -92,6 +92,10 @@ export class RulesValidator {
             case 'PAY_DEBT':
                 return this.validatePayDebt(state, playerId, action.amount);
 
+            case 'SPEND_COFFERS':
+            case 'SPEND_VILLAGERS':
+                return this.validateSpendTokens(state, playerId, action.type, (action as any).amount);
+
             default:
                 return { valid: false, error: "Type d'action inconnu" };
         }
@@ -209,7 +213,9 @@ export class RulesValidator {
             return { valid: false, error: 'Carte inconnue' };
         }
 
-        if (currentPlayer.debt > 0) {
+        // Debt is paid off automatically before buying (it has to be: no buying with Debt)
+        const debt = currentPlayer.debt || 0;
+        if (debt > 0 && currentPlayer.coins < debt) {
             return { valid: false, error: "Vous devez rembourser votre dette avant de pouvoir acheter d'autres cartes" };
         }
 
@@ -220,7 +226,7 @@ export class RulesValidator {
 
         const cardCost = EconomyEngine.getCardCost(state, playerId, topId);
         const altCost = !!(topDef as any)?.altCostTrashAction && currentPlayer.hand.some(c => CardRegistry.get(c.id)?.types.includes('ACTION'));
-        if (currentPlayer.coins < cardCost && !altCost) {
+        if (currentPlayer.coins - debt < cardCost && !altCost) {
             return { valid: false, error: 'Pas assez de pièces' };
         }
 
@@ -345,12 +351,30 @@ export class RulesValidator {
     }
 
     private static validatePayDebt(state: GameState, playerId: string, amount: number): ValidationResult {
-        const player = state.players.find(p => p.id === playerId);
-        if (!player) return { valid: false, error: 'Joueur non trouvé' };
-        if (state.phase !== 'BUY') return { valid: false, error: 'Phase incorrecte (doit être phase Achat)' };
-        if (amount <= 0) return { valid: false, error: 'Montant invalide' };
+        // "A player can remove Debt tokens at any point in their turn by paying $1 per Debt token"
+        const player = getCurrentPlayer(state);
+        if (!player || player.id !== playerId) return { valid: false, error: "Ce n'est pas votre tour" };
+        if (state.pendingDecision) return { valid: false, error: 'Vous devez répondre au choix en attente' };
+        if (!['ACTION', 'BUY', 'NIGHT'].includes(state.phase)) return { valid: false, error: 'Phase incorrecte' };
+        if (!Number.isInteger(amount) || amount <= 0) return { valid: false, error: 'Montant invalide' };
         if (amount > player.coins) return { valid: false, error: 'Pas assez de pièces' };
         if (amount > player.debt) return { valid: false, error: 'Le montant dépasse la dette' };
+        return { valid: true };
+    }
+
+    /** Coffers: +$1 each, in your Buy phase. Villagers: +1 Action each, in your Action phase. */
+    private static validateSpendTokens(state: GameState, playerId: string, type: string, amount: number): ValidationResult {
+        const player = getCurrentPlayer(state);
+        if (!player || player.id !== playerId) return { valid: false, error: "Ce n'est pas votre tour" };
+        if (state.pendingDecision) return { valid: false, error: 'Vous devez répondre au choix en attente' };
+        if (!Number.isInteger(amount) || amount <= 0) return { valid: false, error: 'Montant invalide' };
+        if (type === 'SPEND_COFFERS') {
+            if (state.phase !== 'BUY') return { valid: false, error: 'Les Coffres se dépensent en phase Achat' };
+            if ((player.coffers || 0) < amount) return { valid: false, error: 'Pas assez de Coffres' };
+        } else {
+            if (state.phase !== 'ACTION') return { valid: false, error: 'Les Villageois se dépensent en phase Action' };
+            if ((player.villagers || 0) < amount) return { valid: false, error: 'Pas assez de Villageois' };
+        }
         return { valid: true };
     }
 

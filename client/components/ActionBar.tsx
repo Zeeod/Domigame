@@ -34,6 +34,12 @@ export interface ActionBarProps {
     onEndPhase: () => void;
     onPlayTreasures?: () => void;
     onPayDebt?: (amount: number) => void;
+    /** Debt, Coffers and Villagers of the viewing player (Empires, Guilds, Renaissance) */
+    debt?: number;
+    coffers?: number;
+    villagers?: number;
+    onSpendCoffers?: (amount: number) => void;
+    onSpendVillagers?: (amount: number) => void;
     onConfirm?: () => void;
     onPass?: () => void;
 
@@ -57,6 +63,11 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     coins,
     potions = 0,
     tokens,
+    debt = 0,
+    coffers = 0,
+    villagers = 0,
+    onSpendCoffers,
+    onSpendVillagers,
     instruction,
     hasPendingDecision,
     isValid,
@@ -239,15 +250,25 @@ export const ActionBar: React.FC<ActionBarProps> = ({
                         </div>
                     ) : (
                         <div className="standard-row">
-                            {isMyTurn && !isWaiting && phase === 'BUY' && (tokens?.debt || 0) > 0 && coins > 0 && onPayDebt && (
+                            {isMyTurn && !isWaiting && debt > 0 && coins > 0 && onPayDebt && (
                                 <motion.button
                                     className="indicator-btn btn-debt-payoff"
-                                    onClick={() => { playSound('coins', 0.4); onPayDebt(Math.min(coins, (tokens?.debt || 0))); }}
+                                    onClick={() => { playSound('coins', 0.4); onPayDebt(Math.min(coins, debt)); }}
                                     variants={btnVariants}
                                     whileHover="hover"
                                     whileTap="tap"
                                 >
-                                    💸 REMBOURSER ({Math.min(coins, (tokens?.debt || 0))})
+                                    💸 REMBOURSER ({Math.min(coins, debt)})
+                                </motion.button>
+                            )}
+                            {isMyTurn && !isWaiting && phase === 'ACTION' && villagers > 0 && onSpendVillagers && (
+                                <motion.button className="indicator-btn btn-villager" title="Dépenser un Villageois : +1 Action" onClick={() => { playSound('click', 0.4); onSpendVillagers(1); }} variants={btnVariants} whileHover="hover" whileTap="tap">
+                                    👤 VILLAGEOIS ({villagers}) : +1 ACTION
+                                </motion.button>
+                            )}
+                            {isMyTurn && !isWaiting && phase === 'BUY' && coffers > 0 && onSpendCoffers && (
+                                <motion.button className="indicator-btn btn-coffers" title="Dépenser un Coffre : +1 💰" onClick={() => { playSound('coins', 0.4); onSpendCoffers(1); }} variants={btnVariants} whileHover="hover" whileTap="tap">
+                                    ⛃ COFFRES ({coffers}) : +1 💰
                                 </motion.button>
                             )}
                             {isMyTurn && !isWaiting && phase === 'BUY' && onPlayTreasures && (
