@@ -17,7 +17,7 @@ import { EffectEngine } from './EffectEngine.js';
 import { TriggerEffectHandler } from './effects/TriggerEffectHandler.js';
 import { CardRegistry } from '../cards/index.js';
 import { mapActor, gainRecipient } from './Possession.js';
-import { activeOverrides } from './KingdomRules.js';
+import { activeOverrides, startGameHooks } from './KingdomRules.js';
 import { createCardInstance } from './CardInstance.js';
 import { EconomyEngine } from './EconomyEngine.js';
 import { TurnMachine } from './TurnMachine.js';
@@ -51,9 +51,6 @@ export interface ActionResult {
 export class ActionResolver {
     /** Rules that replace a played card's effects (shared with Play.ts). */
     static playOverrides = playOverrides;
-
-    /** Setup choices made once the starting hands are dealt (Plunder — Inherited). */
-    static startGameHooks: ((state: GameState) => void)[] = [];
 
     /**
      * Apply a validated action to the game state
@@ -926,7 +923,7 @@ export class ActionResolver {
         // Ensure first player has resources (resetTurnResources already called above for all, but let's be explicit for first player)
         resetTurnResources(firstPlayer);
 
-        for (const hook of ActionResolver.startGameHooks) hook(state);
+        for (const hook of startGameHooks) hook(state);
     }
 
     // ========================================================================

@@ -13,10 +13,9 @@ import { TrashEffectHandler } from '../effects/TrashEffectHandler.js';
 import { CleanupEffectHandler } from '../effects/CleanupEffectHandler.js';
 import { chosenInstanceIds } from '../effects/OpponentChoiceEffects.js';
 import { discardCard, discardCards } from '../Discard.js';
-import { playCardNow } from '../Play.js';
+import { playCardNow, playOverrides } from '../Play.js';
 import { getMat } from '../Mats.js';
 import { setupHooks } from '../KingdomRules.js';
-import { ActionResolver } from '../ActionResolver.js';
 import { RulesValidator } from '../RulesValidator.js';
 import { VictoryChecker } from '../VictoryChecker.js';
 
@@ -906,7 +905,7 @@ export const AlliesRulesModule: ExpansionModule = {
         });
 
         // Highwayman: the first Treasure each other player plays each turn does nothing
-        addOnce(ActionResolver.playOverrides, 'allies:highwayman', (state, player, cardDef) => {
+        addOnce(playOverrides, 'allies:highwayman', (state, player, cardDef) => {
             if (!cardDef.types.includes('TREASURE')) return undefined;
             const hw = ((state as any).highwaymen || []) as { attackerId: string; victimId: string }[];
             if (!hw.some(h => h.victimId === player.id && h.attackerId !== player.id)) return undefined;

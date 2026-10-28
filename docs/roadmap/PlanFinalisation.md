@@ -153,12 +153,17 @@ Du plus fiable au plus complexe, pour que le jeu soit jouable tôt :
 
 ## Phase 3 — Stabilité des parties complètes (taille M)
 
-- [ ] **Les bots ne terminent pas leurs parties** : dans le test de stabilité, 0 partie sur 5 est finie au tour 30. Trouver si c'est la stratégie des bots (ils n'achètent pas de Provinces) ou un blocage du moteur.
-- [ ] Test de stress étendu : 200 parties avec des royaumes aléatoires **sur toutes les extensions**, et vérification des invariants à chaque action :
-  - le nombre total de cartes est conservé ;
-  - aucune décision n'attend un joueur absent ;
-  - aucune boucle infinie.
-- [ ] Parties à 3 et 4 joueurs (les tests sont surtout à 2).
+**État au 28/10/2026** : script `npx tsx scripts/audit/stress.ts [parties] [graine] [greedy|random]` (vraie mise en place
+du serveur, royaumes et paysages aléatoires de toutes les extensions, 2 à 4 joueurs, nombre de cartes vérifié après
+chaque action). Version courte dans la suite : `tests/integration/Stress.test.ts`.
+- Bots Greedy : **150/150 parties terminées**, ~58 tours, aucune erreur ni action refusée.
+- Bots aléatoires : aucune carte perdue, aucun blocage ; les refus restants sont des erreurs du bot (il ignore les contraintes).
+- Corrigés au passage : Platine, Colonie et la pile Ruines tirées comme cartes Royaume ; achat d'une pile divisée validé
+  sur le coût de la pile au lieu de la carte du dessus ; dépendance circulaire au chargement des extensions.
+
+- [x] Les bots terminent leurs parties.
+- [x] Test de stress multi-extensions avec invariants (cartes conservées, pas de décision bloquée, pas de boucle).
+- [x] Parties à 3 et 4 joueurs.
 - [ ] Déconnexion et reconnexion en pleine décision (attaque, réaction).
 
 ---
