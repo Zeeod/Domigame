@@ -12,7 +12,7 @@ export const torturer: CardDefinition = {
             attackEffects: [
                 {
                     type: 'CHOOSE_OPTION',
-                    message: 'Bourreau : Choisissez votre supplice',
+                    message: 'Tortureur : Choisissez votre supplice',
                     options: [
                         { label: 'Défausser 2 cartes', effects: [{ type: 'DISCARD', min: 2, max: 2 }] },
                         { label: 'Gagner une Malédiction en main', effects: [{ type: 'GAIN_CARD', cardId: 'curse', destination: 'hand' }] }

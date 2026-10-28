@@ -1144,7 +1144,7 @@ export class GameRoomV2 {
                 id: `log_init_pregame_${playerState.id}`,
                 timestamp: Date.now(),
                 type: 'TEXT',
-                message: `${playerState.name} commence avec ${cardsStr} en main.`,
+                message: `${playerState.name} commence avec ${cardsStr}.`,
                 playerId: playerState.id
             });
         }

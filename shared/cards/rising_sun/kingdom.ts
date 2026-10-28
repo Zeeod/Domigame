@@ -49,7 +49,7 @@ export const kitsune = k('kitsune', 'Kitsune', 5, ['ACTION', 'ATTACK', 'OMEN'],
 export const litter = k('litter', 'Portée', 5, ['ACTION'], '+2 Cartes. +2 Actions. +1 Dette.', [card(2), action(2), debt(1)]);
 export const mountain_shrine = k('mountain_shrine', 'Sanctuaire de Montagne', 0, ['ACTION', 'OMEN'],
     '+1 Soleil. +2 💰. Vous pouvez écarter une carte de votre main. Ensuite, s\'il y a des cartes Action au rebut, +2 Cartes.',
-    [SUN, coins(2), { type: 'TRASH', min: 0, max: 1, from: 'hand', message: 'Sanctuaire de montagne : vous pouvez écarter une carte' }, { type: 'MOUNTAIN_SHRINE' }],
+    [SUN, coins(2), { type: 'TRASH', min: 0, max: 1, from: 'hand', message: 'Sanctuaire de Montagne : vous pouvez écarter une carte' }, { type: 'MOUNTAIN_SHRINE' }],
     { debtCost: 5 });
 export const ninja = k('ninja', 'Ninja', 4, ['ACTION', 'ATTACK', 'SHADOW'], '+1 Carte. Chaque autre joueur défausse jusqu\'à avoir 3 cartes en main.' + SHADOW_TEXT,
     [card(1), DOWN_TO_3]);
@@ -63,7 +63,7 @@ export const rice_broker = k('rice_broker', 'Courtier en Riz', 5, ['ACTION'],
     [action(1), { type: 'RICE_BROKER' }]);
 export const river_shrine = k('river_shrine', 'Sanctuaire de Rivière', 4, ['ACTION', 'OMEN'],
     '+1 Soleil. Écartez jusqu\'à 2 cartes de votre main. Au début de l\'Ajustement, si vous n\'avez reçu aucune carte pendant votre phase Achat ce tour-ci, recevez une carte coûtant jusqu\'à 4 💰.',
-    [SUN, { type: 'TRASH', min: 0, max: 2, from: 'hand', message: 'Sanctuaire de rivière : écartez jusqu\'à 2 cartes' }, { type: 'RIVER_SHRINE' }]);
+    [SUN, { type: 'TRASH', min: 0, max: 2, from: 'hand', message: 'Sanctuaire de Rivière : écartez jusqu\'à 2 cartes' }, { type: 'RIVER_SHRINE' }]);
 export const riverboat = k('riverboat', 'Bateau de Rivière', 3, ['ACTION', 'DURATION'],
     'Au début de votre prochain tour, jouez la carte mise de côté, en l\'y laissant. Mise en place : mettez de côté une carte Action non-Durée inutilisée coûtant 5 💰.',
     [], { durationEffects: [{ type: 'RIVERBOAT' }] });

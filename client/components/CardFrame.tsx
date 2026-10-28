@@ -242,6 +242,8 @@ function getCardData(cardId: string) {
         else if (registryCard.types.includes('TRAIT')) type = 'trait';
         else if (registryCard.types.includes('PROPHECY' as any)) type = 'prophecy';
         else if (registryCard.types.includes('ALLY' as any)) type = 'landmark';
+        // Boons, Hexes, States, Artifacts: card-like landscapes
+        else if (['BOON', 'HEX', 'STATE', 'ARTIFACT'].some(t => registryCard.types.includes(t as any))) type = 'event';
 
         // Some landscapes (Adventures Events) store their cost as { coin, debt, potion }
         const rawCost: any = registryCard.cost;

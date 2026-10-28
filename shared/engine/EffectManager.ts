@@ -155,7 +155,7 @@ export class EffectManager {
     }
 
     private static executeTrigger(state: GameState, player: PlayerState, trigger: TriggerDefinition): void {
-        Logger.log(state, `Résolution de : ${trigger.description}`, player.id);
+        Logger.log(state, `↳ ${trigger.description}`, player.id);
 
         // Push effects to stack (reverse for correct execution order)
         const runAs = (trigger as any).runAsPlayerId || player.id;

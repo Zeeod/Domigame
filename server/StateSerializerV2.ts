@@ -106,7 +106,11 @@ export class StateSerializerV2 {
             trash: state.trash.map(c => this.serializeCard(c)),
             cardOverrides: state.cardOverrides,
             landscapes: state.landscapes || [],
-            setAsideForGame: (state as any).riverboatCard ? [{ cardId: (state as any).riverboatCard, label: 'Bateau de Rivière' }] : [],
+            // Cards set aside at setup that matter to everyone: Riverboat's card, Druid's 3 Boons
+            setAsideForGame: [
+                ...((state as any).riverboatCard ? [{ cardId: (state as any).riverboatCard, label: 'Bateau de Rivière' }] : []),
+                ...((state.landscapeState?.druid_boons?.state?.boons || []) as string[]).map(id => ({ cardId: id, label: 'Druide' }))
+            ],
             landscapeState: JSON.parse(JSON.stringify(state.landscapeState || {})), // Deep copy to be safe
             players: state.players.map(p => this.serializePublicPlayer(p, forPlayerId)),
 
@@ -272,26 +276,45 @@ export class StateSerializerV2 {
                 }
             })() : undefined,
 
-            logs: GameLogStore.getLogs(state.id).slice(-100).map(l => {
-                let message = l.message;
+            logs: (() => {
+                const raw = GameLogStore.getLogs(state.id).slice(-100);
+                const out: any[] = [];
+                raw.forEach((l, i) => {
+                    let message = l.message;
 
-                // Personalize draw logs
-                if (l.privateData?.type === 'DRAW' && l.privateData.forPlayerId === forPlayerId && Array.isArray(l.privateData.cardIds)) {
-                    message = this.formatPrivateDrawMessage(l.message, l.privateData.cardIds);
-                }
+                    // Personalize draw logs
+                    if (l.privateData?.type === 'DRAW' && l.privateData.forPlayerId === forPlayerId && Array.isArray(l.privateData.cardIds)) {
+                        message = this.formatPrivateDrawMessage(l.message, l.privateData.cardIds);
+                    }
 
-                return {
-                    id: l.id,
-                    timestamp: l.timestamp,
-                    type: l.type,
-                    message,
-                    playerId: l.playerId,
-                    indent: l.indent,
-                    payload: l.payload,
-                    sequenceNumber: l.sequenceNumber,
-                    isRewindable: GameLogStore.getSnapshots(state.id).some(s => s.logId === l.id)
-                };
-            }),
+                    // The engine logs most actions twice (a structured event, then the same text): keep one.
+                    // A structured draw is followed by its text (which names the cards for their owner): keep the text.
+                    const next = raw[i + 1];
+                    if ((l.type as string) === 'DRAW' && next && next.type === 'TEXT' && next.playerId === l.playerId && next.privateData?.type === 'DRAW') return;
+                    const prev = out[out.length - 1];
+                    const duplicate = prev && prev.playerId === l.playerId && prev.message === message;
+                    if (duplicate && l.type === 'TEXT') return;
+                    if (duplicate && prev.type === 'TEXT') out.pop(); // keep the structured event (rich display)
+
+                    // Cards drawn by another player are secret
+                    const payload = l.payload && (l.payload as any).targetIds && l.playerId !== forPlayerId && ((l.type as string) === 'DRAW' || l.type === 'DRAW_CARDS')
+                        ? { ...(l.payload as any), targetIds: undefined }
+                        : l.payload;
+
+                    out.push({
+                        id: l.id,
+                        timestamp: l.timestamp,
+                        type: l.type,
+                        message,
+                        playerId: l.playerId,
+                        indent: l.indent,
+                        payload,
+                        sequenceNumber: l.sequenceNumber,
+                        isRewindable: GameLogStore.getSnapshots(state.id).some(s => s.logId === l.id)
+                    });
+                });
+                return out;
+            })(),
 
             // Removed 'history' field as it was redundant with 'logs'
 

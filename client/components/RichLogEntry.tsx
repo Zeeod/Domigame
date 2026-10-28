@@ -120,7 +120,7 @@ export const RichLogEntry: React.FC<RichLogEntryProps> = ({ entry, players, isRe
             case 'REACTION':
                 return <>révèle {payload.cardId && renderCard(payload.cardId)}</>;
             case 'PHASE_CHANGE':
-                return <span className="log-phase-header">--- {payload.text} ---</span>;
+                return <span className="log-phase-header">{(entry as any).message || `--- ${payload.text || payload.choice || ''} ---`}</span>;
             case 'TURN_START':
                 return <span className="log-turn-header">Tour {payload.index || '?'} - {player?.name}</span>;
             case 'EFFECT_CHOICE':
