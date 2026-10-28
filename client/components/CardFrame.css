@@ -1654,3 +1654,28 @@
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+/* Tokens on a Supply pile: Debt, Embargo, players' Adventures tokens */
+.pile-marker-badges {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    max-width: 95%;
+    z-index: 5;
+    pointer-events: auto;
+}
+.pile-marker {
+    font-size: 0.6rem;
+    line-height: 1.2;
+    padding: 0 4px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    border: 1px solid #fff;
+    white-space: nowrap;
+    cursor: help;
+}
+.pile-marker.debt { border-color: #c0392b; }
+.pile-marker.embargo { border-color: #8e44ad; }

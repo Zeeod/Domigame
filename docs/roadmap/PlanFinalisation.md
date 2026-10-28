@@ -173,14 +173,25 @@ chaque action). Version courte dans la suite : `tests/integration/Stress.test.ts
 
 ## Phase 4 — Interface par mécanique (taille L, à vérifier en jouant)
 
-Chaque mécanique doit être **visible et utilisable** dans l'interface, pas seulement dans le moteur. Liste à valider en jouant une partie par extension :
-- [ ] Plateaux : Taverne, Exil, Village Indigène, Île, cartes mises de côté
-- [ ] Jetons : Coffres, Villageois, Faveurs, Dette, PV, jetons d'Aventures (+1 Carte, −2 💰, etc.)
-- [ ] Bienfaits, Maléfices et États (Nocturne), Héritages
-- [ ] Paysages : Événements, Projets, Landmarks, Voies, Alliés, Traits, Prophéties (affichage + achat + jetons posés dessus)
-- [ ] Phase Nuit, Dette à rembourser, Potion dans les coûts
-- [ ] Piles mixtes et piles divisées (carte du dessus visible)
-- [ ] `client/components/BoardLayout.tsx:536` : TODO sur le support de `cardIds` pour les choix de type SUPPLY
+**État au 28/10/2026** : trois parties jouées dans le navigateur (Soleil Levant ; Guildes/Empires/Rivage/Aventures/Alliés ;
+Nocturne ; Renaissance/Ménagerie/Empires). Corrigé et vérifié en jouant :
+- [x] Écran de jeu blanc avec un Événement d'Aventures ; types de cartes et noms de plateaux en français
+- [x] Ombres (zone « Ombres dans la pioche », Jouer / Choisir), Présages et jetons Soleil, carte du Bateau de Rivière
+- [x] Dette (bouton Rembourser, remboursement automatique à l'achat), Coffres et Villageois (boutons)
+- [x] Réserve : piles valides mises en évidence pendant « recevez une carte »
+- [x] Plateaux : Village indigène, Taverne (bouton Appeler relié à la vraie question)
+- [x] Phase Nuit : cartes Nuit jouables ; les 13 cartes Nuit de Nocturne enfin tirées
+- [x] Bienfaits du Druide affichés ; « Bienfait » au lieu de « Faveur » dans Nocturne
+- [x] Voies : choix « Normalement / En tant que Voie… » au clic sur une Action
+- [x] Événements et Projets achetables au clic (ils envoyaient un achat de carte refusé)
+- [x] Artefacts, Projets, Bienfaits gardés, jetons −1 : badges sous le nom de chaque joueur
+- [x] Jetons sur les piles : Dette, Embargo, jetons d'Aventures des joueurs
+- [x] Journal : sans doublons ; les cartes piochées par l'adversaire ne sont plus envoyées au client
+- [x] Réordonnancement : les cartes s'affichent
+
+Reste à vérifier en jouant : Exil et Chevaux (Ménagerie), Héritage (Inheritance), Possession, Marché noir,
+États de Nocturne (Perdu dans les bois…), piles divisées et Châteaux, Potion dans les coûts, Prophéties avancées.
+Le panneau du navigateur intégré est petit : les vérifications passent surtout par la structure de la page.
 
 ---
 

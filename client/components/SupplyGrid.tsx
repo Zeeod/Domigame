@@ -42,6 +42,8 @@ interface SupplyGridProps {
     landscapeState?: Record<string, any>;
     /** Cards set aside for the whole game (Riverboat), shown with the landscapes */
     setAsideForGame?: { cardId: string; label: string }[];
+    /** Players' tokens on each pile (Adventures) */
+    pileMarkers?: Record<string, { label: string; color: string; title?: string }[]>;
 }
 
 function getBaseCardCost(cardId: string): number {
@@ -66,7 +68,8 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
     costReduction = 0,
     landscapes = [],
     landscapeState = {},
-    setAsideForGame = []
+    setAsideForGame = [],
+    pileMarkers = {}
 }) => {
     const { playGainAnimation: onAnimationTrigger } = useGameAnimations();
     // Organize supply by type
@@ -210,6 +213,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                 costOverride={getEffectiveCost(pile.topCardId || cardId)}
                 showCount={true}
                 tokens={pile.tokens}
+                markers={pileMarkers[cardId]}
                 isPurchasable={showPurchasableBadge}
                 isSelectable={canSelect}
                 selected={isSelected} // NEW: Highlight selected piles

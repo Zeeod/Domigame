@@ -27,6 +27,7 @@ import { KingdomOverviewModal } from './KingdomOverviewModal';
 import { TavernMat } from './TavernMat';
 import { ExileMat } from './ExileMat';
 import { ShadowDeckZone } from './ShadowDeckZone';
+import { PlayerBadges } from './PlayerBadges';
 import { SpectatorBar } from './SpectatorBar';
 import { DeckStatsPanel } from './DeckStatsPanel';
 import { RoomState } from '../hooks/useSocket';
@@ -37,7 +38,8 @@ interface BoardLayoutProps {
     gameState: GameState;
     playerId: string | null;
     isHost?: boolean;
-    onPlayCard: (instanceId: string) => void;
+    /** wayId: play it as a Way (Menagerie) instead of following its instructions */
+    onPlayCard: (instanceId: string, wayId?: string) => void;
     onBuyCard: (cardId: string) => void;
     onEndPhase: () => void;
     onChoose: (choiceId: string, payload: any) => void;
@@ -71,6 +73,11 @@ import { GameOverScreen } from './GameOverScreen';
  * Can this card be played from the hand in this phase? Action phase: Actions (and Treasures, which start the
  * Buy phase); Buy phase: Treasures; Night phase: Night cards (Nocturne).
  */
+/** Adventures tokens (labels shown on the piles). */
+const ADV_TOKEN_LABELS: Record<string, string> = {
+    plus1Card: '+1 Carte', plus1Action: '+1 Action', plus1Buy: '+1 Achat', plus1Coin: '+1 💰', minus2Cost: '−2 💰', trashing: 'Écart'
+};
+
 function canPlayInPhase(cardId: string, phase: string): boolean {
     const types = CardRegistry.get(cardId)?.types || [];
     if (phase === 'ACTION') return types.includes('ACTION') || types.includes('TREASURE');
@@ -129,6 +136,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     // Unified Overlay State
     type ActiveOverlay = { type: 'TRASH' } | { type: 'DURATION'; playerId: string } | { type: 'SET_ASIDE' };
     const [activeOverlay, setActiveOverlay] = useState<ActiveOverlay | null>(null);
+    // Menagerie: an Action card clicked while Ways are in the game — play it normally or as a Way?
+    const [wayPrompt, setWayPrompt] = useState<{ instanceId: string; cardId: string } | null>(null);
 
     // --- SELECTION REFACTOR (PHASE 4) ---
     // We now use server-side persistence via PlayerState.currentSelection
@@ -379,6 +388,14 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     }, []);
 
     const { public: pub, private: priv } = gameState;
+    // Adventures: every player's tokens, shown on the piles they are on
+    const pileMarkers: Record<string, { label: string; color: string; title?: string }[]> = {};
+    for (const p of pub.players) {
+        for (const [token, pile] of Object.entries((p as any).advTokens || {})) {
+            if (!pile) continue;
+            (pileMarkers[pile as string] = pileMarkers[pile as string] || []).push({ label: ADV_TOKEN_LABELS[token] ?? token, color: p.color, title: `${p.name} : ${ADV_TOKEN_LABELS[token] ?? token}` });
+        }
+    }
     const pendingDecision = pub.pendingDecision;
     const isMyChoice = pendingDecision && pendingDecision.playerId === playerId;
     const isSelectionMode = isMyChoice && (pendingDecision?.type === PromptType.CHOOSE_CARDS || pendingDecision?.type === PromptType.ZONE_SEARCH);
@@ -700,6 +717,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     </span>
                                 </PersonaTooltip>
                                 <span className="opponent-vp-score">{p.score} VP</span>
+                                <PlayerBadges player={p as any} />
                             </div>
                         );
                     })}
@@ -724,6 +742,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                             <span className="opponent-vp-score">{myPlayer?.score} VP</span>
                             <span className="stats-toggle-icon">{isDeckStatsVisible ? '📊' : '📈'}</span>
                         </div>
+                        <PlayerBadges player={myPlayer as any} />
                     </div>
 
                     <DeckStatsPanel
@@ -1160,6 +1179,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     landscapes={pub.landscapes}
                                     landscapeState={pub.landscapeState}
                                     setAsideForGame={pub.setAsideForGame}
+                                    pileMarkers={pileMarkers}
                                 />
                             </div>
                         )}
@@ -1354,7 +1374,13 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
                                             if (targetInstance) {
                                                 pendingPlayIdsRef.current.add(targetInstance.instanceId);
-                                                onPlayCard(targetInstance.instanceId);
+                                                const ways = (pub.landscapes || []).filter(id => CardRegistry.get(id)?.types.includes('WAY' as any));
+                                                if (ways.length && pub.phase === 'ACTION' && CardRegistry.get(group.id)?.types.includes('ACTION')) {
+                                                    pendingPlayIdsRef.current.delete(targetInstance.instanceId);
+                                                    setWayPrompt({ instanceId: targetInstance.instanceId, cardId: group.id });
+                                                } else {
+                                                    onPlayCard(targetInstance.instanceId);
+                                                }
                                             }
                                         }
                                     }
@@ -1485,6 +1511,25 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                 }
             </div >
 
+            {/* Menagerie — play an Action card normally, or as one of the Ways in the game */}
+            {wayPrompt && (
+                <div className="way-prompt-backdrop" onClick={() => setWayPrompt(null)}>
+                    <div className="way-prompt" onClick={e => e.stopPropagation()}>
+                        <div className="way-prompt-title">Jouer {CardRegistry.get(wayPrompt.cardId)?.name ?? wayPrompt.cardId}…</div>
+                        <button className="confirm-btn-medieval" onClick={() => { onPlayCard(wayPrompt.instanceId); setWayPrompt(null); }}>
+                            Normalement
+                        </button>
+                        {(pub.landscapes || []).filter(id => CardRegistry.get(id)?.types.includes('WAY' as any)).map(wayId => (
+                            <button key={wayId} className="confirm-btn-medieval way-option"
+                                onClick={() => { onPlayCard(wayPrompt.instanceId, wayId); setWayPrompt(null); }}>
+                                En tant que {CardRegistry.get(wayId)?.name ?? wayId}
+                                <span className="way-option-text">{CardRegistry.get(wayId)?.description}</span>
+                            </button>
+                        ))}
+                        <button className="way-prompt-cancel" onClick={() => setWayPrompt(null)}>Annuler</button>
+                    </div>
+                </div>
+            )}
 
             {/* Right Column */}
             < div className="layout-col-right" >

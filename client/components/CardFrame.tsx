@@ -58,6 +58,8 @@ export interface CardFrameProps {
     children?: React.ReactNode; // For description text (full cards only)
     selectionIndex?: number; // Order in selection tray
     tokens?: Record<string, number>;
+    /** Tokens of players placed on this pile (Adventures: +1 Carte, −2 💰 de coût…) */
+    markers?: { label: string; color: string; title?: string }[];
 }
 
 // ============================================================================
@@ -374,6 +376,7 @@ export const CardFrame: React.FC<CardFrameProps> = ({
     variant = 'full',
     count,
     tokens,
+    markers,
     selected = false,
     playable = false,
     isPurchasable = false,
@@ -635,6 +638,15 @@ export const CardFrame: React.FC<CardFrameProps> = ({
                                         {isProphecy && tokens && tokens['sun'] !== undefined && tokens['sun'] > 0 && (
                                             <div className="prophecy-sun-overlay">
                                                 <SunSymbol value={tokens['sun']} size="lg" />
+                                            </div>
+                                        )}
+
+                                        {/* Debt / Embargo tokens on a pile, and players' tokens (Adventures) */}
+                                        {!isProphecy && ((tokens?.['debt'] ?? 0) > 0 || (tokens?.['embargo'] ?? 0) > 0 || (markers?.length ?? 0) > 0) && (
+                                            <div className="pile-marker-badges">
+                                                {(tokens?.['debt'] ?? 0) > 0 && <span className="pile-marker debt" title={`${tokens!['debt']} Dette(s) sur cette pile`}>▽{tokens!['debt']}</span>}
+                                                {(tokens?.['embargo'] ?? 0) > 0 && <span className="pile-marker embargo" title={`${tokens!['embargo']} jeton(s) Embargo : une Malédiction par jeton à l'achat`}>☠{tokens!['embargo']}</span>}
+                                                {(markers || []).map((m, i) => <span key={i} className="pile-marker" style={{ borderColor: m.color }} title={m.title || m.label}>{m.label}</span>)}
                                             </div>
                                         )}
 

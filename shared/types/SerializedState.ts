@@ -30,6 +30,8 @@ export interface PublicPlayerState {
     limbo: SerializedCard[];
     /** Rising Sun: Shadow cards in the deck (their backs are unique, so this is public) */
     deckShadows?: SerializedCard[];
+    /** Adventures: the pile each of this player's tokens is on (+1 Carte, −2 💰 de coût…) */
+    advTokens?: Record<string, string>;
     topDiscard?: SerializedCard;
 
     // Generic Storage (New)

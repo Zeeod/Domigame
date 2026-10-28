@@ -255,29 +255,29 @@ export class RulesValidator {
 
     private static validateBuyProject(state: GameState, playerId: string, projectId: string): ValidationResult {
         const currentPlayer = getCurrentPlayer(state);
-        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "not_your_turn" };
-        if (state.phase !== 'BUY') return { valid: false, error: "invalid_phase" };
-        if (currentPlayer.buys <= 0) return { valid: false, error: "no_buys" };
+        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "Ce n'est pas votre tour" };
+        if (state.phase !== 'BUY') return { valid: false, error: "Seulement pendant votre phase Achat" };
+        if (currentPlayer.buys <= 0) return { valid: false, error: "Plus d'achats disponibles" };
 
         const def = CardRegistry.get(projectId);
-        if (!def) return { valid: false, error: "unknown_project" };
-        if (!def.types.includes('PROJECT')) return { valid: false, error: "not_a_project" };
+        if (!def) return { valid: false, error: "Projet inconnu" };
+        if (!def.types.includes('PROJECT')) return { valid: false, error: "Ce n'est pas un Projet" };
 
-        if (currentPlayer.projects.includes(projectId)) return { valid: false, error: "already_owned" };
-        if (currentPlayer.debt > 0) return { valid: false, error: "pay_debt_first" };
+        if (currentPlayer.projects.includes(projectId)) return { valid: false, error: "Vous avez déjà ce Projet" };
+        if (currentPlayer.debt > 0) return { valid: false, error: "Vous devez d'abord rembourser votre Dette" };
 
         const cost = EconomyEngine.getCardCost(state, playerId, projectId);
-        if (currentPlayer.coins < cost) return { valid: false, error: "insufficient_funds" };
+        if (currentPlayer.coins < cost) return { valid: false, error: "Pas assez de pièces" };
 
         return { valid: true };
     }
 
     private static validateActivateLandscape(state: GameState, playerId: string, landscapeId: string): ValidationResult {
         const currentPlayer = getCurrentPlayer(state);
-        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "not_your_turn" };
+        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "Ce n'est pas votre tour" };
 
         // Check if landscape is active
-        if (!state.landscapes.includes(landscapeId)) return { valid: false, error: "landscape_not_active" };
+        if (!state.landscapes.includes(landscapeId)) return { valid: false, error: "Ce paysage n'est pas utilisé dans cette partie" };
 
         const def = LandscapeRegistry.get(landscapeId);
         if (!def) return { valid: false, error: 'unknown_landscape' };
@@ -289,7 +289,7 @@ export class RulesValidator {
         // Or assume Action/Buy is fine?
         // Most Allies are "You may spend X favors to..."
         // Let's allow in Action and Buy for now unless strictly restricted.
-        if (state.phase !== 'ACTION' && state.phase !== 'BUY') return { valid: false, error: "invalid_phase" };
+        if (state.phase !== 'ACTION' && state.phase !== 'BUY') return { valid: false, error: "Seulement pendant votre phase Achat" };
 
         // Check Favor cost (stored where? In def.cost or specific favorCost?)
         // LandscapeDefinition needs favorCost?
@@ -298,21 +298,21 @@ export class RulesValidator {
         // Let's assume def.setupRequirements or a specific property 'favorCost'.
         // For now, I'll access it safely.
         const favors = (def as any).favorCost || 0;
-        if (favors > 0 && currentPlayer.favors < favors) return { valid: false, error: "not_enough_favors" };
+        if (favors > 0 && currentPlayer.favors < favors) return { valid: false, error: "Pas assez de Faveurs" };
 
         return { valid: true };
     }
 
     private static validateBuyLandscape(state: GameState, playerId: string, landscapeId: string): ValidationResult {
         const currentPlayer = getCurrentPlayer(state);
-        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "not_your_turn" };
-        if (state.phase !== 'BUY') return { valid: false, error: "invalid_phase" };
-        if (currentPlayer.buys <= 0) return { valid: false, error: "no_buys" };
+        if (!currentPlayer || currentPlayer.id !== playerId) return { valid: false, error: "Ce n'est pas votre tour" };
+        if (state.phase !== 'BUY') return { valid: false, error: "Seulement pendant votre phase Achat" };
+        if (currentPlayer.buys <= 0) return { valid: false, error: "Plus d'achats disponibles" };
 
-        if (!state.landscapes.includes(landscapeId)) return { valid: false, error: "landscape_not_active" };
+        if (!state.landscapes.includes(landscapeId)) return { valid: false, error: "Ce paysage n'est pas utilisé dans cette partie" };
 
         const def = LandscapeRegistry.get(landscapeId);
-        if (!def) return { valid: false, error: "landscape_definition_not_found" };
+        if (!def) return { valid: false, error: "Paysage inconnu" };
         if ((def as any).oncePerTurn && currentPlayer.eventsThisTurn?.includes(landscapeId)) {
             return { valid: false, error: 'Une seule fois par tour' };
         }
@@ -325,8 +325,8 @@ export class RulesValidator {
             const coinCost = def.cost.coin ?? 0;
             const potionCost = def.cost.potion ?? 0;
 
-            if (currentPlayer.coins < coinCost) return { valid: false, error: "insufficient_coins" };
-            if (currentPlayer.potions < potionCost) return { valid: false, error: "insufficient_potions" };
+            if (currentPlayer.coins < coinCost) return { valid: false, error: "Pas assez de pièces" };
+            if (currentPlayer.potions < potionCost) return { valid: false, error: "Pas assez de Potions" };
             // Debt doesn't prevent buying if you can take more? 
             // Actually in Dominion, you can buy if you have enough coins/potions. Debt is added AFTER.
             // But some rules might differ. Usually, you don't need to "have" debt to buy, you "gain" it.
