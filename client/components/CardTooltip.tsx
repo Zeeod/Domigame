@@ -119,7 +119,7 @@ export const CardTooltip: React.FC<{ gameState?: GameState | null }> = ({ gameSt
                     fontWeight: 'bold',
                     fontSize: 12
                 }}>
-                    {card.cost}💰
+                    {typeof (card as any).cost === 'object' ? (card as any).cost?.coin ?? 0 : card.cost}💰
                 </span>
             </div>
 

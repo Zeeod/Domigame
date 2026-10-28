@@ -164,6 +164,9 @@ export const AppV2: React.FC = () => {
                                 onForceEndGame={forceEndGame}
                                 onAcknowledgeReveal={() => sendAction({ type: 'ACKNOWLEDGE_REVEAL' })}
                                 onPlayAllTreasures={() => sendAction({ type: 'PLAY_ALL_TREASURES' })}
+                                onPayDebt={(amount) => sendAction({ type: 'PAY_DEBT', amount })}
+                                onSpendCoffers={(amount) => sendAction({ type: 'SPEND_COFFERS', amount } as any)}
+                                onSpendVillagers={(amount) => sendAction({ type: 'SPEND_VILLAGERS', amount } as any)}
                                 onRequestRewind={requestRewind}
                                 roomState={roomState}
                                 onConfigureSpectator={configureSpectator}

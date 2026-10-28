@@ -40,6 +40,8 @@ interface SupplyGridProps {
     costReduction?: number;
     landscapes?: string[];
     landscapeState?: Record<string, any>;
+    /** Cards set aside for the whole game (Riverboat), shown with the landscapes */
+    setAsideForGame?: { cardId: string; label: string }[];
 }
 
 function getBaseCardCost(cardId: string): number {
@@ -63,7 +65,8 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
     isSelectable: externalIsSelectable,
     costReduction = 0,
     landscapes = [],
-    landscapeState = {}
+    landscapeState = {},
+    setAsideForGame = []
 }) => {
     const { playGainAnimation: onAnimationTrigger } = useGameAnimations();
     // Organize supply by type
@@ -124,7 +127,11 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
 
         // Check if choosing cards from supply
         const constraints = pendingDecision.constraints;
-        if (constraints?.sourceZone !== 'SUPPLY') return false;
+        if (String(constraints?.sourceZone || '').toUpperCase() !== 'SUPPLY') return false;
+
+        // The server lists the piles that can be chosen: that list is authoritative
+        const allowedIds: string[] | undefined = (constraints?.filter as any)?.cardIds;
+        if (allowedIds) return allowedIds.includes(cardId);
 
         // Supported constraints formats:
         // 1. constraints.filter.maxCost (Standard)
@@ -175,7 +182,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
         const canSelect = externalIsSelectable ? externalIsSelectable(cardId) : isSelectable(cardId);
 
         // Decision Mode: If there is a pending decision that targets supply, we are in selection mode.
-        const isSupplySelectionMode = pendingDecision?.constraints?.sourceZone === 'SUPPLY';
+        const isSupplySelectionMode = String(pendingDecision?.constraints?.sourceZone || '').toUpperCase() === 'SUPPLY';
 
         // Selected in Tray: We highlight if THIS card is in the selected list
         const selectionIndex = selectedDetails?.indexOf(cardId);
@@ -255,7 +262,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                     </div>
 
                     {/* Landscape Column - To the RIGHT of the Kingdom Grid */}
-                    {landscapes.length > 0 && (
+                    {(landscapes.length > 0 || setAsideForGame.length > 0) && (
                         <div className="landscape-column">
                             {landscapes.map(landscapeId => {
                                 const def = CardRegistry.get(landscapeId);
@@ -281,6 +288,12 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                                     />
                                 );
                             })}
+                            {setAsideForGame.map(({ cardId, label }) => (
+                                <div key={'aside_' + cardId} className="set-aside-for-game" title={`Mise de côté pour ${label}`}>
+                                    <CardFrame cardId={cardId} variant="mini" showCost={false} />
+                                    <div className="set-aside-for-game-label">{label}</div>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>

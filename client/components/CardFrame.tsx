@@ -240,13 +240,20 @@ function getCardData(cardId: string) {
         else if (registryCard.types.includes('LANDMARK')) type = 'landmark';
         else if (registryCard.types.includes('WAY')) type = 'way';
         else if (registryCard.types.includes('TRAIT')) type = 'trait';
+        else if (registryCard.types.includes('PROPHECY' as any)) type = 'prophecy';
+        else if (registryCard.types.includes('ALLY' as any)) type = 'landmark';
+
+        // Some landscapes (Adventures Events) store their cost as { coin, debt, potion }
+        const rawCost: any = registryCard.cost;
+        const cost: number = typeof rawCost === 'object' && rawCost !== null ? (rawCost.coin ?? 0) : (rawCost ?? 0);
+        const debtCost: number = registryCard.debtCost || (typeof rawCost === 'object' && rawCost ? rawCost.debt || 0 : 0);
 
         return {
             name: registryCard.name,
             type: type,
             types: types,
-            cost: registryCard.cost,
-            debtCost: registryCard.debtCost || 0,
+            cost,
+            debtCost,
             potionCost: (registryCard as any).potionCost || 0,
             text: registryCard.description,
             image: registryCard.image,
@@ -312,7 +319,32 @@ function getTypeBadge(types: CardType[], variant: 'full' | 'mini' | 'micro'): st
         night: 'Nuit',
         spirit: 'Esprit',
         reserve: 'Réserve',
-        traveller: 'Voyageur'
+        traveller: 'Voyageur',
+        // All the other official types (any missing one would show in English)
+        shadow: 'Ombre',
+        omen: 'Présage',
+        command: 'Ordre',
+        loot: 'Butin',
+        liaison: 'Liaison',
+        ally: 'Allié',
+        castle: 'Château',
+        gathering: 'Rassemblement',
+        heirloom: 'Héritage',
+        fate: 'Destin',
+        doom: 'Malheur',
+        zombie: 'Zombie',
+        boon: 'Bienfait',
+        hex: 'Maléfice',
+        state: 'État',
+        artifact: 'Artefact',
+        prize: 'Prix',
+        reward: 'Récompense',
+        augur: 'Augure',
+        clash: 'Affrontement',
+        fort: 'Fort',
+        odyssey: 'Odyssée',
+        townsfolk: 'Citadin',
+        wizard: 'Magicien'
     };
 
     if (variant === 'mini') {

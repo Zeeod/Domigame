@@ -92,6 +92,8 @@ export interface PublicGameState {
     supply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number> }>;
     nonSupply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number> }>;
     landscapes: string[];
+    /** Cards set aside at setup that players should see (Rising Sun — Riverboat), with what they belong to */
+    setAsideForGame?: { cardId: string; label: string }[];
     landscapeState: Record<string, {
         tokens: Record<string, number>;
         state: any;

@@ -34,16 +34,25 @@ describe('Debt Mechanics', () => {
         expect(result.state.players[0].coins).toBe(10); // 0 coin cost, only debt
     });
 
-    it('should prevent buying another card while in debt', () => {
-        // First buy Engineer
+    it('should prevent buying another card while in debt it cannot pay off', () => {
+        // First buy Engineer (4 Debt)
         let result = ActionResolver.resolve(state, p1, { type: 'BUY_CARD', cardId: 'engineer' });
         expect(result.success).toBe(true);
 
-        // Try to buy Silver (cost 3)
-        state.players[0].buys = 1; // Give another buy
+        // 3 coins: not enough to pay off the 4 Debt, no buying
+        result.state.players[0].coins = 3;
+        const refused = ActionResolver.resolve(result.state, p1, { type: 'BUY_CARD', cardId: 'silver' });
+        expect(refused.success).toBe(false);
+        expect(refused.error).toContain('dette');
+    });
+
+    it('pays off the Debt automatically before buying, when it can', () => {
+        let result = ActionResolver.resolve(state, p1, { type: 'BUY_CARD', cardId: 'engineer' });
+        // 10 coins: 4 go to the Debt, 3 to the Silver
         result = ActionResolver.resolve(result.state, p1, { type: 'BUY_CARD', cardId: 'silver' });
-        expect(result.success).toBe(false);
-        expect(result.error).toContain('dette');
+        expect(result.success).toBe(true);
+        expect(result.state.players[0].debt).toBe(0);
+        expect(result.state.players[0].coins).toBe(3);
     });
 
     it('should allow paying off debt', () => {

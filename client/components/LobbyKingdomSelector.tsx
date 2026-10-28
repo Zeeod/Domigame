@@ -108,6 +108,7 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
 
         // Handle Kingdom Slot Selection
         if (activeSlot !== null) {
+            if (renderSlots.some((id, i) => id === cardId && i !== activeSlot)) return; // already in the Kingdom
             const newSlots = [...renderSlots];
             newSlots[activeSlot] = cardId;
             onSelectionChange(newSlots);
@@ -213,6 +214,9 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
                 } else {
                     if (c.types.includes('EVENT') || c.types.includes('LANDMARK') || c.types.includes('PROJECT') || c.types.includes('WAY') || c.types.includes('TRAIT')) return false;
                 }
+
+                // A card already in the Kingdom (or already chosen as a landscape) cannot be picked twice
+                if (pickerType ? landscapeInstructions.includes(c.id) : renderSlots.some((id, i) => id === c.id && i !== activeSlot)) return false;
 
                 const cardSetKey = getCardExpansion(c);
 
