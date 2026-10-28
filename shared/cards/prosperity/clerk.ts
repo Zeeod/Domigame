@@ -30,7 +30,7 @@ export const clerk: CardDefinition = {
                             destination: 'deck',
                             min: 1,
                             max: 1,
-                            message: 'Greffier : placez une carte de votre main sur votre pioche.'
+                            message: 'Clerc : placez une carte de votre main sur votre pioche.'
                         }
                     ]
                 }

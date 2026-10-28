@@ -10,7 +10,7 @@ export const wildHunt: CardDefinition = {
     description: 'Choisissez : +3 Cartes et ajoutez 1 🛡️ sur la pile des Chasses sauvages ; ou recevez un Domaine, et si vous le faites, prenez les 🛡️ de la pile.',
     cost: 5,
     types: ['ACTION', 'GATHERING'],
-    effects: [{ type: 'SELECT_OPTION', message: 'Chasse sauvage : choisissez', options: [
+    effects: [{ type: 'SELECT_OPTION', message: 'Chasse gardée : choisissez', options: [
         { label: '+3 Cartes et +1 🛡️ sur la pile', effects: [{ type: 'DRAW', amount: 3 }, { type: 'ADD_PILE_VP', cardId: 'wild_hunt', amount: 1 }] },
         { label: 'Recevoir un Domaine et prendre les 🛡️ de la pile', effects: [{ type: 'WILD_HUNT_ESTATE' }] }
     ] }] as any,

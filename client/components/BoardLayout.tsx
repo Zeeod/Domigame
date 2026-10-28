@@ -67,6 +67,18 @@ import { GameAnimationsProvider, useGameAnimations } from '../context/GameAnimat
 import { GameOverScreen } from './GameOverScreen';
 
 // Wrapper Component with Provider
+/**
+ * Can this card be played from the hand in this phase? Action phase: Actions (and Treasures, which start the
+ * Buy phase); Buy phase: Treasures; Night phase: Night cards (Nocturne).
+ */
+function canPlayInPhase(cardId: string, phase: string): boolean {
+    const types = CardRegistry.get(cardId)?.types || [];
+    if (phase === 'ACTION') return types.includes('ACTION') || types.includes('TREASURE');
+    if (phase === 'BUY') return types.includes('TREASURE');
+    if (phase === 'NIGHT') return types.includes('NIGHT' as any);
+    return false;
+}
+
 export const BoardLayout: React.FC<BoardLayoutProps> = (props) => {
     // Check if Game Over
     if (props.gameState.public.phase === 'GAME_OVER') {
@@ -1328,11 +1340,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                             toggleHandSelection(visibleInstances[visibleInstances.length - 1].instanceId, group.id);
                                         }
                                     } else if (isMyTurn) {
-                                        const def = CardRegistry.get(group.id);
-                                        const isAction = def?.types.includes('ACTION') || def?.types.includes('ATTACK') || def?.types.includes('REACTION');
-                                        const isTreasure = def?.types.includes('TREASURE');
-
-                                        if ((pub.phase === 'ACTION' && isAction) || ((pub.phase === 'ACTION' || pub.phase === 'BUY') && isTreasure)) {
+                                        if (canPlayInPhase(group.id, pub.phase)) {
                                             const currentPending = pendingPlayIdsRef.current;
 
                                             // Find first available VISIBLE instance that isn't already pending
@@ -1355,13 +1363,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 const isGroupSelected = firstSelectedIndex !== -1;
 
                                 // Restore Playable Logic
-                                const def = CardRegistry.get(group.id);
-                                const isAction = def?.types.includes('ACTION') || def?.types.includes('ATTACK') || def?.types.includes('REACTION');
-                                const isTreasure = def?.types.includes('TREASURE');
-                                const isPlayable = !isHandLocked && !isSelectionMode && isMyTurn && (
-                                    (pub.phase === 'ACTION' && isAction) ||
-                                    ((pub.phase === 'ACTION' || pub.phase === 'BUY') && isTreasure)
-                                );
+                                const isPlayable = !isHandLocked && !isSelectionMode && isMyTurn && canPlayInPhase(group.id, pub.phase);
 
                                 return (
                                     <AnimatedCard
@@ -1420,8 +1422,11 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 {myPlayer?.tavernMat && myPlayer.tavernMat.length > 0 && (
                                     <TavernMat
                                         cards={myPlayer.tavernMat as any[]}
-                                        isMyTurn={isMyTurn}
-                                        onCallCard={(instanceId) => onSendDecision?.('call_reserve', { type: 'CARD', cardInstanceId: instanceId })}
+                                        // A Reserve can be called only when the game offers it ("Appeler X ?")
+                                        callableNames={isMyChoice && /^Appeler (.+) \?$/.test(pendingDecision?.message || '')
+                                            ? [(pendingDecision!.message.match(/^Appeler (.+) \?$/) as RegExpMatchArray)[1]]
+                                            : []}
+                                        onCallCard={() => pendingDecision && onSendDecision(pendingDecision.id, { type: 'OPTION', optionIndex: 0 })}
                                     />
                                 )}
                                 {myPlayer?.exileMat && myPlayer.exileMat.length > 0 && (

@@ -937,8 +937,8 @@ export class CardRegistry {
                 // Exclude Landscape, auxiliary types and Heirlooms
                 if (card.types.some(t => excludedTypes.has(t)) || card.types.includes('HEIRLOOM')) return false;
 
-                // Must be Action or Victory to be a Kingdom pile (standard rule)
-                return card.types.includes('ACTION') || card.types.includes('VICTORY') || card.types.includes('TREASURE');
+                // A Kingdom pile is Action, Treasure, Victory or Night (Nocturne: Monastery, Exorcist…)
+                return card.types.includes('ACTION') || card.types.includes('VICTORY') || card.types.includes('TREASURE') || card.types.includes('NIGHT');
             })
             .map(c => c.id);
     }
