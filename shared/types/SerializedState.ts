@@ -93,7 +93,7 @@ export interface PublicGameState {
     isGameOver: boolean;
     winnerId: string | null;
 
-    supply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number> }>;
+    supply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number>; cost?: number }>;
     nonSupply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number> }>;
     landscapes: string[];
     /** Cards set aside at setup that players should see (Rising Sun — Riverboat), with what they belong to */

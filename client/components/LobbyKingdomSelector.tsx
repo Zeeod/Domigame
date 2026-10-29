@@ -207,7 +207,8 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
 
                 if (pickerType) {
                     if (pickerType === 'any') {
-                        if (!c.types.some(t => ['EVENT', 'LANDMARK', 'PROJECT', 'WAY', 'TRAIT'].includes(t))) return false;
+                        // A specific Prophecy or Ally can be chosen too (they are never drawn at random)
+                        if (!c.types.some(t => ['EVENT', 'LANDMARK', 'PROJECT', 'WAY', 'TRAIT', 'PROPHECY', 'ALLY'].includes(t))) return false;
                     } else {
                         if (!c.types.includes(pickerType.toUpperCase() as any)) return false;
                     }

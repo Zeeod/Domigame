@@ -17,6 +17,7 @@ import { CardRegistry } from '../shared/cards/index.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { DeckEvaluator } from '../shared/bot/DeckEvaluator.js';
 import { possessionOf } from '../shared/engine/Possession.js';
+import { EconomyEngine } from '../shared/engine/EconomyEngine.js';
 import { SerializedCard, PublicPlayerState, PublicGameState, PrivatePlayerState, SerializedState } from '../shared/types/index.js';
 
 // Extend PublicGameState to include turnEndTime
@@ -83,7 +84,14 @@ export class StateSerializerV2 {
                         tokens: pile.tokens && Object.keys(pile.tokens).length > 0 ? { ...pile.tokens } : undefined,
                         topCardId: pile.isMixed && pile.cards && pile.cards.length > 0
                             ? pile.cards[pile.cards.length - 1].id
-                            : undefined
+                            : undefined,
+                        // What the card on top costs right now for the player whose turn it is
+                        // (Bridge, Highway, Flourishing Trade, Ferry token, Destrier…)
+                        cost: (() => {
+                            const top = pile.isMixed && pile.cards?.length ? pile.cards[pile.cards.length - 1].id : id;
+                            const turnPlayer = state.players[state.currentPlayerIndex]?.id;
+                            try { return turnPlayer && top !== 'back' ? EconomyEngine.getCardCost(state, turnPlayer, top) : undefined; } catch { return undefined; }
+                        })()
                     }
                 ])
             ),

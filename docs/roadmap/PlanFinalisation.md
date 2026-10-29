@@ -199,8 +199,12 @@ Nocturne ; Renaissance/Ménagerie/Empires). Corrigé et vérifié en jouant :
 - [x] Sélection : clics rapides sur un groupe de cartes identiques (sélection immédiate côté interface)
 - [x] Le client applique les modifications de cartes de la partie (Charlatane, Illumination, Héritage)
 
-Reste à vérifier en jouant : jouer un Domaine comme Commande après Héritage (vérifié seulement par les tests),
-Prophéties avancées.
+- [x] Domaine hérité joué comme Village ; Prophétie accomplie (badge « Accomplie », Commerce florissant :
+  achats avec les Actions, coûts réduits)
+- [x] Salon : choix d'une Prophétie ou d'un Allié précis ; coûts affichés = coûts réels du serveur
+
+La phase 4 est terminée pour ce qui a pu être vérifié dans le navigateur intégré (petit panneau) ;
+une partie complète jouée à la main reste conseillée.
 Le panneau du navigateur intégré est petit : les vérifications passent surtout par la structure de la page.
 
 ---

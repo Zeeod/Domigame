@@ -640,6 +640,10 @@ export const CardFrame: React.FC<CardFrameProps> = ({
                                                 <SunSymbol value={tokens['sun']} size="lg" />
                                             </div>
                                         )}
+                                        {/* The last Sun was removed: the Prophecy now applies */}
+                                        {isProphecy && tokens && tokens['sun'] === 0 && (
+                                            <div className="prophecy-fulfilled-badge" title="Prophétie accomplie : son texte s'applique pour le reste de la partie">☀️ Accomplie</div>
+                                        )}
 
                                         {/* Debt / Embargo tokens on a pile, and players' tokens (Adventures) */}
                                         {!isProphecy && ((tokens?.['debt'] ?? 0) > 0 || (tokens?.['embargo'] ?? 0) > 0 || (markers?.length ?? 0) > 0) && (
