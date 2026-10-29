@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FitToBox } from './FitToBox';
 import { CardRegistry } from '../../shared/cards/index';
 import { getCardExpansion } from '../../shared/cards/expansions';
 import { isUnfinishedCard } from '../../shared/cards/unfinished';
@@ -241,7 +242,7 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
             <div className="kingdom-main-area">
 
                 {/* Combined Grid Section */}
-                <div className="combined-cards-area">
+                <FitToBox className="lobby-fit"><div className="combined-cards-area">
                     {/* Left: Kingdom Grid */}
                     <div className="kingdom-column">
                         <div className="section-header">
@@ -391,7 +392,7 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
                             })()}
                         </div>
                     </div>
-                </div>
+                </div></FitToBox>
             </div>
 
             {/* Expansion Toggles Bar */}

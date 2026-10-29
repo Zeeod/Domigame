@@ -54,15 +54,14 @@
 /* Landscape column - sits to the RIGHT of the kingdom grid */
 .landscape-column {
     display: grid;
-    /* Auto-fit: makes 1 or 2 columns based on available space, never overflows */
-    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-    max-width: 248px; /* 2 × 112px + 1 × 24px gap = 248px max */
+    /* 1 column for 1–2 landscapes, 2 beyond (set inline); cards keep their size, the whole block is fitted */
+    grid-template-columns: repeat(1, max-content);
     gap: 8px;
     align-items: flex-start;
     flex-shrink: 0;
     justify-content: flex-start;
     padding-top: 0;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Hide legacy selectors */

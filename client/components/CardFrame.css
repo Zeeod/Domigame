@@ -1680,19 +1680,9 @@
 .pile-marker.debt { border-color: #c0392b; }
 .pile-marker.embargo { border-color: #8e44ad; }
 
-/* Rising Sun — a Prophecy whose last Sun token was removed */
-.prophecy-fulfilled-badge {
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1px 8px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #f39c12, #f1c40f);
-    color: #3b2400;
-    font-size: 0.7rem;
-    font-weight: bold;
-    white-space: nowrap;
-    box-shadow: 0 0 8px rgba(241, 196, 15, 0.8);
-    z-index: 6;
+/* Rising Sun — a Prophecy whose last Sun token was removed: golden glow (nothing covers its text) */
+.card-frame.prophecy-fulfilled {
+    outline: 3px solid #f1c40f;
+    outline-offset: -1px;
+    box-shadow: 0 0 14px 3px rgba(241, 196, 15, 0.75);
 }

@@ -556,7 +556,7 @@ export const CardFrame: React.FC<CardFrameProps> = ({
 
     return (
         <motion.div
-            className={`card-frame ${variant} type-${data.type} ${isLandscape ? 'landscape' : ''} ${selectionClass} ${playable ? 'playable' : ''} ${isSelectable ? 'selectable' : ''} ${disabled ? 'disabled' : ''} ${dimmed ? 'card-dimmed' : ''} ${isEmpty ? 'empty' : ''} ${hasCount ? 'has-count' : ''} ${showCost ? 'has-cost' : ''} ${isCardBack ? 'card-back-frame' : ''} ${isEmptyPile ? 'empty-pile-outline' : ''} ${isFullArt ? 'is-full-art' : ''}`}
+            className={`card-frame ${variant} type-${data.type} ${isLandscape ? 'landscape' : ''} ${selectionClass} ${playable ? 'playable' : ''} ${isSelectable ? 'selectable' : ''} ${disabled ? 'disabled' : ''} ${dimmed ? 'card-dimmed' : ''} ${isEmpty ? 'empty' : ''} ${hasCount ? 'has-count' : ''} ${showCost ? 'has-cost' : ''} ${isCardBack ? 'card-back-frame' : ''} ${isEmptyPile ? 'empty-pile-outline' : ''} ${isFullArt ? 'is-full-art' : ''} ${isProphecy && tokens?.['sun'] === 0 ? 'prophecy-fulfilled' : ''}`}
             data-card-id={cardId}
             title={tooltip}
             onClick={handleClick}
@@ -639,10 +639,6 @@ export const CardFrame: React.FC<CardFrameProps> = ({
                                             <div className="prophecy-sun-overlay">
                                                 <SunSymbol value={tokens['sun']} size="lg" />
                                             </div>
-                                        )}
-                                        {/* The last Sun was removed: the Prophecy now applies */}
-                                        {isProphecy && tokens && tokens['sun'] === 0 && (
-                                            <div className="prophecy-fulfilled-badge" title="Prophétie accomplie : son texte s'applique pour le reste de la partie">☀️ Accomplie</div>
                                         )}
 
                                         {/* Debt / Embargo tokens on a pile, and players' tokens (Adventures) */}
