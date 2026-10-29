@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, MutableRefObject } from 'react';
 import { Prompt } from '../../shared/engine/prompts/Prompt';
 import { CardInteraction } from '../types/Interaction';
 
@@ -8,15 +8,18 @@ import { CardInteraction } from '../types/Interaction';
 export function usePromptInteraction(
     prompt: Prompt | undefined,
     currentSelection: string[] | undefined,
-    onUpdateSelection: (ids: string[]) => void
+    onUpdateSelection: (ids: string[]) => void,
+    /** Always the latest selection, even between two clicks before the screen is redrawn */
+    latestSelectionRef?: MutableRefObject<string[]>
 ) {
     const selectedIds = currentSelection || [];
 
     const toggleCard = useCallback((cardId: string) => {
         if (!prompt) return;
 
-        const isSelected = selectedIds.includes(cardId);
-        let newIds = [...selectedIds];
+        const current = latestSelectionRef?.current ?? selectedIds;
+        const isSelected = current.includes(cardId);
+        let newIds = [...current];
 
         if (isSelected) {
             newIds = newIds.filter(id => id !== cardId);
@@ -35,7 +38,7 @@ export function usePromptInteraction(
 
         // Dispatch update to server
         onUpdateSelection(newIds);
-    }, [prompt, selectedIds, onUpdateSelection]);
+    }, [prompt, selectedIds, onUpdateSelection, latestSelectionRef]);
 
     const getCardInteraction = useCallback((cardId: string, zone: string): CardInteraction => {
         if (!prompt) {

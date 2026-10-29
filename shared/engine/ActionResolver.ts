@@ -697,7 +697,8 @@ export class ActionResolver {
         (player.eventsThisTurn = player.eventsThisTurn || []).push(landscapeId);
         if ((def as any).oncePerGame) ((player as any).eventsOnce = (player as any).eventsOnce || []).push(landscapeId);
 
-        this.log(state, `${player.name} achète l'aménagement ${def.name}.`, player.id);
+        const kind = def.types?.includes('PROJECT' as any) ? 'le Projet' : "l'Événement";
+        this.log(state, `${player.name} achète ${kind} ${def.name}.`, player.id);
 
         // Handle Projects: Permanent addition
         if (def.types.includes('PROJECT')) {
