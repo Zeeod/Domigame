@@ -332,7 +332,7 @@ export class StateSerializerV2 {
                         indent: l.indent,
                         payload,
                         sequenceNumber: l.sequenceNumber,
-                        isRewindable: GameLogStore.getSnapshots(state.id).some(s => s.logId === l.id)
+                        isRewindable: !!l.playerId && l.playerId !== 'system' && l.type !== 'TURN_START' && l.type !== 'PHASE_CHANGE'
                     });
                 });
                 return out;

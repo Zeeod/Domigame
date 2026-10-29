@@ -31,6 +31,7 @@ import { PhaseEngine } from '../shared/engine/PhaseEngine.js';
 import { SupplyGenerator } from '../shared/engine/SupplyGenerator.js';
 import { VictoryChecker } from '../shared/engine/VictoryChecker.js';
 import { GameLogStore } from '../shared/engine/GameLogStore.js';
+import { Logger } from '../shared/engine/Logger.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
 import { applyKingdomRules, applyKingdomSetup } from '../shared/engine/KingdomRules.js';
 import { actingPlayerFor } from '../shared/engine/Possession.js';
@@ -62,6 +63,8 @@ export interface RoomPlayer {
 interface RewindRequest {
     requesterId: string;
     targetLogId: string;
+    /** The log line clicked: the game goes back to just before the move that wrote it */
+    targetMessage: string;
     votes: Record<string, boolean>; // playerId -> approved
     startedAt: number;
 }
@@ -595,8 +598,11 @@ export class GameRoomV2 {
             this.logger.warn('AUTO_ACTION', `Refused ${action.type} for ${playerId}: ${validation.error}`);
             return false;
         }
+        const before = this.gameState;
+        const logsBefore = GameLogStore.getLogs(before.id).length;
         const result = ActionResolver.resolve(this.gameState, playerId, action);
         if (result.success) {
+            this.addCheckpoint(before, logsBefore);
             this.gameState = produce(result.state, draft => {
                 // Recalculate scores safely within produce
                 const currentScores = VictoryChecker.getCurrentScores(draft as any as GameState);
@@ -1215,14 +1221,16 @@ export class GameRoomV2 {
 
         // Resolve
         const previousState = this.gameState;
+        const logsBefore = GameLogStore.getLogs(this.gameState.id).length;
         const result = ActionResolver.resolve(this.gameState, playerId, action);
         if (!result.success) {
             this.logger.error('ACTION_FAILED', result.error || 'Unknown resolution error', { playerId: playerId, action });
             return { success: false, error: result.error };
         }
 
-        // Store for Undo
+        // Store for Undo, and as a point the players can go back to
         this.previousState = previousState;
+        this.addCheckpoint(previousState, logsBefore);
 
 
 
@@ -1251,100 +1259,105 @@ export class GameRoomV2 {
     // Rewind / Undo
     // ========================================================================
 
+    /**
+     * States before each move (shared with later states by Immer, so cheap to keep) and how many
+     * log lines existed then. Going back to a log line restores the state before the move that wrote it.
+     */
+    private checkpoints: { logCount: number; state: GameState }[] = [];
+    private static readonly MAX_CHECKPOINTS = 600;
+
+    private addCheckpoint(state: GameState, logCount: number): void {
+        if (!state || state.phase === 'PREGAME') return;
+        this.checkpoints.push({ logCount, state });
+        if (this.checkpoints.length > GameRoomV2.MAX_CHECKPOINTS) this.checkpoints.shift();
+    }
+
+    /** Index of the checkpoint to restore to undo the move that wrote this log line (-1: too old or unknown) */
+    private checkpointForLog(targetLogId: string): number {
+        if (!this.gameState) return -1;
+        const logIdx = GameLogStore.getLogs(this.gameState.id).findIndex(l => l.id === targetLogId);
+        if (logIdx === -1) return -1;
+        for (let i = this.checkpoints.length - 1; i >= 0; i--) {
+            if (this.checkpoints[i].logCount <= logIdx) return i;
+        }
+        return -1;
+    }
+
+    /** Players whose agreement is needed: connected humans (bots and absent players agree) */
+    private rewindVoters(): RoomPlayer[] {
+        return this.players.filter(p => !p.isBot && !p.isSpectator && p.isConnected && !this.isAutoPiloted(p));
+    }
+
     handleRewindRequest(socketId: string, targetLogId: string): { success: boolean; error?: string } {
         const playerId = this.getPlayerIdBySocket(socketId);
-        if (!playerId || !this.isStarted) return { success: false, error: 'Cannot rewind' };
+        if (!playerId || !this.isStarted || !this.gameState) return { success: false, error: "Retour en arrière impossible." };
+        if (this.gameState.isGameOver) return { success: false, error: "La partie est terminée." };
+        if (this.activeRewindRequest) return { success: false, error: "Une demande de retour en arrière est déjà en cours." };
+        if (this.players.find(p => p.id === playerId)?.isSpectator) return { success: false, error: "Les spectateurs ne peuvent pas revenir en arrière." };
 
-        // 1. Validate target
-        const logs = GameLogStore.getLogs(this.gameState.id);
-        const logIdx = logs.findIndex(l => l.id === targetLogId);
+        const target = GameLogStore.getLogs(this.gameState.id).find(l => l.id === targetLogId);
+        if (!target) return { success: false, error: "Ligne du journal introuvable." };
+        if (this.checkpointForLog(targetLogId) === -1) return { success: false, error: "Ce coup est trop ancien pour revenir avant." };
 
-        if (logIdx === -1) return { success: false, error: 'Checkpoint invalid' };
-
-        // 2. Initialize request
         this.activeRewindRequest = {
             requesterId: playerId,
             targetLogId,
-            votes: {},
+            targetMessage: target.message || (target.payload as any)?.text || '',
+            votes: { [playerId]: true },
             startedAt: Date.now()
         };
-
-        // 3. Auto-approve for requester and bots
-        this.players.forEach(p => {
-            if (p.id === playerId || p.isBot) {
-                this.activeRewindRequest!.votes[p.id] = true;
-            }
-        });
-
-        this.logger.info('GAME', `Rewind requested by ${playerId} to ${targetLogId}`);
-        this.broadcastRoomState();
-
-        // 4. Check if already satisfied (e.g. solo game)
+        this.logger.info('GAME', `Rewind requested by ${playerId} to before ${targetLogId}`);
         this.checkRewindConsensus();
-
         return { success: true };
     }
 
     handleRewindVote(socketId: string, approved: boolean): void {
         const playerId = this.getPlayerIdBySocket(socketId);
         if (!playerId || !this.activeRewindRequest) return;
-
         this.activeRewindRequest.votes[playerId] = approved;
         this.logger.info('GAME', `Rewind vote from ${playerId}: ${approved}`);
-
         if (!approved) {
+            // Refused, or cancelled by the player who asked
             this.activeRewindRequest = null;
             this.broadcastRoomState();
             return;
         }
-
         this.checkRewindConsensus();
     }
 
     private checkRewindConsensus(): void {
-        if (!this.activeRewindRequest) return;
-
-        const humanPlayers = this.players.filter(p => !p.isBot && !p.isSpectator);
-        const allApproved = humanPlayers.every(p => this.activeRewindRequest!.votes[p.id] === true);
-
-        if (allApproved) {
-            this.executeRewind(this.activeRewindRequest.targetLogId);
+        const req = this.activeRewindRequest;
+        if (!req) return;
+        if (this.rewindVoters().every(p => req.votes[p.id] === true)) {
             this.activeRewindRequest = null;
+            this.executeRewind(req.targetLogId, req.requesterId);
         } else {
             this.broadcastRoomState();
         }
     }
 
-    private executeRewind(targetLogId: string): void {
-        const logs = GameLogStore.getLogs(this.gameState.id);
-        const logIdx = logs.findIndex(l => l.id === targetLogId);
-        if (logIdx === -1) return;
-
-        // 1. Find nearest snapshot before or at log
-        const snapshots = GameLogStore.getSnapshots(this.gameState.id);
-        const snapshot = snapshots.find(s => s.logId === targetLogId);
-
-        if (snapshot) {
-            const restoredState = JSON.parse(snapshot.state) as GameState;
-
-            // Truncate external logs up to that point
-            GameLogStore.truncateLogs(this.gameState.id, logIdx + 1);
-
-            // Truncate snapshots up to that point
-            const snapshotIdx = snapshots.findIndex(s => s.logId === targetLogId);
-            GameLogStore.truncateSnapshots(this.gameState.id, snapshotIdx + 1);
-
-            this.gameState = restoredState;
-            this.logger.info('GAME', `Rewind executed to ${targetLogId} (Restored from snapshot)`);
-        } else {
-            // If no exact snapshot, we would need to find latest snapshot BEFORE log and replay.
-            // But for this first version, let's assume logs with snapshots are the only rewindable points.
-            this.logger.error('GAME', `Rewind failed: No snapshot for ${targetLogId}`);
-            return;
+    /** Back to just before the move that wrote this log line. */
+    private executeRewind(targetLogId: string, requesterId?: string): boolean {
+        const cpIdx = this.checkpointForLog(targetLogId);
+        if (cpIdx === -1) {
+            this.logger.error('GAME', `Rewind failed: no state before ${targetLogId}`);
+            this.broadcastRoomState();
+            return false;
         }
-
+        const target = GameLogStore.getLogs(this.gameState.id).find(l => l.id === targetLogId);
+        const cp = this.checkpoints[cpIdx];
+        GameLogStore.truncateLogs(this.gameState.id, cp.logCount);
+        this.checkpoints = this.checkpoints.slice(0, cpIdx);
+        this.previousState = null;
+        this.forcedTried.clear();
+        const who = this.players.find(p => p.id === requesterId)?.name;
+        const what = target?.message || (target?.payload as any)?.text || '';
+        this.gameState = produce(cp.state, draft => {
+            Logger.log(draft as any, `⏪ Retour en arrière${who ? ` demandé par ${who}` : ''}, avant : ${what}`, null);
+        });
+        this.logger.info('GAME', `Rewind executed to before ${targetLogId}`);
         this.onStateChanged();
-        this.broadcastRoomState();
+        return true;
     }
 
     handleUndo(socketId: string): { success: boolean; error?: string } {
@@ -1599,6 +1612,13 @@ export class GameRoomV2 {
                 enabledExpansions: this.config.enabledExpansions,
                 landscapeInstructions: this.config.landscapeInstructions,
                 turnTimeoutMs: this.config.turnTimeoutMs || 0,
+                activeRewindRequest: this.activeRewindRequest ? {
+                    requesterId: this.activeRewindRequest.requesterId,
+                    targetLogId: this.activeRewindRequest.targetLogId,
+                    targetLogEntry: { message: this.activeRewindRequest.targetMessage },
+                    votes: this.activeRewindRequest.votes,
+                    voterIds: this.rewindVoters().map(p => p.id),
+                } : null,
             };
 
             this.io.to(this.id).emit(GameEvents.ROOM_STATE, roomState);

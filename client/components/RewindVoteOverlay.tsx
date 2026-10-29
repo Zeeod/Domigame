@@ -6,8 +6,10 @@ interface RewindVoteOverlayProps {
     request: {
         requesterId: string;
         targetLogId: string;
-        targetLogEntry?: { message: string; activePlayerId: string }; // Optional for now
+        targetLogEntry?: { message: string };
         votes: Record<string, boolean>;
+        /** Players who must agree (connected humans) */
+        voterIds?: string[];
     };
     players: { id: string; name: string; color: string }[];
     myPlayerId: string;
@@ -23,7 +25,9 @@ export const RewindVoteOverlay: React.FC<RewindVoteOverlayProps> = ({
 }) => {
     const requester = players.find(p => p.id === request.requesterId);
 
-    // Check if I already voted
+    const isRequester = request.requesterId === myPlayerId;
+    const voters = players.filter(p => p.id !== request.requesterId && (request.voterIds ? request.voterIds.includes(p.id) : true));
+    const mustVote = voters.some(p => p.id === myPlayerId);
     const hasVoted = request.votes[myPlayerId] !== undefined;
 
     // Format log message with colored player names
@@ -85,12 +89,12 @@ export const RewindVoteOverlay: React.FC<RewindVoteOverlayProps> = ({
                 >
                     <div className="rewind-header">
                         <span className="rewind-icon">⏪</span>
-                        <h3>Demande de Rembobinage</h3>
+                        <h3>Retour en arrière</h3>
                     </div>
 
                     <div className="rewind-body">
                         <p>
-                            <strong style={{ color: requester?.color }}>{requester?.name}</strong> souhaite revenir en arrière dans la partie.
+                            <strong style={{ color: requester?.color }}>{requester?.name}</strong> demande à revenir en arrière.
                         </p>
 
                         {/* Display selected log entry if available */}
@@ -103,7 +107,7 @@ export const RewindVoteOverlay: React.FC<RewindVoteOverlayProps> = ({
                                 marginTop: '12px',
                                 marginBottom: '12px'
                             }}>
-                                <div style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '4px' }}>Point de retour :</div>
+                                <div style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '4px' }}>Revenir juste avant :</div>
                                 <div style={{ fontSize: '0.9rem' }}>
                                     {formatLogMessage(request.targetLogEntry.message, players)}
                                 </div>
@@ -111,9 +115,9 @@ export const RewindVoteOverlay: React.FC<RewindVoteOverlayProps> = ({
                         )}
 
                         <div className="vote-status">
-                            <p>Votes requis :</p>
+                            <p>Accord nécessaire :</p>
                             <div className="vote-list">
-                                {players.filter(p => p.id !== request.requesterId).map(p => (
+                                {voters.map(p => (
                                     <div key={p.id} className="vote-item">
                                         <span className="voter-name" style={{ color: p.color }}>{p.name}</span>
                                         <span className={`vote-badge ${request.votes[p.id] === true ? 'approved' : (request.votes[p.id] === false ? 'rejected' : 'pending')}`}>
@@ -125,16 +129,22 @@ export const RewindVoteOverlay: React.FC<RewindVoteOverlayProps> = ({
                         </div>
                     </div>
 
-                    {!hasVoted && (
+                    {mustVote && !hasVoted && (
                         <div className="rewind-actions">
                             <button className="btn-reject" onClick={() => onVote(false)}>Refuser</button>
                             <button className="btn-approve" onClick={() => onVote(true)}>Accepter</button>
                         </div>
                     )}
 
-                    {hasVoted && (
+                    {(!mustVote || hasVoted) && (
                         <div className="waiting-msg">
-                            Attente des autres joueurs...
+                            En attente de l'accord des autres joueurs…
+                        </div>
+                    )}
+
+                    {isRequester && (
+                        <div className="rewind-actions">
+                            <button className="btn-reject" onClick={() => onVote(false)}>Annuler ma demande</button>
                         </div>
                     )}
                 </motion.div>

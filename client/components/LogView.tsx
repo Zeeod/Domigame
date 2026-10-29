@@ -2,8 +2,7 @@
  * LogView - Game log display
  */
 
-import React, { useEffect, useRef, useMemo } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { LogEntry } from '../../shared/types/Log';
 import { PublicPlayerState } from '../../shared/types/SerializedState';
 import { RichLogEntry } from './RichLogEntry';
@@ -14,14 +13,15 @@ interface LogViewProps {
     history?: any[]; // For structured history
     players: PublicPlayerState[];
     myPlayerId: string | null;
-    rewindMode?: boolean; // Whether rewind selection mode is active
-    selectedLogId?: string | null; // Currently selected log entry
-    onSelectLog?: (logId: string) => void; // Callback when a log is selected
+    /** Clicking a player's line offers to go back to just before it */
+    canRewind?: boolean;
     onRequestRewind?: (logId: string) => void;
 }
 
-export const LogView: React.FC<LogViewProps> = ({ logs, history, players, rewindMode, selectedLogId, onSelectLog, onRequestRewind }) => {
+export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRewind, onRequestRewind }) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [selectedLogId, setSelectedLogId] = useState<string | null>(null);
+    useEffect(() => { if (!canRewind) setSelectedLogId(null); }, [canRewind]);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -41,7 +41,7 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, rewind
 
             entries.push({
                 ...entry,
-                isRewindable: isHistory,
+                isRewindable: (entry as any).isRewindable ?? isHistory,
                 sequenceOrder: index
             });
         };
@@ -76,18 +76,29 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, rewind
             </div>
 
             <div className="log-entries" ref={containerRef}>
-                <AnimatePresence mode="popLayout">
                     {allEntries.map((entry, i) => (
-                        <RichLogEntry
-                            key={entry.id || i}
-                            entry={entry}
-                            players={players}
-                            isRewindable={rewindMode && entry.isRewindable}
-                            isSelected={selectedLogId === entry.id}
-                            onSelect={() => onSelectLog && entry.id && onSelectLog(entry.id)}
-                        />
+                        <React.Fragment key={entry.id || i}>
+                            <RichLogEntry
+                                entry={entry}
+                                players={players}
+                                isRewindable={!!canRewind && !!onRequestRewind && !!entry.isRewindable}
+                                isSelected={selectedLogId === entry.id}
+                                onSelect={() => entry.id && setSelectedLogId(prev => prev === entry.id ? null : entry.id!)}
+                            />
+                            {selectedLogId && selectedLogId === entry.id && (
+                                <div className="log-rewind-confirm">
+                                    <button
+                                        className="log-rewind-go"
+                                        onClick={() => { onRequestRewind?.(entry.id!); setSelectedLogId(null); }}
+                                        title="Les autres joueurs devront accepter"
+                                    >
+                                        ⏪ Revenir avant ce coup
+                                    </button>
+                                    <button className="log-rewind-cancel" onClick={() => setSelectedLogId(null)}>Annuler</button>
+                                </div>
+                            )}
+                        </React.Fragment>
                     ))}
-                </AnimatePresence>
             </div>
         </div>
     );
