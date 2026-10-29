@@ -1,0 +1,155 @@
+/* Badge gathering a player's tokens, Artifacts, States and mats; click for the details */
+
+.player-inventory {
+    position: relative;
+    display: inline-flex;
+    z-index: 60;
+}
+
+.player-inventory.open {
+    z-index: 500;
+}
+
+.inventory-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 5px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    background: rgba(15, 18, 28, 0.88);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.12s, background 0.12s;
+    max-width: 150px;
+    flex-wrap: wrap;
+}
+
+.inventory-badge:hover {
+    transform: translateY(-1px);
+    background: rgba(30, 36, 52, 0.95);
+}
+
+.player-inventory.open .inventory-badge {
+    background: rgba(40, 48, 70, 0.98);
+}
+
+.inventory-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 11px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.inventory-chip-icon {
+    font-size: 11px;
+}
+
+.inventory-chip-value {
+    font-weight: 800;
+    font-size: 11px;
+}
+
+/* Details panel */
+.inventory-panel {
+    position: absolute;
+    left: 0;
+    width: 300px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(14, 17, 26, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    color: #e8e8e8;
+    font-size: 12px;
+    text-align: left;
+    cursor: default;
+}
+
+/* Opponents (top of the board): opens below; me (bottom of the hand): opens above */
+.player-inventory.is-opponent .inventory-panel {
+    top: calc(100% + 6px);
+}
+
+.player-inventory.is-me .inventory-panel {
+    bottom: calc(100% + 6px);
+}
+
+.inventory-panel-title {
+    font-weight: 800;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.inventory-panel section {
+    margin-top: 8px;
+}
+
+.inventory-panel h4 {
+    margin: 0 0 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.inventory-mat-count {
+    margin-left: 4px;
+    padding: 0 5px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    letter-spacing: 0;
+}
+
+.inventory-line {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    align-items: center;
+    column-gap: 6px;
+    padding: 3px 0;
+}
+
+.inventory-line-icon {
+    text-align: center;
+}
+
+.inventory-line-label {
+    font-weight: 600;
+}
+
+.inventory-line-count {
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.inventory-line-text {
+    grid-column: 2 / -1;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.inventory-strips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+}
+
+.inventory-hidden {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+}
+
+.inventory-hint {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
+    text-align: center;
+}

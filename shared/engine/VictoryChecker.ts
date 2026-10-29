@@ -14,6 +14,15 @@ export interface VictoryResult {
     reason?: string;
 }
 
+/** Where a player's VP come from (end-of-game screen) */
+export interface ScoreLine {
+    /** A card id, a Landmark id, 'vpTokens' or 'other' */
+    source: string;
+    /** Number of copies, for cards */
+    count?: number;
+    vp: number;
+}
+
 export class VictoryChecker {
     /**
      * Check if the game should end
@@ -47,32 +56,61 @@ export class VictoryChecker {
      * Single source of truth, used during the game and at the end.
      */
     static scorePlayer(state: GameState, player: PlayerState): number {
-        let score = player.vpTokens || 0;
+        return this.scoreBreakdown(state, player).reduce((sum, l) => sum + l.vp, 0);
+    }
+
+    /**
+     * The same score, line by line: each card (all copies together), VP tokens, each Landmark,
+     * and other sources (Miserable…). Lines worth 0 are kept for cards that can score (an Estate
+     * trashed by Gardens counting stays visible), dropped otherwise.
+     */
+    static scoreBreakdown(state: GameState, player: PlayerState): ScoreLine[] {
+        const lines = new Map<string, ScoreLine>();
+        const add = (source: string, vp: number, copies = 0) => {
+            const line = lines.get(source) ?? { source, vp: 0, ...(copies ? { count: 0 } : {}) };
+            line.vp += vp;
+            if (copies) line.count = (line.count ?? 0) + copies;
+            lines.set(source, line);
+        };
+        if (player.vpTokens) add('vpTokens', player.vpTokens);
         const allCards = ZoneManager.getAllCards(player);
         for (const card of allCards) {
             const def = CardRegistry.get(card.id);
             if (!def) continue;
             if ((def as any).vpOnMat) {
                 const { mat, vp } = (def as any).vpOnMat;
-                if (player.mats?.[mat]?.some((c: any) => c.instanceId === card.instanceId)) score += vp;
+                add(card.id, player.mats?.[mat]?.some((c: any) => c.instanceId === card.instanceId) ? vp : 0, 1);
             } else if (def.vpCalculator) {
-                score += def.vpCalculator(allCards, (id) => CardRegistry.get(id));
+                add(card.id, def.vpCalculator(allCards, (id) => CardRegistry.get(id)), 1);
             } else if (def.dynamicVP) {
-                if (card.id === 'gardens') score += Math.floor(allCards.length / 10);
-                else if (card.id === 'duke') score += allCards.filter((c: any) => c.id === 'duchy').length;
-                else if (card.id === 'pasture') score += allCards.filter((c: any) => c.id === 'estate').length;
+                let vp = 0;
+                if (card.id === 'gardens') vp = Math.floor(allCards.length / 10);
+                else if (card.id === 'duke') vp = allCards.filter((c: any) => c.id === 'duchy').length;
+                else if (card.id === 'pasture') vp = allCards.filter((c: any) => c.id === 'estate').length;
+                add(card.id, vp, 1);
             } else if (def.victoryPoints) {
-                score += def.victoryPoints;
+                add(card.id, def.victoryPoints, 1);
             }
         }
         for (const landscapeId of state.landscapes || []) {
             const def = CardRegistry.get(landscapeId);
             if (def && def.types.includes('LANDMARK')) {
-                score += this.calculateLandmarkScore(state, player, landscapeId, allCards);
+                const vp = this.calculateLandmarkScore(state, player, landscapeId, allCards);
+                if (vp) add(landscapeId, vp);
             }
         }
-        for (const f of this.playerScorers) score += f(state, player);
-        return score;
+        let other = 0;
+        for (const f of this.playerScorers) other += f(state, player);
+        if (other) add('other', other);
+        return [...lines.values()].sort((a, b) => b.vp - a.vp);
+    }
+
+    /** Every card the player owns, by card id (most copies first) */
+    static deckList(player: PlayerState): { cardId: string; count: number }[] {
+        const counts = new Map<string, number>();
+        for (const c of ZoneManager.getAllCards(player)) counts.set(c.id, (counts.get(c.id) ?? 0) + 1);
+        return [...counts.entries()].map(([cardId, count]) => ({ cardId, count }))
+            .sort((a, b) => b.count - a.count || a.cardId.localeCompare(b.cardId));
     }
 
     /**

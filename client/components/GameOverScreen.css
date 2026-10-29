@@ -236,3 +236,105 @@
 .btn-premium:active {
     transform: translateY(-1px);
 }
+/* ============================================================================
+   Detailed results: VP breakdown and final decks
+   ============================================================================ */
+
+.game-over-modal {
+    width: min(1040px, 94vw);
+    max-width: none;
+    max-height: 92vh;
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-over-modal .score-board {
+    margin-bottom: 8px;
+    overflow-y: auto;
+    min-height: 0;
+    padding-right: 6px;
+}
+
+.score-row {
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.score-row:hover {
+    transform: none;
+}
+
+.score-details {
+    flex-basis: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-left: 50px;
+}
+
+.score-details-label {
+    flex: 0 0 64px;
+    padding-top: 6px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.score-details-sub {
+    display: block;
+    margin-top: 2px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.vp-lines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.vp-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 14px;
+    background: rgba(46, 125, 50, 0.25);
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    color: #e8f5e9;
+    font-size: 0.85rem;
+}
+
+.vp-line.negative {
+    background: rgba(106, 27, 154, 0.3);
+    border-color: rgba(171, 71, 188, 0.5);
+    color: #f3e5f5;
+}
+
+.vp-line.zero {
+    opacity: 0.55;
+}
+
+.vp-line-count {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.vp-line-value {
+    font-weight: 800;
+}
+
+.deck-list {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 6px;
+}
+
+.game-over-actions {
+    flex-shrink: 0;
+}

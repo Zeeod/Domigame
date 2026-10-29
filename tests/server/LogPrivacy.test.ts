@@ -65,7 +65,7 @@ describe('Héritage : ce que reçoivent les joueurs', () => {
         s.landscapeState['inheritance_p1'] = { state: { cardId: 'village' }, tokens: {} };
         const pub: any = (StateSerializerV2.serialize(s, 'p2') as any).public;
         expect(pub.playerCardOverrides.p1.estate.types).toContain('ACTION');
-        expect(pub.setAsideForGame).toContainEqual({ cardId: 'village', label: 'Héritage (A)' });
+        expect(pub.setAsideForGame).toContainEqual({ cardId: 'village', label: 'Héritage (A)', sourceId: 'inheritance' });
     });
 });
 

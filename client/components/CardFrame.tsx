@@ -780,6 +780,8 @@ export interface CardStripProps {
     cardId: string;
     /** Why this card is here (shown small, and as a tooltip) */
     label?: string;
+    /** Card that put this one here (shown beside it on right-click) */
+    sourceId?: string;
     count?: number;
     showCost?: boolean;
     costOverride?: number;
@@ -791,7 +793,7 @@ export interface CardStripProps {
 }
 
 export const CardStrip: React.FC<CardStripProps> = ({
-    cardId, label, count, showCost = true, costOverride, isPurchasable, isSelectable, selected, dimmed, onClick
+    cardId, label, sourceId, count, showCost = true, costOverride, isPurchasable, isSelectable, selected, dimmed, onClick
 }) => {
     const { setHovered, clearHovered, setZoomed } = useCardInspect();
     const data = getCardData(cardId);
@@ -809,7 +811,7 @@ export const CardStrip: React.FC<CardStripProps> = ({
             style={stripBannerStyle(coloured)}
             title={label ? `${data.name} — ${label} (clic droit pour voir la carte)` : `${data.name} (clic droit pour voir la carte)`}
             onClick={e => onClick?.(e)}
-            onContextMenu={e => { e.preventDefault(); setZoomed(cardId); }}
+            onContextMenu={e => { e.preventDefault(); setZoomed(cardId, sourceId ? { cardId: sourceId, label } : undefined); }}
             onMouseEnter={e => setHovered(cardId, e.clientX, e.clientY)}
             onMouseMove={e => setHovered(cardId, e.clientX, e.clientY)}
             onMouseLeave={() => clearHovered()}
