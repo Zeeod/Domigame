@@ -51,11 +51,6 @@ export const AppV2: React.FC = () => {
     const [roomId, setRoomId] = useState('');
     const [showLibrary, setShowLibrary] = useState(false);
 
-    React.useEffect(() => {
-        console.log('[DEBUG] AppV2 Mounted/Re-rendered. isGameStarted:', isGameStarted, 'hasRoomState:', !!roomState);
-    }, [isGameStarted, !!roomState]);
-
-    console.log('[DEBUG] Rendering AppV2. State:', { isGameStarted, hasRoom: !!roomState });
 
     // Save name on change
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +61,6 @@ export const AppV2: React.FC = () => {
 
     // Handle leave (confirmation moved to button in BoardLayout)
     const handleLeaveGame = () => {
-        console.log('[DEBUG] handleLeaveGame called in AppV2 (surrender)');
         leaveRoom('surrender');
     };
 

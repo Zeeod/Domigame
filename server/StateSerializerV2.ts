@@ -124,6 +124,11 @@ export class StateSerializerV2 {
                 ...state.players.filter(p => (state.landscapeState as any)?.[`inheritance_${p.id}`]?.state?.cardId)
                     .map(p => ({ cardId: (state.landscapeState as any)[`inheritance_${p.id}`].state.cardId as string, label: `Héritage (${p.name})` }))
             ],
+            // Supply piles added on top of the 10 Kingdom piles (shown apart, under the Kingdom)
+            extraPiles: [
+                ...((state as any).approachingArmyPile ? [{ cardId: (state as any).approachingArmyPile as string, label: 'Armée en approche' }] : []),
+                ...((state.landscapeState as any)?.young_witch_bane?.state?.baneId ? [{ cardId: (state.landscapeState as any).young_witch_bane.state.baneId as string, label: 'Fléau (Jeune sorcière)' }] : []),
+            ].filter(p => !!state.supply[p.cardId]),
             landscapeState: JSON.parse(JSON.stringify(state.landscapeState || {})), // Deep copy to be safe
             players: state.players.map(p => this.serializePublicPlayer(p, forPlayerId)),
 
@@ -451,6 +456,8 @@ export class StateSerializerV2 {
             actions: player.actions,
             buys: player.buys,
             coins: player.coins,
+            // Cards and Events bought this turn (end-of-turn warning)
+            boughtThisTurn: (player.cardsBoughtThisTurn || 0) + ((player as any).eventsThisTurn?.length || 0),
             vpTokens: player.vpTokens || 0,
             costReduction: player.costReduction || 0,
             score: player.score,

@@ -31,6 +31,5 @@ export class MenagerieLandscapes {
 
         // TODO: Add Menagerie Events (e.g. Alliance, Banish, Bargain, Commerce, Delay, Desperation, Enclave, Enhance, Gamble, Invest, March, Populate, Pursue, Reaping, Ride, Seize the Day, Toil, Transport)
         
-        console.log('[MenagerieLandscapes] Registered Menagerie landscapes.');
     }
 }

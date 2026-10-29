@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { CardFrame } from './CardFrame';
+import { CardFrame, CardStrip } from './CardFrame';
 import { useGameAnimations } from '../context/GameAnimationsContext';
 import { CardRegistry } from '../../shared/cards/index';
 import './SupplyGrid.css';
@@ -42,6 +42,8 @@ interface SupplyGridProps {
     landscapeState?: Record<string, any>;
     /** Cards set aside for the whole game (Riverboat), shown with the landscapes */
     setAsideForGame?: { cardId: string; label: string }[];
+    /** Supply piles added on top of the 10 Kingdom piles (Approaching Army, Bane…) */
+    extraPiles?: { cardId: string; label: string }[];
     /** Players' tokens on each pile (Adventures) */
     pileMarkers?: Record<string, { label: string; color: string; title?: string }[]>;
 }
@@ -69,6 +71,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
     landscapes = [],
     landscapeState = {},
     setAsideForGame = [],
+    extraPiles = [],
     pileMarkers = {}
 }) => {
     const { playGainAnimation: onAnimationTrigger } = useGameAnimations();
@@ -90,7 +93,6 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
         }
     }
 
-    console.log('[SupplyGrid] Categorized supply:', { kingdom, treasures, victories, landscapes, variant });
 
     // Sort by cost (Primary) then name (Secondary)
     treasures.sort((a, b) => {
@@ -110,6 +112,12 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
         if (costDiff !== 0) return costDiff;
         return a.localeCompare(b);
     });
+
+    // The Kingdom shows 10 piles on 2 rows; extra piles go to the strip row under it
+    const extraLabel = new Map(extraPiles.map(p => [p.cardId, p.label] as [string, string]));
+    const extras: string[] = kingdom.filter(id => extraLabel.has(id));
+    const mainKingdom = kingdom.filter(id => !extraLabel.has(id));
+    if (mainKingdom.length > 10) extras.push(...mainKingdom.splice(10));
 
     const getEffectiveCost = (cardId: string) => {
         // The server sends what the card on top of each pile costs now (all cost changes included)
@@ -178,6 +186,36 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
         }
 
         return true;
+    };
+
+    const renderStrip = (cardId: string) => {
+        const pile = supply[cardId];
+        if (!pile) return null;
+        const buyable = canBuyCard(cardId);
+        const canSelect = externalIsSelectable ? externalIsSelectable(cardId) : isSelectable(cardId);
+        const isSupplySelectionMode = String(pendingDecision?.constraints?.sourceZone || '').toUpperCase() === 'SUPPLY';
+        const isSelected = (selectedDetails?.indexOf(cardId) ?? -1) !== -1;
+        return (
+            <CardStrip
+                key={'extra_' + cardId}
+                cardId={pile.topCardId || cardId}
+                label={extraLabel.get(cardId)}
+                count={pile.count}
+                costOverride={getEffectiveCost(pile.topCardId || cardId)}
+                isPurchasable={(!isSupplySelectionMode && buyable) || (isSupplySelectionMode && canSelect)}
+                isSelectable={canSelect}
+                selected={isSelected}
+                dimmed={(isSupplySelectionMode && !canSelect) || pile.count === 0}
+                onClick={(e) => {
+                    if (canSelect || (buyable && !isSupplySelectionMode)) {
+                        onAnimationTrigger(pile.topCardId || cardId, undefined, (e.currentTarget as HTMLElement).getBoundingClientRect(), 'discard');
+                    }
+                    if (canSelect && onToggleSupply) onToggleSupply(cardId);
+                    else if (canSelect && onChoose) onChoose(pendingDecision.id, { type: 'SUPPLY', cardId });
+                    else if (buyable && !isSupplySelectionMode) onBuy(cardId);
+                }}
+            />
+        );
     };
 
     const renderPile = (cardId: string) => {
@@ -264,13 +302,22 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                 <div className="kingdom-and-landscapes">
                     <div className="kingdom-grid">
                         <div className="supply-row kingdom-row-unified">
-                            {kingdom.map(renderPile)}
+                            {mainKingdom.map(renderPile)}
                         </div>
+                        {/* Extra piles and set-aside cards: name banners only (right-click shows the card) */}
+                        {(extras.length > 0 || setAsideForGame.length > 0) && (
+                            <div className="supply-row special-strip-row">
+                                {extras.map(renderStrip)}
+                                {setAsideForGame.map(({ cardId, label }) => (
+                                    <CardStrip key={'aside_' + cardId + label} cardId={cardId} label={label} showCost={false} />
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Landscape Column - To the RIGHT of the Kingdom Grid */}
-                    {(landscapes.length > 0 || setAsideForGame.length > 0) && (
-                        <div className="landscape-column" style={{ gridTemplateColumns: landscapes.length + setAsideForGame.length > 2 ? 'repeat(2, max-content)' : 'max-content' }}>
+                    {landscapes.length > 0 && (
+                        <div className="landscape-column" style={{ gridTemplateColumns: landscapes.length > 2 ? 'repeat(2, max-content)' : 'max-content' }}>
                             {landscapes.map(landscapeId => {
                                 const def = CardRegistry.get(landscapeId);
                                 if (!def) return null;
@@ -295,12 +342,6 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                                     />
                                 );
                             })}
-                            {setAsideForGame.map(({ cardId, label }) => (
-                                <div key={'aside_' + cardId} className="set-aside-for-game" title={`Mise de côté pour ${label}`}>
-                                    <CardFrame cardId={cardId} variant="mini" showCost={false} />
-                                    <div className="set-aside-for-game-label">{label}</div>
-                                </div>
-                            ))}
                         </div>
                     )}
                 </div>

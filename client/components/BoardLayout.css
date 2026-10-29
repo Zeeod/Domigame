@@ -697,6 +697,7 @@ body {
 }
 
 .opponent-hand-card {
+    position: relative;
     width: 48px;
     height: 72px;
     background-image: url('../card_back.png');
@@ -714,10 +715,10 @@ body {
 }
 
 .opponent-hand-badge {
+    /* Top-left corner of the top card of the fan, like the pile counters */
     position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: -5px;
+    left: -5px;
     width: 20px;
     height: 20px;
     background: #e74c3c;

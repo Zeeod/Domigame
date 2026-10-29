@@ -37,6 +37,5 @@ export class LandscapeExamples {
         // Project: Star Chart (Renaissance) - Cost 3. At start of turn, look at top card...
         // ...
 
-        console.log('[LandscapeExamples] Registered sample landscapes.');
     }
 }

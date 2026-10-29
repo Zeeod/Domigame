@@ -8,6 +8,5 @@ export class AdventuresLandscapes {
                 LandscapeRegistry.register(e as any);
             }
         });
-        console.log('[AdventuresLandscapes] Registered Adventures events.');
     }
 }

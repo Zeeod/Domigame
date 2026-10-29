@@ -126,7 +126,8 @@ export function setupSocketHandlers(io: Server): void {
             prosperityMode?: 'always' | 'never' | 'random',
             sheltersMode?: 'always' | 'never' | 'random',
             enabledExpansions?: string[],
-            landscapeInstructions?: string[]
+            landscapeInstructions?: string[],
+            turnTimeoutMs?: number
         }) => {
             if (!currentRoomId) return;
             const room = roomManager.getRoom(currentRoomId);

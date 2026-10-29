@@ -22,7 +22,7 @@
  * └────────────────────────┘
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useCardInspect } from '../context/CardInspectContext';
 import { useSound } from '../hooks/useSound';
@@ -526,19 +526,43 @@ export const CardFrame: React.FC<CardFrameProps> = ({
     };
     const scaleClass = getScaleClass();
 
-    // Dynamic scale for long type names
-    const getTypeScaleClass = () => {
-        const len = typeBadge.length;
-        if (len > 25) return 'scale-atomic';
-        if (len > 20) return 'scale-nano';
-        if (len > 16) return 'scale-micro';
-        if (len > 13) return 'scale-tiny';   // Was 14
-        if (len > 11) return 'scale-xxs';    // Was 12
-        if (len > 9) return 'scale-xs';      // Was 10
-        if (len > 7) return 'scale-sm';      // Was 8
-        return '';
-    };
-    const typeScaleClass = getTypeScaleClass();
+    // Type line: starts at a fixed size and shrinks until it fits between the cost and the expansion icon
+    const typeRef = useRef<HTMLSpanElement>(null);
+    const typeBaseSize = variant === 'full' ? 10 : variant === 'mini' ? 9 : 7;
+    useLayoutEffect(() => {
+        const el = typeRef.current;
+        if (!el) return;
+        const fit = () => {
+            el.style.fontSize = `${typeBaseSize}px`;
+            el.style.letterSpacing = '';
+            // Room left and right: exactly what the cost symbols and the expansion icon take
+            const banner = el.parentElement as HTMLElement | null;
+            const frame = el.closest('.card-frame') as HTMLElement | null;
+            if (banner && frame) {
+                const cost = frame.querySelector('.card-cost-container') as HTMLElement | null;
+                const icon = banner.querySelector('.expansion-icon') as HTMLElement | null;
+                const left = cost ? cost.offsetLeft + cost.offsetWidth + 3 : 6;
+                const right = icon ? icon.offsetWidth + 6 : 6;
+                // Same room on both sides keeps the text centred on the card when there is space for it
+                const side = Math.max(left, right);
+                const roomy = frame.offsetWidth - 2 * side > el.scrollWidth;
+                banner.style.paddingLeft = `${roomy ? side : left}px`;
+                banner.style.paddingRight = `${roomy ? side : right}px`;
+            }
+            let size = typeBaseSize;
+            el.style.fontSize = `${size}px`;
+            el.style.letterSpacing = '';
+            if (!el.clientWidth) return;
+            while (el.scrollWidth > el.clientWidth + 0.5 && size > 5) {
+                size -= 0.5;
+                el.style.fontSize = `${size}px`;
+                if (size <= 7) el.style.letterSpacing = '-0.3px';
+            }
+        };
+        fit();
+        // Card font loading changes text width
+        (document as any).fonts?.ready?.then(fit);
+    }, [typeBadge, variant, typeBaseSize, showCost]);
 
     const selectionClass = selected ? (selectionVariant === 'red' ? 'selected-red' : 'selected') : '';
 
@@ -679,12 +703,7 @@ export const CardFrame: React.FC<CardFrameProps> = ({
             {/* Bottom Banner - Hide for backs and Landscape cards */}
             {!isCardBack && !isEmptyPile && !isLandscape && (
                 <div className={`card-banner bottom-banner ${variant === 'full' && data.set ? 'has-expansion-icon' : ''}`} style={bannerStyle}>
-                    <span
-                        className={`card-type ${typeScaleClass}`}
-                        style={{
-                            fontSize: typeBadge.length > 20 ? '7px' : (typeBadge.length > 15 ? '8.5px' : undefined)
-                        }}
-                    >
+                    <span ref={typeRef} className="card-type card-type-fit">
                         {typeBadge}
                     </span>
                     {/* Expansion Icon */}
@@ -730,5 +749,83 @@ export const CardFrame: React.FC<CardFrameProps> = ({
                 <div className="card-selection-index">{selectionIndex}</div>
             )}
         </motion.div>
+    );
+};
+
+// ============================================================================
+// Card strip: a card shown as its name banner only (special piles under the Kingdom).
+// Right-click shows the whole card.
+// ============================================================================
+
+const STRIP_STYLES = ['treasure', 'victory', 'action', 'attack', 'reaction', 'curse', 'duration', 'event', 'project', 'landmark', 'way', 'trait', 'prophecy'];
+const STRIP_COLORS: Record<string, string> = {
+    treasure: '#daa520', victory: '#2e7d32', action: '#e0e0e0', attack: '#c62828', reaction: '#1565c0',
+    curse: '#6a1b9a', duration: '#e67e22', event: '#95a5a6', project: '#e74c3c', landmark: '#2ecc71',
+    way: '#f1c40f', trait: '#3498db', prophecy: '#f39c12',
+};
+
+/** Banner colours of a card: its types that have a colour of their own (empty for a plain Action) */
+function stripColourTypes(types: string[]): string[] {
+    return types.filter(t => t !== 'action' && STRIP_STYLES.includes(t));
+}
+
+function stripBannerStyle(coloured: string[]): React.CSSProperties {
+    if (coloured.length > 1) {
+        return { background: `linear-gradient(135deg, ${STRIP_COLORS[coloured[0]]} 50%, ${STRIP_COLORS[coloured[1]]} 50%)` };
+    }
+    return { background: `var(--card-banner-${coloured[0] ?? 'action'})` };
+}
+
+export interface CardStripProps {
+    cardId: string;
+    /** Why this card is here (shown small, and as a tooltip) */
+    label?: string;
+    count?: number;
+    showCost?: boolean;
+    costOverride?: number;
+    isPurchasable?: boolean;
+    isSelectable?: boolean;
+    selected?: boolean;
+    dimmed?: boolean;
+    onClick?: (e: React.MouseEvent) => void;
+}
+
+export const CardStrip: React.FC<CardStripProps> = ({
+    cardId, label, count, showCost = true, costOverride, isPurchasable, isSelectable, selected, dimmed, onClick
+}) => {
+    const { setHovered, clearHovered, setZoomed } = useCardInspect();
+    const data = getCardData(cardId);
+    const types = (data.types || [data.type]) as string[];
+    const coloured = stripColourTypes(types);
+    // Light banners (plain Action, Treasure, Way, Event) need dark text
+    const darkText = coloured.length === 0 || ['treasure', 'way', 'event'].includes(coloured[0]);
+    const cost = costOverride !== undefined ? costOverride : data.cost;
+    const debt = (data as any).debtCost || 0;
+    const potion = (data as any).potionCost || 0;
+
+    return (
+        <div
+            className={`card-strip ${isPurchasable ? 'purchasable' : ''} ${isSelectable ? 'selectable' : ''} ${selected ? 'selected' : ''} ${dimmed ? 'dimmed' : ''} ${onClick ? 'clickable' : ''}`}
+            style={stripBannerStyle(coloured)}
+            title={label ? `${data.name} — ${label} (clic droit pour voir la carte)` : `${data.name} (clic droit pour voir la carte)`}
+            onClick={e => onClick?.(e)}
+            onContextMenu={e => { e.preventDefault(); setZoomed(cardId); }}
+            onMouseEnter={e => setHovered(cardId, e.clientX, e.clientY)}
+            onMouseMove={e => setHovered(cardId, e.clientX, e.clientY)}
+            onMouseLeave={() => clearHovered()}
+        >
+            {showCost && (
+                <span className="card-strip-cost">
+                    {(cost > 0 || (!debt && !potion)) && <Coin value={cost} size="sm" />}
+                    {debt > 0 && <DebtSymbol value={debt} size="sm" />}
+                    {potion > 0 && <PotionSymbol size="sm" />}
+                </span>
+            )}
+            <span className={`card-strip-name ${darkText ? 'dark' : ''}`}>
+                {data.name}
+                {label && <span className="card-strip-label">{label}</span>}
+            </span>
+            {count !== undefined && <span className="card-strip-count">{count}</span>}
+        </div>
     );
 };

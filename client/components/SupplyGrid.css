@@ -159,3 +159,12 @@
     text-align: center;
     white-space: nowrap;
 }
+
+/* Third row: extra piles and set-aside cards as name banners, aligned on the Kingdom columns */
+.supply-row.special-strip-row {
+    display: grid;
+    grid-template-columns: repeat(5, 112px);
+    gap: 6px 12px;
+    width: fit-content;
+    margin-top: -4px;
+}

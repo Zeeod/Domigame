@@ -10,6 +10,5 @@ export class RisingSunLandscapes {
             }
         });
 
-        console.log('[RisingSunLandscapes] Registered Rising Sun prophecies.');
     }
 }

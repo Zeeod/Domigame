@@ -23,7 +23,8 @@ interface LobbyProps {
         prosperityMode?: 'always' | 'never' | 'random',
         sheltersMode?: 'always' | 'never' | 'random',
         enabledExpansions?: string[],
-        landscapeInstructions?: string[]
+        landscapeInstructions?: string[],
+        turnTimeoutMs?: number
     }) => void;
     savedGames?: SavedGameConfig[];
     onListSavedGames?: () => void;
@@ -38,6 +39,13 @@ const COLOR_PALETTE = [
 ];
 
 import { LobbyKingdomSelector } from './LobbyKingdomSelector';
+
+const TIMER_OPTIONS = [
+    { ms: 0, label: 'Aucun' },
+    { ms: 60000, label: '1 min' },
+    { ms: 120000, label: '2 min' },
+    { ms: 300000, label: '5 min' },
+];
 
 export const Lobby: React.FC<LobbyProps> = ({
     roomState,
@@ -55,7 +63,6 @@ export const Lobby: React.FC<LobbyProps> = ({
     onListSavedGames,
     onResumeGame
 }) => {
-    console.debug('[Lobby] Render. isHost:', isHost, 'playerId:', playerId, 'roomStarted:', roomState.isStarted, 'players:', roomState.players.length);
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [copied, setCopied] = useState(false);
 
@@ -89,7 +96,6 @@ export const Lobby: React.FC<LobbyProps> = ({
     const handleKingdomSelectionChange = (cards: (string | null)[] | null) => {
         // Only host can change, and we sync to server immediately
         if (isHost) {
-            console.log('[Lobby] Syncing Kingdom to server:', cards);
             onSyncKingdom(cards);
         } else {
             console.warn('[Lobby] Ignored kingdom change (not host)');
@@ -138,7 +144,6 @@ export const Lobby: React.FC<LobbyProps> = ({
                             <button
                                 className="add-bot-button"
                                 onClick={() => {
-                                    console.log('[Lobby] Add Bot clicked. Defaulting to Greedy.');
                                     onAddBot('greedy');
                                 }}
                             >
@@ -209,6 +214,23 @@ export const Lobby: React.FC<LobbyProps> = ({
                                 En attente d'autres joueurs...
                             </div>
                         )}
+                    </div>
+
+                    {/* Turn timer (host chooses, everyone sees it) */}
+                    <div className="lobby-timer-row">
+                        <span className="lobby-timer-label" title="Passé ce délai, le jeu joue à la place du joueur">⏱ Minuteur par tour</span>
+                        <div className="lobby-timer-options">
+                            {TIMER_OPTIONS.map(opt => (
+                                <button
+                                    key={opt.ms}
+                                    className={`lobby-timer-option ${(roomState.turnTimeoutMs || 0) === opt.ms ? 'active' : ''}`}
+                                    disabled={!isHost}
+                                    onClick={() => isHost && onSetupChange?.({ turnTimeoutMs: opt.ms })}
+                                >
+                                    {opt.label}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Parties Sauvegardées (Host Only) */}
