@@ -28,6 +28,7 @@ import { TavernMat } from './TavernMat';
 import { ExileMat } from './ExileMat';
 import { ShadowDeckZone } from './ShadowDeckZone';
 import { PlayerBadges } from './PlayerBadges';
+import { FitToBox } from './FitToBox';
 import { SpectatorBar } from './SpectatorBar';
 import { DeckStatsPanel } from './DeckStatsPanel';
 import { RoomState } from '../hooks/useSocket';
@@ -1221,6 +1222,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                     {/* Supply Grid - ALWAYS VISIBLE */}
                     {activeOverlay?.type !== 'TRASH' &&
                         !(pendingDecision?.type === PromptType.REORDER || pendingDecision?.type === 'REORDER' || pendingDecision?.type === PromptType.DECK_INSERTION) && (
+                            <FitToBox className="kingdom-fit">
                             <div className="kingdom-with-side-supply">
                                 {pub.nonSupply && Object.keys(pub.nonSupply).length > 0 && (
                                     <SideSupplyBar nonSupply={pub.nonSupply} />
@@ -1242,6 +1244,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     pileMarkers={pileMarkers}
                                 />
                             </div>
+                            </FitToBox>
                         )}
                 </div>
 

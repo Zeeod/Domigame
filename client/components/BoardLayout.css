@@ -43,12 +43,14 @@ body {
 .board-layout {
     display: grid;
     grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
-    grid-template-rows: 100vh;
+    /* The board is scaled as a whole: heights follow the board (100%), not the screen (100vh) */
+    grid-template-rows: 100%;
     grid-template-areas: "left center right";
     width: calc(100vw / var(--layout-scale));
     height: calc(100vh / var(--layout-scale));
     transform: scale(var(--layout-scale));
-    transform-origin: top center;
+    /* The board is anchored at the top left: scaling around the center shifted it to the right */
+    transform-origin: top left;
     background: radial-gradient(circle at center, #1a1f26 0%, #0d1117 100%);
     color: #f0f6fc;
     font-family: 'Cinzel', 'Trajan Pro', serif;
@@ -81,8 +83,8 @@ body {
     padding: 10px;
     gap: 8px;
     overflow-y: auto;
-    /* Strict viewport anchoring */
-    height: 100vh;
+    height: 100%;
+    min-height: 0;
     position: relative;
     /* Added for absolute anchoring of Duration Stack */
 }
@@ -1086,4 +1088,20 @@ body {
     color: #eceff1;
     cursor: help;
     white-space: nowrap;
+}
+
+/* ============================================================================
+   ADAPTIVE CENTER COLUMN — nothing may push the center wider than its track
+   ============================================================================ */
+.layout-col-center {
+    grid-template-columns: minmax(0, 1fr);
+}
+.layout-col-center > * {
+    min-width: 0;
+}
+/* Kingdom + landscapes: natural size, scaled down to fit the zone (FitToBox) */
+.zone-11-kingdom > .fit-to-box.kingdom-fit {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
 }

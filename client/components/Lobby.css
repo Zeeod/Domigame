@@ -46,7 +46,8 @@
 }
 
 .lobby-main {
-    flex: 0 0 500px;
+    /* Players column: 30% of the screen, between 280 and 500 px (more room for the Kingdom on small screens) */
+    flex: 0 0 clamp(280px, 30vw, 500px);
     /* Wider sidebar as requested */
     display: flex;
     flex-direction: column;
@@ -348,4 +349,10 @@
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Small screens: less padding around the Kingdom selector */
+@media (max-width: 1200px) {
+    .lobby-left-col {
+        padding: 1rem;
+    }
 }

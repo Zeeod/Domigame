@@ -1,4 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+
+/** The board is scaled as a whole (--layout-scale): mouse moves are converted to board pixels */
+const boardScale = () => !document.querySelector('.board-layout') ? 1 : parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--layout-scale')) || 1;
 import './DraggableWindow.css';
 
 interface DraggableWindowProps {
@@ -24,6 +27,18 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
 }) => {
     const [position, setPosition] = useState({ x: initialX, y: initialY });
     const [size, setSize] = useState({ width: initialWidth, height: initialHeight });
+
+    // Fit and center the window in the space it lives in (the scaled board), whatever the screen size
+    const windowRef = useRef<HTMLDivElement>(null);
+    useLayoutEffect(() => {
+        // position: fixed inside the scaled board: the board (unscaled size) is the reference, else the screen
+        const board = windowRef.current?.closest('.board-layout') as HTMLElement | null;
+        const W = board?.clientWidth || window.innerWidth, H = board?.clientHeight || window.innerHeight;
+        const width = Math.min(initialWidth, W - 16), height = Math.min(initialHeight, H - 16);
+        setSize({ width, height });
+        setPosition({ x: Math.max(8, (W - width) / 2), y: Math.min(Math.max(8, initialY), Math.max(8, H - height - 8)) });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Dragging state
     const isDragging = useRef(false);
@@ -61,8 +76,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
 
     const handleMouseMove = (e: MouseEvent) => {
         if (isDragging.current) {
-            const dx = e.clientX - dragStart.current.x;
-            const dy = e.clientY - dragStart.current.y;
+            const k = boardScale();
+            const dx = (e.clientX - dragStart.current.x) / k;
+            const dy = (e.clientY - dragStart.current.y) / k;
 
             setPosition({
                 x: windowStart.current.x + dx,
@@ -71,8 +87,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
         }
 
         if (isResizing.current) {
-            const dx = e.clientX - resizeStart.current.x;
-            const dy = e.clientY - resizeStart.current.y;
+            const k = boardScale();
+            const dx = (e.clientX - resizeStart.current.x) / k;
+            const dy = (e.clientY - resizeStart.current.y) / k;
 
             setSize({
                 width: Math.max(200, sizeStart.current.w + dx),
@@ -98,6 +115,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = ({
 
     return (
         <div
+            ref={windowRef}
             className="draggable-window"
             style={{
                 left: position.x,

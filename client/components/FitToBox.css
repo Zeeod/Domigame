@@ -1,0 +1,12 @@
+/* FitToBox: content at its natural size, scaled down to fit (see FitToBox.tsx) */
+.fit-to-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+.fit-to-box-content {
+    transform-origin: top center;
+    width: max-content;
+    flex-shrink: 0;
+}

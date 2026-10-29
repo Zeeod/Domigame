@@ -270,7 +270,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
 
                     {/* Landscape Column - To the RIGHT of the Kingdom Grid */}
                     {(landscapes.length > 0 || setAsideForGame.length > 0) && (
-                        <div className="landscape-column">
+                        <div className="landscape-column" style={{ gridTemplateColumns: landscapes.length + setAsideForGame.length > 2 ? 'repeat(2, max-content)' : 'max-content' }}>
                             {landscapes.map(landscapeId => {
                                 const def = CardRegistry.get(landscapeId);
                                 if (!def) return null;
