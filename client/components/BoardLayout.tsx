@@ -93,8 +93,6 @@ export const BoardLayout: React.FC<BoardLayoutProps> = (props) => {
         return <GameOverScreen gameState={props.gameState} onReturnToMenu={props.onLeaveGame} />;
     }
 
-    console.log('[DEBUG] BoardLayout Wrapper Rendering. onLeaveGame attached:', !!props.onLeaveGame);
-    console.log('[DEBUG] Supply Count:', Object.keys(props.gameState.public.supply).length, Object.keys(props.gameState.public.supply));
     return (
         <GameAnimationsProvider>
             <BoardLayoutContent {...props} />
@@ -123,7 +121,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     roomState,
     onConfigureSpectator
 }) => {
-    console.log('[DEBUG] BoardLayoutContent Rendering. onLeaveGame type:', typeof onLeaveGame);
     const { registerTarget, playGainAnimation, playShuffleAnimation, hiddenIds } = useGameAnimations();
     const { playSound, isMuted, toggleMute } = useSound();
     const [showQuitConfirm, setShowQuitConfirm] = useState(false);
@@ -484,19 +481,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         }
     };
 
-    // DEBUG: Log pending decision state
-    useEffect(() => {
-        if (pendingDecision) {
-            console.log('[BoardLayout] Pending Decision Update:', {
-                id: pendingDecision.id,
-                type: pendingDecision.type,
-                playerId: pendingDecision.playerId,
-                myId: playerId,
-                isMyChoice,
-                hasOptions: !!(pendingDecision.options || pendingDecision.context?.options)
-            });
-        }
-    }, [pendingDecision, playerId, isMyChoice]);
 
     // Clear selection when decision ID changes
     useEffect(() => {
@@ -732,7 +716,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
             inspectorCards = (myPlayer as any)?.limbo || [];
         }
 
-        console.log('[BoardLayout] Inspector Cards:', inspectorCards?.length);
     }
 
     const isInteractionLocked = isZoneSearch;
@@ -906,13 +889,14 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                                     {spectatorHandInfo ? (
                                                         <CardFrame cardId={c.id} variant="mini" />
                                                     ) : null}
+                                                    {/* Hand size, on the corner of the top card (kept upright) */}
+                                                    {i === total - 1 && !spectatorHandInfo && (
+                                                        <div className="opponent-hand-badge" style={{ transform: `rotate(${-rotate}deg)` }}>{p.handCount}</div>
+                                                    )}
                                                 </div>
                                             );
                                         });
                                     })()}
-                                    {p.handCount > 0 && !gameState.spectatorData?.find(sd => sd.playerId === p.id) && (
-                                        <div className="opponent-hand-badge">{p.handCount}</div>
-                                    )}
                                 </div>
                             </div>
                         ))}
@@ -1241,6 +1225,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     landscapes={pub.landscapes}
                                     landscapeState={pub.landscapeState}
                                     setAsideForGame={pub.setAsideForGame}
+                                    extraPiles={pub.extraPiles}
                                     pileMarkers={pileMarkers}
                                 />
                             </div>
@@ -1297,6 +1282,19 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         const isPhaseEnd = !pendingDecision && isMyTurn;
                         const hasTreasures = isPhaseEnd && priv?.hand.some((c: any) => CardRegistry.get(c.id)?.types.includes('TREASURE'));
 
+                        // Ask for a second click when ending the phase would waste something
+                        let endPhaseWarning: string | undefined;
+                        if (isPhaseEnd && currentPlayer) {
+                            const hasActionCards = priv?.hand.some((c: any) => CardRegistry.get(c.id)?.types.includes('ACTION'));
+                            if (pub.phase === 'ACTION' && currentPlayer.actions > 0 && hasActionCards) {
+                                endPhaseWarning = `Il vous reste ${currentPlayer.actions} Action${currentPlayer.actions > 1 ? 's' : ''} et des cartes Action en main.`;
+                            } else if (pub.phase === 'BUY' && currentPlayer.buys > 0 && !(currentPlayer as any).boughtThisTurn && (currentPlayer.coins > 0 || hasTreasures)) {
+                                endPhaseWarning = hasTreasures && currentPlayer.coins === 0
+                                    ? 'Vous n\x27avez joué aucun Trésor ni rien acheté.'
+                                    : `Vous n\x27avez rien acheté avec vos ${currentPlayer.coins} 💰.`;
+                            }
+                        }
+
                         // Hide the ActionBar confirm button when SmartCardOverlay is handling the decision
                         // (it has its own built-in Confirmer button)
                         const isSmartOverlayActive = pendingDecision?.type === PromptType.SENTRY_INTERACTION || pendingDecision?.type === PromptType.COMPOSITE_FILTER;
@@ -1336,6 +1334,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 // Hide confirm button for Supply selection (immediate interaction)
                                 showConfirm={showConfirm && (pendingDecision?.type !== PromptType.CHOOSE_CARDS || !isHandLocked)}
                                 onEndPhase={onEndPhase}
+                                endPhaseWarning={endPhaseWarning}
                                 onPayDebt={onPayDebt}
                                 onSpendCoffers={onSpendCoffers}
                                 onSpendVillagers={onSpendVillagers}

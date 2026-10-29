@@ -356,3 +356,62 @@
         padding: 1rem;
     }
 }
+
+/* ============================================================================
+   Turn timer
+   ============================================================================ */
+
+.lobby-timer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 0.6rem 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.lobby-timer-label {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.lobby-timer-options {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.lobby-timer-option {
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.lobby-timer-option:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.lobby-timer-option.active {
+    background: rgba(241, 196, 15, 0.2);
+    border-color: #f1c40f;
+    color: #fff;
+    font-weight: 600;
+}
+
+.lobby-timer-option:disabled {
+    cursor: default;
+}
+
+.lobby-timer-option:disabled:not(.active) {
+    opacity: 0.5;
+}

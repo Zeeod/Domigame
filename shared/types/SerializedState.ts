@@ -44,6 +44,8 @@ export interface PublicPlayerState {
     actions: number;
     buys: number;
     coins: number;
+    /** Cards and Events bought this turn */
+    boughtThisTurn?: number;
     vpTokens: number;
     costReduction: number;
     score: number;
@@ -98,6 +100,8 @@ export interface PublicGameState {
     landscapes: string[];
     /** Cards set aside at setup that players should see (Rising Sun — Riverboat), with what they belong to */
     setAsideForGame?: { cardId: string; label: string }[];
+    /** Supply piles added on top of the 10 Kingdom piles (Approaching Army, Bane) */
+    extraPiles?: { cardId: string; label: string }[];
     landscapeState: Record<string, {
         tokens: Record<string, number>;
         state: any;

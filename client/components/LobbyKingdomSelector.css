@@ -156,7 +156,7 @@
 
 /* --- Grids & Lists --- */
 
-.kingdom-grid {
+.kingdom-selector-container .kingdom-grid {
     display: grid !important;
     grid-template-columns: repeat(5, 112px) !important;
     gap: 12px !important;

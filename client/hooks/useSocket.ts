@@ -35,6 +35,7 @@ export interface RoomState {
     sheltersMode: ProsperitySetupMode;
     enabledExpansions?: string[];
     landscapeInstructions?: string[];
+    turnTimeoutMs?: number;
     activeRewindRequest?: {
         requesterId: string;
         targetLogId: string;
@@ -90,7 +91,8 @@ export interface UseSocketReturn {
         prosperityMode?: ProsperitySetupMode,
         sheltersMode?: ProsperitySetupMode,
         enabledExpansions?: string[],
-        landscapeInstructions?: string[]
+        landscapeInstructions?: string[],
+        turnTimeoutMs?: number
     }) => void;
     requestRewind: (targetLogId: string) => void;
     voteRewind: (approved: boolean) => void;
@@ -170,7 +172,6 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
                 console.log('[Socket] Ignoring room_state - client is leaving');
                 return;
             }
-            console.log('[Socket] Room state:', state);
             setRoomState(state);
         });
 
@@ -180,13 +181,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
                 console.log('[Socket] Ignoring game_state - client is leaving');
                 return;
             }
-            // console.log('[Socket] Game state update'); // Too verbose
             setGameState(state);
-            if (state.private) {
-                console.debug('[Socket] Received PRIVATE game state (hand size:', state.private.hand.length, ')');
-            } else {
-                console.debug('[Socket] Received PUBLIC ONLY game state');
-            }
         });
 
         socket.on('game_started', () => {
@@ -264,7 +259,6 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         });
 
         // Diagnostic: log join intent
-        console.debug(`[Socket] Attempting to join room ${roomId} as ${playerName} (Token: ${token})`);
     }, [getOrCreatePlayerToken]);
 
     // Auto-rejoin on connect/mount
@@ -301,12 +295,10 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
     }, []);
 
     const startGame = useCallback((kingdomCards?: (string | null)[] | null) => {
-        console.log('[Socket] Emitting start_game', { kingdomCards });
         socketRef.current?.emit('start_game', { kingdomCards });
     }, []);
 
     const sendAction = useCallback((action: any) => {
-        console.log('[Socket] Sending action:', action?.type, action);
 
         // DEBUG: Check for circular references before emitting
         try {
@@ -341,7 +333,8 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         prosperityMode?: ProsperitySetupMode,
         sheltersMode?: ProsperitySetupMode,
         enabledExpansions?: string[],
-        landscapeInstructions?: string[]
+        landscapeInstructions?: string[],
+        turnTimeoutMs?: number
     }) => {
         socketRef.current?.emit('change_setup', options);
     }, []);

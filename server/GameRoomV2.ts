@@ -34,7 +34,7 @@ import { GameLogStore } from '../shared/engine/GameLogStore.js';
 import { HISTORICAL_PERSONAS } from '../shared/data/historicalPersonas.js';
 import { applyKingdomRules, applyKingdomSetup } from '../shared/engine/KingdomRules.js';
 import { actingPlayerFor } from '../shared/engine/Possession.js';
-import { autoPayload } from '../shared/bot/AutoDecision.js';
+import { autoPayload, forcedPayload } from '../shared/bot/AutoDecision.js';
 import { database } from './Database.js';
 
 // ============================================================================
@@ -129,7 +129,7 @@ const DEFAULT_CONFIG: RoomConfig = {
     prosperityMode: 'never',
     sheltersMode: 'random',
     landscapeInstructions: ['random:any', 'random:any', 'empty', 'empty'],
-    turnTimeoutMs: 60000 // 60s default
+    turnTimeoutMs: 0 // no timer unless the host sets one in the lobby
 };
 
 const COLOR_PALETTE = [
@@ -1434,7 +1434,10 @@ export class GameRoomV2 {
             const deciderId = actingPlayerFor(this.gameState, seatId);
             const roomPlayer = this.players.find(p => p.id === deciderId);
             const bot = roomPlayer?.isBot ? this.bots.get(deciderId) : undefined;
-            if (!bot && !this.isAutoPiloted(roomPlayer)) return; // wait for the player
+            if (!bot && !this.isAutoPiloted(roomPlayer)) {
+                this.answerForcedDecision(decisionId, deciderId);
+                return; // otherwise wait for the player
+            }
 
             const delay = Math.random() * 400 + 400;
             setTimeout(() => {
@@ -1476,6 +1479,29 @@ export class GameRoomV2 {
             this.handleActionByPlayerId(actorId, { type: 'END_PHASE' });
         }, delay);
     }
+
+    /** Decisions already tried automatically (a refused answer is not retried) */
+    private forcedTried = new Set<string>();
+
+    /**
+     * A decision with a single possible answer is answered for the player after a short pause,
+     * so they see it happen without having to click.
+     */
+    private answerForcedDecision(decisionId: string, deciderId: string): void {
+        if (this.forcedTried.has(decisionId)) return;
+        let payload: any;
+        try { payload = forcedPayload(this.gameState); } catch { payload = null; }
+        if (!payload) return;
+        this.forcedTried.add(decisionId);
+        if (this.forcedTried.size > 500) this.forcedTried.clear();
+        setTimeout(() => {
+            if (this.gameState?.pendingDecision?.id !== decisionId) return; // already answered
+            this.handleActionByPlayerId(deciderId, { type: 'CHOOSE', choiceId: decisionId, payload } as any);
+        }, this.forcedDecisionDelayMs);
+    }
+
+    /** Pause before answering a forced decision (tests set it to 0) */
+    forcedDecisionDelayMs = 600;
 
     changeKingdomCards(socketId: string, cards: (string | null)[] | null): void {
         const player = this.getPlayerBySocket(socketId);
@@ -1522,7 +1548,8 @@ export class GameRoomV2 {
         prosperityMode?: 'always' | 'never' | 'random',
         sheltersMode?: 'always' | 'never' | 'random',
         enabledExpansions?: string[],
-        landscapeInstructions?: string[]
+        landscapeInstructions?: string[],
+        turnTimeoutMs?: number
     }): void {
         const player = this.getPlayerBySocket(socketId);
         if (!player || !player.isHost) return;
@@ -1533,6 +1560,11 @@ export class GameRoomV2 {
         // Allow empty array to mean "no instructions" or "clear instructions"
         if (options.landscapeInstructions !== undefined) {
             this.config.landscapeInstructions = options.landscapeInstructions;
+        }
+        if (typeof options.turnTimeoutMs === "number" && Number.isFinite(options.turnTimeoutMs)) {
+            // 0 = no timer; otherwise between 30 s and 10 min
+            const ms = Math.round(options.turnTimeoutMs);
+            this.config.turnTimeoutMs = ms <= 0 ? 0 : Math.min(600000, Math.max(30000, ms));
         }
 
         this.broadcastRoomState();
@@ -1566,6 +1598,7 @@ export class GameRoomV2 {
                 sheltersMode: this.config.sheltersMode,
                 enabledExpansions: this.config.enabledExpansions,
                 landscapeInstructions: this.config.landscapeInstructions,
+                turnTimeoutMs: this.config.turnTimeoutMs || 0,
             };
 
             this.io.to(this.id).emit(GameEvents.ROOM_STATE, roomState);

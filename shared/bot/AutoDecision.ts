@@ -97,3 +97,58 @@ export function autoPayload(state: GameState, strategy: Strategy = 'first'): any
             return { type: 'PASS' };
     }
 }
+
+/**
+ * Payload for a decision that has only one possible answer (e.g. "discard 2 cards" with 2 cards in hand,
+ * a single option, a single affordable pile), or null when the player has a real choice.
+ * Optional decisions are never forced: passing is always a second answer.
+ */
+export function forcedPayload(state: GameState): any | null {
+    const d: any = state.pendingDecision;
+    if (!d || d.optional) return null;
+    const min = d.constraints?.min ?? d.minCards ?? 0;
+    const max = d.constraints?.max ?? d.maxCards ?? 1;
+    const options = (d.options && d.options.length) ? d.options : (d.context?.options || []);
+    const sameCard = (cards: any[]) => cards.length > 0 && cards.every(c => c.id === cards[0].id);
+
+    switch (d.type) {
+        case 'CHOOSE_CARDS':
+        case 'SELECT_CARD': {
+            // Decisions with their own rules (Sentry-like special actions) are left to the player
+            if (d.context?.specialAction && d.context.specialAction !== 'TRASH' && d.context.specialAction !== 'DISCARD') return null;
+            const zone = d.constraints?.sourceZone || 'hand';
+            if (String(zone).toLowerCase() === 'supply') {
+                if (min < 1) return null;
+                const pick = autoPayload(state, 'first');
+                const last = autoPayload(state, 'last');
+                // Only one pile qualifies when both ends of the list are the same card
+                if (pick?.type === 'SUPPLY' && last?.type === 'SUPPLY' && pick.cardId === last.cardId) return pick;
+                return null;
+            }
+            if (d.context?.candidates) return null; // the handler checks its own list
+            const pool: CardInstance[] = d.context?.cards?.length
+                ? d.context.cards
+                : EffectUtils.filterCards(zoneCards(state, d.playerId, zone), d.constraints?.filter);
+            if (min > 0 && pool.length <= min) {
+                return { type: 'CARDS', cardInstanceIds: pool.map(c => c.instanceId) };
+            }
+            // Same number to pick and all candidates identical: any pick is the same
+            if (min > 0 && min === max && sameCard(pool)) {
+                return { type: 'CARDS', cardInstanceIds: pool.slice(0, min).map(c => c.instanceId) };
+            }
+            return null;
+        }
+        case 'SELECT_OPTION':
+        case 'CHOOSE_OPTION': {
+            if (options.length === 1 && min <= 1) return { type: 'OPTION', optionIndex: 0 };
+            return null;
+        }
+        case 'REORDER': {
+            const cards = d.context?.cards || [];
+            if (cards.length > 0 && sameCard(cards)) return autoPayload(state, 'first');
+            return null;
+        }
+        default:
+            return null;
+    }
+}

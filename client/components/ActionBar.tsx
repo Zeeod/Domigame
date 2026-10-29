@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { PhaseNotification } from './PhaseNotification';
 import { useSound } from '../hooks/useSound';
@@ -32,6 +32,8 @@ export interface ActionBarProps {
 
     // Handlers
     onEndPhase: () => void;
+    /** When set, ending the phase asks for a second click and shows this text */
+    endPhaseWarning?: string;
     onPlayTreasures?: () => void;
     onPayDebt?: (amount: number) => void;
     /** Debt, Coffers and Villagers of the viewing player (Empires, Guilds, Renaissance) */
@@ -75,6 +77,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     confirmText = 'Valider',
     showConfirm = true,
     onEndPhase,
+    endPhaseWarning,
     onPlayTreasures,
     onPayDebt,
     onConfirm,
@@ -86,6 +89,25 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     onSubmitOptions
 }) => {
     const { playSound } = useSound();
+
+    // End-of-phase confirmation: the first click arms the button for a few seconds
+    const [endArmed, setEndArmed] = useState(false);
+    useEffect(() => { setEndArmed(false); }, [phase, endPhaseWarning, isMyTurn]);
+    useEffect(() => {
+        if (!endArmed) return;
+        const t = setTimeout(() => setEndArmed(false), 4000);
+        return () => clearTimeout(t);
+    }, [endArmed]);
+    const handleEndPhaseClick = () => {
+        if (endPhaseWarning && !endArmed) {
+            playSound('click', 0.3);
+            setEndArmed(true);
+            return;
+        }
+        setEndArmed(false);
+        playSound('click', 0.4);
+        onEndPhase();
+    };
     const prevCoins = useRef(coins);
     const prevActions = useRef(actions);
     const prevBuys = useRef(buys);
@@ -274,10 +296,15 @@ export const ActionBar: React.FC<ActionBarProps> = ({
                             {isMyTurn && !isWaiting && phase === 'BUY' && onPlayTreasures && (
                                 <motion.button className="indicator-btn btn-treasure" onClick={() => { playSound('coins', 0.4); onPlayTreasures(); }} variants={btnVariants} whileHover="hover" whileTap="tap">💰 TOUT JOUER</motion.button>
                             )}
-                            {isMyTurn && !isWaiting && onEndPhase && (
-                                <motion.button className="indicator-btn btn-phase-end" onClick={() => { playSound('click', 0.4); onEndPhase(); }} variants={btnVariants} whileHover="hover" whileTap="tap">
-                                    {phase === 'ACTION' ? '🛒 ACHETER' : 'FIN DU TOUR'}
-                                </motion.button>
+                            {isMyTurn && !isWaiting && (
+                                <span className="phase-end-wrap">
+                                    {endArmed && endPhaseWarning && (
+                                        <span className="phase-end-warning" role="alert">{endPhaseWarning}</span>
+                                    )}
+                                    <motion.button className={`indicator-btn btn-phase-end ${endArmed ? 'armed' : ''}`} onClick={handleEndPhaseClick} title={endPhaseWarning} variants={btnVariants} whileHover="hover" whileTap="tap">
+                                        {endArmed ? '⚠ CONFIRMER ?' : phase === 'ACTION' ? '🛒 ACHETER' : 'FIN DU TOUR'}
+                                    </motion.button>
+                                </span>
                             )}
                         </div>
                     )}
