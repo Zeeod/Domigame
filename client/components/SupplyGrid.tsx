@@ -112,6 +112,9 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
     });
 
     const getEffectiveCost = (cardId: string) => {
+        // The server sends what the card on top of each pile costs now (all cost changes included)
+        const pile = supply[cardId] || Object.values(supply).find((p: any) => p.topCardId === cardId);
+        if (pile && typeof (pile as any).cost === 'number') return (pile as any).cost;
         return Math.max(0, getBaseCardCost(cardId) - costReduction);
     };
 

@@ -433,6 +433,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     // Possession: I play another player's turn — their hand, their resources, their decisions
     const controlling = !!pub.possession && pub.possession.controllerId === playerId;
     const possessedPlayer = controlling ? pub.players.find(p => p.id === pub.possession!.possessedId) : undefined;
+    // Rising Sun — Flourishing Trade (fulfilled): Actions left can be used as Buys
+    const flourishing = (pub.landscapes || []).includes('flourishing_trade') && pub.landscapeState?.flourishing_trade?.tokens?.sun === 0;
+    const buysLeft = ((possessedPlayer ?? myPlayer)?.buys ?? 0) + (flourishing ? ((possessedPlayer ?? myPlayer)?.actions ?? 0) : 0);
     const priv = (controlling && pub.possession?.hand ? { ...(rawPriv || {}), hand: pub.possession.hand } : rawPriv) as typeof rawPriv;
     // Adventures: every player's tokens, shown on the piles they are on
     const pileMarkers: Record<string, { label: string; color: string; title?: string }[]> = {};
@@ -778,7 +781,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         supply={pub.supply}
                         variant="treasures-victories"
                         onBuy={onBuyCard}
-                        canBuy={isMyTurn && pub.phase === 'BUY' && ((possessedPlayer ?? myPlayer)?.buys ?? 0) > 0}
+                        canBuy={isMyTurn && pub.phase === 'BUY' && buysLeft > 0}
                         coins={(possessedPlayer ?? myPlayer)?.coins ?? 0}
                         costReduction={(possessedPlayer ?? myPlayer)?.costReduction ?? 0}
                         pendingDecision={isMyChoice ? pendingDecision : undefined}
@@ -1226,7 +1229,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     supply={pub.supply}
                                     variant="kingdom"
                                     onBuy={onBuyCard}
-                                    canBuy={isMyTurn && pub.phase === 'BUY' && ((possessedPlayer ?? myPlayer)?.buys ?? 0) > 0}
+                                    canBuy={isMyTurn && pub.phase === 'BUY' && buysLeft > 0}
                                     coins={(possessedPlayer ?? myPlayer)?.coins ?? 0}
                                     costReduction={(possessedPlayer ?? myPlayer)?.costReduction ?? 0}
                                     pendingDecision={isMyChoice ? pendingDecision : undefined}

@@ -68,3 +68,18 @@ describe('Héritage : ce que reçoivent les joueurs', () => {
         expect(pub.setAsideForGame).toContainEqual({ cardId: 'village', label: 'Héritage (A)' });
     });
 });
+
+describe('Coûts envoyés au client', () => {
+    it('le coût affiché tient compte des réductions (Commerce florissant)', () => {
+        const kingdom = ['village', 'smithy', 'market', 'cellar', 'moat', 'workshop', 'festival', 'laboratory', 'chapel', 'tea_house'];
+        const room = new GameRoomV2(io, 'cost_' + Math.random(), { kingdomCards: kingdom, landscapeInstructions: ['flourishing_trade'], turnTimeoutMs: 0 } as any);
+        room.addPlayer({ id: 's1', join: noop, emit: noop } as any, 'A', '#fff', 'p1');
+        room.addPlayer({ id: 's2', join: noop, emit: noop } as any, 'B', '#fff', 'p2');
+        room.players.forEach(p => (p.isReady = true));
+        room.startGame(kingdom);
+        const s: any = room.gameState;
+        expect((StateSerializerV2.serialize(s, 'p1') as any).public.supply.village.cost).toBe(3);
+        s.landscapeState.flourishing_trade.tokens.sun = 0;
+        expect((StateSerializerV2.serialize(s, 'p1') as any).public.supply.village.cost).toBe(2);
+    });
+});
