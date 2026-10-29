@@ -189,8 +189,13 @@ Nocturne ; Renaissance/Ménagerie/Empires). Corrigé et vérifié en jouant :
 - [x] Journal : sans doublons ; les cartes piochées par l'adversaire ne sont plus envoyées au client
 - [x] Réordonnancement : les cartes s'affichent
 
-Reste à vérifier en jouant : Exil et Chevaux (Ménagerie), Héritage (Inheritance), Possession, Marché noir,
-États de Nocturne (Perdu dans les bois…), piles divisées et Châteaux, Potion dans les coûts, Prophéties avancées.
+- [x] Marché Noir (3 cartes annoncées, Trésors jouables avant l'achat, cartes trop chères grisées)
+- [x] Possession (le contrôleur voit et joue la main), Châteaux (carte du dessus visible), Potion dans les coûts
+- [x] États de Nocturne affichés ; serveur protégé contre les actions mal formées
+- [x] Choix de cartes hors de la main (cartes dévoilées, défausse…) : la sélection n'était pas envoyée
+
+Reste à vérifier en jouant : Exil et Chevaux (Ménagerie), Héritage (Inheritance), Prophéties avancées,
+sélection répétée d'un même groupe de cartes dans la fenêtre de choix (un clic semble parfois perdu).
 Le panneau du navigateur intégré est petit : les vérifications passent surtout par la structure de la page.
 
 ---

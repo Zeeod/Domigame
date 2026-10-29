@@ -295,7 +295,8 @@ export class StateSerializerV2 {
                     const next = raw[i + 1];
                     if ((l.type as string) === 'DRAW' && next && next.type === 'TEXT' && next.playerId === l.playerId && next.privateData?.type === 'DRAW') return;
                     const prev = out[out.length - 1];
-                    const duplicate = prev && prev.playerId === l.playerId && prev.message === message;
+                    // Same text written once as a structured event and once as text (two TEXT lines in a row are two real actions)
+                    const duplicate = prev && prev.playerId === l.playerId && prev.message === message && (prev.type === 'TEXT') !== (l.type === 'TEXT');
                     if (duplicate && l.type === 'TEXT') return;
                     if (duplicate && prev.type === 'TEXT') out.pop(); // keep the structured event (rich display)
 

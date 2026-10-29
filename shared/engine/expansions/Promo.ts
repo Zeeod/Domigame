@@ -210,7 +210,9 @@ export const PromoModule: ExpansionModule = {
                     context: {
                         specialAction: 'BLACK_MARKET',
                         cards: revealed.map(c => ({ id: c.id, instanceId: c.instanceId })),
-                        buyable: buyable.map(c => c.instanceId)
+                        buyable: buyable.map(c => c.instanceId),
+                        // Shown greyed out in the interface when not affordable
+                        candidates: buyable.map(c => c.instanceId)
                     }
                 } as any;
                 return { state, needsChoice: true };
