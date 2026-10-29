@@ -176,6 +176,9 @@ export class StateSerializerV2 {
                             });
                         }
 
+                        // The cards that may be chosen, when the decision lists them
+                        if (Array.isArray(decision.context.candidates)) safeContext.candidates = decision.context.candidates.map((id: any) => String(id));
+
                         // Serialize context.cards (for SENTRY_INTERACTION, COMPOSITE_FILTER, etc.)
                         if (decision.context.cards && Array.isArray(decision.context.cards)) {
                             safeContext.cards = decision.context.cards.map((c: any) => {
@@ -460,6 +463,8 @@ export class StateSerializerV2 {
             // Nocturne
             boons: player.boons || [],
             hexes: player.hexes || [],
+            // Nocturne: States (Lost in the Woods, Envious, Miserable…)
+            states: [...((player as any).states || [])],
             // Menagerie
             exileMat: peekMat(player, 'exile').map(c => this.serializeCard(c)),
             // Allies

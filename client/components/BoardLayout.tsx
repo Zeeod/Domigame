@@ -387,7 +387,11 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const { public: pub, private: priv } = gameState;
+    const { public: pub, private: rawPriv } = gameState;
+    // Possession: I play another player's turn — their hand, their resources, their decisions
+    const controlling = !!pub.possession && pub.possession.controllerId === playerId;
+    const possessedPlayer = controlling ? pub.players.find(p => p.id === pub.possession!.possessedId) : undefined;
+    const priv = (controlling && pub.possession?.hand ? { ...(rawPriv || {}), hand: pub.possession.hand } : rawPriv) as typeof rawPriv;
     // Adventures: every player's tokens, shown on the piles they are on
     const pileMarkers: Record<string, { label: string; color: string; title?: string }[]> = {};
     for (const p of pub.players) {
@@ -397,7 +401,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         }
     }
     const pendingDecision = pub.pendingDecision;
-    const isMyChoice = pendingDecision && pendingDecision.playerId === playerId;
+    const isMyChoice = pendingDecision && (pendingDecision.playerId === playerId || (controlling && pendingDecision.playerId === pub.possession?.possessedId));
     const isSelectionMode = isMyChoice && (pendingDecision?.type === PromptType.CHOOSE_CARDS || pendingDecision?.type === PromptType.ZONE_SEARCH);
     const isZoneSearch = isMyChoice && (
         (pendingDecision?.type === PromptType.ZONE_SEARCH || pendingDecision?.type === PromptType.CHOOSE_CARDS) &&
@@ -456,7 +460,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
     // const myPlayer = pub.players.find(p => p.id === playerId); // Already defined above
     const currentPlayer = pub.players[pub.currentPlayerIndex];
-    const isMyTurn = playerId === currentPlayer?.id;
+    const isMyTurn = playerId === currentPlayer?.id || controlling;
 
     // HAND SELECTION
     const toggleHandSelection = (instanceId: string, _cardId: string) => {
@@ -650,6 +654,11 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
             }
         }
 
+        // Possession: say whose turn is being played
+        if (controlling && possessedPlayer) {
+            return `Vous jouez le tour de ${possessedPlayer.name} (Possession) — ${pub.phase === 'ACTION' ? 'phase Action' : pub.phase === 'BUY' ? 'phase Achat' : pub.phase === 'NIGHT' ? 'phase Nuit' : ''}`;
+        }
+
         // 2. No Decision, but my turn (Phase Instructions)
         if (isMyTurn) {
             if (pub.phase === 'ACTION') {
@@ -727,9 +736,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         supply={pub.supply}
                         variant="treasures-victories"
                         onBuy={onBuyCard}
-                        canBuy={isMyTurn && pub.phase === 'BUY' && (myPlayer?.buys ?? 0) > 0}
-                        coins={myPlayer?.coins ?? 0}
-                        costReduction={myPlayer?.costReduction ?? 0}
+                        canBuy={isMyTurn && pub.phase === 'BUY' && ((possessedPlayer ?? myPlayer)?.buys ?? 0) > 0}
+                        coins={(possessedPlayer ?? myPlayer)?.coins ?? 0}
+                        costReduction={(possessedPlayer ?? myPlayer)?.costReduction ?? 0}
                         pendingDecision={isMyChoice ? pendingDecision : undefined}
                         onChoose={onSendDecision}
                         landscapeState={pub.landscapeState}
@@ -1169,9 +1178,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     supply={pub.supply}
                                     variant="kingdom"
                                     onBuy={onBuyCard}
-                                    canBuy={isMyTurn && pub.phase === 'BUY' && (myPlayer?.buys ?? 0) > 0}
-                                    coins={myPlayer?.coins ?? 0}
-                                    costReduction={myPlayer?.costReduction ?? 0}
+                                    canBuy={isMyTurn && pub.phase === 'BUY' && ((possessedPlayer ?? myPlayer)?.buys ?? 0) > 0}
+                                    coins={(possessedPlayer ?? myPlayer)?.coins ?? 0}
+                                    costReduction={(possessedPlayer ?? myPlayer)?.costReduction ?? 0}
                                     pendingDecision={isMyChoice ? pendingDecision : undefined}
                                     onChoose={onSendDecision}
                                     onToggleSupply={isSelectionMode ? handleSupplySelection : undefined}
@@ -1348,6 +1357,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     const sourceZone = pendingDecision?.constraints?.sourceZone;
                                     if (sourceZone && sourceZone !== 'hand') isFiltered = true;
                                 }
+                                // The decision may list exactly which cards can be chosen
+                                const candidates: string[] | undefined = (pendingDecision?.context as any)?.candidates;
+                                if (isSelectionMode && candidates && !visibleInstances.some(inst => candidates.includes(inst.instanceId))) isFiltered = true;
 
                                 const handleStackedClick = () => {
                                     if (isFiltered || isHandLocked) return;

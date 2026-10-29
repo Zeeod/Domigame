@@ -7,6 +7,7 @@ interface PlayerBadgesProps {
         projects?: string[];
         boons?: string[];
         hexes?: string[];
+        states?: string[];
         journeyTokenFaceUp?: boolean;
         minusCoinToken?: boolean;
         minusCardToken?: boolean;
@@ -28,6 +29,7 @@ export const PlayerBadges: React.FC<PlayerBadgesProps> = ({ player }) => {
     add('🧱', player.projects);
     add('✨', player.boons);
     add('🌀', player.hexes);
+    add('🌫️', player.states);
     if (player.minusCoinToken) badges.push({ key: 'minuscoin', icon: '−💰', label: '−1 💰', text: 'Le prochain 💰 reçu est perdu.' });
     if (player.minusCardToken) badges.push({ key: 'minuscard', icon: '−🂠', label: '−1 Carte', text: 'La prochaine pioche d\'une main est réduite d\'une carte.' });
     if (badges.length === 0) return null;

@@ -3,6 +3,7 @@ import { GameState, PlayerState, CardInstance } from './GameState.js';
 import { produce } from 'immer';
 import { StatsCalculator } from './StatsCalculator.js';
 import { isShadow } from './Shadows.js';
+import { possessionOf } from './Possession.js';
 
 /**
  * GameStateView - Handles "Fog of War" by sanitizing the state for a specific player.
@@ -21,8 +22,11 @@ export class GameStateView {
             delete (draft as any).rng;
 
             // 2. Sanitize each player
+            // Possession: the controller sees the possessed player's hand (they play it)
+            const poss = possessionOf(draft as any);
             draft.players.forEach((p, idx) => {
-                draft.players[idx] = this.sanitizePlayer(draft as any, p, viewerId === p.id);
+                const controls = !!poss && poss.controllerId === viewerId && poss.possessedId === p.id;
+                draft.players[idx] = this.sanitizePlayer(draft as any, p, viewerId === p.id, controls);
             });
 
             // 3. Sanitize Supply and Non-Supply (mixed piles)
@@ -44,18 +48,21 @@ export class GameStateView {
                 // Hide all cards in the pile except the count
                 // We keep the top card ID IF it's supposed to be visible (e.g. Knights top card is visible)
                 // For Loot, it's usually face down. 
-                pile.cards = (pile.cards || []).map(() => ({ id: 'back', instanceId: 'hidden' }));
+                // Only the top card is visible (Castles, Knights, Ruins, split piles); Loot is face down
+                const cards = pile.cards || [];
+                const topVisible = pile.cardId !== 'loot_pile';
+                pile.cards = cards.map((c: any, i: number) => (topVisible && i === cards.length - 1) ? c : ({ id: 'back', instanceId: 'hidden' }));
             }
         }
     }
 
-    private static sanitizePlayer(state: GameState, player: PlayerState, isViewer: boolean): any {
+    private static sanitizePlayer(state: GameState, player: PlayerState, isViewer: boolean, controlledByViewer = false): any {
         // Create a copy of the player state
         const sanitized: any = { ...player };
 
         if (!isViewer) {
-            // Mask opponent's hand
-            sanitized.hand = player.hand.map(c => this.createHiddenCard(c.instanceId));
+            // Mask opponent's hand (unless the viewer is playing their turn: Possession)
+            if (!controlledByViewer) sanitized.hand = player.hand.map(c => this.createHiddenCard(c.instanceId));
 
             // Mask opponent's deck (count only)
             sanitized.deck = player.deck.map(c => isShadow(c.id) ? c : this.createHiddenCard(c.instanceId)); // Shadows have unique backs

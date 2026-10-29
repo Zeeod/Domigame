@@ -30,6 +30,24 @@ describe('Marché Noir (Black Market)', () => {
         expect(state.blackMarketRevealed!.length).toBe(0);
         expect(state.blackMarketDeck!.map(c => c.id)).toEqual(['market', 'village', 'gold']);
     });
+
+    it('lets you play Treasures before buying (2nd edition)', () => {
+        let state = makeGame(['black_market']);
+        state.blackMarketDeck = cards('gold', 'village', 'smithy');
+        player(state).hand = cards('black_market', 'silver', 'silver', 'estate');
+        state = play(state, 'black_market');
+        let d = state.pendingDecision as any;
+        expect(d.context.specialAction).toBe('BLACK_MARKET_TREASURES');
+        expect(d.message).toContain('Or');
+        state = choose(state, { type: 'CARDS', cardInstanceIds: d.context.candidates });
+        expect(player(state).coins).toBe(6);
+        d = state.pendingDecision as any;
+        expect(d.context.specialAction).toBe('BLACK_MARKET');
+        const gold = d.context.cards.find((c: any) => c.id === 'gold');
+        state = choose(state, { type: 'CARDS', cardInstanceIds: [gold.instanceId] });
+        expect(player(state).discardPile.map(c => c.id)).toContain('gold');
+        expect(player(state).coins).toBe(0);
+    });
 });
 
 describe('Délégué (Envoy)', () => {
