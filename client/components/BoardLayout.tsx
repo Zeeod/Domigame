@@ -175,7 +175,16 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
             if (parts.length >= 2) return { id, cardId: parts[1], source: 'SUPPLY' as const };
         }
 
-        // 3. Fallback / Other zones
+        // 3. Cards listed by the decision itself (revealed, discard pile, Black Market…), Possession hand, deck Shadows
+        const pd: any = gameState.public.pendingDecision;
+        const listed = [
+            ...(pd?.context?.cards || []), ...(pd?.cards || []),
+            ...(gameState.public.possession?.hand || []),
+            ...(gameState.public.players.find(p => p.id === playerId)?.deckShadows || [])
+        ].find((c: any) => c?.instanceId === id);
+        if (listed) return { id, cardId: listed.id, source: 'HAND' as const };
+
+        // 4. Unknown
         return { id, cardId: 'unknown', source: 'HAND' as const };
     }).filter(c => c.cardId !== 'unknown');
 
@@ -1047,6 +1056,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                             selectedIds={selectedCards.map(c => c.id)}
                                             onToggleCard={(id, cardId) => toggleHandSelection(id, cardId)}
                                             filter={pendingDecision.constraints?.filter}
+                                            candidates={(pendingDecision.context as any)?.candidates}
                                             onConfirmOrder={(orderedIds) => onSendDecision(pendingDecision.id, { type: 'CARDS', cardInstanceIds: orderedIds })}
                                         />
                                         {isSelectionMode && (

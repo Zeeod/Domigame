@@ -23,6 +23,8 @@ interface UniversalOverlayProps {
         cardIds?: string[];
         cardTypes?: string[];
     };
+    /** Exactly which cards (instance ids) may be chosen, when the decision lists them */
+    candidates?: string[];
 
     // REORDER Mode Props
     onConfirmOrder?: (orderedIds: string[]) => void;
@@ -45,6 +47,7 @@ export const UniversalOverlay: React.FC<UniversalOverlayProps> = ({
     selectedIds = [],
     onToggleCard,
     filter,
+    candidates,
     onConfirmOrder,
     cardToInsert,
     deckCount = 0,
@@ -119,7 +122,7 @@ export const UniversalOverlay: React.FC<UniversalOverlayProps> = ({
     if (mode === 'GRID') {
         cards.forEach(card => {
             const def = CardRegistry.get(card.id);
-            const isFiltered = !!(filter ? (
+            const isFiltered = !!(candidates && !candidates.includes(card.instanceId)) || !!(filter ? (
                 (filter.maxCost !== undefined && (def?.cost || 0) > filter.maxCost) ||
                 (filter.cardIds && !filter.cardIds.includes(card.id)) ||
                 (filter.cardTypes && !filter.cardTypes.some(t => def?.types.includes(t as CardType)))
