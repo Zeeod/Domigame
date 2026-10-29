@@ -8,7 +8,7 @@ import { EconomyEngine } from '../EconomyEngine.js';
 import { EffectUtils } from '../EffectUtils.js';
 import { ExpansionModule } from '../ExpansionLoader.js';
 import { chosenInstanceIds } from '../effects/OpponentChoiceEffects.js';
-import { markPlayed, pushPlayEffects } from '../Play.js';
+import { markPlayed, pushPlayEffects, playCardNow } from '../Play.js';
 import { getMat, peekMat } from '../Mats.js';
 import { GameState } from '../GameState.js';
 import { GainEffectHandler } from '../effects/GainEffectHandler.js';
@@ -161,6 +161,7 @@ export const PromoModule: ExpansionModule = {
              */
             type: 'BLACK_MARKET',
             handler: (state, player) => {
+                // 2nd edition: reveal 3, play any number of Treasures, you may buy one of them
                 const deck = (state.blackMarketDeck = state.blackMarketDeck || []);
                 const revealed = deck.splice(0, 3);
                 if (revealed.length === 0) {
@@ -169,10 +170,33 @@ export const PromoModule: ExpansionModule = {
                 }
                 state.blackMarketRevealed = revealed;
                 EffectUtils.revealCards(state, revealed, 'ALL', 'Marché Noir');
+                Logger.log(state, `Marché Noir : ${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}.`, player.id);
 
+                const treasures = player.hand.filter(c => CardRegistry.get(c.id)?.types.includes('TREASURE'));
+                if (!treasures.length) {
+                    state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'BLACK_MARKET_BUY' } as any, context: {} });
+                    return { state, needsChoice: false };
+                }
+                state.pendingDecision = {
+                    id: `black_market_treasures_${Date.now()}`,
+                    playerId: player.id,
+                    type: 'CHOOSE_CARDS' as any,
+                    message: `Marché Noir (${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}) : jouez des Trésors avant d'acheter ?`,
+                    constraints: { min: 0, max: treasures.length, sourceZone: 'hand' },
+                    context: { specialAction: 'BLACK_MARKET_TREASURES', candidates: treasures.map(c => c.instanceId) }
+                } as any;
+                return { state, needsChoice: true };
+            }
+        },
+        {
+            type: 'BLACK_MARKET_BUY',
+            handler: (state, player) => {
+                const deck = (state.blackMarketDeck = state.blackMarketDeck || []);
+                const revealed = state.blackMarketRevealed || [];
+                if (!revealed.length) return { state, needsChoice: false };
                 const buyable = revealed.filter(c => canAfford(state, player, c.id));
                 if (buyable.length === 0) {
-                    deck.push(...state.blackMarketRevealed.splice(0));
+                    deck.push(...revealed.splice(0));
                     Logger.log(state, `${player.name} ne peut acheter aucune des cartes du Marché Noir.`, player.id);
                     return { state, needsChoice: false };
                 }
@@ -291,6 +315,15 @@ export const PromoModule: ExpansionModule = {
                 description: `Appel : jouer ${CardRegistry.get(cardId)?.name || cardId}`
             } as any);
         });
+        EffectEngine.registerDecisionHandler('BLACK_MARKET_TREASURES', (state, playerId, payload, decision) => {
+            const player = state.players.find(p => p.id === playerId);
+            if (!player) return;
+            // The purchase comes after the Treasures played now
+            state.effectStack.push({ type: 'EFFECT', playerId: player.id, effect: { type: 'BLACK_MARKET_BUY' } as any, context: {} });
+            const ids = chosenInstanceIds(payload).filter(id => (decision.context.candidates || []).includes(id));
+            for (const id of ids.reverse()) playCardNow(state, player, id);
+        });
+
         EffectEngine.registerDecisionHandler('BLACK_MARKET', (state, playerId, payload, decision) => {
             const player = state.players.find(p => p.id === playerId);
             if (!player) return;

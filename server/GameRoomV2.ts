@@ -580,6 +580,15 @@ export class GameRoomV2 {
      * Helper to bypass socketId requirement for internal actions
      */
     private handleActionByPlayerId(playerId: string, action: GameAction): boolean {
+        try {
+            return this.handleActionByPlayerIdUnsafe(playerId, action);
+        } catch (e: any) {
+            this.logger.error('AUTO_ACTION_CRASH', `${action?.type}: ${e?.stack || e}`);
+            return false;
+        }
+    }
+
+    private handleActionByPlayerIdUnsafe(playerId: string, action: GameAction): boolean {
         // Same checks as a player's action
         const validation = RulesValidator.validate(this.gameState, playerId, action);
         if (!validation.valid) {
@@ -1163,6 +1172,16 @@ export class GameRoomV2 {
      * Handle a game action from a client
      */
     handleAction(socketId: string, action: GameAction): { success: boolean; error?: string } {
+        // One bad action (malformed payload, engine bug) must never take the whole server down
+        try {
+            return this.handleActionUnsafe(socketId, action);
+        } catch (e: any) {
+            this.logger.error('ACTION_CRASH', `${action?.type}: ${e?.stack || e}`);
+            return { success: false, error: 'Action impossible (erreur interne)' };
+        }
+    }
+
+    private handleActionUnsafe(socketId: string, action: GameAction): { success: boolean; error?: string } {
         const playerId = this.getPlayerIdBySocket(socketId);
         if (!playerId) {
             return { success: false, error: 'Player not found in room' };

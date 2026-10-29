@@ -31,3 +31,23 @@ describe('Journal envoyé aux joueurs', () => {
         }
     });
 });
+
+describe('Possession : ce que voit chaque joueur', () => {
+    it('le contrôleur voit la main du joueur possédé, les autres non', async () => {
+        const { GameStateView } = await import('../../shared/engine/GameStateView.js');
+        const kingdom = ['village', 'smithy', 'market', 'cellar', 'moat', 'workshop', 'festival', 'laboratory', 'chapel', 'possession'];
+        const room = new GameRoomV2(io, 'poss_' + Math.random(), { kingdomCards: kingdom, landscapeInstructions: [], turnTimeoutMs: 0 } as any);
+        for (const id of ['p1', 'p2', 'p3']) room.addPlayer({ id: 's' + id, join: noop, emit: noop } as any, id, '#fff', id);
+        room.players.forEach(p => (p.isReady = true));
+        room.startGame(kingdom);
+        const s: any = room.gameState;
+        const possessed = s.players[s.currentPlayerIndex].id;
+        const controller = s.players.find((p: any) => p.id !== possessed).id;
+        const other = s.players.find((p: any) => p.id !== possessed && p.id !== controller).id;
+        s.currentExtraTurn = { type: 'POSSESSION', playerId: possessed, controllerId: controller };
+        const view = (id: string) => (StateSerializerV2.serialize(GameStateView.createPlayerView(s, id), id) as any).public.possession;
+        const hand = s.players.find((p: any) => p.id === possessed).hand.map((c: any) => c.id);
+        expect(view(controller).hand.map((c: any) => c.id)).toEqual(hand);
+        expect(view(other).hand).toBeUndefined();
+    });
+});

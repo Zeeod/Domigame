@@ -32,6 +32,8 @@ export interface PublicPlayerState {
     deckShadows?: SerializedCard[];
     /** Adventures: the pile each of this player's tokens is on (+1 Carte, −2 💰 de coût…) */
     advTokens?: Record<string, string>;
+    /** Nocturne: States the player has (Lost in the Woods, Deluded…) */
+    states?: string[];
     topDiscard?: SerializedCard;
 
     // Generic Storage (New)

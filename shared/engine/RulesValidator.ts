@@ -444,6 +444,9 @@ export class RulesValidator {
                     if (payload.type === 'PASS' || payload.type === 'UPDATE_SELECTION') return { valid: true };
 
                     const cardIds = payload.cardInstanceIds as string[];
+                    if (!Array.isArray(cardIds) || cardIds.some(id => typeof id !== 'string')) {
+                        return { valid: false, error: 'Sélection de cartes invalide' };
+                    }
                     const min = state.pendingDecision.constraints?.min ?? 0;
                     const max = state.pendingDecision.constraints?.max ?? Infinity;
 
