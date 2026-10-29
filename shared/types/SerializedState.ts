@@ -99,9 +99,9 @@ export interface PublicGameState {
     nonSupply: Record<string, { cardId: string; count: number; isMixed?: boolean; topCardId?: string; tokens?: Record<string, number> }>;
     landscapes: string[];
     /** Cards set aside at setup that players should see (Rising Sun — Riverboat), with what they belong to */
-    setAsideForGame?: { cardId: string; label: string }[];
+    setAsideForGame?: { cardId: string; label: string; sourceId?: string }[];
     /** Supply piles added on top of the 10 Kingdom piles (Approaching Army, Bane) */
-    extraPiles?: { cardId: string; label: string }[];
+    extraPiles?: { cardId: string; label: string; sourceId?: string }[];
     landscapeState: Record<string, {
         tokens: Record<string, number>;
         state: any;
@@ -142,6 +142,11 @@ export interface PublicGameState {
         color: string;
         score: number;
         isWinner: boolean;
+        turns?: number;
+        /** Where the VP come from: a card id, a Landmark id, 'vpTokens' or 'other' */
+        breakdown?: { source: string; count?: number; vp: number }[];
+        /** Every card owned at the end */
+        deck?: { cardId: string; count: number }[];
     }[];
 
     revealedCards?: {

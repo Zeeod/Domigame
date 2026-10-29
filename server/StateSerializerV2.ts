@@ -118,16 +118,16 @@ export class StateSerializerV2 {
             landscapes: state.landscapes || [],
             // Cards set aside at setup that matter to everyone: Riverboat's card, Druid's 3 Boons
             setAsideForGame: [
-                ...((state as any).riverboatCard ? [{ cardId: (state as any).riverboatCard, label: 'Bateau de Rivière' }] : []),
-                ...((state.landscapeState?.druid_boons?.state?.boons || []) as string[]).map(id => ({ cardId: id, label: 'Druide' })),
+                ...((state as any).riverboatCard ? [{ cardId: (state as any).riverboatCard, label: 'Bateau de Rivière', sourceId: 'riverboat' }] : []),
+                ...((state.landscapeState?.druid_boons?.state?.boons || []) as string[]).map(id => ({ cardId: id, label: 'Druide', sourceId: 'druid' })),
                 // Inheritance: the card each player's Estate token is on
                 ...state.players.filter(p => (state.landscapeState as any)?.[`inheritance_${p.id}`]?.state?.cardId)
-                    .map(p => ({ cardId: (state.landscapeState as any)[`inheritance_${p.id}`].state.cardId as string, label: `Héritage (${p.name})` }))
+                    .map(p => ({ cardId: (state.landscapeState as any)[`inheritance_${p.id}`].state.cardId as string, label: `Héritage (${p.name})`, sourceId: 'inheritance' }))
             ],
             // Supply piles added on top of the 10 Kingdom piles (shown apart, under the Kingdom)
             extraPiles: [
-                ...((state as any).approachingArmyPile ? [{ cardId: (state as any).approachingArmyPile as string, label: 'Armée en approche' }] : []),
-                ...((state.landscapeState as any)?.young_witch_bane?.state?.baneId ? [{ cardId: (state.landscapeState as any).young_witch_bane.state.baneId as string, label: 'Fléau (Jeune sorcière)' }] : []),
+                ...((state as any).approachingArmyPile ? [{ cardId: (state as any).approachingArmyPile as string, label: 'Armée en approche', sourceId: 'approaching_army' }] : []),
+                ...((state.landscapeState as any)?.young_witch_bane?.state?.baneId ? [{ cardId: (state.landscapeState as any).young_witch_bane.state.baneId as string, label: 'Fléau (Jeune sorcière)', sourceId: 'young_witch' }] : []),
             ].filter(p => !!state.supply[p.cardId]),
             landscapeState: JSON.parse(JSON.stringify(state.landscapeState || {})), // Deep copy to be safe
             players: state.players.map(p => this.serializePublicPlayer(p, forPlayerId)),

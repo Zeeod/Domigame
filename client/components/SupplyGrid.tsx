@@ -41,9 +41,9 @@ interface SupplyGridProps {
     landscapes?: string[];
     landscapeState?: Record<string, any>;
     /** Cards set aside for the whole game (Riverboat), shown with the landscapes */
-    setAsideForGame?: { cardId: string; label: string }[];
+    setAsideForGame?: { cardId: string; label: string; sourceId?: string }[];
     /** Supply piles added on top of the 10 Kingdom piles (Approaching Army, Bane…) */
-    extraPiles?: { cardId: string; label: string }[];
+    extraPiles?: { cardId: string; label: string; sourceId?: string }[];
     /** Players' tokens on each pile (Adventures) */
     pileMarkers?: Record<string, { label: string; color: string; title?: string }[]>;
 }
@@ -115,6 +115,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
 
     // The Kingdom shows 10 piles on 2 rows; extra piles go to the strip row under it
     const extraLabel = new Map(extraPiles.map(p => [p.cardId, p.label] as [string, string]));
+    const extraSource = new Map(extraPiles.map(p => [p.cardId, p.sourceId] as [string, string | undefined]));
     const extras: string[] = kingdom.filter(id => extraLabel.has(id));
     const mainKingdom = kingdom.filter(id => !extraLabel.has(id));
     if (mainKingdom.length > 10) extras.push(...mainKingdom.splice(10));
@@ -200,6 +201,7 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                 key={'extra_' + cardId}
                 cardId={pile.topCardId || cardId}
                 label={extraLabel.get(cardId)}
+                sourceId={extraSource.get(cardId)}
                 count={pile.count}
                 costOverride={getEffectiveCost(pile.topCardId || cardId)}
                 isPurchasable={(!isSupplySelectionMode && buyable) || (isSupplySelectionMode && canSelect)}
@@ -308,8 +310,8 @@ export const SupplyGrid: React.FC<SupplyGridProps> = ({
                         {(extras.length > 0 || setAsideForGame.length > 0) && (
                             <div className="supply-row special-strip-row">
                                 {extras.map(renderStrip)}
-                                {setAsideForGame.map(({ cardId, label }) => (
-                                    <CardStrip key={'aside_' + cardId + label} cardId={cardId} label={label} showCost={false} />
+                                {setAsideForGame.map(({ cardId, label, sourceId }) => (
+                                    <CardStrip key={'aside_' + cardId + label} cardId={cardId} label={label} sourceId={sourceId} showCost={false} />
                                 ))}
                             </div>
                         )}

@@ -355,7 +355,10 @@ export class CleanupEffectHandler {
                 name: player.name,
                 color: player.color,
                 score: s.score,
-                isWinner: winnerIds.includes(player.id)
+                isWinner: winnerIds.includes(player.id),
+                turns: s.turns,
+                breakdown: VictoryChecker.scoreBreakdown(state, player),
+                deck: VictoryChecker.deckList(player),
             };
         });
 

@@ -232,6 +232,12 @@ export interface GameState {
         color: string;
         score: number;
         isWinner: boolean;
+        /** Turns taken (breaks ties) */
+        turns?: number;
+        /** Where the VP come from */
+        breakdown?: { source: string; count?: number; vp: number }[];
+        /** Every card owned at the end */
+        deck?: { cardId: string; count: number }[];
     }[];
     rng: {
         seed: string;

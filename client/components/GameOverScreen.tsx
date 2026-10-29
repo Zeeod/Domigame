@@ -4,6 +4,7 @@ import './GameOverScreen.css';
 import { GameState } from '../hooks/useSocket';
 import { ParticleOverlay, ParticleOverlayRef } from './ParticleOverlay';
 import { CardRegistry } from '../../shared/cards/index';
+import { CardStrip } from './CardFrame';
 import { useSound } from '../hooks/useSound';
 
 interface GameOverScreenProps {
@@ -181,37 +182,23 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ gameState, onRet
         return () => clearTimeout(timer);
     }, []);
 
-    // Helper to calculate badges
-    const getBadges = (playerId: string) => {
-        const player = players.find(p => p.id === playerId);
-        if (!player) return [];
+    type Result = NonNullable<typeof gameResults>[number];
+    const hasType = (cardId: string, t: string) => !!CardRegistry.get(cardId)?.types.includes(t as any);
+    const countOf = (r: Result, test: (id: string) => boolean) => (r.deck || []).reduce((n, d) => n + (test(d.cardId) ? d.count : 0), 0);
 
+    // Badges from the final decks (sent by the server at the end of the game)
+    const getBadges = (r: Result, all: Result[]) => {
+        if (!r.deck?.length) return [];
         const badges: { label: string, icon: string, class: string }[] = [];
-
-        const allCards = [
-            ...(player as any).hand || [],
-            ...(player as any).deck || [],
-            ...player.discardPile,
-            ...player.playArea,
-            ...(player.mats ? Object.values(player.mats).flat() : [])
-        ];
-
-        const treasureCount = allCards.filter(c => CardRegistry.get(c.cardId)?.types.includes('TREASURE')).length;
-        const actionCount = allCards.filter(c => CardRegistry.get(c.cardId)?.types.includes('ACTION')).length;
-        const totalCount = allCards.length;
-
-        const getPlayerTotal = (p: any) => [...p.hand, ...p.deck, ...p.discardPile, ...p.playArea, ...(p.mats ? Object.values(p.mats).flat() : [])];
-        const getPlayerTreasure = (p: any) => getPlayerTotal(p).filter(c => CardRegistry.get(c.cardId)?.types.includes('TREASURE')).length;
-
-        const isMostMagnat = players.every(p => p.id === playerId || treasureCount >= getPlayerTreasure(p));
-        const isMostCollector = players.every(p => p.id === playerId || totalCount >= getPlayerTotal(p).length);
-
-        if (isMostMagnat && treasureCount > 5) badges.push({ label: 'Le Magnat', icon: '💰', class: 'gold' });
-        if (isMostCollector && totalCount > 30) badges.push({ label: 'Collectionneur', icon: '📚', class: 'blue' });
-        if (actionCount > 12) badges.push({ label: 'Stratège', icon: '⚡', class: 'green' });
-
+        const treasures = (x: Result) => countOf(x, id => hasType(id, 'TREASURE'));
+        const size = (x: Result) => countOf(x, () => true);
+        if (treasures(r) > 5 && all.every(o => treasures(r) >= treasures(o))) badges.push({ label: 'Le Magnat', icon: '💰', class: 'gold' });
+        if (size(r) > 30 && all.every(o => size(r) >= size(o))) badges.push({ label: 'Collectionneur', icon: '📚', class: 'blue' });
+        if (countOf(r, id => hasType(id, 'ACTION')) > 12) badges.push({ label: 'Stratège', icon: '⚡', class: 'green' });
         return badges;
     };
+
+    const sourceName = (source: string) => source === 'vpTokens' ? 'Jetons PV' : source === 'other' ? 'Autres' : (CardRegistry.get(source)?.name ?? source);
 
     const results = gameResults || players.map(p => ({
         playerId: p.id,
@@ -254,7 +241,9 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ gameState, onRet
                     animate="visible"
                 >
                     {sortedResults.map((result, index) => {
-                        const badges = getBadges(result.playerId);
+                        const badges = getBadges(result as Result, sortedResults as Result[]);
+                        const r = result as Result;
+                        const deckSize = countOf(r, () => true);
                         return (
                             <motion.div
                                 key={result.playerId}
@@ -293,6 +282,36 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({ gameState, onRet
                                     {result.score}
                                     <span className="score-unit">VP</span>
                                 </motion.div>
+
+                                {/* Where the points come from */}
+                                {r.breakdown && r.breakdown.length > 0 && (
+                                    <div className="score-details">
+                                        <div className="score-details-label">Points</div>
+                                        <div className="vp-lines">
+                                            {r.breakdown.map(l => (
+                                                <span key={l.source} className={`vp-line ${l.vp < 0 ? 'negative' : l.vp === 0 ? 'zero' : ''}`}>
+                                                    <span className="vp-line-name">{sourceName(l.source)}</span>
+                                                    {l.count !== undefined && <span className="vp-line-count">×{l.count}</span>}
+                                                    <span className="vp-line-value">{l.vp > 0 ? '+' : ''}{l.vp}</span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Final deck (right-click a card to see it) */}
+                                {r.deck && r.deck.length > 0 && (
+                                    <div className="score-details">
+                                        <div className="score-details-label">
+                                            Deck <span className="score-details-sub">{deckSize} cartes{r.turns ? ` · ${r.turns} tours` : ''}</span>
+                                        </div>
+                                        <div className="deck-list">
+                                            {r.deck.map(d => (
+                                                <CardStrip key={d.cardId} cardId={d.cardId} count={d.count} showCost={false} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </motion.div>
                         );
                     })}

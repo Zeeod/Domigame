@@ -20,14 +20,11 @@ import { SetAsideZone } from './SetAsideZone';
 import { SideSupplyBar } from './SideSupplyBar';
 import { vfxManager } from '../managers/VFXManager';
 import { usePromptInteraction } from '../hooks/usePromptInteraction';
-import { ZoneContainer } from './ZoneContainer';
-import { TokenDisplay } from './TokenDisplay';
 import { SmartCardOverlay, mapDecisionToOverlayProps } from './SmartCardOverlay';
 import { KingdomOverviewModal } from './KingdomOverviewModal';
 import { TavernMat } from './TavernMat';
-import { ExileMat } from './ExileMat';
 import { ShadowDeckZone } from './ShadowDeckZone';
-import { PlayerBadges } from './PlayerBadges';
+import { PlayerInventory } from './PlayerInventory';
 import { FitToBox } from './FitToBox';
 import { SpectatorBar } from './SpectatorBar';
 import { DeckStatsPanel } from './DeckStatsPanel';
@@ -444,6 +441,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         }
     }
     const pendingDecision = pub.pendingDecision;
+    // Cards and landscapes of this game (the inventory shows the Journey token only when something uses it)
+    const gameCardIds = [...Object.keys(pub.supply || {}), ...(pub.landscapes || [])];
     const isMyChoice = pendingDecision && (pendingDecision.playerId === playerId || (controlling && pendingDecision.playerId === pub.possession?.possessedId));
     const isSelectionMode = isMyChoice && (pendingDecision?.type === PromptType.CHOOSE_CARDS || pendingDecision?.type === PromptType.ZONE_SEARCH);
     const isZoneSearch = isMyChoice && (
@@ -755,7 +754,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     </span>
                                 </PersonaTooltip>
                                 <span className="opponent-vp-score">{p.score} VP</span>
-                                <PlayerBadges player={p as any} />
                             </div>
                         );
                     })}
@@ -780,7 +778,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                             <span className="opponent-vp-score">{myPlayer?.score} VP</span>
                             <span className="stats-toggle-icon">{isDeckStatsVisible ? '📊' : '📈'}</span>
                         </div>
-                        <PlayerBadges player={myPlayer as any} />
                     </div>
 
                     <DeckStatsPanel
@@ -859,6 +856,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                             </div>
                                         );
                                     })()}
+                                    {/* Tokens, Artifacts, States, mats: click for the details */}
+                                    <PlayerInventory player={p as any} gameCardIds={gameCardIds} />
                                 </div>
                                 {/* Visual Hand Fan OR Revealed Hand for Spectators */}
                                 <div className="opponent-hand-visual" style={{ minHeight: '120px' }}>
@@ -1492,7 +1491,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
                         const setAsideCards = [
                             ...(myPlayer?.aside || []),
-                            ...(myPlayer?.tavernMat || []),
                             ...myDurations.flatMap((c: any) => c.linkedCards || [])
                         ];
 
@@ -1508,11 +1506,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                 alignItems: 'flex-start',
                                 paddingBottom: '10px' /* Small padding from very edge */
                             }}>
-                                {/* Generic Tokens */}
-                                {myPlayer?.tokens && <TokenDisplay tokens={myPlayer.tokens} />}
-
-                                {/* Specialized Mats */}
-                                {myPlayer?.tavernMat && myPlayer.tavernMat.length > 0 && (
+                                {/* The Tavern stays here only while a Reserve can be called; otherwise it is in the inventory badge */}
+                                {myPlayer?.tavernMat && myPlayer.tavernMat.length > 0 && isMyChoice && /^Appeler (.+) ?$/.test(pendingDecision?.message || '') && (
                                     <TavernMat
                                         cards={myPlayer.tavernMat as any[]}
                                         // A Reserve can be called only when the game offers it ("Appeler X ?")
@@ -1521,9 +1516,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                             : []}
                                         onCallCard={() => pendingDecision && onSendDecision(pendingDecision.id, { type: 'OPTION', optionIndex: 0 })}
                                     />
-                                )}
-                                {myPlayer?.exileMat && myPlayer.exileMat.length > 0 && (
-                                    <ExileMat cards={myPlayer.exileMat as any[]} />
                                 )}
                                 {myPlayer?.deckShadows && myPlayer.deckShadows.length > 0 && (
                                     <ShadowDeckZone
@@ -1537,20 +1529,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     />
                                 )}
 
-                                {/* Other Generic Mats */}
-                                {myPlayer?.mats && Object.entries(myPlayer.mats).map(([name, cards]) => {
-                                    if (name === 'tavern' || name === 'exile') return null;
-                                    return (
-                                        <ZoneContainer
-                                            key={name}
-                                            name={name}
-                                            cards={cards as any[]}
-                                            onCardClick={() => {
-                                                setActiveOverlay({ type: 'SET_ASIDE' });
-                                            }}
-                                        />
-                                    );
-                                })}
 
                                 {/* Duration Display improvement */}
                                 {myPlayer?.playArea && pub.durations?.some(d => d.playerId === myPlayer.id) && (
@@ -1570,6 +1548,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                     onClick={() => setActiveOverlay(prev => prev?.type === 'DURATION' && (prev as any).playerId === playerId ? null : { type: 'DURATION', playerId: playerId || '' })}
                                     isActive={activeOverlay?.type === 'DURATION' && (activeOverlay as any).playerId === playerId}
                                 />
+                                {/* My tokens, Artifacts, States, mats: bottom-left of the hand, click for the details */}
+                                <PlayerInventory player={myPlayer as any} isMe gameCardIds={gameCardIds} />
                             </div>
                         );
                     })()

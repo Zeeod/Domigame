@@ -50,7 +50,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export const BigCardView: React.FC = () => {
-    const { zoomedCardId, clearZoomed } = useCardInspect();
+    const { zoomedCardId, zoomedOrigin, clearZoomed } = useCardInspect();
     const containerRef = useRef<HTMLDivElement>(null);
 
     // Global click listener to close zoom when clicking outside
@@ -147,6 +147,48 @@ export const BigCardView: React.FC = () => {
                     z-index: 10;
                 }
                 
+                .origin-card-panel {
+                    position: fixed;
+                    left: 6%;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 70px;
+                    pointer-events: auto;
+                    animation: relatedPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.1s backwards;
+                }
+                .origin-card-title {
+                    padding: 6px 14px;
+                    border-radius: 16px;
+                    background: rgba(0,0,0,0.55);
+                    border: 1px solid rgba(255,255,255,0.15);
+                    color: rgba(255,255,255,0.85);
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    text-align: center;
+                    max-width: 220px;
+                }
+                .origin-card-title small {
+                    display: block;
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    color: rgba(255,255,255,0.6);
+                    margin-top: 2px;
+                }
+                .origin-card-item {
+                    transform: scale(1.3);
+                    cursor: pointer;
+                    filter: drop-shadow(0 15px 35px rgba(0,0,0,0.6));
+                    transition: transform 0.25s, filter 0.2s;
+                }
+                .origin-card-item:hover {
+                    transform: scale(1.45);
+                    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8)) brightness(1.15);
+                }
+
                 .related-cards-grid {
                     position: fixed;
                     right: 5%;
@@ -259,6 +301,19 @@ export const BigCardView: React.FC = () => {
                         </div>
                     )}
                 </div>
+
+                {/* The card that put this one here (Bane, Approaching Army, Riverboat…) */}
+                {zoomedOrigin && CardRegistry.get(zoomedOrigin.cardId) && (
+                    <div className="origin-card-panel">
+                        <div className="origin-card-title">
+                            Placée ici par
+                            {zoomedOrigin.label && <small>{zoomedOrigin.label}</small>}
+                        </div>
+                        <div className="origin-card-item">
+                            <RelatedCardWrapper cardId={zoomedOrigin.cardId} />
+                        </div>
+                    </div>
+                )}
 
                 {/* Related Cards Grid */}
                 {cardDef && (
