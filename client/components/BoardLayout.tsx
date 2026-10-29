@@ -123,8 +123,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     const [showQuitConfirm, setShowQuitConfirm] = useState(false);
 
     // Rewind Selection State
-    const [rewindMode, setRewindMode] = useState(false);
-    const [selectedLogId, setSelectedLogId] = useState<string | null>(null);
     const [showKingdomModal, setShowKingdomModal] = useState(false);
     const [isDeckStatsVisible, setIsDeckStatsVisible] = useState(false);
 
@@ -462,23 +460,6 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         pendingDecision?.message.toLowerCase().includes('ordre')
     );
 
-    // Rewind handlers
-    const handleRewindToggle = () => {
-        setRewindMode(!rewindMode);
-        setSelectedLogId(null); // Reset selection
-    };
-
-    const handleLogSelect = (logId: string) => {
-        setSelectedLogId(logId);
-    };
-
-    const handleRewindConfirm = () => {
-        if (selectedLogId && onRequestRewind) {
-            onRequestRewind(selectedLogId);
-            setRewindMode(false);
-            setSelectedLogId(null);
-        }
-    };
 
 
     // Clear selection when decision ID changes
@@ -1585,34 +1566,11 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         players={pub.players}
                         myPlayerId={playerId}
                         onRequestRewind={onRequestRewind}
-                        rewindMode={rewindMode}
-                        selectedLogId={selectedLogId}
-                        onSelectLog={handleLogSelect}
+                        canRewind={!isSpectator && !roomState?.activeRewindRequest}
                     />
                 </div>
 
                 <div className="zone-17-menu">
-                    {/* Rewind Button */}
-                    <button
-                        className={`rewind-mode-btn ${rewindMode ? 'active' : ''}`}
-                        onClick={handleRewindToggle}
-                        disabled={!isMyTurn}
-                        title={!isMyTurn ? "Disponible uniquement durant votre tour" : (rewindMode ? "Annuler le mode retour" : "Revenir en arrière")}
-                    >
-                        ⏪
-                    </button>
-
-                    {/* Confirm Rewind Button */}
-                    {rewindMode && selectedLogId && (
-                        <button
-                            className="confirm-rewind-btn"
-                            onClick={handleRewindConfirm}
-                            title="Confirmer le retour en arrière"
-                        >
-                            ✓ CONFIRMER
-                        </button>
-                    )}
-
                     <button
                         className="kingdom-menu-btn"
                         onClick={() => setShowKingdomModal(true)}

@@ -39,7 +39,10 @@ export interface RoomState {
     activeRewindRequest?: {
         requesterId: string;
         targetLogId: string;
+        targetLogEntry?: { message: string };
         votes: Record<string, boolean>;
+        /** Players who must agree (connected humans) */
+        voterIds?: string[];
     } | null;
 }
 

@@ -283,3 +283,34 @@
     background: rgba(156, 39, 176, 0.08);
     font-style: italic;
 }
+
+/* Go back to just before a move: shown under the clicked log line */
+.log-rewind-confirm {
+    display: flex;
+    gap: 6px;
+    margin: 2px 0 6px 10px;
+}
+
+.log-rewind-confirm button {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.log-rewind-go {
+    background: #8bc34a;
+    color: #10220a;
+}
+
+.log-rewind-go:hover {
+    filter: brightness(1.1);
+}
+
+.log-rewind-cancel {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
