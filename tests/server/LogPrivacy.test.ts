@@ -51,3 +51,20 @@ describe('Possession : ce que voit chaque joueur', () => {
         expect(view(other).hand).toBeUndefined();
     });
 });
+
+describe('Héritage : ce que reçoivent les joueurs', () => {
+    it('les capacités des Domaines et la carte au jeton Domaine sont envoyées', () => {
+        const kingdom = ['village', 'smithy', 'market', 'cellar', 'moat', 'workshop', 'festival', 'laboratory', 'chapel', 'remodel'];
+        const room = new GameRoomV2(io, 'inh_' + Math.random(), { kingdomCards: kingdom, landscapeInstructions: [], turnTimeoutMs: 0 } as any);
+        room.addPlayer({ id: 's1', join: noop, emit: noop } as any, 'A', '#fff', 'p1');
+        room.addPlayer({ id: 's2', join: noop, emit: noop } as any, 'B', '#fff', 'p2');
+        room.players.forEach(p => (p.isReady = true));
+        room.startGame(kingdom);
+        const s: any = room.gameState;
+        s.playerCardOverrides = { p1: { estate: { types: ['VICTORY', 'ACTION', 'COMMAND'] } } };
+        s.landscapeState['inheritance_p1'] = { state: { cardId: 'village' }, tokens: {} };
+        const pub: any = (StateSerializerV2.serialize(s, 'p2') as any).public;
+        expect(pub.playerCardOverrides.p1.estate.types).toContain('ACTION');
+        expect(pub.setAsideForGame).toContainEqual({ cardId: 'village', label: 'Héritage (A)' });
+    });
+});

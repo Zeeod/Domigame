@@ -163,8 +163,10 @@ export class EffectEngine {
             return { state, needsChoice: true };
         }
 
-        // Clear decision
+        // Clear decision (and the selection the player was building for it)
         state.pendingDecision = null;
+        const chooser = state.players.find(p => p.id === playerId);
+        if (chooser) chooser.currentSelection = [];
 
         // Populate lastDecisionResults for general card decisions
         if (payload.type === 'CARDS' || payload.cardIds || payload.cardInstanceIds || payload.cards || payload.cardId) {

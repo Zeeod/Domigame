@@ -194,8 +194,13 @@ Nocturne ; Renaissance/Ménagerie/Empires). Corrigé et vérifié en jouant :
 - [x] États de Nocturne affichés ; serveur protégé contre les actions mal formées
 - [x] Choix de cartes hors de la main (cartes dévoilées, défausse…) : la sélection n'était pas envoyée
 
-Reste à vérifier en jouant : Exil et Chevaux (Ménagerie), Héritage (Inheritance), Prophéties avancées,
-sélection répétée d'un même groupe de cartes dans la fenêtre de choix (un clic semble parfois perdu).
+- [x] Exil (Sanctuaire) et Chevaux (Provisions, Cheval, Écurie de louage)
+- [x] Héritage : choix de la carte ; capacités des Domaines et carte au jeton envoyées et affichées
+- [x] Sélection : clics rapides sur un groupe de cartes identiques (sélection immédiate côté interface)
+- [x] Le client applique les modifications de cartes de la partie (Charlatane, Illumination, Héritage)
+
+Reste à vérifier en jouant : jouer un Domaine comme Commande après Héritage (vérifié seulement par les tests),
+Prophéties avancées.
 Le panneau du navigateur intégré est petit : les vérifications passent surtout par la structure de la page.
 
 ---

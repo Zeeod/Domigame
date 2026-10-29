@@ -105,6 +105,8 @@ export interface PublicGameState {
     trash: SerializedCard[];
     /** Per-game card changes (e.g. Charlatan: Curse is also a Treasure) */
     cardOverrides?: Record<string, any>;
+    /** Per-player card changes (Inheritance), applied during that player's turns */
+    playerCardOverrides?: Record<string, Record<string, any>>;
     /** Possession turn in progress (hand: only sent to the controller) */
     possession?: { possessedId: string; controllerId: string; hand?: SerializedCard[] };
     durations?: any[]; // Active multi-turn effects

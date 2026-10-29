@@ -133,6 +133,15 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     const [showKingdomModal, setShowKingdomModal] = useState(false);
     const [isDeckStatsVisible, setIsDeckStatsVisible] = useState(false);
 
+    // Card changes of this game (Charlatan, Enlightenment…) and of the player whose turn it is (Inheritance),
+    // applied to every card shown and to what can be played — as the server does
+    {
+        const pubState: any = gameState.public;
+        const turnPlayerId = pubState.players?.[pubState.currentPlayerIndex]?.id;
+        const mine = turnPlayerId ? pubState.playerCardOverrides?.[turnPlayerId] : undefined;
+        CardRegistry.useOverridesNow(mine || pubState.cardOverrides ? { ...(pubState.cardOverrides || {}), ...(mine || {}) } : undefined);
+    }
+
     // Unified Overlay State
     type ActiveOverlay = { type: 'TRASH' } | { type: 'DURATION'; playerId: string } | { type: 'SET_ASIDE' };
     const [activeOverlay, setActiveOverlay] = useState<ActiveOverlay | null>(null);
@@ -143,9 +152,32 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     // We now use server-side persistence via PlayerState.currentSelection
     // But we still need to resolve those IDs into full SelectedCard objects for the UI
     const myPlayer = gameState.public.players.find(p => p.id === playerId);
-    const currentSelectionIds = myPlayer?.currentSelection || [];
+    // The selection is kept on the server (so it survives a reload), but shown at once here: quick clicks
+    // must build on the previous click, not on the last copy the server sent back
+    const serverSelectionIds = myPlayer?.currentSelection || [];
+    const [currentSelectionIds, setLocalSelection] = useState<string[]>(serverSelectionIds);
+    const lastLocalSelectionAt = useRef(0);
+    const latestSelectionRef = useRef<string[]>(currentSelectionIds);
+    latestSelectionRef.current = currentSelectionIds;
+    const serverSelectionKey = serverSelectionIds.join(',');
+    const decisionKey = gameState.public.pendingDecision?.id || 'none';
+    const firstDecisionRef = useRef(true);
+    useEffect(() => {
+        // A new decision starts with nothing selected (after a reload, keep what the server remembers)
+        setLocalSelection(firstDecisionRef.current ? serverSelectionIds : []);
+        firstDecisionRef.current = false;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [decisionKey]);
+    useEffect(() => {
+        // Echoes of our own clicks are ignored while the player is still clicking
+        if (Date.now() - lastLocalSelectionAt.current > 1000) setLocalSelection(serverSelectionIds);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [serverSelectionKey]);
 
     const onUpdateSelection = useCallback((newIds: string[]) => {
+        setLocalSelection(newIds);
+        latestSelectionRef.current = newIds;
+        lastLocalSelectionAt.current = Date.now();
         onSendDecision(gameState.public.pendingDecision?.id || 'none', {
             type: 'UPDATE_SELECTION',
             selectedIds: newIds
@@ -158,7 +190,8 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     } = usePromptInteraction(
         gameState.public.pendingDecision as any, // Cast to avoid Type vs Interface mismatch
         currentSelectionIds,
-        onUpdateSelection
+        onUpdateSelection,
+        latestSelectionRef
     );
 
     // Derived UI State: Resolving IDs to Objects for the Tray
@@ -1054,7 +1087,12 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                                             title={pendingDecision.message}
                                             cards={inspectorCards}
                                             selectedIds={selectedCards.map(c => c.id)}
-                                            onToggleCard={(id, cardId) => toggleHandSelection(id, cardId)}
+                                            onToggleCard={(id, cardId) => {
+                                                // A click on a group adds the next copy not yet selected (from the latest selection)
+                                                const latest = latestSelectionRef.current;
+                                                const free = latest.includes(id) ? inspectorCards.find((c: any) => c.id === cardId && !latest.includes(c.instanceId)) : undefined;
+                                                toggleHandSelection(free ? free.instanceId : id, cardId);
+                                            }}
                                             filter={pendingDecision.constraints?.filter}
                                             candidates={(pendingDecision.context as any)?.candidates}
                                             onConfirmOrder={(orderedIds) => onSendDecision(pendingDecision.id, { type: 'CARDS', cardInstanceIds: orderedIds })}
@@ -1376,7 +1414,7 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
                                     if (isSelectionMode) {
                                         // In selection mode, find an unselected VISIBLE instance to toggle
-                                        const unselected = visibleInstances.find(inst => !selectedCards.some(s => s.id === inst.instanceId));
+                                        const unselected = visibleInstances.find(inst => !latestSelectionRef.current.includes(inst.instanceId));
                                         if (unselected) {
                                             toggleHandSelection(unselected.instanceId, group.id);
                                         } else if (visibleInstances.length > 0) {
