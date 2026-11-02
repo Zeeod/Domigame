@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const grandMarket: CardDefinition = {
     id: 'grand_market',
-    name: 'Grand Marché',
+    name: 'Grand marché',
     cost: 6,
     types: ['ACTION'],
     description: '+1 Carte; +1 Action; +1 Achat; +2 💰. Vous ne pouvez pas acheter cette carte si vous avez des Cuivres en jeu.',

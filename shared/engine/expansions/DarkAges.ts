@@ -374,7 +374,7 @@ export const DarkAgesModule: ExpansionModule = {
             type: 'MAY_DISCARD_DECK',
             handler: (state, player) => {
                 if (!player.deck.length) return done(state);
-                push(state, player.id, options('Charognard : mettre votre pioche dans votre défausse ?', [
+                push(state, player.id, options('Pilleur : mettre votre pioche dans votre défausse ?', [
                     { label: 'Oui', effects: [{ type: 'DECK_TO_DISCARD' }] },
                     { label: 'Non', effects: [] }
                 ]));
@@ -394,7 +394,7 @@ export const DarkAgesModule: ExpansionModule = {
             handler: (state, player, _e, ctx: any) => {
                 const urchin = ctx?.sourceCardInstanceId;
                 if (!urchin || ctx?.cardInstanceId === urchin || !player.playArea.some(c => c.instanceId === urchin)) return done(state);
-                push(state, player.id, options('Gamin des rues : l\'écarter pour recevoir un Mercenaire ?', [
+                push(state, player.id, options('Orphelin : l\'écarter pour recevoir un Mercenaire ?', [
                     { label: 'Oui', effects: [{ type: 'TRASH_FROM_PLAY', instanceId: urchin }, { type: 'GAIN_CARD', cardId: 'mercenary' }] },
                     { label: 'Non', effects: [] }
                 ]));
@@ -441,7 +441,7 @@ export const DarkAgesModule: ExpansionModule = {
                 const back = seen.length > 1
                     ? [{ type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: "Survivants : remettez les cartes dans l'ordre de votre choix" }]
                     : [{ type: 'LIMBO_TO', ids, to: 'deck' }];
-                push(state, player.id, options(`Survivants : ${seen.map(c => nameOf(c.id)).join(', ')}`, [
+                push(state, player.id, options(`Rescapés : ${seen.map(c => nameOf(c.id)).join(', ')}`, [
                     { label: 'Les défausser', effects: [{ type: 'LIMBO_TO', ids, to: 'discard' }] },
                     { label: 'Les remettre', effects: back }
                 ]));

@@ -2,12 +2,12 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const treasureHunter: CardDefinition = {
     id: 'treasure_hunter',
-    name: 'Chercheur de trésors',
+    name: 'Chasseuse de Trésors',
     types: ['ACTION', 'TRAVELLER'],
     cost: 3,
     expansion: 'adventures',
     isNonSupply: true,
-    description: '+1 Action, +1 💰. Recevez un Argent par carte que le joueur à votre droite a reçue à son dernier tour. Quand vous défaussez cette carte du jeu, vous pouvez l\'échanger contre un Guerrier.',
+    description: '+1 Action, +1 💰. Recevez un Argent par carte que le joueur à votre droite a reçue à son dernier tour. Quand vous défaussez cette carte du jeu, vous pouvez l\'échanger contre une Guerrière.',
     effects: [
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'ADD_MONEY', amount: 1 },

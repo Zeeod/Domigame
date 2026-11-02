@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const banditCamp: CardDefinition = {
     id: 'bandit_camp',
-    name: 'Camp de Bandits',
+    name: 'Camp de bandits',
     cost: 5,
     types: ['ACTION'],
     expansion: 'dark_ages',

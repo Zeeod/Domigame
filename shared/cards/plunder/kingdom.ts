@@ -17,7 +17,7 @@ export const grotto = k('grotto', 'Grotte', 2, ['ACTION', 'DURATION'],
     [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'GROTTO' }], { durationEffects: [{ type: 'GROTTO_RETURN' }] });
 export const jewelled_egg = k('jewelled_egg', 'Œuf orné de joyaux', 2, ['TREASURE'], '1 💰. +1 Achat. Quand vous écartez cette carte, recevez un Butin.',
     [{ type: 'ADD_MONEY', amount: 1 }, { type: 'ADD_BUYS', amount: 1 }], { treasureValue: 0, onTrash: [LOOT] });
-export const search = k('search', 'Fouille', 2, ['ACTION', 'DURATION'],
+export const search = k('search', 'Fouille du navire', 2, ['ACTION', 'DURATION'],
     '+2 💰. La prochaine fois qu\'une pile de la réserve se vide, écartez cette carte et recevez un Butin.',
     [{ type: 'ADD_MONEY', amount: 2 }, { type: 'SEARCH' }], { durationEffects: [] });
 export const shaman = k('shaman', 'Chamane', 2, ['ACTION'],
@@ -63,10 +63,10 @@ export const harbor_village = k('harbor_village', 'Village portuaire', 4, ['ACTI
 export const landing_party = k('landing_party', 'Débarquement', 4, ['ACTION', 'DURATION'],
     '+2 Cartes, +1 Action. La prochaine fois que la première carte que vous jouez dans un tour est un Trésor, placez cette carte sur votre pioche ensuite.',
     [{ type: 'DRAW', amount: 2 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'LANDING_PARTY' }], { durationEffects: [] });
-export const mapmaker = k('mapmaker', 'Cartographe', 4, ['ACTION', 'REACTION'],
+export const mapmaker = k('mapmaker', 'Géographe', 4, ['ACTION', 'REACTION'],
     'Regardez les 4 cartes du dessus de votre pioche. Prenez-en 2 en main et défaussez le reste. Quand un joueur reçoit une carte Victoire, vous pouvez jouer cette carte depuis votre main.',
     [{ type: 'MAPMAKER' }], { isReaction: true, reactionTrigger: 'ANY_GAIN', reactionCondition: { type: 'GAIN_TYPE', value: 'VICTORY' },
-        reactionMessage: 'Cartographe : le jouer depuis votre main ?', reactionEffects: [{ type: 'PLAY_THIS_CARD' }] });
+        reactionMessage: 'Géographe : le jouer depuis votre main ?', reactionEffects: [{ type: 'PLAY_THIS_CARD' }] });
 export const maroon = k('maroon', 'Marron', 4, ['ACTION'], 'Écartez une carte de votre main. +2 Cartes par type qu\'elle a (Action, Attaque, etc.).',
     [{ type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Marron : écartez une carte', onSuccess: [{ type: 'MAROON' }] }]);
 export const rope = k('rope', 'Corde', 4, ['TREASURE', 'DURATION'], '1 💰. +1 Achat. Au début de votre prochain tour, +1 Carte et vous pouvez écarter une carte de votre main.',
@@ -108,7 +108,7 @@ export const pickaxe = k('pickaxe', 'Pioche', 5, ['TREASURE'], '1 💰. Écartez
     [{ type: 'ADD_MONEY', amount: 1 }, { type: 'TRASH', min: 1, max: 1, from: 'hand', message: 'Pioche : écartez une carte', onSuccess: [{ type: 'PICKAXE' }] }], { treasureValue: 0 });
 export const pilgrim = k('pilgrim', 'Pèlerin', 5, ['ACTION'], '+4 Cartes. Placez une carte de votre main sur votre pioche.',
     [{ type: 'DRAW', amount: 4 }, { type: 'PILGRIM_TOPDECK' }]);
-export const quartermaster = k('quartermaster', 'Intendant', 5, ['ACTION', 'DURATION'],
+export const quartermaster = k('quartermaster', 'Quartier-maître', 5, ['ACTION', 'DURATION'],
     'Au début de chacun de vos tours pour le reste de la partie, choisissez : recevez une carte coûtant jusqu\'à 4 💰, en la mettant de côté sur celle-ci ; ou prenez en main une carte d\'ici.',
     [], { isPermanentDuration: true, durationEffects: [{ type: 'QUARTERMASTER' }] });
 export const silver_mine = k('silver_mine', 'Mine d\'argent', 5, ['TREASURE'], 'Recevez en main un Trésor coûtant moins que cette carte.',

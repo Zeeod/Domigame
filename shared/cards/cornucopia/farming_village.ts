@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const farmingVillage: CardDefinition = {
     id: 'farming_village',
-    name: 'Ferme collective',
+    name: 'Village agricole',
     types: ['ACTION'],
     cost: 4,
     expansion: 'cornucopia',

@@ -129,7 +129,7 @@ export const PromoModule: ExpansionModule = {
                 if (actions > 2) return { state, needsChoice: false };
                 state.effectStack.push({
                     type: 'EFFECT', playerId: player.id,
-                    effect: { type: 'SELECT_OPTION', message: 'Village fortifié : le placer sur votre pioche ?', options: [
+                    effect: { type: 'SELECT_OPTION', message: 'Ville fortifiée : le placer sur votre pioche ?', options: [
                         { label: 'Oui', effects: [{ type: 'TOPDECK_INSTANCE', instanceId: id }] },
                         { label: 'Non', effects: [] }
                     ] } as any,
@@ -147,7 +147,7 @@ export const PromoModule: ExpansionModule = {
                 if (!choices.length) return { state, needsChoice: false };
                 state.pendingDecision = {
                     id: `summon_${Date.now()}`, playerId: player.id, type: 'CHOOSE_CARDS' as any,
-                    message: 'Appel : recevez une carte Action coûtant jusqu\'à 4 💰 (jouée au début de votre prochain tour)',
+                    message: 'Convocation : recevez une carte Action coûtant jusqu\'à 4 💰 (jouée au début de votre prochain tour)',
                     constraints: { min: 1, max: 1, sourceZone: 'supply', filter: { maxCost: 4, cardTypes: ['ACTION'], cardIds: choices } },
                     context: { specialAction: 'SUMMON_GAIN' }
                 } as any;
@@ -165,12 +165,12 @@ export const PromoModule: ExpansionModule = {
                 const deck = (state.blackMarketDeck = state.blackMarketDeck || []);
                 const revealed = deck.splice(0, 3);
                 if (revealed.length === 0) {
-                    Logger.log(state, 'La pioche du Marché Noir est vide.');
+                    Logger.log(state, 'La pioche du Marché noir est vide.');
                     return { state, needsChoice: false };
                 }
                 state.blackMarketRevealed = revealed;
-                EffectUtils.revealCards(state, revealed, 'ALL', 'Marché Noir');
-                Logger.log(state, `Marché Noir : ${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}.`, player.id);
+                EffectUtils.revealCards(state, revealed, 'ALL', 'Marché noir');
+                Logger.log(state, `Marché noir : ${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}.`, player.id);
 
                 const treasures = player.hand.filter(c => CardRegistry.get(c.id)?.types.includes('TREASURE'));
                 if (!treasures.length) {
@@ -181,7 +181,7 @@ export const PromoModule: ExpansionModule = {
                     id: `black_market_treasures_${Date.now()}`,
                     playerId: player.id,
                     type: 'CHOOSE_CARDS' as any,
-                    message: `Marché Noir (${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}) : jouez des Trésors avant d'acheter ?`,
+                    message: `Marché noir (${revealed.map(c => CardRegistry.get(c.id)?.name || c.id).join(', ')}) : jouez des Trésors avant d'acheter ?`,
                     constraints: { min: 0, max: treasures.length, sourceZone: 'hand' },
                     context: { specialAction: 'BLACK_MARKET_TREASURES', candidates: treasures.map(c => c.instanceId) }
                 } as any;
@@ -197,7 +197,7 @@ export const PromoModule: ExpansionModule = {
                 const buyable = revealed.filter(c => canAfford(state, player, c.id));
                 if (buyable.length === 0) {
                     deck.push(...revealed.splice(0));
-                    Logger.log(state, `${player.name} ne peut acheter aucune des cartes du Marché Noir.`, player.id);
+                    Logger.log(state, `${player.name} ne peut acheter aucune des cartes du Marché noir.`, player.id);
                     return { state, needsChoice: false };
                 }
 
@@ -205,7 +205,7 @@ export const PromoModule: ExpansionModule = {
                     id: `black_market_${Date.now()}`,
                     playerId: player.id,
                     type: 'CHOOSE_CARDS' as any,
-                    message: 'Marché Noir : vous pouvez acheter une de ces cartes',
+                    message: 'Marché noir : vous pouvez acheter une de ces cartes',
                     constraints: { min: 0, max: 1, sourceZone: 'blackMarket' as any },
                     context: {
                         specialAction: 'BLACK_MARKET',
@@ -314,7 +314,7 @@ export const PromoModule: ExpansionModule = {
             (state.triggers = state.triggers || []).push({
                 type: 'START_TURN', playerId: player.id, once: true,
                 effects: [{ type: 'PLAY_INSTANCE_IF_OWNED', instanceId: gained.instanceId } as any],
-                description: `Appel : jouer ${CardRegistry.get(cardId)?.name || cardId}`
+                description: `Convocation : jouer ${CardRegistry.get(cardId)?.name || cardId}`
             } as any);
         });
         EffectEngine.registerDecisionHandler('BLACK_MARKET_TREASURES', (state, playerId, payload, decision) => {
@@ -339,7 +339,7 @@ export const PromoModule: ExpansionModule = {
                 player.potions = (player.potions || 0) - ((CardRegistry.get(card.id) as any)?.potionCost || 0);
                 player.discardPile.push(card);
                 state.lastGainedCard = card;
-                Logger.log(state, `${player.name} achète ${CardRegistry.get(card.id)?.name || card.id} (Marché Noir).`, player.id);
+                Logger.log(state, `${player.name} achète ${CardRegistry.get(card.id)?.name || card.id} (Marché noir).`, player.id);
                 TriggerEffectHandler.handleOnBuyTriggers(state, player, card.id);
                 TriggerEffectHandler.triggerOnGainEffects(state, player, card);
             }

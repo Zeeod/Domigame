@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition';
 
 export const lighthouse: CardDefinition = {
     id: 'lighthouse',
-    name: 'Gardien de phare',
+    name: 'Phare',
     types: ['ACTION', 'DURATION'],
     description: '+1 Action. Maintenant et jusqu\'au début de votre prochain tour, vous n\'êtes pas affecté par les Attaques. Au début de votre prochain tour : +1 Pièce.',
     cost: 2,

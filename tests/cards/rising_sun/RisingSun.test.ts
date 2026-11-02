@@ -418,9 +418,9 @@ describe('Soleil Levant — Présages et Prophéties', () => {
         player(s).deck = cards(...filler(4));
         s = play(s, 'tea_house');
         expect(sun(s)).toBe(0);
-        expect(player(s).actions).toBe(1);
+        expect(player(s).actions).toBe(2); // the Omen that fulfils it gets the +1 Action too
         s = play(s, 'village');
-        expect(player(s).actions).toBe(3); // +2 Actions, +1 from Great Leader
+        expect(player(s).actions).toBe(4); // 2 - 1 + 2 (Village) + 1 (Great Leader)
     });
 
     it('un Soleil de plus ne fait rien une fois tous retirés', () => {

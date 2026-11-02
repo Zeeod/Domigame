@@ -74,7 +74,7 @@ export const shop: CardDefinition = {
 // ------------------------------------------------------------------ Rewards (not in the Supply)
 
 export const coronet: CardDefinition = {
-    id: 'coronet', name: 'Diadème', cost: 0, types: ['ACTION', 'TREASURE', 'REWARD'], expansion: 'cornucopia', isNonSupply: true,
+    id: 'coronet', name: 'Petite couronne', cost: 0, types: ['ACTION', 'TREASURE', 'REWARD'], expansion: 'cornucopia', isNonSupply: true,
     description: 'Vous pouvez jouer deux fois une carte Action (hors Récompense) de votre main. Vous pouvez jouer deux fois une carte Trésor (hors Récompense) de votre main. (Hors réserve.)',
     effects: [{ type: 'CORONET' }] as any
 };

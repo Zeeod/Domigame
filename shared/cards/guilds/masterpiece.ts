@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const masterpiece: CardDefinition = {
     id: 'masterpiece',
-    name: 'Chef-d\'oeuvre',
+    name: 'Chef-d\'œuvre',
     types: ['TREASURE'],
     cost: 3,
     expansion: 'guilds',

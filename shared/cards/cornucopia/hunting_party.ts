@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const huntingParty: CardDefinition = {
     id: 'hunting_party',
-    name: 'Partie de chasse',
+    name: 'Chasseurs',
     types: ['ACTION'],
     cost: 5,
     expansion: 'cornucopia',

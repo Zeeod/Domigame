@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition';
 
 export const salvager: CardDefinition = {
     id: 'salvager',
-    name: 'Chasseur de trésors',
+    name: 'Sauveteur',
     types: ['ACTION'],
     description: '+1 Achat. Écartez une carte de votre main. +1 Pièce par coût de la carte écartée.',
     cost: 4,

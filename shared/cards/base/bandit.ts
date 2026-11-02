@@ -7,7 +7,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const bandit: CardDefinition = {
     id: 'bandit',
-    name: 'Bandit',
+    name: 'Brigand',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     effects: [

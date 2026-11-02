@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const raze: CardDefinition = {
     id: 'raze',
-    name: 'Raser',
+    name: 'Démolition',
     types: ['ACTION'],
     cost: 2,
     expansion: 'adventures',

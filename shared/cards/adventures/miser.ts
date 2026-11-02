@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const miser: CardDefinition = {
     id: 'miser',
-    name: 'Avare',
+    name: 'Miséreux',
     types: ['ACTION'],
     cost: 4,
     expansion: 'adventures',

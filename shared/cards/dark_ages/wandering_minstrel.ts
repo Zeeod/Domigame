@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const wanderingMinstrel: CardDefinition = {
     id: 'wandering_minstrel',
-    name: 'Ménestrel Errant',
+    name: 'Ménestrel errant',
     cost: 4,
     types: ['ACTION'],
     expansion: 'dark_ages',

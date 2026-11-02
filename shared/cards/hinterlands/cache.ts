@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const cache: CardDefinition = {
     id: 'cache',
-    name: 'Réserve',
+    name: 'Cache',
     types: ['TREASURE'],
     cost: 5,
     expansion: 'hinterlands',

@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const coinOfTheRealm: CardDefinition = {
     id: 'coin_of_the_realm',
-    name: 'Pièce du royaume',
+    name: 'Monnaie Royale',
     types: ['TREASURE', 'RESERVE'],
     cost: 2,
     expansion: 'adventures',

@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const mining_village: CardDefinition = {
     id: 'mining_village',
-    name: 'Exploitation minière',
+    name: 'Village minier',
     cost: 4,
     types: ['ACTION'],
     effects: [

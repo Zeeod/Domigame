@@ -5,11 +5,11 @@ export const sauna: CardDefinition = {
     name: 'Sauna',
     cost: 4,
     types: ['ACTION'],
-    description: "+1 Carte. +1 Action. Vous pouvez jouer un Avanto de votre main. Tant que cette carte est en jeu, quand vous jouez un Argent, vous pouvez écarter une carte de votre main.",
+    description: "+1 Carte. +1 Action. Vous pouvez jouer un Trou dans la glace de votre main. Tant que cette carte est en jeu, quand vous jouez un Argent, vous pouvez écarter une carte de votre main.",
     effects: [
         { type: 'DRAW', amount: 1 },
         { type: 'ADD_ACTIONS', amount: 1 },
-        { type: 'PLAY_TARGET', filter: { cardIds: ['avanto'] }, optional: true, message: 'Vous pouvez jouer un Avanto' } as any
+        { type: 'PLAY_TARGET', filter: { cardIds: ['avanto'] }, optional: true, message: 'Vous pouvez jouer un Trou dans la glace' } as any
     ],
     triggers: [
         {
@@ -24,7 +24,7 @@ export const sauna: CardDefinition = {
 
 export const avanto: CardDefinition = {
     id: 'avanto',
-    name: 'Avanto',
+    name: 'Trou dans la glace',
     cost: 5,
     types: ['ACTION'],
     description: "+3 Cartes. Vous pouvez jouer un Sauna de votre main.",
@@ -38,10 +38,10 @@ export const avanto: CardDefinition = {
 
 export const sauna_avanto_pile: CardDefinition = {
     id: 'sauna_avanto_pile',
-    name: 'Sauna / Avanto',
+    name: 'Sauna / Trou dans la glace',
     cost: 4,
     types: ['ACTION'],
-    description: "Une pile de 10 cartes : 5 Saunas sur 5 Avantos.",
+    description: "Une pile de 10 cartes : 5 Saunas sur 5 Trous dans la glace.",
     expansion: 'promos',
     isPile: true,
     mixedPile: {

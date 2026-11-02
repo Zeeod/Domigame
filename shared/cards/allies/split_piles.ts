@@ -18,9 +18,9 @@ export const acolyte = s('acolyte', 'Acolyte', 4, ['ACTION', 'AUGUR'],
     'Vous pouvez écarter une carte Action ou Victoire de votre main pour recevoir un Or. Vous pouvez écarter cette carte pour recevoir un Augure.',
     [{ type: 'TRASH', min: 0, max: 1, from: 'hand', filter: { cardTypes: ['ACTION', 'VICTORY'] }, message: 'Acolyte : écarter une Action ou une Victoire pour un Or ?',
         onSuccess: [{ type: 'GAIN_CARD', cardId: 'gold' }] }, { type: 'ACOLYTE_SELF' }]);
-export const sorceress = s('sorceress', 'Enchanteresse', 5, ['ACTION', 'ATTACK', 'AUGUR'],
+export const sorceress = s('sorceress', 'Magicienne', 5, ['ACTION', 'ATTACK', 'AUGUR'],
     '+1 Action. Nommez une carte. Dévoilez la carte du dessus de votre pioche et prenez-la en main. Si c\'est la carte nommée, chaque autre joueur reçoit une Malédiction.',
-    [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'NAME_CARD', message: 'Enchanteresse : nommez une carte', next: [{ type: 'SORCERESS' }] }]);
+    [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'NAME_CARD', message: 'Magicienne : nommez une carte', next: [{ type: 'SORCERESS' }] }]);
 export const sibyl = s('sibyl', 'Sibylle', 6, ['ACTION', 'AUGUR'],
     '+4 Cartes, +1 Action. Placez une carte de votre main sur votre pioche, et une autre sous votre pioche.',
     [{ type: 'DRAW', amount: 4 }, { type: 'ADD_ACTIONS', amount: 1 }, { type: 'SIBYL' }]);
@@ -53,9 +53,9 @@ export const garrison = s('garrison', 'Garnison', 4, ['ACTION', 'DURATION', 'FOR
 export const hill_fort = s('hill_fort', 'Fort de colline', 5, ['ACTION', 'FORT'],
     'Recevez une carte coûtant jusqu\'à 4 💰. Choisissez : prenez-la en main ; ou +1 Carte et +1 Action.',
     [{ type: 'GAIN_CARD', maxCost: 4, message: 'Fort de colline : recevez une carte coûtant jusqu\'à 4 💰', next: [{ type: 'HILL_FORT' }] }]);
-export const stronghold = s('stronghold', 'Forteresse', 6, ['ACTION', 'VICTORY', 'DURATION', 'FORT'],
+export const stronghold = s('stronghold', 'Bastion', 6, ['ACTION', 'VICTORY', 'DURATION', 'FORT'],
     'Choisissez : +3 💰 ; ou au début de votre prochain tour, +3 Cartes. 2 PV.',
-    [{ type: 'CHOOSE_OPTION', message: 'Forteresse : choisissez', options: [
+    [{ type: 'CHOOSE_OPTION', message: 'Bastion : choisissez', options: [
         { label: '+3 💰', effects: [{ type: 'ADD_MONEY', amount: 3 }, { type: 'CANCEL_DURATION' }] },
         { label: 'Au prochain tour, +3 Cartes', effects: [] }
     ] }], { victoryPoints: 2, durationEffects: [{ type: 'DRAW', amount: 3 }] });
@@ -82,9 +82,9 @@ export const town_crier = s('town_crier', 'Crieur public', 2, ['ACTION', 'TOWNSF
         { label: 'Recevoir un Argent', effects: [{ type: 'GAIN_CARD', cardId: 'silver' }] },
         { label: '+1 Carte et +1 Action', effects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }] }
     ] }, rotate('townsfolk_pile', 'Citadins')]);
-export const town_blacksmith = s('town_blacksmith', 'Forgeron', 3, ['ACTION', 'TOWNSFOLK'],
+export const town_blacksmith = s('town_blacksmith', 'Forgeron du bourg', 3, ['ACTION', 'TOWNSFOLK'],
     'Choisissez : piochez jusqu\'à avoir 6 cartes en main ; ou +2 Cartes ; ou +1 Carte et +1 Action.',
-    [{ type: 'CHOOSE_OPTION', message: 'Forgeron : choisissez', options: [
+    [{ type: 'CHOOSE_OPTION', message: 'Forgeron du bourg : choisissez', options: [
         { label: 'Piocher jusqu\'à 6 cartes en main', effects: [{ type: 'DRAW_UNTIL_HAND_SIZE', targetSize: 6 }] },
         { label: '+2 Cartes', effects: [{ type: 'DRAW', amount: 2 }] },
         { label: '+1 Carte et +1 Action', effects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }] }

@@ -202,7 +202,7 @@ const CARD_DATA: Record<string, { name: string; type: CardType; cost: number; te
     smithy: { name: 'Forgeron', type: 'action', cost: 4, text: '+3 Cartes.', image: '/card-images/smithy.jpg' },
     village: { name: 'Village', type: 'action', cost: 3, text: '+1 Carte ; +2 Actions.' },
     remodel: { name: 'Rénovation', type: 'action', cost: 4, text: 'Écartez une carte de votre main. Gagnez une carte coûtant jusqu\'à 2 Pièces de plus que la carte écartée.' },
-    bandit: { name: 'Bandit', type: 'attack', cost: 5, text: 'Gagnez un Or. Chaque autre joueur dévoile les deux cartes du sommet de sa pioche, écarte une carte Trésor dévoilée autre qu\'un Cuivre et défausse le reste.' },
+    bandit: { name: 'Brigand', type: 'attack', cost: 5, text: 'Gagnez un Or. Chaque autre joueur dévoile les deux cartes du sommet de sa pioche, écarte une carte Trésor dévoilée autre qu\'un Cuivre et défausse le reste.' },
     gardens: { name: 'Jardins', type: 'victory', cost: 4, text: 'Vaut 1 Point de Victoire pour chaque tranche de 10 cartes dans votre deck (arrondi à l\'inférieur).', image: '/card-images/gardens.jpg' },
     militia: { name: 'Milice', type: 'attack', cost: 4, text: '+2 Pièces. Chaque autre joueur défausse des cartes de sa main jusqu\'à n\'en avoir plus que 3.', image: '/card-images/militia.jpg' },
     moneylender: { name: 'Prêteur sur gages', type: 'action', cost: 4, text: 'Vous pouvez écarter un Cuivre de votre main. Si vous le faites, +3 Pièces.', image: '/card-images/moneylender.jpg' },

@@ -112,6 +112,6 @@ export const RoadNetwork = proj('road_network', 'Réseau routier', 5, 'Quand un 
 export const Sewers = proj('sewers', 'Égouts', 3, 'Quand vous écartez une carte autrement qu\'avec les Égouts, vous pouvez écarter une carte de votre main.');
 export const Silos = proj('silos', 'Silos', 4, 'Au début de votre tour, défaussez autant de Cuivres que vous voulez, en les dévoilant, et piochez autant de cartes.',
     { onTurnStart: [{ type: 'SILOS' }] });
-export const SinisterPlot = proj('sinister_plot', 'Complot', 4, 'Au début de votre tour, ajoutez un jeton ici, ou retirez vos jetons d\'ici pour +1 Carte chacun.',
+export const SinisterPlot = proj('sinister_plot', 'Sombre complot', 4, 'Au début de votre tour, ajoutez un jeton ici, ou retirez vos jetons d\'ici pour +1 Carte chacun.',
     { onTurnStart: [{ type: 'SINISTER_PLOT' }] });
 export const StarChart = proj('star_chart', 'Carte du ciel', 3, 'Quand vous mélangez, vous pouvez choisir une des cartes pour la placer sur le dessus.');

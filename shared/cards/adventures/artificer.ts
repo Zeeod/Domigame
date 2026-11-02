@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const artificer: CardDefinition = {
     id: 'artificer',
-    name: 'Artisan',
+    name: 'Maître-artisan',
     types: ['ACTION'],
     cost: 5,
     expansion: 'adventures',
@@ -12,7 +12,7 @@ export const artificer: CardDefinition = {
         { type: 'ADD_ACTIONS', amount: 1 },
         { type: 'ADD_MONEY', amount: 1 },
         { type: 'ARTIFICER_START' },
-        { type: 'DISCARD', min: 0, max: 99, message: 'Artisan : défaussez autant de cartes que vous voulez' },
+        { type: 'DISCARD', min: 0, max: 99, message: 'Maître-artisan : défaussez autant de cartes que vous voulez' },
         { type: 'ARTIFICER_GAIN' }
     ] as any
 };

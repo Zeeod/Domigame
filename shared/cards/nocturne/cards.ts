@@ -41,12 +41,12 @@ export const Exorcist = k('exorcist', 'Exorciste', 4, ['NIGHT'], 'Écartez une c
 export const FaithfulHound = k('faithful_hound', 'Chien fidèle', 2, ['ACTION', 'REACTION'],
     '+2 Cartes. Quand vous défaussez cette carte hors Ajustement, vous pouvez la mettre de côté et la prendre en main à la fin du tour.',
     [{ type: 'DRAW', amount: 2 }], { onDiscardOutsideCleanup: [{ type: 'FAITHFUL_HOUND' }] });
-export const Fool = k('fool', 'Fou', 3, ['ACTION', 'FATE'],
+export const Fool = k('fool', 'Simplet', 3, ['ACTION', 'FATE'],
     'Si vous n\'êtes pas le joueur qui a Perdu dans les bois, prenez-le, prenez 3 Bienfaits et recevez-les dans l\'ordre de votre choix. Héritage : Pièce porte-bonheur.',
     [{ type: 'FOOL' }], { heirloom: 'lucky_coin' });
 export const GhostTown = k('ghost_town', 'Ville fantôme', 3, ['NIGHT', 'DURATION'], 'Au début de votre prochain tour, +1 Carte et +1 Action. Cette carte est reçue en main (au lieu de votre défausse).',
     [], { durationEffects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 1 }], gainToHand: true });
-export const Guardian = k('guardian', 'Gardien', 2, ['NIGHT', 'DURATION'],
+export const Guardian = k('guardian', 'Protecteur', 2, ['NIGHT', 'DURATION'],
     'Jusqu\'à votre prochain tour, quand un autre joueur joue une carte Attaque, elle ne vous affecte pas. Au début de votre prochain tour, +1 💰. Cette carte est reçue en main.',
     [], { durationEffects: [{ type: 'ADD_MONEY', amount: 1 }], gainToHand: true, blocksAttack: true });
 export const Idol = k('idol', 'Idole', 5, ['TREASURE', 'ATTACK', 'FATE'],
@@ -85,7 +85,7 @@ export const Shepherd = k('shepherd', 'Berger', 4, ['ACTION'],
     [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'ARTIFICER_START' },
         { type: 'DISCARD', min: 0, max: 99, filter: { cardTypes: ['VICTORY'] }, message: 'Berger : défaussez des cartes Victoire (+2 Cartes chacune)' },
         { type: 'SHEPHERD_DRAW' }], { heirloom: 'pasture' });
-export const Skulk = k('skulk', 'Rôdeur', 4, ['ACTION', 'ATTACK', 'DOOM'],
+export const Skulk = k('skulk', 'Furtif', 4, ['ACTION', 'ATTACK', 'DOOM'],
     '+1 Achat. Chaque autre joueur reçoit le prochain Maléfice. Quand vous recevez cette carte, recevez un Or.',
     [{ type: 'ADD_BUYS', amount: 1 }, { type: 'HEX_OTHERS' }], { onGain: [{ type: 'GAIN_CARD', cardId: 'gold' }] });
 export const Tormentor = k('tormentor', 'Tourmenteur', 5, ['ACTION', 'ATTACK', 'DOOM'],

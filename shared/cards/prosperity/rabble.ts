@@ -9,7 +9,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
  */
 export const rabble: CardDefinition = {
     id: 'rabble',
-    name: 'Cohue',
+    name: 'Foule',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     expansion: 'prosperity',
@@ -21,7 +21,7 @@ export const rabble: CardDefinition = {
             attackEffects: [
                 { type: 'REVEAL_CARDS', amount: 3, source: 'deck', destination: 'limbo' },
                 { type: 'MOVE_CARDS', source: 'limbo', destination: 'discardPile', count: 'ALL', filter: { cardTypes: ['ACTION', 'TREASURE'] } },
-                { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: "Cohue : remettez les cartes restantes sur votre pioche dans l'ordre de votre choix" }
+                { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: "Foule : remettez les cartes restantes sur votre pioche dans l'ordre de votre choix" }
             ]
         }
     ]

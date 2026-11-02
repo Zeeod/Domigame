@@ -868,7 +868,7 @@ export function registerCoreEffects(): void {
         );
         const bonus = uniqueTreasureNames.size;
         player.coins += bonus;
-        Logger.log(state, `${player.name} gagne +${bonus} 💰 (Glaneuse, ${bonus} Trésor(s) unique(s) dans le Rebut).`, player.id);
+        Logger.log(state, `${player.name} gagne +${bonus} 💰 (Cueilleur, ${bonus} Trésor(s) unique(s) dans le Rebut).`, player.id);
         return { state, needsChoice: false };
     });
 
@@ -916,7 +916,7 @@ export function registerCoreEffects(): void {
     EffectHandlerRegistry.register('DECK_TO_DISCARD', (state, player, _effect, _ctx) => {
         player.discardPile.push(...player.deck);
         player.deck = [];
-        EffectUtils.log(state, `${player.name} défausse toute sa pioche (Messager).`, player.id);
+        EffectUtils.log(state, `${player.name} défausse toute sa pioche (Courrier).`, player.id);
         return { state, needsChoice: false };
     });
 
@@ -926,7 +926,7 @@ export function registerCoreEffects(): void {
         if (copperIdx !== -1) {
             const copper = player.hand.splice(copperIdx, 1)[0];
             addToMat(player, 'tavern', copper);
-            EffectUtils.log(state, `${player.name} place un Cuivre sur son plateau Taverne (Avare).`, player.id);
+            EffectUtils.log(state, `${player.name} place un Cuivre sur son plateau Taverne (Miséreux).`, player.id);
         }
         return { state, needsChoice: false };
     });
@@ -935,7 +935,7 @@ export function registerCoreEffects(): void {
     EffectHandlerRegistry.register('ADD_MONEY_PER_COPPER_ON_TAVERN', (state, player, _effect, _ctx) => {
         const copperCount = peekMat(player, 'tavern').filter(c => c.id === 'copper').length;
         player.coins += copperCount;
-        EffectUtils.log(state, `${player.name} obtient +${copperCount} 💰 (Avare, ${copperCount} Cuivre(s) sur Taverne).`, player.id);
+        EffectUtils.log(state, `${player.name} obtient +${copperCount} 💰 (Miséreux, ${copperCount} Cuivre(s) sur Taverne).`, player.id);
         return { state, needsChoice: false };
     });
 

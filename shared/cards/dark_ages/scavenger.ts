@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const scavenger: CardDefinition = {
     id: 'scavenger',
-    name: 'Charognard',
+    name: 'Pilleur',
     cost: 4,
     types: ['ACTION'],
     expansion: 'dark_ages',

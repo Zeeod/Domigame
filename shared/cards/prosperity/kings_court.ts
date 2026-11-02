@@ -8,7 +8,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
  */
 export const kingsCourt: CardDefinition = {
     id: 'kings_court',
-    name: 'Roi de la cour',
+    name: 'Cour du Roi',
     cost: 7,
     types: ['ACTION'],
     expansion: 'prosperity',

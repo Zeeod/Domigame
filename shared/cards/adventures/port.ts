@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const port: CardDefinition = {
     id: 'port',
-    name: 'Port',
+    name: 'Ville portuaire',
     types: ['ACTION'],
     cost: 4,
     expansion: 'adventures',

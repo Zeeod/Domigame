@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const plunder: CardDefinition = {
     id: 'plunder',
-    name: 'Butin',
+    name: 'Rapine',
     types: ['TREASURE'],
     cost: 5,
     description: "2$. +1 PV.",

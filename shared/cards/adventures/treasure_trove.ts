@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const treasureTrove: CardDefinition = {
     id: 'treasure_trove',
-    name: 'Butin',
+    name: 'Pierres précieuses',
     types: ['TREASURE'],
     cost: 5,
     expansion: 'adventures',

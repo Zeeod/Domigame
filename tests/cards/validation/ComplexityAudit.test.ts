@@ -34,7 +34,7 @@ describe('Complexity Audit - Prosperity & Intrigue 2nd Edition', () => {
 
         // Tiara should trigger "ON_GAIN" -> Prompt to topdeck
         console.log('[STEP] Checking Tiara ON_GAIN prompt');
-        expect(engine.state.pendingDecision?.message).toContain('Diadème');
+        expect(engine.state.pendingDecision?.message).toContain('Tiare');
         engine.handleChoice(0); // Choose YES to topdeck
 
         expect(p.deck[0].id).toBe('silver');

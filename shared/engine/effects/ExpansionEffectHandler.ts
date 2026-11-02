@@ -25,7 +25,7 @@ export class ExpansionEffectHandler {
 
             if (removed) {
                 EffectUtils.addCardToZone(player, removed, 'discardPile', state);
-                EffectUtils.log(state, `${player.name} achète ${CardRegistry.get(card.id)?.name} (Marché Noir).`, player.id);
+                EffectUtils.log(state, `${player.name} achète ${CardRegistry.get(card.id)?.name} (Marché noir).`, player.id);
             }
         }
         return { state, needsChoice: false };

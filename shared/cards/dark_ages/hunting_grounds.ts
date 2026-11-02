@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const huntingGrounds: CardDefinition = {
     id: 'hunting_grounds',
-    name: 'Terrains de Chasse',
+    name: 'Territoire de chasse',
     cost: 6,
     types: ['ACTION'],
     expansion: 'dark_ages',

@@ -9,7 +9,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
  */
 export const mint: CardDefinition = {
     id: 'mint',
-    name: 'Monnaie', // Or Monnaie
+    name: 'Hôtel de la Monnaie',
     cost: 5,
     types: ['ACTION'],
     expansion: 'prosperity',
@@ -17,7 +17,7 @@ export const mint: CardDefinition = {
     effects: [
         {
             type: 'CHOOSE_FROM_ZONE', sourceZone: 'hand', min: 0, max: 1,
-            message: 'Monnaie : dévoilez un Trésor pour en recevoir une copie',
+            message: 'Hôtel de la Monnaie : dévoilez un Trésor pour en recevoir une copie',
             filter: { cardTypes: ['TREASURE'] },
             onSuccess: [{ type: 'GAIN_COPY_OF_TARGET' }]
         }

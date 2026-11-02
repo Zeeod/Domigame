@@ -39,7 +39,7 @@ export const Ruins: CardDefinition[] = [
     },
     {
         id: 'ruined_village',
-        name: 'Village en ruines',
+        name: 'Ville en ruines',
         cost: 0,
         types: ['ACTION', 'RUINS'],
         expansion: 'dark_ages',
@@ -51,7 +51,7 @@ export const Ruins: CardDefinition[] = [
     },
     {
         id: 'survivors',
-        name: 'Survivants',
+        name: 'Rescapés',
         cost: 0,
         types: ['ACTION', 'RUINS'],
         expansion: 'dark_ages',

@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const bridgeTroll: CardDefinition = {
     id: 'bridge_troll',
-    name: 'Troll du pont',
+    name: 'Pont aux Trolls',
     types: ['ACTION', 'ATTACK', 'DURATION'],
     cost: 5,
     expansion: 'adventures',

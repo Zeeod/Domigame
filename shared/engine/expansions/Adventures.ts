@@ -282,7 +282,7 @@ export const AdventuresModule: ExpansionModule = {
             handler: (state, player) => {
                 const n = (state as any).lastDiscardedCount || 0;
                 return GainEffectHandler.promptGainFromSupply(state, player, { exactCost: n }, { destination: 'deck' },
-                    `Artisan : recevez sur votre pioche une carte coûtant exactement ${n} 💰`, true);
+                    `Maître-artisan : recevez sur votre pioche une carte coûtant exactement ${n} 💰`, true);
             }
         },
         {
@@ -356,7 +356,7 @@ export const AdventuresModule: ExpansionModule = {
                 if (state.phase !== 'BUY' || state.players[state.currentPlayerIndex]?.id !== player.id) return done(state);
                 if ((player as any).buyPhaseGains !== 1) return done(state);
                 return GainEffectHandler.promptGainFromSupply(state, player, { maxCost: 4 }, { next: [{ type: 'MESSENGER_SHARE' }] },
-                    'Messager : recevez une carte coûtant jusqu\'à 4 💰 (les autres en reçoivent une copie)');
+                    'Courrier : recevez une carte coûtant jusqu\'à 4 💰 (les autres en reçoivent une copie)');
             }
         },
         {
@@ -374,14 +374,14 @@ export const AdventuresModule: ExpansionModule = {
             handler: (state, player, _e, ctx: any) => {
                 const self = ctx?.sourceCardInstanceId;
                 const opts: any[] = [];
-                if (player.playArea.some(c => c.instanceId === self)) opts.push({ label: 'Écarter ce Raser', effects: [{ type: 'RAZE_TRASH', instanceId: self }] });
+                if (player.playArea.some(c => c.instanceId === self)) opts.push({ label: 'Écarter cette Démolition', effects: [{ type: 'RAZE_TRASH', instanceId: self }] });
                 const seen = new Set<string>();
                 for (const c of player.hand) {
                     if (seen.has(c.id)) continue;
                     seen.add(c.id);
                     opts.push({ label: `Écarter ${nameOf(c.id)}`, effects: [{ type: 'RAZE_TRASH', instanceId: c.instanceId }] });
                 }
-                if (opts.length) push(state, player.id, options('Raser : écartez cette carte ou une carte de votre main', opts));
+                if (opts.length) push(state, player.id, options('Démolition : écartez cette carte ou une carte de votre main', opts));
                 return done(state);
             }
         },
@@ -397,7 +397,7 @@ export const AdventuresModule: ExpansionModule = {
                 if (!seen.length) return done(state);
                 if (seen.length === 1) { player.hand.push(seen[0]); return done(state); }
                 player.limbo.push(...seen);
-                push(state, player.id, options('Raser : prenez une de ces cartes en main (les autres sont défaussées)',
+                push(state, player.id, options('Démolition : prenez une de ces cartes en main (les autres sont défaussées)',
                     seen.map(c => ({ label: nameOf(c.id), effects: [{ type: 'LIMBO_PICK_ONE', keep: c.instanceId, ids: seen.map(x => x.instanceId) }] }))));
                 return done(state);
             }
@@ -422,7 +422,7 @@ export const AdventuresModule: ExpansionModule = {
                 if (!treasures.length) return done(state);
                 state.pendingDecision = {
                     id: `storyteller_${Date.now()}`, playerId: player.id, type: 'CHOOSE_CARDS' as any,
-                    message: 'Conteur : jouez jusqu\'à 3 Trésors de votre main',
+                    message: 'Conteuse : jouez jusqu\'à 3 Trésors de votre main',
                     constraints: { min: 0, max: Math.min(3, treasures.length), sourceZone: 'hand', filter: { cardTypes: ['TREASURE'] } },
                     context: { specialAction: 'PLAY_TREASURES_PICK' }
                 } as any;
@@ -554,7 +554,7 @@ export const AdventuresModule: ExpansionModule = {
                 if (!player.hand.length) return done(state);
                 state.pendingDecision = {
                     id: `save_${Date.now()}`, playerId: player.id, type: 'CHOOSE_CARDS' as any,
-                    message: 'Épargne : mettez de côté une carte de votre main (reprise à la fin du tour)',
+                    message: 'Resserre : mettez de côté une carte de votre main (reprise à la fin du tour)',
                     constraints: { min: 1, max: 1, sourceZone: 'hand' },
                     context: { specialAction: 'SAVE_PICK' }
                 } as any;
@@ -572,8 +572,8 @@ export const AdventuresModule: ExpansionModule = {
                 player.limbo.push(...seen);
                 const k = Math.min(3, seen.length);
                 pushAll(state, player.id, [
-                    { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', min: k, max: k, action: 'DISCARD', message: `Éclaireurs : défaussez ${k} de ces cartes` },
-                    { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Éclaireurs : remettez les autres dans l\'ordre de votre choix' }
+                    { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', min: k, max: k, action: 'DISCARD', message: `Pistage : défaussez ${k} de ces cartes` },
+                    { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Pistage : remettez les autres dans l\'ordre de votre choix' }
                 ]);
                 return done(state);
             }
@@ -624,7 +624,7 @@ export const AdventuresModule: ExpansionModule = {
             // Seaway: gain an Action card costing up to $4. Move your +1 Buy token to its pile.
             type: 'SEAWAY',
             handler: (state, player) => GainEffectHandler.promptGainFromSupply(state, player, { maxCost: 4, cardTypes: ['ACTION'] },
-                { next: [{ type: 'TOKEN_TO_GAINED_PILE', token: 'plus1Buy' }] }, 'Route maritime : recevez une carte Action coûtant jusqu\'à 4 💰')
+                { next: [{ type: 'TOKEN_TO_GAINED_PILE', token: 'plus1Buy' }] }, 'Route Maritime : recevez une carte Action coûtant jusqu\'à 4 💰')
         },
         {
             type: 'TOKEN_TO_GAINED_PILE',

@@ -75,10 +75,10 @@ export const marchland: CardDefinition = {
 
 export const black_market: CardDefinition = {
     id: 'black_market',
-    name: 'Marché Noir',
+    name: 'Marché noir',
     cost: 3,
     types: ['ACTION'],
-    description: "+2 💰. Révélez les 3 cartes du dessus de la pioche du Marché Noir. Vous pouvez en acheter une immédiatement. Remettez les autres sous la pioche du Marché Noir.",
+    description: "+2 💰. Révélez les 3 cartes du dessus de la pioche du Marché noir. Vous pouvez en acheter une immédiatement. Remettez les autres sous la pioche du Marché noir.",
     effects: [
         { type: 'ADD_MONEY', amount: 2 },
         { type: 'BLACK_MARKET' } as any
@@ -99,7 +99,7 @@ export const stash: CardDefinition = {
 
 export const walled_village: CardDefinition = {
     id: 'walled_village',
-    name: 'Village fortifié',
+    name: 'Ville fortifiée',
     cost: 4,
     types: ['ACTION'],
     description: "+1 Carte, +2 Actions. Au début de l'Ajustement, si vous avez cette carte et au plus une autre carte Action en jeu, vous pouvez placer cette carte sur votre pioche.",

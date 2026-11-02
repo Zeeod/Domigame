@@ -2,13 +2,13 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const trading_post: CardDefinition = {
     id: 'trading_post',
-    name: 'Poste de traite',
+    name: 'Comptoir',
     cost: 5,
     types: ['ACTION'],
     effects: [
         {
             type: 'TRASH', min: 2, max: 2, from: 'hand',
-            message: 'Poste de traite : écartez 2 cartes de votre main',
+            message: 'Comptoir : écartez 2 cartes de votre main',
             ifTrashed: { count: 2, effects: [{ type: 'GAIN_CARD', cardId: 'silver', destination: 'hand' }] }
         }
     ] as any,

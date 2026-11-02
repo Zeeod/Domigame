@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const plaza: CardDefinition = {
     id: 'plaza',
-    name: 'Place',
+    name: 'Place du village',
     types: ['ACTION'],
     cost: 4,
     expansion: 'guilds',

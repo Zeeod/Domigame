@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const highway: CardDefinition = {
     id: 'highway',
-    name: 'Grand-route',
+    name: 'Route',
     types: ['ACTION'],
     cost: 5,
     expansion: 'hinterlands',

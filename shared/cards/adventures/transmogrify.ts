@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const transmogrify: CardDefinition = {
     id: 'transmogrify',
-    name: 'Métamorphose',
+    name: 'Transfiguration',
     types: ['ACTION', 'RESERVE'],
     cost: 4,
     expansion: 'adventures',

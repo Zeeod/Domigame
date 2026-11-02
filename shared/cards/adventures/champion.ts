@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const champion: CardDefinition = {
     id: 'champion',
-    name: 'Champion',
+    name: 'Championne',
     types: ['ACTION', 'DURATION'],
     cost: 6,
     expansion: 'adventures',

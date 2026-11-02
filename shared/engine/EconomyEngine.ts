@@ -47,9 +47,14 @@ export class EconomyEngine {
             const exact = Array.isArray(filter.exactCost) ? filter.exactCost : [filter.exactCost];
             if (!exact.includes(cost)) return false;
         }
-        // Potion / Debt costs: "up to $X" never includes a cost with a Potion or Debt in it
-        if ((filter.maxCost !== undefined || filter.exactCost !== undefined) && !filter.allowPotionOrDebt
-            && (((def as any).potionCost || 0) > 0 || ((def as any).debtCost || 0) > 0)) return false;
+        // Potion / Debt costs: "up to $X" includes a Potion or Debt only as much as the reference card has
+        // (trash Engineer, 4 Debt, with Remodel: gain a card costing up to $2 and 4 Debt)
+        if ((filter.maxCost !== undefined || filter.exactCost !== undefined) && !filter.allowPotionOrDebt) {
+            const potion = (def as any).potionCost || 0, debt = (def as any).debtCost || 0;
+            if (filter.exactCost !== undefined) {
+                if (potion !== (filter.exactPotion ?? 0) || debt !== (filter.exactDebt ?? 0)) return false;
+            } else if (potion > (filter.maxPotion ?? 0) || debt > (filter.maxDebt ?? 0)) return false;
+        }
         const types = filter.cardTypes || filter.allowedTypes;
         if (types && !types.some((t: string) => def.types.includes(t as any))) return false;
         if (filter.excludeTypes && filter.excludeTypes.some((t: string) => def.types.includes(t as any))) return false;

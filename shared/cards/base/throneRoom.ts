@@ -6,7 +6,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const throneRoom: CardDefinition = {
     id: 'throne_room',
-    name: 'Trône',
+    name: 'Salle du Trône',
     cost: 4,
     types: ['ACTION'],
     effects: [

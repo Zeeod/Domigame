@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const BagOfGold: CardDefinition = {
     id: 'bag_of_gold',
-    name: 'Sac d\'Or',
+    name: 'Sac d\'or',
     cost: 0,
     types: ['ACTION', 'PRIZE'],
     expansion: 'cornucopia',
@@ -31,7 +31,7 @@ export const Diadem: CardDefinition = {
 
 export const Followers: CardDefinition = {
     id: 'followers',
-    name: 'Disciples',
+    name: 'Partisans',
     cost: 0,
     types: ['ACTION', 'ATTACK', 'PRIZE'],
     expansion: 'cornucopia',
@@ -65,7 +65,7 @@ export const Princess: CardDefinition = {
 
 export const TrustySteed: CardDefinition = {
     id: 'trusty_steed',
-    name: 'Destrier Fidèle',
+    name: 'Fidèle destrier',
     cost: 0,
     types: ['ACTION', 'PRIZE'],
     expansion: 'cornucopia',

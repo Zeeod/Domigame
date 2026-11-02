@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const bandOfMisfits: CardDefinition = {
     id: 'band_of_misfits',
-    name: 'Bande de Brigands',
+    name: 'Malfaiteurs',
     cost: 5,
     types: ['ACTION' as any, 'COMMAND' as any],
     expansion: 'dark_ages',

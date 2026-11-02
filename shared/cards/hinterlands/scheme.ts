@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const scheme: CardDefinition = {
     id: 'scheme',
-    name: 'Stratagème',
+    name: 'Complot',
     types: ['ACTION'],
     cost: 3,
     expansion: 'hinterlands',

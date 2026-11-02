@@ -1,50 +1,40 @@
 # ==============================================================================
-# STAGE 1: Build Stage
+# Dominion — one container: the game server also serves the web client.
+# Node 24: the saves use Node's built-in SQLite (node:sqlite, Node 22.5 or newer).
 # ==============================================================================
-FROM node:20-alpine AS builder
 
+# ---------- Stage 1: build the web client (Vite) ----------
+FROM node:24-alpine AS builder
 WORKDIR /app
 
-# Install build dependencies
-# (Alpine needs some python/make for some native modules, but probably not here)
-# RUN apk add --no-cache python3 make g++
-
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# Copy everything else
 COPY . .
-
-# Build the frontend (Vite)
-# This uses .env.production automatically
+# Uses .env.production (VITE_SERVER_URL empty: the client talks to the server that serves it)
 RUN npm run build
 
-# ==============================================================================
-# STAGE 2: Runtime Stage
-# ==============================================================================
-FROM node:20-alpine
-
+# ---------- Stage 2: runtime ----------
+FROM node:24-alpine
 WORKDIR /app
 
-# Copy package files and install PRODUCTION dependencies only
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Copy the built client from stage 1
 COPY --from=builder /app/dist ./dist
-
-# Copy the server source, shared logic and config
-# We use tsx to run the server directly from .ts files for simplicity
 COPY --from=builder /app/server ./server
 COPY --from=builder /app/shared ./shared
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 
-# Final environment settings
-ENV NODE_ENV=production
-ENV PORT=3005
+# Saved games (SQLite) live here: mount a volume to keep them across updates
+RUN mkdir -p /app/data
+VOLUME ["/app/data"]
 
-# Expose the internal port
+ENV NODE_ENV=production \
+    PORT=3005
 EXPOSE 3005
 
-# We run the server directly skipping clean_ports.js which is not needed in Docker
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
+    CMD wget -qO- http://127.0.0.1:${PORT}/health || exit 1
+
 CMD ["npx", "tsx", "server/index.ts"]

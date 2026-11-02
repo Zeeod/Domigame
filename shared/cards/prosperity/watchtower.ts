@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition';
 
 export const watchtower: CardDefinition = {
     id: 'watchtower',
-    name: 'Tour de guet',
+    name: 'Mirador',
     cost: 3,
     types: ['ACTION', 'REACTION'],
     effects: [
@@ -14,7 +14,7 @@ export const watchtower: CardDefinition = {
     expansion: 'prosperity',
     reactionTrigger: 'GAIN' as any,
     reactionEffects: [{
-        type: 'SELECT_OPTION', message: 'Tour de guet : que faire de la carte reçue ?',
+        type: 'SELECT_OPTION', message: 'Mirador : que faire de la carte reçue ?',
         options: [
             { label: 'L\'écarter', effects: [{ type: 'GAINED_CARD_TO', to: 'trash' }] },
             { label: 'La placer sur la pioche', effects: [{ type: 'GAINED_CARD_TO', to: 'deck' }] }

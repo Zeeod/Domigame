@@ -9,7 +9,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
  */
 export const tiara: CardDefinition = {
     id: 'tiara',
-    name: 'Diadème', // Or Tiare
+    name: 'Tiare', // Or Tiare
     cost: 4,
     types: ['TREASURE'],
     expansion: 'prosperity',
@@ -42,7 +42,7 @@ export const tiara: CardDefinition = {
                         { label: 'Placer sur la pioche', effects: [{ type: 'MOVE_GAINED_TO_HAND', destination: 'deck' } as any] },
                         { label: 'Laisser dans la défausse', effects: [] }
                     ],
-                    message: 'Voulez-vous placer la carte gagnée sur votre pioche ? (Diadème)'
+                    message: 'Voulez-vous placer la carte gagnée sur votre pioche ? (Tiare)'
                 }
             ]
         }

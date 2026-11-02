@@ -26,7 +26,7 @@ npm run dev     # Client Vite (port 3000), dans un 2e terminal
 | `npm run check-types` | Vérification TypeScript (client, serveur, moteur, tests) |
 | `npm test` | Tous les tests Vitest |
 | `npx vitest run tests/cards` | Les tests d'un seul dossier |
-| `docker compose up -d --build` | Déploiement Docker (voir `docs/deployment/`) |
+| `docker compose up -d --build` | Déploiement Docker (voir [docs/deployment/DOCKER.md](docs/deployment/DOCKER.md)) |
 
 ## Structure
 

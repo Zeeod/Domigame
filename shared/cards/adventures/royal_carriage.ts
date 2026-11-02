@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const royalCarriage: CardDefinition = {
     id: 'royal_carriage',
-    name: 'Carrosse royal',
+    name: 'Cortège royal',
     types: ['ACTION', 'RESERVE'],
     cost: 5,
     expansion: 'adventures',

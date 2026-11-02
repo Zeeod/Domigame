@@ -141,6 +141,11 @@ export class GainEffectHandler {
         const target = baseCost + (effect.amount !== undefined ? effect.amount : (effect.costBonus !== undefined ? effect.costBonus : 0));
         // exact: "costing exactly $X more" (Upgrade); otherwise "up to"
         const filter: any = effect.exact ? { exactCost: target } : { maxCost: target };
+        // The trashed card's Potion and Debt carry over ("costing up to $2 more than it")
+        const trashedDef: any = CardRegistry.get(lastTrashed.id);
+        const potion = trashedDef?.potionCost || 0, debt = trashedDef?.debtCost || 0;
+        if (effect.exact) { filter.exactPotion = potion; filter.exactDebt = debt; }
+        else { filter.maxPotion = potion; filter.maxDebt = debt; }
         if (effect.cardTypes) filter.cardTypes = effect.cardTypes;
         if (effect.nonVictory) filter.nonVictory = true;
         if (effect.excludeIds) filter.excludeIds = effect.excludeIds;

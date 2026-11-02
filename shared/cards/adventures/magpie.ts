@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const magpie: CardDefinition = {
     id: 'magpie',
-    name: 'Pie',
+    name: 'Pie voleuse',
     types: ['ACTION'],
     cost: 4,
     expansion: 'adventures',

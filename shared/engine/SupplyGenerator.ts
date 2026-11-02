@@ -4,6 +4,7 @@ import { createGameState, GameState } from './GameState.js';
 import { EffectUtils } from './EffectUtils.js';
 import { expandExpansionFilter, getCardExpansion, normalizeExpansion } from '../cards/expansions.js';
 import { debugLog } from './debug.js';
+import { createCardInstance } from './CardInstance.js';
 
 export interface SupplyGeneratorOptions {
     count: number;
@@ -359,6 +360,38 @@ export class SupplyGenerator {
     /**
      * Determines if any Kingdom card requires a Potion for its cost.
      */
+    /**
+     * Puts an extra pile in the game (Ruins in the Supply; Spoils, Madman, Mercenary, Loot… outside it).
+     * Used at setup and when Divine Wind brings new Kingdom cards.
+     */
+    static addExtraPile(state: GameState, pileId: string): void {
+        if (!pileId || state.supply[pileId] || state.nonSupply?.[pileId]) return;
+        const def = CardRegistry.get(pileId);
+        const numPlayers = state.players.length;
+        let count = 10;
+        // Ruins: 10 per player after the first (like Curses)
+        if (pileId === 'ruins') count = Math.max(10, (numPlayers - 1) * 10);
+        else if (pileId === 'spoils') count = 15;
+        state.nonSupply = state.nonSupply || {};
+        const target = pileId === 'ruins' ? state.supply : state.nonSupply;
+
+        if (def?.mixedPile) {
+            const base = [...def.mixedPile.cards];
+            let ids: string[] = [];
+            if (def.mixedPile.type === 'SHUFFLED') {
+                // e.g. Ruins: 10 copies of each kind shuffled together, then deal `count`
+                for (const id of base) for (let i = 0; i < 10; i++) ids.push(id);
+                ids = EffectUtils.shuffle(ids, state);
+            } else {
+                while (ids.length < count && base.length > 0) ids.push(...base);
+            }
+            const cards = ids.slice(0, count).map(id => createCardInstance(id));
+            target[pileId] = { cardId: pileId, count: cards.length, isMixed: true, cards } as any;
+        } else {
+            target[pileId] = { cardId: pileId, count, cards: [] } as any;
+        }
+    }
+
     static needsPotion(kingdomCardIds: string[]): boolean {
         return kingdomCardIds.some(id => {
             const def = CardRegistry.get(id);

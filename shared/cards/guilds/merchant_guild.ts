@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const merchantGuild: CardDefinition = {
     id: 'merchant_guild',
-    name: 'Guilde des marchands',
+    name: 'Guilde des Marchands',
     types: ['ACTION'],
     cost: 5,
     expansion: 'guilds',

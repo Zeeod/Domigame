@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const urchin: CardDefinition = {
     id: 'urchin',
-    name: 'Gamin des Rues',
+    name: 'Orphelin',
     cost: 3,
     types: ['ACTION', 'ATTACK'],
     expansion: 'dark_ages',

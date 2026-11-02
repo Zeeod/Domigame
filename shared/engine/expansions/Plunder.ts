@@ -177,8 +177,9 @@ export const PlunderModule: ExpansionModule = {
                     const m = (p as any).mirror;
                     if (m && m.turn === state.turnNumber && m.n > 0) { (p as any).mirror = undefined; for (let i = 0; i < m.n; i++) push(state, p.id, { type: 'GAIN_CARD', cardId: cid }); }
                 }
-                if (isType(cid, 'TREASURE') && (p as any).miningRoadTurn === state.turnNumber && isCurrent(state, p) && iid) {
-                    (p as any).miningRoadTurn = undefined;
+                const road = (p as any).miningRoad;
+                if (isType(cid, 'TREASURE') && road && road.turn === state.turnNumber && road.left > 0 && isCurrent(state, p) && iid) {
+                    road.left--; // each Mining Road played gives one use this turn
                     push(state, p.id, options(`Route minière : jouer ${nameOf(cid)} ?`, [
                         { label: 'Oui', effects: [{ type: 'PLAY_INSTANCE_IF_OWNED', instanceId: iid }] }, { label: 'Non', effects: [] }
                     ]));
@@ -532,7 +533,7 @@ export const PlunderModule: ExpansionModule = {
                 for (let i = 0; i < 4; i++) { const c = takeTop(state, player); if (c) seen.push(c); }
                 if (!seen.length) return done(state);
                 player.limbo.push(...seen);
-                return askCards(state, player, 'MAPMAKER_PICK', 'Cartographe : prenez 2 cartes en main (les autres sont défaussées)', seen, 'limbo', 2, 2, { all: seen.map(c => c.instanceId) });
+                return askCards(state, player, 'MAPMAKER_PICK', 'Géographe : prenez 2 cartes en main (les autres sont défaussées)', seen, 'limbo', 2, 2, { all: seen.map(c => c.instanceId) });
             }
         },
         {
@@ -622,7 +623,15 @@ export const PlunderModule: ExpansionModule = {
             type: 'FRIGATE_END',
             handler: (state, player) => { (state as any).frigates = ((state as any).frigates || []).filter((f: any) => f.attackerId !== player.id); return done(state); }
         },
-        { type: 'MINING_ROAD', handler: (state, player) => { (player as any).miningRoadTurn = state.turnNumber; return done(state); } },
+        {
+            // Mining Road: once this turn, when you gain a Treasure, you may play it (cumulative: one use per Mining Road)
+            type: 'MINING_ROAD',
+            handler: (state, player) => {
+                const road = (player as any).miningRoad;
+                (player as any).miningRoad = road && road.turn === state.turnNumber ? { turn: road.turn, left: road.left + 1 } : { turn: state.turnNumber, left: 1 };
+                return done(state);
+            }
+        },
         {
             type: 'PENDANT',
             handler: (state, player) => { player.coins += new Set(player.playArea.filter(c => isType(c.id, 'TREASURE')).map(c => c.id)).size; return done(state); }
@@ -646,7 +655,7 @@ export const PlunderModule: ExpansionModule = {
             handler: (state, player, _e, ctx: any) => {
                 const mat = `quartermaster_${ctx?.sourceCardInstanceId}`;
                 const stored = uniqueByName(peekMat(player, mat));
-                push(state, player.id, options('Intendant : choisissez', [
+                push(state, player.id, options('Quartier-maître : choisissez', [
                     { label: 'Recevoir une carte coûtant jusqu\'à 4 💰 (mise de côté ici)', effects: [{ type: 'GAIN_CARD', maxCost: 4, message: 'Intendant : recevez une carte coûtant jusqu\'à 4 💰', next: [{ type: 'GAINED_TO_MAT', mat }] }] },
                     ...stored.map(c => ({ label: `Prendre ${nameOf(c.id)} en main`, effects: [{ type: 'MAT_TO_HAND', mat, instanceId: c.instanceId }] }))
                 ]), ctx);
@@ -761,7 +770,7 @@ export const PlunderModule: ExpansionModule = {
         {
             // Foray: discard 3 cards, revealing them; 3 different names → a Loot
             type: 'FORAY',
-            handler: (state, player) => askCards(state, player, 'FORAY_PICK', 'Raid : défaussez 3 cartes', player.hand, 'hand', 3, 3)
+            handler: (state, player) => askCards(state, player, 'FORAY_PICK', 'Incursion : défaussez 3 cartes', player.hand, 'hand', 3, 3)
         },
         {
             // Prepare: set aside your hand face up; next turn play its Actions and Treasures in any order, discard the rest

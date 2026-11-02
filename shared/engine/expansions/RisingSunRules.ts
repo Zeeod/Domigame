@@ -71,7 +71,7 @@ export const RisingSunRulesModule: ExpansionModule = {
             type: 'AMASS',
             handler: (state, player) => {
                 if (player.playArea.some(c => isType(c.id, 'ACTION'))) return done(state);
-                return GainEffectHandler.promptGainFromSupply(state, player, { maxCost: 5, cardTypes: ['ACTION'] }, {}, 'Amasser : recevez une carte Action coûtant jusqu\'à 5 💰');
+                return GainEffectHandler.promptGainFromSupply(state, player, { maxCost: 5, cardTypes: ['ACTION'] }, {}, 'Amas : recevez une carte Action coûtant jusqu\'à 5 💰');
             }
         },
         {
@@ -134,7 +134,7 @@ export const RisingSunRulesModule: ExpansionModule = {
         {
             // Practice: you may play an Action card from your hand twice
             type: 'PRACTICE',
-            handler: (state, player) => askCards(state, player, 'PRACTICE_PICK', 'Entraînement : jouer deux fois une Action de votre main ?',
+            handler: (state, player) => askCards(state, player, 'PRACTICE_PICK', 'Exercice : jouer deux fois une Action de votre main ?',
                 player.hand.filter(c => isType(c.id, 'ACTION')), 0, 1)
         },
         {
@@ -161,7 +161,7 @@ export const RisingSunRulesModule: ExpansionModule = {
                 if (!ids.length) return done(state);
                 return GainEffectHandler.promptGainFromSupply(state, player, { cardIds: ids, maxCost: 99 },
                     { next: [{ type: 'RECEIVE_TRIBUTE_NEXT', left: left - 1, taken }] },
-                    `Recevoir le tribut : recevez une carte Action (encore ${left})`, true);
+                    `Offrande : recevez une carte Action (encore ${left})`, true);
             }
         },
         {
@@ -179,7 +179,7 @@ export const RisingSunRulesModule: ExpansionModule = {
                 const ids = supplyIds(state, id => coinOnly(id) && costOf(state, player, id) === effect.cost);
                 if (!ids.length) return done(state);
                 return GainEffectHandler.promptGainFromSupply(state, player, { cardIds: ids, exactCost: effect.cost }, {},
-                    `Rassemblement : recevez une carte coûtant exactement ${effect.cost} 💰`);
+                    `Cueillette : recevez une carte coûtant exactement ${effect.cost} 💰`);
             }
         },
         {
@@ -191,7 +191,7 @@ export const RisingSunRulesModule: ExpansionModule = {
                 push(state, player.id, { type: 'CHANGE_PHASE', phase: 'ACTION' });
                 if (!ids.length) return done(state);
                 return GainEffectHandler.promptGainFromSupply(state, player, { cardIds: ids, maxCost: 4 }, { next: [{ type: 'PLAY_LAST_GAINED' }] },
-                    'Continuer : recevez une carte Action non-Attaque coûtant jusqu\'à 4 💰');
+                    'Continuation : recevez une carte Action non-Attaque coûtant jusqu\'à 4 💰');
             }
         },
         {

@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const caravanGuard: CardDefinition = {
     id: 'caravan_guard',
-    name: 'Garde de caravane',
+    name: 'Escorte',
     types: ['ACTION', 'DURATION', 'REACTION'],
     isReaction: true,
     reactionTrigger: 'ATTACK',

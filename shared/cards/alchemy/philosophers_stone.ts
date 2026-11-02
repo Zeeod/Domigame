@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const PhilosophersStone: CardDefinition = {
     id: 'philosophers_stone',
-    name: 'Pierre Philosophale',
+    name: 'Pierre philosophale',
     types: ['TREASURE'],
     cost: 3,
     potionCost: 1,

@@ -18,6 +18,10 @@ import { getMat } from '../Mats.js';
 import { setupHooks } from '../KingdomRules.js';
 import { RulesValidator } from '../RulesValidator.js';
 import { VictoryChecker } from '../VictoryChecker.js';
+import { DurationManager } from '../DurationManager.js';
+
+const garrisonIdle = (state: GameState, _p: PlayerState, cardId: string, instanceId: string) =>
+    cardId === 'garrison' && !(state.cardTokens?.[instanceId]);
 
 const done = (state: GameState) => ({ state, needsChoice: false });
 const def = (id: string) => CardRegistry.get(id);
@@ -372,12 +376,14 @@ export const AlliesRulesModule: ExpansionModule = {
             }
         },
         {
-            // Capital City: may discard 2 cards for +$2; may pay $2 for +2 Cards
+            // Capital City: may discard 2 cards for +$2 (allowed with fewer: discard what you can, +$2 only for 2);
+            // may pay $2 for +2 Cards
             type: 'CAPITAL_CITY',
             handler: (state, player) => {
                 push(state, player.id, { type: 'CAPITAL_CITY_PAY' });
-                if (player.hand.length >= 2) push(state, player.id, options('Capitale : défausser 2 cartes pour +2 💰 ?', [
-                    { label: 'Oui', effects: [{ type: 'DISCARD', amount: 2, message: 'Capitale : défaussez 2 cartes' }, { type: 'ADD_MONEY', amount: 2 }] },
+                const n = Math.min(2, player.hand.length);
+                if (n > 0) push(state, player.id, options(n === 2 ? 'Capitale : défausser 2 cartes pour +2 💰 ?' : 'Capitale : défausser votre dernière carte (sans +2 💰, il en faut 2) ?', [
+                    { label: 'Oui', effects: n === 2 ? [{ type: 'DISCARD', amount: 2, message: 'Capitale : défaussez 2 cartes' }, { type: 'ADD_MONEY', amount: 2 }] : [{ type: 'DISCARD', amount: 1, message: 'Capitale : défaussez votre carte' }] },
                     { label: 'Non', effects: [] }
                 ]));
                 return done(state);
@@ -529,8 +535,8 @@ export const AlliesRulesModule: ExpansionModule = {
                 if (!seen.length) return done(state);
                 player.limbo.push(...seen);
                 pushAll(state, player.id, [
-                    { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', min: 0, max: Math.min(2, seen.length), action: 'TRASH', message: 'Sentinelle : écartez jusqu\'à 2 cartes' },
-                    { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Sentinelle : remettez les autres dans l\'ordre de votre choix' }
+                    { type: 'SELECT_AND_APPLY', sourceZone: 'limbo', min: 0, max: Math.min(2, seen.length), action: 'TRASH', message: 'Guetteur : écartez jusqu\'à 2 cartes' },
+                    { type: 'REORDER', sourceZone: 'limbo', destination: 'deck', position: 'TOP', message: 'Guetteur : remettez les autres dans l\'ordre de votre choix' }
                 ]);
                 return done(state);
             }
@@ -810,6 +816,8 @@ export const AlliesRulesModule: ExpansionModule = {
 
     onLoad: () => {
         if (!setupHooks.includes(setupAllies)) setupHooks.push(setupAllies);
+        // Garrison with no tokens has nothing to do next turn: it is discarded in Clean-up
+        if (!DurationManager.idle.includes(garrisonIdle)) DurationManager.idle.push(garrisonIdle);
         const owned = (state: GameState, id: string) => state.players.find(p => p.id === id);
         const picked = (payload: any, decision: any) => chosenInstanceIds(payload).filter(id => (decision.context.candidates || []).includes(id));
         const pick = (state: GameState, playerId: string, payload: any, decision: any) => {

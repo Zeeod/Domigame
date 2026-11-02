@@ -250,6 +250,8 @@ export class CleanupEffectHandler {
                 const p = state.players[state.currentPlayerIndex] as any;
                 if (!p.skipTurns) break;
                 p.skipTurns--;
+                // A skipped turn still counts for the tiebreaker, as if taken
+                p.turnsTaken = (p.turnsTaken || 0) + 1;
                 this.log(state, `${p.name} passe son tour (Liche).`);
                 state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
             }

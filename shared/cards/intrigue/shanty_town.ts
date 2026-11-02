@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const shanty_town: CardDefinition = {
     id: 'shanty_town',
-    name: 'Bidonville',
+    name: 'Taudis',
     cost: 3,
     types: ['ACTION'],
     effects: [

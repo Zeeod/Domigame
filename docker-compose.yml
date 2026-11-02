@@ -1,25 +1,25 @@
+# Dominion: docker compose up -d --build   then open http://<your-machine>:3005
 services:
-  dominion-server:
-    build: 
+  dominion:
+    build:
       context: .
       dockerfile: Dockerfile
-    container_name: dominion-app
+    image: dominion:latest
+    container_name: dominion
     restart: unless-stopped
-    
-    # Map the NAS port 3005 to the Container port 3005
+
     ports:
+      # Change the left number to use another port on your machine (e.g. "8080:3005")
       - "3005:3005"
-    
+
     environment:
       - NODE_ENV=production
       - PORT=3005
-      
-      # For Synology Reverse Proxy, this should be your public URL
-      - CLIENT_URL=https://dominion.example.com
-      
-      # Leave as default unless you have specific routing needs
+      # Only needed if the page is served from another address than the game server
+      # (otherwise leave "*"). Example behind a reverse proxy: https://dominion.example.com
+      - CLIENT_URL=*
       - SOCKET_PATH=/socket.io/
 
-    # Optional: ensure log persistence if your server writes to files
-    # volumes:
-    #   - ./logs:/app/logs
+    volumes:
+      # Saved games (to resume after a restart or an update)
+      - ./data:/app/data

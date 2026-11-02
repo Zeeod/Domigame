@@ -551,7 +551,7 @@ export const NocturneRulesModule: ExpansionModule = {
                 const boons: string[] = effect.boons || [];
                 if (!boons.length) return done(state);
                 if (boons.length === 1) { receiveBoon(state, player, boons[0]); return done(state); }
-                push(state, player.id, options('Fou : quel Bienfait recevoir maintenant ?', boons.map((b, i) => ({
+                push(state, player.id, options('Simplet : quel Bienfait recevoir maintenant ?', boons.map((b, i) => ({
                     label: nameOf(b), effects: [{ type: 'RECEIVE_BOON_KEEP', boonId: b }, { type: 'FOOL_RECEIVE', boons: boons.filter((_, j) => j !== i) }]
                 }))));
                 return done(state);

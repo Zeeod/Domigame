@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const nomadCamp: CardDefinition = {
     id: 'nomad_camp',
-    name: 'Campement de nomades',
+    name: 'Campement nomade',
     types: ['ACTION'],
     cost: 4,
     expansion: 'hinterlands',

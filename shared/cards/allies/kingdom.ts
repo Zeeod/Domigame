@@ -75,7 +75,7 @@ export const modify = k('modify', 'Modifier', 5, ['ACTION'],
 export const royal_galley = k('royal_galley', 'Galère royale', 4, ['ACTION', 'DURATION'],
     '+1 Carte. Vous pouvez jouer une carte Action non-Durée de votre main. Mettez-la de côté ; si vous le faites, jouez-la au début de votre prochain tour.',
     [{ type: 'DRAW', amount: 1 }, { type: 'ROYAL_GALLEY' }], { durationEffects: [] });
-export const sentinel = k('sentinel', 'Sentinelle', 3, ['ACTION'],
+export const sentinel = k('sentinel', 'Guetteur', 3, ['ACTION'],
     'Regardez les 5 cartes du dessus de votre pioche. Écartez-en jusqu\'à 2. Remettez le reste dans l\'ordre de votre choix.',
     [{ type: 'SENTINEL' }]);
 export const skirmisher = k('skirmisher', 'Tirailleur', 5, ['ACTION', 'ATTACK'],
@@ -93,8 +93,8 @@ export const sycophant = k('sycophant', 'Sycophante', 2, ['ACTION', 'LIAISON'],
     '+1 Action. Défaussez 3 cartes. Si vous en avez défaussé au moins une, +3 💰. Quand vous recevez ou écartez cette carte, +2 Faveurs.',
     [{ type: 'ADD_ACTIONS', amount: 1 }, { type: 'DISCARD', amount: 3, message: 'Sycophante : défaussez 3 cartes', onSuccess: [{ type: 'ADD_MONEY', amount: 3 }] }, LIAISON],
     { onGain: [{ type: 'ADD_FAVORS', amount: 2 }], onTrash: [{ type: 'ADD_FAVORS', amount: 2 }] });
-export const town = k('town', 'Ville', 4, ['ACTION'], 'Choisissez : +1 Carte et +2 Actions ; ou +1 Achat et +2 💰.',
-    [{ type: 'CHOOSE_OPTION', message: 'Ville : choisissez', options: [
+export const town = k('town', 'Bourg', 4, ['ACTION'], 'Choisissez : +1 Carte et +2 Actions ; ou +1 Achat et +2 💰.',
+    [{ type: 'CHOOSE_OPTION', message: 'Bourg : choisissez', options: [
         { label: '+1 Carte et +2 Actions', effects: [{ type: 'DRAW', amount: 1 }, { type: 'ADD_ACTIONS', amount: 2 }] },
         { label: '+1 Achat et +2 💰', effects: [{ type: 'ADD_BUYS', amount: 1 }, { type: 'ADD_MONEY', amount: 2 }] }
     ] }]);

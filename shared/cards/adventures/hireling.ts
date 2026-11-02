@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const hireling: CardDefinition = {
     id: 'hireling',
-    name: 'Mercenaire',
+    name: 'Recrue',
     types: ['ACTION', 'DURATION'],
     cost: 6,
     expansion: 'adventures',

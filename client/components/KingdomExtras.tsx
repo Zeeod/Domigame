@@ -75,7 +75,7 @@ export const RecommendedSetsModal: React.FC<RecommendedProps> = ({ readOnly, onC
                                 {s.cards.map(id => <CardChip key={id} id={id} />)}
                                 {s.bane && <CardChip id={s.bane} kind="extra" title="Fléau de la Jeune sorcière" />}
                                 {s.approachingArmyPile && <CardChip id={s.approachingArmyPile} kind="extra" title="Pile ajoutée par Armée en approche" />}
-                                {s.riverboatCard && <CardChip id={s.riverboatCard} kind="extra" title="Mise de côté pour le Bateau de Rivière" />}
+                                {s.riverboatCard && <CardChip id={s.riverboatCard} kind="extra" title="Mise de côté pour le Sampan" />}
                                 {s.mouseCard && <CardChip id={s.mouseCard} kind="extra" title="Mise de côté pour la Voie de la Souris" />}
                                 {(s.druidBoons || []).map(id => <CardChip key={id} id={id} kind="extra" title="Bienfait du Druide" />)}
                             </div>

@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const marketSquare: CardDefinition = {
     id: 'market_square',
-    name: 'Place du Marché',
+    name: 'Place du marché',
     cost: 3,
     types: ['ACTION', 'REACTION'],
     expansion: 'dark_ages',

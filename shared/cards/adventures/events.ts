@@ -19,25 +19,25 @@ export const quest = ev('quest', 'Quête', 0,
     'Vous pouvez défausser une Attaque, deux Malédictions ou six cartes. Si vous le faites, recevez un Or.',
     [{ type: 'QUEST' }]);
 
-export const save = ev('save', 'Épargne', 1,
+export const save = ev('save', 'Resserre', 1,
     'Une fois par tour : +1 Achat. Mettez de côté une carte de votre main, et prenez-la en main à la fin du tour (après avoir pioché).',
     [{ type: 'SAVE' }], { oncePerTurn: true });
 
-export const scoutingParty = ev('scouting_party', 'Éclaireurs', 2,
+export const scoutingParty = ev('scouting_party', 'Pistage', 2,
     '+1 Achat. Regardez les 5 cartes du dessus de votre pioche. Défaussez-en 3 et remettez les autres dans l\'ordre de votre choix.',
     [{ type: 'SCOUTING_PARTY' }]);
 
-export const travellingFair = ev('travelling_fair', 'Foire itinérante', 2,
+export const travellingFair = ev('travelling_fair', 'Forains', 2,
     '+2 Achats. Quand vous recevez une carte ce tour-ci, vous pouvez la placer sur votre pioche.',
     [
         { type: 'ADD_BUYS', amount: 2 },
         {
             type: 'REGISTER_TRIGGER', trigger: 'ON_GAIN', duration: 'TURN', repeat: true,
-            effects: [{ type: 'SELECT_OPTION', message: 'Foire itinérante : placer la carte reçue sur votre pioche ?', options: [
+            effects: [{ type: 'SELECT_OPTION', message: 'Forains : placer la carte reçue sur votre pioche ?', options: [
                 { label: 'Oui', effects: [{ type: 'GAINED_CARD_TO', to: 'deck' }] },
                 { label: 'Non', effects: [] }
             ] }],
-            description: 'Foire itinérante'
+            description: 'Forains'
         }
     ]);
 
@@ -50,7 +50,7 @@ export const ferry = ev('ferry', 'Bac', 3,
     'Déplacez votre jeton -2 💰 sur une pile Action de la réserve (les cartes de cette pile coûtent 2 💰 de moins pendant vos tours).',
     [{ type: 'MOVE_TOKEN', token: 'minus2Cost' }]);
 
-export const plan = ev('plan', 'Plan', 3,
+export const plan = ev('plan', 'Plan de Bataille', 3,
     'Déplacez votre jeton Écart sur une pile Action de la réserve (quand vous achetez une carte de cette pile, vous pouvez écarter une carte de votre main).',
     [{ type: 'MOVE_TOKEN', token: 'trashing' }]);
 
@@ -70,14 +70,14 @@ export const raid = ev('raid', 'Raid', 5,
     'Recevez un Argent par Argent que vous avez en jeu. Chaque autre joueur place son jeton -1 Carte sur sa pioche.',
     [{ type: 'RAID' }]);
 
-export const seaway = ev('seaway', 'Route maritime', 5,
+export const seaway = ev('seaway', 'Route Maritime', 5,
     'Recevez une carte Action coûtant jusqu\'à 4 💰. Déplacez votre jeton +1 Achat sur sa pile.',
     [{ type: 'SEAWAY' }]);
 
 export const trade = ev('trade', 'Commerce', 5,
     'Écartez jusqu\'à 2 cartes de votre main. Recevez un Argent par carte écartée.', [{ type: 'TRADE' }]);
 
-export const lostArts = ev('lost_arts', 'Arts perdus', 6,
+export const lostArts = ev('lost_arts', 'Arts anciens', 6,
     'Déplacez votre jeton +1 Action sur une pile Action de la réserve.', [{ type: 'MOVE_TOKEN', token: 'plus1Action' }]);
 
 export const training = ev('training', 'Entraînement', 6,
@@ -87,5 +87,5 @@ export const inheritance = ev('inheritance', 'Héritage', 7,
     'Une fois par partie : mettez de côté une carte Action non-Victoire de la réserve coûtant jusqu\'à 4 💰. Placez-y votre jeton Domaine (pendant vos tours, vos Domaines sont aussi des Commandes et ont les capacités de cette carte).',
     [{ type: 'INHERITANCE' }], { oncePerGame: true });
 
-export const pathfinding = ev('pathfinding', 'Orientation', 8,
+export const pathfinding = ev('pathfinding', 'Reconnaissance', 8,
     'Déplacez votre jeton +1 Carte sur une pile Action de la réserve.', [{ type: 'MOVE_TOKEN', token: 'plus1Card' }]);

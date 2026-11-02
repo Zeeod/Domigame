@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const fairgrounds: CardDefinition = {
     id: 'fairgrounds',
-    name: 'Foire',
+    name: 'Champ de foire',
     types: ['VICTORY'],
     cost: 6,
     expansion: 'cornucopia',

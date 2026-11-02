@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const forager: CardDefinition = {
     id: 'forager',
-    name: 'Glaneuse',
+    name: 'Cueilleur',
     cost: 3,
     types: ['ACTION'],
     expansion: 'dark_ages',

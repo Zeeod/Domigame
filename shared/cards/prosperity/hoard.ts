@@ -8,7 +8,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
  */
 export const hoard: CardDefinition = {
     id: 'hoard',
-    name: 'Trésor caché',
+    name: 'Magot',
     cost: 6,
     types: ['TREASURE'],
     expansion: 'prosperity',

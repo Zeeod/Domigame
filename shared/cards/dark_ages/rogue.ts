@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const rogue: CardDefinition = {
     id: 'rogue',
-    name: 'Vaurienne',
+    name: 'Bandit',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     expansion: 'dark_ages',

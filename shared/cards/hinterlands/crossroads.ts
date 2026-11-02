@@ -2,15 +2,15 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const crossroads: CardDefinition = {
     id: 'crossroads',
-    name: 'Croisée des chemins',
+    name: 'Carrefour',
     types: ['ACTION'],
     cost: 2,
     expansion: 'hinterlands',
-    description: 'Révélez votre main. +1 Carte par carte Victoire révélée. Si c\'est la première fois que vous jouez une Croisée des chemins ce tour-ci, +3 Actions.',
+    description: 'Révélez votre main. +1 Carte par carte Victoire révélée. Si c\'est la première fois que vous jouez un Carrefour ce tour-ci, +3 Actions.',
     effects: [
         {
             type: 'REVEAL_HAND',
-            message: 'Croisée des chemins : Révélation de la main'
+            message: 'Carrefour : Révélation de la main'
         },
         {
             type: 'DRAW',

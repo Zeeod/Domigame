@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const harvest: CardDefinition = {
     id: 'harvest',
-    name: 'Moisson',
+    name: 'Récolte',
     types: ['ACTION'],
     cost: 5,
     expansion: 'cornucopia',

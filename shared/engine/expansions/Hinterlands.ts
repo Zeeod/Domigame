@@ -150,7 +150,7 @@ export const HinterlandsModule: ExpansionModule = {
                     options.push({ label: nameOf(c.id), effects: [{ type: 'TOPDECK_INSTANCE', instanceId: c.instanceId }] });
                 }
                 options.push({ label: 'Aucune', effects: [] });
-                push(state, player.id, { type: 'SELECT_OPTION', message: 'Stratagème : placer une carte Action sur votre pioche ?', options });
+                push(state, player.id, { type: 'SELECT_OPTION', message: 'Complot : placer une carte Action sur votre pioche ?', options });
                 return done(state);
             }
         },

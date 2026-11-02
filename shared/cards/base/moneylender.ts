@@ -6,7 +6,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const moneylender: CardDefinition = {
     id: 'moneylender',
-    name: 'Argentier',
+    name: 'Prêteur sur gages',
     cost: 4,
     types: ['ACTION'],
     effects: [

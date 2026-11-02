@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const horseTraders: CardDefinition = {
     id: 'horse_traders',
-    name: 'Maquignon',
+    name: 'Maquignons',
     types: ['ACTION', 'REACTION'],
     cost: 4,
     expansion: 'cornucopia',

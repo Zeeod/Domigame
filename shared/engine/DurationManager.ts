@@ -100,6 +100,12 @@ export class DurationManager {
      * Removes completed durations from state.durations.
      * @returns Array of CardInstanceIds to keep in play.
      */
+    /**
+     * Durations with nothing left to do next turn, registered by expansions (Garrison without tokens):
+     * they are discarded in Clean-up like any other card.
+     */
+    static idle: ((state: GameState, player: PlayerState, cardId: string, instanceId: string) => boolean)[] = [];
+
     static processCleanup(state: GameState, player: PlayerState): string[] {
         if (!state.durations) return [];
 
@@ -129,6 +135,11 @@ export class DurationManager {
                 if (d.registeredOnTurn === state.turnNumber || d.turnsRemaining > 0) {
                     shouldKeep = true;
                 }
+            }
+
+            if (shouldKeep) {
+                const card = player.playArea.find(c => c.instanceId === d.cardInstanceId);
+                if (card && DurationManager.idle.some(f => f(state, player, card.id, card.instanceId))) shouldKeep = false;
             }
 
             if (shouldKeep) {

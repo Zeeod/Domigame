@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const upgrade: CardDefinition = {
     id: 'upgrade',
-    name: 'Amélioration',
+    name: 'Mise à niveau',
     cost: 5,
     types: ['ACTION'],
     effects: [

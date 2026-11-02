@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const graverobber: CardDefinition = {
     id: 'graverobber',
-    name: 'Profanatrice',
+    name: 'Pilleur de tombes',
     cost: 5,
     types: ['ACTION'],
     expansion: 'dark_ages',

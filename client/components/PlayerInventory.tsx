@@ -87,7 +87,7 @@ function buildInventory(p: InventoryPlayer, isMe: boolean, gameCardIds: string[]
     if (JOURNEY_USERS.some(id => gameCardIds.includes(id))) {
         notes.push({
             key: 'journey', icon: '🧭', label: `Jeton Voyage ${p.journeyTokenFaceUp ? 'face visible' : 'face cachée'}`,
-            text: 'Retourné par le Ranger, le Géant et le Pèlerinage : leur effet dépend de sa face.',
+            text: 'Retourné par le Forestier, le Géant et le Pèlerinage : leur effet dépend de sa face.',
         });
     }
     for (const [token, pile] of Object.entries(p.advTokens || {})) {

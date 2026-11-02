@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const deathCart: CardDefinition = {
     id: 'death_cart',
-    name: 'Chariot Mortuaire',
+    name: 'Charrette de cadavres',
     cost: 4,
     types: ['ACTION', 'LOOTER'],
     expansion: 'dark_ages',

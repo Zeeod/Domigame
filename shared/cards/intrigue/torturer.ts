@@ -2,7 +2,7 @@ import { CardDefinition } from '../../types/CardDefinition.js';
 
 export const torturer: CardDefinition = {
     id: 'torturer',
-    name: 'Tortureur',
+    name: 'Bourreau',
     cost: 5,
     types: ['ACTION', 'ATTACK'],
     effects: [
@@ -12,7 +12,7 @@ export const torturer: CardDefinition = {
             attackEffects: [
                 {
                     type: 'CHOOSE_OPTION',
-                    message: 'Tortureur : Choisissez votre supplice',
+                    message: 'Bourreau : Choisissez votre supplice',
                     options: [
                         { label: 'Défausser 2 cartes', effects: [{ type: 'DISCARD', min: 2, max: 2 }] },
                         { label: 'Gagner une Malédiction en main', effects: [{ type: 'GAIN_CARD', cardId: 'curse', destination: 'hand' }] }

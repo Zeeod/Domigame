@@ -18,6 +18,8 @@ import { markPlayed, playOverrides, pushPlayEffects } from '../Play.js';
 import { getMat } from '../Mats.js';
 import { setupHooks } from '../KingdomRules.js';
 import { ProphecyManager } from '../ProphecyManager.js';
+import { SupplyGenerator } from '../SupplyGenerator.js';
+import { ALL_BOONS, ALL_HEXES } from '../../cards/nocturne/index.js';
 import { createCardInstance } from '../CardInstance.js';
 
 const done = (state: GameState) => ({ state, needsChoice: false });
@@ -93,6 +95,48 @@ function unusedKingdom(state: GameState, test: (id: string) => boolean): string[
     return CardRegistry.getKingdomCandidates().filter(id => !used.has(id) && test(id)).sort();
 }
 
+/**
+ * Divine Wind: the setup the new Kingdom cards need (Potions, Ruins and other extra piles, Young Witch's
+ * Bane, Boons and Hexes, Druid's Boons, an Ally for Liaisons). Heirlooms, Shelters and Platinum/Colony are
+ * not redone (rulebook).
+ */
+function setupNewKingdom(state: GameState, picks: string[]): void {
+    const defs = picks.map(id => CardRegistry.get(id)).filter(Boolean) as any[];
+    const all = [...picks, ...defs.flatMap(d => d.mixedPile?.cards || [])];
+    if (SupplyGenerator.needsPotion(all) && !state.supply.potion) state.supply.potion = { cardId: 'potion', count: 16, cards: [] } as any;
+    for (const pile of SupplyGenerator.getRequiredExtraPiles(picks)) SupplyGenerator.addExtraPile(state, pile);
+    if (picks.includes('young_witch')) {
+        const bane = SupplyGenerator.pickBaneCard([...Object.keys(state.supply), ...((state as any).removedKingdom || [])], { seed: state.id + '_divine_wind' });
+        if (bane) {
+            addKingdomPile(state, bane);
+            state.kingdomCards = state.kingdomCards.filter(k => k !== bane); // the Bane is not one of the 10
+            (state.landscapeState as any).young_witch_bane = { state: { baneId: bane }, tokens: {} };
+            EffectUtils.log(state, `Vent divin : ${nameOf(bane)} est le Fléau de la Jeune sorcière.`);
+        }
+    }
+    const uses = (test: (d: any) => boolean) => defs.some(d => test(d) || (d.effects || []).some((e: any) => test({ effectType: e.type })));
+    if (uses(d => d.types?.includes('FATE') || d.effectType === 'RECEIVE_BOON') && !state.boonDeck?.length) {
+        state.boonDeck = EffectUtils.shuffle(ALL_BOONS.map(b => b.id), state);
+    }
+    if (uses(d => d.types?.includes('DOOM') || d.effectType === 'RECEIVE_HEX') && !state.hexDeck?.length) {
+        state.hexDeck = EffectUtils.shuffle(ALL_HEXES.map(h => h.id), state);
+    }
+    if (picks.includes('druid') && !(state.landscapeState as any)?.druid_boons) {
+        (state.landscapeState as any).druid_boons = { state: { boons: state.boonDeck.splice(0, 3) }, tokens: {} };
+    }
+    // A Liaison needs an Ally (each player gets a Favor for it)
+    const hasAlly = (state.landscapes || []).some(id => (CardRegistry.get(id)?.types || []).includes('ALLY' as any));
+    if (!hasAlly && defs.some(d => (d.types || []).includes('LIAISON'))) {
+        const allies = CardRegistry.getLandscapeCandidates().filter((c: any) => c.types.includes('ALLY')).map((c: any) => c.id);
+        if (allies.length) {
+            const ally = allies[random(state, allies.length)];
+            state.landscapes = [...(state.landscapes || []), ally];
+            for (const p of state.players) p.favors = (p.favors || 0) + 1;
+            EffectUtils.log(state, `Vent divin : l'Allié ${nameOf(ally)} entre en jeu.`);
+        }
+    }
+}
+
 /** Setup: Sun tokens, Approaching Army's extra Attack pile, Riverboat's set-aside card. */
 export function setupRisingSun(state: GameState): void {
     ProphecyManager.setup(state);
@@ -114,7 +158,7 @@ export function setupRisingSun(state: GameState): void {
         });
         if (pool.length) {
             (state as any).riverboatCard = pool[random(state, pool.length)];
-            EffectUtils.log(state, `Bateau de Rivière : ${nameOf((state as any).riverboatCard)} est mis de côté.`);
+            EffectUtils.log(state, `Sampan : ${nameOf((state as any).riverboatCard)} est mis de côté.`);
         }
     }
 }
@@ -168,11 +212,11 @@ export const RisingSunCardsModule: ExpansionModule = {
                 for (const c of [...rapid].reverse()) push(state, p.id, { type: 'PLAY_INSTANCE_IF_OWNED', instanceId: c.instanceId });
                 // Biding Time: the set-aside hand comes back
                 const bided = getMat(p, 'biding_time');
-                if (bided.length) { p.hand.push(...bided.splice(0)); EffectUtils.log(state, `${p.name} reprend sa main mise de côté (Attendre son heure).`, p.id); }
+                if (bided.length) { p.hand.push(...bided.splice(0)); EffectUtils.log(state, `${p.name} reprend sa main mise de côté (Moment opportun).`, p.id); }
                 if (active(state, 'kind_emperor')) push(state, p.id, { type: 'KIND_EMPEROR' });
-                if (active(state, 'sickness')) push(state, p.id, options('Maladie : choisissez', [
+                if (active(state, 'sickness')) push(state, p.id, options('Épidémie : choisissez', [
                     { label: 'Recevoir une Malédiction sur votre pioche', effects: [{ type: 'GAIN_CARD', cardId: 'curse', destination: 'deck' }] },
-                    { label: 'Défausser 3 cartes', effects: [{ type: 'DISCARD', amount: Math.min(3, p.hand.length), message: 'Maladie : défaussez 3 cartes' }] }
+                    { label: 'Défausser 3 cartes', effects: [{ type: 'DISCARD', amount: Math.min(3, p.hand.length), message: 'Épidémie : défaussez 3 cartes' }] }
                 ]));
             }
         },
@@ -202,10 +246,10 @@ export const RisingSunCardsModule: ExpansionModule = {
                         if (debt > 0) {
                             pile.tokens.debt = 0;
                             p.debt = (p.debt || 0) + debt;
-                            EffectUtils.log(state, `Hiver rigoureux : ${p.name} prend ${debt} Dette(s).`, p.id);
+                            EffectUtils.log(state, `Hiver rude : ${p.name} prend ${debt} Dette(s).`, p.id);
                         } else {
                             pile.tokens.debt = 2;
-                            EffectUtils.log(state, `Hiver rigoureux : 2 Dettes sur la pile ${nameOf(cid)}.`, p.id);
+                            EffectUtils.log(state, `Hiver rude : 2 Dettes sur la pile ${nameOf(cid)}.`, p.id);
                         }
                     }
                 }
@@ -241,6 +285,14 @@ export const RisingSunCardsModule: ExpansionModule = {
     ],
 
     effectHandlers: [
+        {
+            // Great Leader: +1 Action after an Action card, once the Prophecy is active
+            type: 'GREAT_LEADER',
+            handler: (state, player) => {
+                if (active(state, 'great_leader')) player.actions += 1;
+                return done(state);
+            }
+        },
         {
             // "+1 Sun": remove a Sun token from the Prophecy; the last one makes it happen
             type: 'GAIN_SUN',
@@ -281,16 +333,16 @@ export const RisingSunCardsModule: ExpansionModule = {
             handler: (state, player) => {
                 if ((player.debt || 0) > 0) {
                     player.coins += 3;
-                    EffectUtils.log(state, `${player.name} reçoit +3 💰 (Changement).`, player.id);
+                    EffectUtils.log(state, `${player.name} reçoit +3 💰 (Taux de change).`, player.id);
                     return done(state);
                 }
-                return askCards(state, player, 'CHANGE_PICK', 'Changement : écartez une carte de votre main', player.hand, 1, 1);
+                return askCards(state, player, 'CHANGE_PICK', 'Taux de change : écartez une carte de votre main', player.hand, 1, 1);
             }
         },
         {
             type: 'CHANGE_GAIN',
             handler: (state, player, effect: any) => GainEffectHandler.promptGainFromSupply(state, player, { cardIds: effect.cardIds }, { next: [{ type: 'CHANGE_DEBT', base: effect.base }] },
-                `Changement : recevez une carte coûtant plus de ${effect.base} 💰`)
+                `Taux de change : recevez une carte coûtant plus de ${effect.base} 💰`)
         },
         {
             type: 'CHANGE_DEBT',
@@ -316,7 +368,7 @@ export const RisingSunCardsModule: ExpansionModule = {
             handler: (state, player, effect: any) => {
                 const zones = [player.playArea, player.hand, player.discardPile, player.deck, player.aside, state.trash];
                 const card = zones.flatMap(z => z || []).find(c => c.instanceId === effect.instanceId) || { id: effect.cardId, instanceId: effect.instanceId } as CardInstance;
-                EffectUtils.log(state, `${player.name} rejoue ${nameOf(card.id)} (Daimyo).`, player.id);
+                EffectUtils.log(state, `${player.name} rejoue ${nameOf(card.id)} (Daïmio).`, player.id);
                 markPlayed(state, player, card);
                 pushPlayEffects(state, player, card);
                 TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
@@ -356,7 +408,7 @@ export const RisingSunCardsModule: ExpansionModule = {
         },
         {
             type: 'RICE_BROKER',
-            handler: (state, player) => askCards(state, player, 'RICE_BROKER_PICK', 'Courtier en Riz : écartez une carte de votre main', player.hand, 1, 1)
+            handler: (state, player) => askCards(state, player, 'RICE_BROKER_PICK', 'Courtier en riz : écartez une carte de votre main', player.hand, 1, 1)
         },
         {
             type: 'RIVER_SHRINE',
@@ -375,7 +427,7 @@ export const RisingSunCardsModule: ExpansionModule = {
                 const s = state as any;
                 s.riverboatInstance = s.riverboatInstance || createCardInstance(id);
                 const card = s.riverboatInstance as CardInstance;
-                EffectUtils.log(state, `${player.name} joue ${nameOf(id)} (Bateau de Rivière).`, player.id);
+                EffectUtils.log(state, `${player.name} joue ${nameOf(id)} (Sampan).`, player.id);
                 markPlayed(state, player, card);
                 pushPlayEffects(state, player, card);
                 TriggerEffectHandler.handleOnPlayTriggers(state, player, card.id, card.instanceId);
@@ -386,8 +438,8 @@ export const RisingSunCardsModule: ExpansionModule = {
             type: 'RUSTIC_VILLAGE',
             handler: (state, player) => {
                 if (player.hand.length < 2) return done(state);
-                push(state, player.id, options('Village Rustique : défausser 2 cartes pour +1 Carte ?', [
-                    { label: 'Oui', effects: [{ type: 'DISCARD', amount: 2, message: 'Village Rustique : défaussez 2 cartes' }, { type: 'DRAW', amount: 1 }] },
+                push(state, player.id, options('Village rustique : défausser 2 cartes pour +1 Carte ?', [
+                    { label: 'Oui', effects: [{ type: 'DISCARD', amount: 2, message: 'Village rustique : défaussez 2 cartes' }, { type: 'DRAW', amount: 1 }] },
                     { label: 'Non', effects: [] }
                 ]));
                 return done(state);
@@ -401,7 +453,7 @@ export const RisingSunCardsModule: ExpansionModule = {
                 if (new Set(ids).size !== ids.length) return done(state);
                 const iid = ctx?.sourceCardInstanceId;
                 if (!iid || !player.playArea.some(c => c.instanceId === iid)) return done(state);
-                push(state, player.id, options('Sorcière aux Serpents : dévoiler votre main et remettre la Sorcière dans sa pile ?', [
+                push(state, player.id, options('Sorcière aux serpents : dévoiler votre main et remettre la Sorcière dans sa pile ?', [
                     { label: 'Oui (Malédiction aux autres)', effects: [{ type: 'SNAKE_WITCH_RETURN', instanceId: iid }] },
                     { label: 'Non', effects: [] }
                 ]));
@@ -451,7 +503,7 @@ export const RisingSunCardsModule: ExpansionModule = {
                 const c = EffectUtils.removeCardFromPlayer(state, player, effect.instanceId);
                 if (c) {
                     getMat(player, 'rapid_expansion').push(c);
-                    EffectUtils.log(state, `${player.name} met ${nameOf(c.id)} de côté (Expansion rapide).`, player.id);
+                    EffectUtils.log(state, `${player.name} met ${nameOf(c.id)} de côté (Extension rapide).`, player.id);
                 }
                 return done(state);
             }
@@ -462,6 +514,10 @@ export const RisingSunCardsModule: ExpansionModule = {
             handler: (state) => {
                 const s = state as any;
                 const old = [...(state.kingdomCards || [])];
+                // Young Witch's Bane is an 11th Kingdom pile: it goes too
+                const bane = (state.landscapeState as any)?.young_witch_bane?.state?.baneId;
+                if (bane && state.supply[bane] && !old.includes(bane)) old.push(bane);
+                if (bane) delete (state.landscapeState as any).young_witch_bane;
                 for (const k of old) delete state.supply[k];
                 s.removedKingdom = [...(s.removedKingdom || []), ...old];
                 state.kingdomCards = [];
@@ -470,6 +526,7 @@ export const RisingSunCardsModule: ExpansionModule = {
                 while (picks.length < 10 && pool.length) picks.push(pool.splice(random(state, pool.length), 1)[0]);
                 for (const id of picks) addKingdomPile(state, id);
                 EffectUtils.log(state, `Vent divin : nouvelle Réserve — ${picks.map(nameOf).join(', ')}.`);
+                setupNewKingdom(state, picks);
                 return done(state);
             }
         }
@@ -511,6 +568,9 @@ export const RisingSunCardsModule: ExpansionModule = {
         // Prophecies that change what a played card does
         addOnce(playOverrides, 'rising_sun:prophecies', (state, player, cardDef, effects) => {
             const id = ProphecyManager.prophecy(state);
+            // Great Leader: "after each Action card you play" — checked after the card, so the Omen that
+            // removes the last Sun gets its +1 Action too
+            if (id === 'great_leader' && (cardDef.types || []).includes('ACTION')) return [...effects, { type: 'GREAT_LEADER' }];
             if (!id || !active(state, id)) return undefined;
             const types: string[] = cardDef.types || [];
             let out = effects;
@@ -527,7 +587,6 @@ export const RisingSunCardsModule: ExpansionModule = {
             }
             if (id === 'panic' && types.includes('TREASURE')) out = [...out, { type: 'ADD_BUYS', amount: 2 }];
             if (id === 'approaching_army' && types.includes('ATTACK')) out = [...out, { type: 'ADD_MONEY', amount: 1 }];
-            if (id === 'great_leader' && types.includes('ACTION')) out = [...out, { type: 'ADD_ACTIONS', amount: 1 }];
             return out === effects ? undefined : out;
         });
 
@@ -540,13 +599,13 @@ export const RisingSunCardsModule: ExpansionModule = {
                 rs.n = 0;
                 if (p.gainedInBuyTurn !== state.turnNumber) {
                     push(state, player.id, { type: 'CLEANUP_RESUME' });
-                    for (let i = 0; i < n; i++) push(state, player.id, { type: 'GAIN_CARD', maxCost: 4, message: 'Sanctuaire de Rivière : recevez une carte coûtant jusqu\'à 4 💰' });
+                    for (let i = 0; i < n; i++) push(state, player.id, { type: 'GAIN_CARD', maxCost: 4, message: 'Sanctuaire de rivière : recevez une carte coûtant jusqu\'à 4 💰' });
                     return true;
                 }
             }
             if (active(state, 'biding_time') && player.hand.length) {
                 getMat(player, 'biding_time').push(...player.hand.splice(0));
-                EffectUtils.log(state, `${player.name} met sa main de côté (Attendre son heure).`, player.id);
+                EffectUtils.log(state, `${player.name} met sa main de côté (Moment opportun).`, player.id);
             }
             return false;
         });
