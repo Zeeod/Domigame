@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { RecommendedSetsModal, BannedCardsModal } from './KingdomExtras';
+import type { RecommendedSet } from '../../shared/cards/recommendedSets';
+import { safeStorage } from '../utils/safeStorage';
 import { FitToBox } from './FitToBox';
 import { CardRegistry } from '../../shared/cards/index';
 import { getCardExpansion } from '../../shared/cards/expansions';
@@ -14,11 +17,15 @@ interface LobbyKingdomSelectorProps {
     sheltersMode?: 'always' | 'never' | 'random';
     enabledExpansions?: string[];
     landscapeInstructions?: string[];
+    /** Cards never drawn at random (host's list) */
+    bannedCards?: string[];
     onSetupChange?: (options: {
         prosperityMode?: 'always' | 'never' | 'random',
         sheltersMode?: 'always' | 'never' | 'random',
         enabledExpansions?: string[],
-        landscapeInstructions?: string[]
+        landscapeInstructions?: string[],
+        bannedCards?: string[],
+        setupOverrides?: any
     }) => void;
 }
 
@@ -43,8 +50,41 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
     sheltersMode = 'random',
     enabledExpansions = ALL_EXPANSIONS,
     landscapeInstructions = [],
+    bannedCards = [],
     onSetupChange
 }) => {
+    const [showRecommended, setShowRecommended] = useState(false);
+    const [showBanned, setShowBanned] = useState(false);
+
+    // The host's ban list is kept in their browser and sent to each new room
+    const BAN_KEY = 'dominion_banned_cards';
+    useEffect(() => {
+        if (readOnly || bannedCards.length > 0) return;
+        try {
+            const saved = JSON.parse(safeStorage.get(BAN_KEY) || '[]');
+            if (Array.isArray(saved) && saved.length) onSetupChange?.({ bannedCards: saved });
+        } catch { /* ignore */ }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [readOnly]);
+    const changeBanned = (list: string[]) => {
+        safeStorage.set(BAN_KEY, JSON.stringify(list));
+        onSetupChange?.({ bannedCards: list });
+    };
+
+    // A recommended Kingdom: its 10 cards, its landscapes, and the setup it fixes
+    const chooseRecommended = (set: RecommendedSet) => {
+        onSelectionChange([...set.cards]);
+        const lands = [...(set.landscapes || [])];
+        while (lands.length < MAX_LANDSCAPES) lands.push('empty');
+        onSetupChange?.({
+            landscapeInstructions: lands.slice(0, Math.max(MAX_LANDSCAPES, set.landscapes?.length || 0)),
+            setupOverrides: {
+                forCards: set.cards, bane: set.bane, druidBoons: set.druidBoons, riverboatCard: set.riverboatCard,
+                approachingArmyPile: set.approachingArmyPile, traitTargets: set.traitTargets, mouseCard: set.mouseCard,
+            },
+        });
+        setShowRecommended(false);
+    };
     // --- State ---
     const [activeSlot, setActiveSlot] = useState<number | null>(null); // Index of kingdom slot being edited
     const [pickerType, setPickerType] = useState<string | null>(null); // Type of landscape being added ('event', 'landmark'...)
@@ -509,6 +549,12 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
                 </div>
 
                 <div className="fill-random-container">
+                    <button className="lobby-extra-btn" onClick={() => setShowRecommended(true)} title="Les royaumes proposés dans les livrets de règles">
+                        📖 Recommandés
+                    </button>
+                    <button className="lobby-extra-btn" onClick={() => setShowBanned(true)} title="Cartes qui ne sortent jamais au tirage aléatoire">
+                        🚫 Bannies{bannedCards.length ? ` (${bannedCards.length})` : ''}
+                    </button>
                     <button
                         className="fill-random-btn"
                         onClick={() => !readOnly && onSelectionChange(null)}
@@ -520,6 +566,9 @@ export const LobbyKingdomSelector: React.FC<LobbyKingdomSelectorProps> = ({
                 </div>
             </div>
 
+
+            {showRecommended && <RecommendedSetsModal readOnly={readOnly} onChoose={chooseRecommended} onClose={() => setShowRecommended(false)} />}
+            {showBanned && <BannedCardsModal banned={bannedCards} readOnly={readOnly} onChange={changeBanned} onClose={() => setShowBanned(false)} />}
 
             {/* Modal Picker */}
             {

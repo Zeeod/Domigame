@@ -5,6 +5,7 @@
 import { describe, it, expect } from 'vitest';
 import { GameRoomV2 } from '../../server/GameRoomV2.js';
 import { GameLogStore } from '../../shared/engine/GameLogStore.js';
+import { createCardInstance } from '../../shared/engine/CardInstance.js';
 
 const noop = () => undefined;
 const io: any = { to: () => ({ emit: noop }), emit: noop, sockets: { sockets: new Map() } };
@@ -28,6 +29,9 @@ const snapshot = (room: GameRoomV2) => JSON.stringify(room.gameState);
 /** Plays the treasures and buys a Silver; returns the state before the buy and the id of its log line */
 function buySilver(room: GameRoomV2) {
     const sock = sockOf(room);
+    // A hand that can always buy a Silver (a starting hand may hold only 2 Coppers)
+    const me = room.gameState.players[room.gameState.currentPlayerIndex];
+    me.hand = ['copper', 'copper', 'copper', 'copper', 'copper'].map(createCardInstance);
     expect(room.handleAction(sock, { type: 'END_PHASE' } as any).success).toBe(true); // to the Buy phase
     expect(room.handleAction(sock, { type: 'PLAY_ALL_TREASURES' } as any).success).toBe(true);
     const before = snapshot(room);

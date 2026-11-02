@@ -30,7 +30,7 @@
     color: #e0e0e0;
 }
 
-.close-btn {
+.library-header .close-btn {
     width: 100%;
     padding: 0.8rem;
     background: #c62828;
@@ -43,7 +43,7 @@
     transition: background 0.2s;
 }
 
-.close-btn:hover {
+.library-header .close-btn:hover {
     background: #d32f2f;
 }
 

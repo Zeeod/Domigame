@@ -42,6 +42,17 @@ import { database } from './Database.js';
 // Room Types
 // ============================================================================
 
+export interface SetupOverrides {
+    /** The Kingdom these settings belong to */
+    forCards: string[];
+    bane?: string;
+    druidBoons?: string[];
+    riverboatCard?: string;
+    approachingArmyPile?: string;
+    traitTargets?: Record<string, string>;
+    mouseCard?: string;
+}
+
 export interface RoomPlayer {
     id: string;
     socketId: string;
@@ -78,6 +89,10 @@ export interface RoomConfig {
     enabledExpansions?: string[];
     landscapeInstructions?: string[];
     turnTimeoutMs?: number; // 0 for disabled
+    /** Cards and landscapes never drawn at random (host's choice) */
+    bannedCards?: string[];
+    /** Setup fixed by a recommended Kingdom; used only if the game starts with exactly these cards */
+    setupOverrides?: SetupOverrides | null;
     /** Delay before a disconnected player's decisions and turns are played automatically (default 30s) */
     disconnectGraceMs?: number;
 }
@@ -864,6 +879,7 @@ export class GameRoomV2 {
                 // Partial selection: use generator to fill the rest
                 const completedKingdom = SupplyGenerator.generate({
                     forceCards: forcedCards,
+                    excludeCards: this.config.bannedCards,
                     count: 10,
                     prosperityMode: this.config.prosperityMode,
                     enabledExpansions: this.config.enabledExpansions
@@ -881,6 +897,7 @@ export class GameRoomV2 {
             // This ensures we respect the latest enabledExpansions/prosperityMode
             this.config.kingdomCards = SupplyGenerator.generate({
                 count: 10,
+                excludeCards: this.config.bannedCards,
                 prosperityMode: this.config.prosperityMode,
                 enabledExpansions: this.config.enabledExpansions
             });
@@ -923,6 +940,15 @@ export class GameRoomV2 {
         const state = createGameState(`game_${this.id}_${Date.now()}`);
 
         const kingdomCardIds = overrideKingdom || (this.config.kingdomCards ?? []).filter((id): id is string => id !== null);
+        // Setup fixed by a recommended Kingdom, if the game starts with that Kingdom
+        const ov = this.config.setupOverrides;
+        const fixed = ov && ov.forCards.length === kingdomCardIds.length && ov.forCards.every(c => kingdomCardIds.includes(c)) ? ov : null;
+        if (fixed?.approachingArmyPile && !kingdomCardIds.includes(fixed.approachingArmyPile)) {
+            kingdomCardIds.push(fixed.approachingArmyPile);
+            (state as any).approachingArmyPile = fixed.approachingArmyPile;
+        }
+        if (fixed?.riverboatCard) (state as any).riverboatCard = fixed.riverboatCard;
+        if (fixed?.mouseCard) (state.landscapeState as any).way_of_the_mouse = { state: { cardId: fixed.mouseCard }, tokens: {} };
         state.kingdomCards = kingdomCardIds;
         applyKingdomRules(state);
         const useShelters = SupplyGenerator.shouldUseShelters(kingdomCardIds, this.config.sheltersMode);
@@ -982,7 +1008,8 @@ export class GameRoomV2 {
 
         // Young Witch: Add Bane card to supply
         if (kingdomCardIds.includes('young_witch')) {
-            const baneId = SupplyGenerator.pickBaneCard(kingdomCardIds, { seed: this.id });
+            const baneId = (fixed?.bane && !kingdomCardIds.includes(fixed.bane) ? fixed.bane : null)
+                ?? SupplyGenerator.pickBaneCard(kingdomCardIds, { seed: this.id, excludeCards: this.config.bannedCards });
             if (baneId) {
                 this.logger.info('GAME', `Young Witch setup: Bane card is ${baneId}`);
                 state.supply[baneId] = { cardId: baneId, count: 10, cards: [] };
@@ -1052,7 +1079,10 @@ export class GameRoomV2 {
 
         // Druid Setup: Set aside 3 Boons
         if (kingdomCardIds.includes('druid') && needsBoons) {
-            const setAsideBoons = state.boonDeck.splice(0, 3);
+            const wantedBoons = (fixed?.druidBoons || []).filter(b => state.boonDeck.includes(b));
+            const setAsideBoons = wantedBoons.length === 3
+                ? wantedBoons.map(b => state.boonDeck.splice(state.boonDeck.indexOf(b), 1)[0])
+                : state.boonDeck.splice(0, 3);
             this.logger.info('GAME', `Druid setup: Set aside boons are ${setAsideBoons.join(', ')}`);
             state.landscapeState['druid_boons'] = { state: { boons: setAsideBoons }, tokens: {} };
         }
@@ -1064,6 +1094,7 @@ export class GameRoomV2 {
 
         // Calculate Landscapes (Events, Landmarks)
         state.landscapes = SupplyGenerator.getLandscapes({
+            excludeCards: this.config.bannedCards,
             enabledExpansions: this.config.enabledExpansions,
             landscapeInstructions: this.config.landscapeInstructions,
             kingdomCardIds: kingdomCardIds,
@@ -1203,7 +1234,7 @@ export class GameRoomV2 {
         }
 
         // Plunder: Assign Traits to piles
-        SupplyGenerator.assignTraits(state, { seed: this.id });
+        SupplyGenerator.assignTraits(state, { seed: this.id, traitTargets: fixed?.traitTargets });
 
         return state;
     }
@@ -1618,6 +1649,7 @@ export class GameRoomV2 {
             // Generate a full potential kingdom using the forced cards
             const generated = SupplyGenerator.generate({
                 forceCards: forcedCards,
+                excludeCards: this.config.bannedCards,
                 count: 10,
                 enabledExpansions: this.config.enabledExpansions
             });
@@ -1651,7 +1683,9 @@ export class GameRoomV2 {
         sheltersMode?: 'always' | 'never' | 'random',
         enabledExpansions?: string[],
         landscapeInstructions?: string[],
-        turnTimeoutMs?: number
+        turnTimeoutMs?: number,
+        bannedCards?: string[],
+        setupOverrides?: SetupOverrides | null
     }): void {
         const player = this.getPlayerBySocket(socketId);
         if (!player || !player.isHost) return;
@@ -1662,6 +1696,13 @@ export class GameRoomV2 {
         // Allow empty array to mean "no instructions" or "clear instructions"
         if (options.landscapeInstructions !== undefined) {
             this.config.landscapeInstructions = options.landscapeInstructions;
+        }
+        if (Array.isArray(options.bannedCards)) {
+            this.config.bannedCards = options.bannedCards.filter(id => typeof id === 'string' && !!CardRegistry.get(id)).slice(0, 500);
+        }
+        if (options.setupOverrides !== undefined) {
+            const o = options.setupOverrides;
+            this.config.setupOverrides = o && Array.isArray(o.forCards) ? o : null;
         }
         if (typeof options.turnTimeoutMs === "number" && Number.isFinite(options.turnTimeoutMs)) {
             // 0 = no timer; otherwise between 30 s and 10 min
@@ -1701,6 +1742,8 @@ export class GameRoomV2 {
                 enabledExpansions: this.config.enabledExpansions,
                 landscapeInstructions: this.config.landscapeInstructions,
                 turnTimeoutMs: this.config.turnTimeoutMs || 0,
+                bannedCards: this.config.bannedCards || [],
+                setupOverrides: this.config.setupOverrides || null,
                 activeRewindRequest: this.activeRewindRequest ? {
                     requesterId: this.activeRewindRequest.requesterId,
                     targetLogId: this.activeRewindRequest.targetLogId,

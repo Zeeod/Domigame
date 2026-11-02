@@ -24,7 +24,9 @@ interface LobbyProps {
         sheltersMode?: 'always' | 'never' | 'random',
         enabledExpansions?: string[],
         landscapeInstructions?: string[],
-        turnTimeoutMs?: number
+        turnTimeoutMs?: number,
+        bannedCards?: string[],
+        setupOverrides?: any
     }) => void;
     savedGames?: SavedGameConfig[];
     onListSavedGames?: () => void;
@@ -127,6 +129,7 @@ export const Lobby: React.FC<LobbyProps> = ({
                         sheltersMode={roomState.sheltersMode}
                         enabledExpansions={roomState.enabledExpansions}
                         landscapeInstructions={roomState.landscapeInstructions}
+                        bannedCards={roomState.bannedCards || []}
                         onSetupChange={onSetupChange}
                     />
 

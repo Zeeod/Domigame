@@ -37,6 +37,8 @@ export interface RoomState {
     enabledExpansions?: string[];
     landscapeInstructions?: string[];
     turnTimeoutMs?: number;
+    bannedCards?: string[];
+    setupOverrides?: any;
     activeRewindRequest?: {
         requesterId: string;
         targetLogId: string;
@@ -105,7 +107,9 @@ export interface UseSocketReturn {
         sheltersMode?: ProsperitySetupMode,
         enabledExpansions?: string[],
         landscapeInstructions?: string[],
-        turnTimeoutMs?: number
+        turnTimeoutMs?: number,
+        bannedCards?: string[],
+        setupOverrides?: any
     }) => void;
     requestRewind: (targetLogId: string) => void;
     chatMessages: ChatMessage[];
@@ -376,7 +380,9 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         sheltersMode?: ProsperitySetupMode,
         enabledExpansions?: string[],
         landscapeInstructions?: string[],
-        turnTimeoutMs?: number
+        turnTimeoutMs?: number,
+        bannedCards?: string[],
+        setupOverrides?: any
     }) => {
         socketRef.current?.emit('change_setup', options);
     }, []);

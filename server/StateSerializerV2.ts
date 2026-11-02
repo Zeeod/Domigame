@@ -82,6 +82,8 @@ export class StateSerializerV2 {
                         count: pile.count,
                         isMixed: pile.isMixed,
                         tokens: pile.tokens && Object.keys(pile.tokens).length > 0 ? { ...pile.tokens } : undefined,
+                        // Plunder: Traits on this pile
+                        traits: pile.traits && pile.traits.length ? [...pile.traits] : undefined,
                         topCardId: pile.isMixed && pile.cards && pile.cards.length > 0
                             ? pile.cards[pile.cards.length - 1].id
                             : undefined,

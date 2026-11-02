@@ -140,7 +140,9 @@ export function setupSocketHandlers(io: Server): void {
             sheltersMode?: 'always' | 'never' | 'random',
             enabledExpansions?: string[],
             landscapeInstructions?: string[],
-            turnTimeoutMs?: number
+            turnTimeoutMs?: number,
+            bannedCards?: string[],
+            setupOverrides?: any
         }) => {
             if (!currentRoomId) return;
             const room = roomManager.getRoom(currentRoomId);

@@ -1,0 +1,190 @@
+/* Recommended Kingdoms and banned cards (lobby) — they reuse the picker overlay and modal */
+
+.kx-modal {
+    color: #e8e8e8;
+}
+
+.kx-count {
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 0.8em;
+}
+
+.kx-hint {
+    padding: 0 1rem 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+.kx-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kx-set {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.kx-set-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.kx-set-name {
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.kx-set-book {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+}
+
+.kx-choose {
+    margin-left: auto;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #27ae60;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.kx-choose:hover {
+    filter: brightness(1.1);
+}
+
+.kx-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.kx-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: context-menu;
+    white-space: nowrap;
+}
+
+.kx-landscape {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: rgba(52, 152, 219, 0.45);
+}
+
+.kx-extra {
+    background: rgba(241, 196, 15, 0.15);
+    border-color: rgba(241, 196, 15, 0.45);
+    font-style: italic;
+}
+
+.kx-banned {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: rgba(231, 76, 60, 0.5);
+}
+
+.kx-banned button {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.75rem;
+}
+
+.kx-banned-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 0 1rem 0.5rem;
+    max-height: 90px;
+    overflow-y: auto;
+}
+
+.kx-clear {
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.kx-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 4px;
+    align-content: start;
+}
+
+.kx-toggle {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e8e8e8;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.kx-toggle:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.kx-toggle.on {
+    background: rgba(231, 76, 60, 0.25);
+    border-color: rgba(231, 76, 60, 0.6);
+    color: #fff;
+}
+
+.kx-toggle:disabled {
+    cursor: default;
+}
+
+.kx-empty {
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.lobby-extra-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.lobby-extra-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}

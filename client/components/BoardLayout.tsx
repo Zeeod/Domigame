@@ -444,6 +444,13 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
             (pileMarkers[pile as string] = pileMarkers[pile as string] || []).push({ label: ADV_TOKEN_LABELS[token] ?? token, color: p.color, title: `${p.name} : ${ADV_TOKEN_LABELS[token] ?? token}` });
         }
     }
+    // Plunder: each Trait shown on its pile
+    for (const [pileId, pile] of Object.entries(pub.supply || {})) {
+        for (const trait of ((pile as any).traits || []) as string[]) {
+            const def = CardRegistry.get(trait);
+            (pileMarkers[pileId] = pileMarkers[pileId] || []).push({ label: def?.name ?? trait, color: '#3498db', title: `Trait ${def?.name ?? trait} : ${def?.description ?? ''}` });
+        }
+    }
     const pendingDecision = pub.pendingDecision;
     const confirmEndPhase = usePreference('confirmEndPhase');
     const autoForcedChoices = usePreference('autoForcedChoices');

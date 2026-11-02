@@ -152,7 +152,7 @@ export class SupplyGenerator {
         const seed = (options.seed ?? 'bane') + '_bane';
         const rngState = createGameState(seed);
 
-        const exclude = new Set(kingdomCardIds);
+        const exclude = new Set([...kingdomCardIds, ...(options.excludeCards ?? [])]);
         const candidates = CardRegistry.getKingdomCandidates()
             .map(id => CardRegistry.get(id))
             .filter((c): c is CardDefinition =>
@@ -299,7 +299,8 @@ export class SupplyGenerator {
             return expandExpansionFilter(expansions).has(getCardExpansion(c));
         };
 
-        const validCandidates = candidates.filter(isAllowedExp);
+        const banned = new Set(options.excludeCards ?? []);
+        const validCandidates = candidates.filter(c => isAllowedExp(c) && !banned.has(c.id));
         debugLog(`[SupplyGenerator] Identified ${candidates.length} total landscapes, ${validCandidates.length} valid for expansions.`);
 
         // 2. Fulfill Random Directives
@@ -385,7 +386,7 @@ export class SupplyGenerator {
      * Assigns Traits to Kingdom piles.
      * In Plunder, if a Trait is selected, it must be assigned to a Kingdom pile.
      */
-    static assignTraits(state: GameState, options: Partial<SupplyGeneratorOptions> = {}): void {
+    static assignTraits(state: GameState, options: Partial<SupplyGeneratorOptions> & { traitTargets?: Record<string, string> } = {}): void {
         const traits = state.landscapes.filter(id => CardRegistry.get(id)?.types.includes('TRAIT' as any));
         if (traits.length === 0) return;
 
@@ -396,6 +397,14 @@ export class SupplyGenerator {
         for (const traitId of traits) {
             const traitDef = CardRegistry.get(traitId);
             if (!traitDef) continue;
+
+            // A recommended Kingdom says which pile gets this Trait
+            const wanted = options.traitTargets?.[traitId];
+            const wantedPile = wanted ? state.supply[wanted] : undefined;
+            if (wantedPile && (!wantedPile.traits || wantedPile.traits.length === 0)) {
+                wantedPile.traits = [traitId];
+                continue;
+            }
 
             // Pick a random kingdom card ID that doesn't already have this trait
             // Rules: One Trait per pile. Pile must be a Kingdom pile.
