@@ -117,7 +117,21 @@ export const GameEvents = {
     RESUME_GAME: 'resume_game',
     SAVED_GAMES_LIST: 'saved_games_list',
     SPECTATOR_CONFIG: 'spectator_config',
+    // Chat (both directions)
+    CHAT_SEND: 'chat_send',
+    CHAT_MESSAGE: 'chat_message',
+    CHAT_HISTORY: 'chat_history',
+    SET_PREFERENCES: 'set_preferences',
 } as const;
+
+export interface ChatMessage {
+    id: string;
+    playerId: string;
+    name: string;
+    color: string;
+    text: string;
+    timestamp: number;
+}
 
 // ============================================================================
 // Room Types
@@ -190,6 +204,27 @@ export class GameRoomV2 {
             this.gameState = parsedState;
             this.config.kingdomCards = kingdomCards;
             this.isStarted = true;
+
+            // Seats of the saved game: bots get a fresh brain, absent friends a seat they can come back to
+            const seated = new Set(parsedState.players.map(p => p.id));
+            for (const p of parsedState.players) {
+                const existing = this.players.find(rp => rp.id === p.id);
+                if (existing) { existing.isSpectator = false; continue; }
+                const isBot = !!(p as any).isBot || p.id.startsWith('bot_');
+                this.players.push({
+                    id: p.id, socketId: '', name: p.name, color: (p as any).color || '#888',
+                    isHost: false, isReady: true, isConnected: isBot, isBot,
+                    ...(isBot ? { botType: 'greedy' as BotType } : { disconnectedAt: Date.now() }),
+                });
+                if (isBot) this.bots.set(p.id, createBot('greedy'));
+            }
+            // People in the room who were not in that game watch it
+            this.players.forEach(rp => { if (!seated.has(rp.id)) rp.isSpectator = true; });
+            // The log lines of the saved game
+            GameLogStore.init(parsedState.id);
+            (parsedState.history || []).forEach(l => GameLogStore.addLog(parsedState.id, l));
+            this.checkpoints = [];
+            this.previousState = null;
             this.logger.info('GAME', `Game ${this.id} resumed from DB state`);
 
             // Broadcast state to all players currently in the room
@@ -325,6 +360,7 @@ export class GameRoomV2 {
 
             this.socketToPlayer.set(socket.id, playerToken);
             socket.join(this.id);
+            socket.emit?.(GameEvents.CHAT_HISTORY, this.chat);
 
             this.broadcastRoomState();
             console.log('ADD_PLAYER: Post-broadcastRoomState');
@@ -514,6 +550,7 @@ export class GameRoomV2 {
         player.disconnectedAt = undefined; // back in control (unless they surrendered)
         this.socketToPlayer.set(socket.id, playerId);
         socket.join(this.id);
+        socket.emit?.(GameEvents.CHAT_HISTORY, this.chat);
 
         this.lastAllDisconnectedAt = null; // Resume activity
 
@@ -654,7 +691,8 @@ export class GameRoomV2 {
                 JSON.stringify(this.gameState),
                 kingdom,
                 playerNames,
-                turnNumber
+                turnNumber,
+                this.gameState.players.filter(p => !(p as any).isBot).map(p => p.id)
             );
             this.actionsSinceLastSave = 0;
             this.lastSaveTime = Date.now();
@@ -1360,6 +1398,43 @@ export class GameRoomV2 {
         return true;
     }
 
+    // ========================================================================
+    // Chat
+    // ========================================================================
+
+    /** Last messages of the room (sent to players who join or come back) */
+    private chat: ChatMessage[] = [];
+    private chatTimes = new Map<string, number[]>();
+    private static readonly CHAT_KEEP = 200;
+    private static readonly CHAT_MAX_LENGTH = 300;
+
+    postChat(socketId: string, text: unknown): { success: boolean; error?: string } {
+        const playerId = this.getPlayerIdBySocket(socketId);
+        const player = this.players.find(p => p.id === playerId);
+        if (!player) return { success: false, error: "Vous n'êtes pas dans cette salle." };
+        const clean = String(text ?? '').replace(/\s+/g, ' ').trim().slice(0, GameRoomV2.CHAT_MAX_LENGTH);
+        if (!clean) return { success: false };
+        // At most 5 messages per 5 seconds per player
+        const now = Date.now();
+        const recent = (this.chatTimes.get(player.id) || []).filter(t => now - t < 5000);
+        if (recent.length >= 5) return { success: false, error: 'Doucement : trop de messages à la suite.' };
+        recent.push(now);
+        this.chatTimes.set(player.id, recent);
+
+        const msg: ChatMessage = {
+            id: `chat_${now}_${Math.random().toString(36).slice(2, 7)}`,
+            playerId: player.id,
+            name: player.name,
+            color: player.color,
+            text: clean,
+            timestamp: now,
+        };
+        this.chat.push(msg);
+        if (this.chat.length > GameRoomV2.CHAT_KEEP) this.chat.shift();
+        this.io?.to(this.id).emit(GameEvents.CHAT_MESSAGE, msg);
+        return { success: true };
+    }
+
     handleUndo(socketId: string): { success: boolean; error?: string } {
         const playerId = this.getPlayerIdBySocket(socketId);
         if (!playerId || !this.previousState || !this.isStarted) {
@@ -1493,6 +1568,19 @@ export class GameRoomV2 {
         }, delay);
     }
 
+    /** Players who turned off automatic answers to forced decisions (options) */
+    private noAutoForced = new Set<string>();
+
+    setPreferences(socketId: string, prefs: { autoForcedChoices?: boolean }): void {
+        const playerId = this.getPlayerIdBySocket(socketId);
+        if (!playerId || !prefs) return;
+        if (prefs.autoForcedChoices === false) this.noAutoForced.add(playerId);
+        else if (prefs.autoForcedChoices === true) {
+            this.noAutoForced.delete(playerId);
+            this.scheduleBotTurnIfNeeded(); // a forced decision may be waiting
+        }
+    }
+
     /** Decisions already tried automatically (a refused answer is not retried) */
     private forcedTried = new Set<string>();
 
@@ -1502,6 +1590,7 @@ export class GameRoomV2 {
      */
     private answerForcedDecision(decisionId: string, deciderId: string): void {
         if (this.forcedTried.has(decisionId)) return;
+        if (this.noAutoForced.has(deciderId)) return; // the player wants to answer everything
         let payload: any;
         try { payload = forcedPayload(this.gameState); } catch { payload = null; }
         if (!payload) return;

@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { GameState } from '../hooks/useSocket';
+import { GameState, ChatMessage } from '../hooks/useSocket';
 import { SupplyGrid } from './SupplyGrid';
 import { LogView } from './LogView';
 import { AnimatePresence } from 'framer-motion';
@@ -25,6 +25,7 @@ import { KingdomOverviewModal } from './KingdomOverviewModal';
 import { TavernMat } from './TavernMat';
 import { ShadowDeckZone } from './ShadowDeckZone';
 import { PlayerInventory } from './PlayerInventory';
+import { usePreference, setPreference } from '../utils/preferences';
 import { FitToBox } from './FitToBox';
 import { SpectatorBar } from './SpectatorBar';
 import { DeckStatsPanel } from './DeckStatsPanel';
@@ -52,6 +53,9 @@ interface BoardLayoutProps {
     onRequestRewind?: (logId: string) => void;
     roomState?: RoomState;
     onConfigureSpectator?: (options: { followId?: string, revealAll?: boolean }) => void;
+    /** Chat, shown in the log */
+    chatMessages?: ChatMessage[];
+    onSendChat?: (text: string) => void;
 }
 
 interface SelectedCard {
@@ -116,7 +120,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
     onSpendVillagers,
     onRequestRewind,
     roomState,
-    onConfigureSpectator
+    onConfigureSpectator,
+    chatMessages,
+    onSendChat
 }) => {
     const { registerTarget, playGainAnimation, playShuffleAnimation, hiddenIds } = useGameAnimations();
     const { playSound, isMuted, toggleMute } = useSound();
@@ -439,6 +445,10 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
         }
     }
     const pendingDecision = pub.pendingDecision;
+    const confirmEndPhase = usePreference('confirmEndPhase');
+    const autoForcedChoices = usePreference('autoForcedChoices');
+    const [showOptions, setShowOptions] = useState(false);
+
     // Cards and landscapes of this game (the inventory shows the Journey token only when something uses it)
     const gameCardIds = [...Object.keys(pub.supply || {}), ...(pub.landscapes || [])];
     const isMyChoice = pendingDecision && (pendingDecision.playerId === playerId || (controlling && pendingDecision.playerId === pub.possession?.possessedId));
@@ -1264,8 +1274,9 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
 
                         // Ask for a second click when ending the phase would waste something
                         let endPhaseWarning: string | undefined;
-                        if (isPhaseEnd && currentPlayer) {
-                            const hasActionCards = priv?.hand.some((c: any) => CardRegistry.get(c.id)?.types.includes('ACTION'));
+                        if (isPhaseEnd && currentPlayer && confirmEndPhase) {
+                            // Necropolis (a Shelter) does nothing worth a warning
+                            const hasActionCards = priv?.hand.some((c: any) => c.id !== 'necropolis' && CardRegistry.get(c.id)?.types.includes('ACTION'));
                             if (pub.phase === 'ACTION' && currentPlayer.actions > 0 && hasActionCards) {
                                 endPhaseWarning = `Il vous reste ${currentPlayer.actions} Action${currentPlayer.actions > 1 ? 's' : ''} et des cartes Action en main.`;
                             } else if (pub.phase === 'BUY' && currentPlayer.buys > 0 && !(currentPlayer as any).boughtThisTurn && (currentPlayer.coins > 0 || hasTreasures)) {
@@ -1567,10 +1578,19 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         myPlayerId={playerId}
                         onRequestRewind={onRequestRewind}
                         canRewind={!isSpectator && !roomState?.activeRewindRequest}
+                        chatMessages={chatMessages}
+                        onSendChat={onSendChat}
                     />
                 </div>
 
                 <div className="zone-17-menu">
+                    <button
+                        className="volume-btn"
+                        onClick={() => setShowOptions(o => !o)}
+                        title="Options"
+                    >
+                        ⚙️
+                    </button>
                     <button
                         className="kingdom-menu-btn"
                         onClick={() => setShowKingdomModal(true)}
@@ -1593,6 +1613,28 @@ const BoardLayoutContent: React.FC<BoardLayoutProps> = ({
                         QUITTER
                     </button>
                 </div>
+
+                {showOptions && (
+                    <div className="options-panel" onClick={e => e.stopPropagation()}>
+                        <div className="options-title">
+                            Options
+                            <button className="options-close" onClick={() => setShowOptions(false)} title="Fermer">✕</button>
+                        </div>
+                        <label className="options-row">
+                            <input type="checkbox" checked={confirmEndPhase} onChange={e => setPreference('confirmEndPhase', e.target.checked)} />
+                            <span>Confirmer avant de finir une phase<small>Un second clic est demandé s'il reste des Actions ou des pièces inutilisées.</small></span>
+                        </label>
+                        <label className="options-row">
+                            <input type="checkbox" checked={autoForcedChoices} onChange={e => setPreference('autoForcedChoices', e.target.checked)} />
+                            <span>Choix sans alternative automatiques<small>Quand une seule réponse est possible, le jeu la donne pour vous.</small></span>
+                        </label>
+                        <label className="options-row">
+                            <input type="checkbox" checked={!isMuted} onChange={toggleMute} />
+                            <span>Sons</span>
+                        </label>
+                        <div className="options-hint">Ces options sont gardées dans ce navigateur.</div>
+                    </div>
+                )}
             </div >
 
             {/* Fallback for standard interaction prompts that are not handled directly by BoardLayout's Drag/Drop overlays */}

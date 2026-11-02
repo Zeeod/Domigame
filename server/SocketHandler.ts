@@ -106,6 +106,19 @@ export function setupSocketHandlers(io: Server): void {
             room.startGame(data.kingdomCards);
         });
 
+        socket.on(GameEvents.SET_PREFERENCES, (data: { autoForcedChoices?: boolean }) => {
+            if (!currentRoomId) return;
+            roomManager.getRoom(currentRoomId)?.setPreferences(socket.id, data);
+        });
+
+        socket.on(GameEvents.CHAT_SEND, (data: { text: string }) => {
+            if (!currentRoomId) return;
+            const room = roomManager.getRoom(currentRoomId);
+            if (!room) return;
+            const result = room.postChat(socket.id, data?.text);
+            if (!result.success && result.error) socket.emit(GameEvents.ACTION_ERROR, { error: result.error });
+        });
+
         socket.on(GameEvents.CHANGE_COLOR, (data: { color: string }) => {
             if (!currentRoomId) return;
             const room = roomManager.getRoom(currentRoomId);

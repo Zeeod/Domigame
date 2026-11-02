@@ -415,3 +415,79 @@
 .lobby-timer-option:disabled:not(.active) {
     opacity: 0.5;
 }
+
+
+/* ============================================================================
+   Room chat
+   ============================================================================ */
+
+.lobby-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    padding: 0.6rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.lobby-chat-list {
+    max-height: 120px;
+    min-height: 48px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: #e8e8e8;
+}
+
+.lobby-chat-empty {
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+}
+
+.lobby-chat-msg {
+    word-wrap: break-word;
+    margin-bottom: 2px;
+}
+
+.lobby-chat-author {
+    font-weight: 800;
+}
+
+.lobby-chat-author::after {
+    content: ' :';
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+.lobby-chat-form {
+    display: flex;
+    gap: 6px;
+}
+
+.lobby-chat-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.lobby-chat-form button {
+    padding: 0 12px;
+    border-radius: 8px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+}
+
+.lobby-chat-form button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}

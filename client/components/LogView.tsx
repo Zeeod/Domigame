@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { LogEntry } from '../../shared/types/Log';
 import { PublicPlayerState } from '../../shared/types/SerializedState';
 import { RichLogEntry } from './RichLogEntry';
+import type { ChatMessage } from '../hooks/useSocket';
 import './LogView.css';
 
 interface LogViewProps {
@@ -16,10 +17,14 @@ interface LogViewProps {
     /** Clicking a player's line offers to go back to just before it */
     canRewind?: boolean;
     onRequestRewind?: (logId: string) => void;
+    /** Chat messages, shown among the log lines by time */
+    chatMessages?: ChatMessage[];
+    onSendChat?: (text: string) => void;
 }
 
-export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRewind, onRequestRewind }) => {
+export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRewind, onRequestRewind, chatMessages = [], onSendChat }) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [draft, setDraft] = useState('');
     const [selectedLogId, setSelectedLogId] = useState<string | null>(null);
     useEffect(() => { if (!canRewind) setSelectedLogId(null); }, [canRewind]);
 
@@ -27,7 +32,7 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRew
         if (containerRef.current) {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
-    }, [logs, history]);
+    }, [logs, history, chatMessages.length]);
 
     // Combine logs and history, removing duplicates while preserving order
     const allEntries = useMemo(() => {
@@ -60,14 +65,24 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRew
             });
         }
 
+        // Chat messages, placed among the lines by time
+        chatMessages.forEach((m, i) => {
+            entries.push({ id: m.id, type: 'CHAT' as any, timestamp: m.timestamp, playerId: m.playerId, message: m.text, payload: { text: m.text, name: m.name, color: m.color } as any, sequenceOrder: 100000 + i } as any);
+        });
+
         // Sort by timestamp if available, else sequence
         return entries.sort((a, b) => {
             if (a.timestamp && b.timestamp) return a.timestamp - b.timestamp;
             return (a.sequenceOrder || 0) - (b.sequenceOrder || 0);
         });
-    }, [logs, history]);
+    }, [logs, history, chatMessages]);
 
-
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!draft.trim() || !onSendChat) return;
+        onSendChat(draft);
+        setDraft('');
+    };
 
     return (
         <div className="log-view">
@@ -77,6 +92,12 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRew
 
             <div className="log-entries" ref={containerRef}>
                     {allEntries.map((entry, i) => (
+                        (entry.type as string) === 'CHAT' ? (
+                            <div key={entry.id || i} className="chat-entry">
+                                <span className="chat-author" style={{ color: (entry.payload as any)?.color }}>{(entry.payload as any)?.name}</span>
+                                <span className="chat-text">{(entry.payload as any)?.text}</span>
+                            </div>
+                        ) :
                         <React.Fragment key={entry.id || i}>
                             <RichLogEntry
                                 entry={entry}
@@ -100,6 +121,20 @@ export const LogView: React.FC<LogViewProps> = ({ logs, history, players, canRew
                         </React.Fragment>
                     ))}
             </div>
+
+            {onSendChat && (
+                <form className="chat-input-row" onSubmit={submit}>
+                    <input
+                        className="chat-input"
+                        value={draft}
+                        onChange={e => setDraft(e.target.value)}
+                        onKeyDown={e => e.stopPropagation()}
+                        placeholder="Écrire aux autres joueurs…"
+                        maxLength={300}
+                    />
+                    <button type="submit" className="chat-send" disabled={!draft.trim()} title="Envoyer">➤</button>
+                </form>
+            )}
         </div>
     );
 };

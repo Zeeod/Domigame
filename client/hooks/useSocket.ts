@@ -5,6 +5,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { SerializedState, PublicGameState, PrivatePlayerState } from '../../shared/types';
+import { getPreferences, onPreferencesChange } from '../utils/preferences';
 import { safeStorage } from '../utils/safeStorage';
 
 // ============================================================================
@@ -58,6 +59,15 @@ export interface SavedGameConfig {
     updatedAt: string;
 }
 
+export interface ChatMessage {
+    id: string;
+    playerId: string;
+    name: string;
+    color: string;
+    text: string;
+    timestamp: number;
+}
+
 export interface UseSocketReturn {
     // Connection
     isConnected: boolean;
@@ -98,6 +108,8 @@ export interface UseSocketReturn {
         turnTimeoutMs?: number
     }) => void;
     requestRewind: (targetLogId: string) => void;
+    chatMessages: ChatMessage[];
+    sendChat: (text: string) => void;
     voteRewind: (approved: boolean) => void;
     forceEndGame: () => void;
     listSavedGames: () => void;
@@ -126,6 +138,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
     const [roomState, setRoomState] = useState<RoomState | null>(null);
     const [gameState, setGameState] = useState<GameState | null>(null);
     const [savedGames, setSavedGames] = useState<SavedGameConfig[]>([]);
+    const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     // Connect on mount
@@ -138,9 +151,20 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
 
         socketRef.current = socket;
 
+        let connectedBefore = false;
         socket.on('connect', () => {
             console.log('[Socket] Connected');
             setIsConnected(true);
+            // After a network cut or a server restart, ask for our room again: the server puts us
+            // back in the game, or (room gone) opens a new room where the saved game can be resumed
+            const savedRoomId = sessionStorage.getItem('dominion_current_room');
+            const savedName = sessionStorage.getItem('dominion_player_name');
+            const token = safeStorage.get('dominion_player_token');
+            if (connectedBefore && savedRoomId && savedName && token) {
+                console.log('[Socket] Reconnected: rejoining room', savedRoomId);
+                socket.emit('join_room', { roomId: savedRoomId, playerName: savedName, color: sessionStorage.getItem('dominion_player_color') || '#fff', playerToken: token });
+            }
+            connectedBefore = true;
         });
 
         socket.on('disconnect', () => {
@@ -148,7 +172,11 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
             setIsConnected(false);
         });
 
+        const sendPreferences = () => socket.emit('set_preferences', { autoForcedChoices: getPreferences().autoForcedChoices });
+        const stopPrefs = onPreferencesChange(sendPreferences);
+
         socket.on('joined', (data: { roomId: string; playerId: string; isHost: boolean }) => {
+            sendPreferences();
             console.log('[Socket] Joined room:', data);
             setPlayerId(data.playerId); // This is now the persistent token
             setIsHost(data.isHost);
@@ -156,6 +184,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
 
         // Handle reconnection success specifically if needed, or just rely on 'joined'
         socket.on('reconnect_success', (data: { roomId: string; playerId: string; isHost: boolean }) => {
+            sendPreferences();
             console.log('[Socket] Reconnected successfully:', data);
             setPlayerId(data.playerId);
             setIsHost(data.isHost);
@@ -167,6 +196,14 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
 
         socket.on('saved_games_list', (data: { games: SavedGameConfig[] }) => {
             setSavedGames(data.games);
+        });
+
+        socket.on('chat_history', (messages: ChatMessage[]) => {
+            setChatMessages(Array.isArray(messages) ? messages : []);
+        });
+
+        socket.on('chat_message', (msg: ChatMessage) => {
+            setChatMessages(prev => prev.some(m => m.id === msg.id) ? prev : [...prev, msg].slice(-200));
         });
 
         socket.on('room_state', (state: RoomState) => {
@@ -199,6 +236,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         socket.on('room_closed', (data: { reason: string }) => {
             console.log('[Socket] Room closed:', data.reason);
             setRoomState(null);
+        setChatMessages([]);
             setGameState(null);
             setIsHost(false);
             sessionStorage.removeItem('dominion_current_room');
@@ -216,6 +254,7 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         });
 
         return () => {
+            stopPrefs();
             socket.disconnect();
         };
     }, [serverUrl]);
@@ -342,6 +381,11 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         socketRef.current?.emit('change_setup', options);
     }, []);
 
+    const sendChat = useCallback((text: string) => {
+        const t = text.trim();
+        if (t) socketRef.current?.emit('chat_send', { text: t });
+    }, []);
+
     const requestRewind = useCallback((targetLogId: string) => {
         socketRef.current?.emit('request_rewind', { targetLogId });
     }, []);
@@ -395,6 +439,8 @@ export function useSocket(serverUrl: string = DEFAULT_SERVER_URL): UseSocketRetu
         changeSetup,
         requestRewind,
         voteRewind,
+        chatMessages,
+        sendChat,
         forceEndGame,
         listSavedGames,
         resumeGame,

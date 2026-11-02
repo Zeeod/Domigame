@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { RoomState } from '../hooks/useSocket';
+import { RoomState, ChatMessage } from '../hooks/useSocket';
 import './Lobby.css';
 
 import { SavedGameConfig } from '../hooks/useSocket';
@@ -29,6 +29,8 @@ interface LobbyProps {
     savedGames?: SavedGameConfig[];
     onListSavedGames?: () => void;
     onResumeGame?: (gameId: string) => void;
+    chatMessages?: ChatMessage[];
+    onSendChat?: (text: string) => void;
 }
 
 const COLOR_PALETTE = [
@@ -61,7 +63,9 @@ export const Lobby: React.FC<LobbyProps> = ({
     onSetupChange,
     savedGames = [],
     onListSavedGames,
-    onResumeGame
+    onResumeGame,
+    chatMessages = [],
+    onSendChat
 }) => {
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [copied, setCopied] = useState(false);
@@ -252,7 +256,7 @@ export const Lobby: React.FC<LobbyProps> = ({
                                         <div style={{ fontSize: '0.9rem' }}>
                                             <div style={{ fontWeight: 'bold' }}>Tour {game.turnNumber} • {game.playerNames.join(' vs ')}</div>
                                             <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem', marginTop: '4px' }}>
-                                                Sauvegardé le {new Date(game.updatedAt).toLocaleString()}
+                                                Sauvegardé le {new Date(game.updatedAt.replace(' ', 'T') + 'Z').toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}
                                             </div>
                                         </div>
                                         <button
@@ -270,6 +274,9 @@ export const Lobby: React.FC<LobbyProps> = ({
                             </div>
                         </div>
                     )}
+
+                    {/* Chat with the other players */}
+                    {onSendChat && <LobbyChat messages={chatMessages} onSend={onSendChat} />}
 
                     {/* 3. Action Buttons - Below Player List */}
                     <div className="lobby-primary-actions">
@@ -339,6 +346,35 @@ export const Lobby: React.FC<LobbyProps> = ({
                     Quitter
                 </button>
             </div>
+        </div>
+    );
+};
+
+
+/** Small chat of the room: the same messages carry on into the game log */
+const LobbyChat: React.FC<{ messages: ChatMessage[]; onSend: (text: string) => void }> = ({ messages, onSend }) => {
+    const [draft, setDraft] = useState('');
+    const listRef = React.useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
+    }, [messages.length]);
+    return (
+        <div className="lobby-chat">
+            <div className="lobby-chat-list" ref={listRef}>
+                {messages.length === 0 && <div className="lobby-chat-empty">Pas encore de message.</div>}
+                {messages.map(m => (
+                    <div key={m.id} className="lobby-chat-msg">
+                        <span className="lobby-chat-author" style={{ color: m.color }}>{m.name}</span> {m.text}
+                    </div>
+                ))}
+            </div>
+            <form
+                className="lobby-chat-form"
+                onSubmit={e => { e.preventDefault(); if (draft.trim()) { onSend(draft); setDraft(''); } }}
+            >
+                <input value={draft} onChange={e => setDraft(e.target.value)} placeholder="Écrire aux autres joueurs…" maxLength={300} />
+                <button type="submit" disabled={!draft.trim()}>➤</button>
+            </form>
         </div>
     );
 };

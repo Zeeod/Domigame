@@ -314,3 +314,70 @@
     color: rgba(255, 255, 255, 0.75);
     border-color: rgba(255, 255, 255, 0.15) !important;
 }
+
+
+/* Chat: messages among the log lines, input at the bottom */
+.chat-entry {
+    margin: 4px 0;
+    padding: 5px 8px;
+    border-radius: 8px;
+    background: rgba(52, 152, 219, 0.14);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    font-size: 0.85rem;
+    line-height: 1.35;
+    word-wrap: break-word;
+}
+
+.chat-author {
+    font-weight: 800;
+    margin-right: 6px;
+}
+
+.chat-author::after {
+    content: ' :';
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+.chat-text {
+    color: #f0f4f8;
+}
+
+.chat-input-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.chat-input:focus {
+    border-color: rgba(52, 152, 219, 0.7);
+}
+
+.chat-send {
+    padding: 0 12px;
+    border-radius: 8px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.chat-send:disabled {
+    opacity: 0.4;
+    cursor: default;
+}

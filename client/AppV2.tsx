@@ -35,6 +35,8 @@ export const AppV2: React.FC = () => {
         changeColor,
         changeKingdom,
         requestRewind,
+        chatMessages,
+        sendChat,
         voteRewind,
         isReconnecting,
         forceEndGame,
@@ -134,6 +136,8 @@ export const AppV2: React.FC = () => {
                         savedGames={savedGames}
                         onListSavedGames={listSavedGames}
                         onResumeGame={resumeGame}
+                        chatMessages={chatMessages}
+                        onSendChat={sendChat}
                     />
                 )}
 
@@ -169,6 +173,8 @@ export const AppV2: React.FC = () => {
                                 onSpendCoffers={(amount) => sendAction({ type: 'SPEND_COFFERS', amount } as any)}
                                 onSpendVillagers={(amount) => sendAction({ type: 'SPEND_VILLAGERS', amount } as any)}
                                 onRequestRewind={requestRewind}
+                                chatMessages={chatMessages}
+                                onSendChat={sendChat}
                                 roomState={roomState}
                                 onConfigureSpectator={configureSpectator}
                             />

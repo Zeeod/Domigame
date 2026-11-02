@@ -1,5 +1,5 @@
 /**
- * Database - SQLite persistence layer using better-sqlite3
+ * Database - SQLite persistence layer using Node's built-in SQLite (node:sqlite, no native build)
  * 
  * Provides:
  * - Game save/resume (auto-save during play, resume from lobby)
@@ -7,7 +7,7 @@
  * - Game results history
  */
 
-import BetterSqlite3 from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -15,7 +15,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DB_PATH = path.join(__dirname, '..', 'data', 'dominion.db');
+// Tests use a throwaway in-memory database: their games must not show up in the real saved games
+const DB_PATH = process.env.VITEST ? ':memory:' : path.join(__dirname, '..', 'data', 'dominion.db');
 
 // ============================================================================
 // Types
@@ -59,19 +60,19 @@ export interface PlayerProfile {
 // ============================================================================
 
 class DatabaseManager {
-    private db: BetterSqlite3.Database | null = null;
+    private db: DatabaseSync | null = null;
 
-    private getDb(): BetterSqlite3.Database {
+    private getDb(): DatabaseSync {
         if (!this.db) {
             // Ensure data directory exists
             const dataDir = path.dirname(DB_PATH);
-            if (!fs.existsSync(dataDir)) {
+            if (DB_PATH !== ':memory:' && !fs.existsSync(dataDir)) {
                 fs.mkdirSync(dataDir, { recursive: true });
             }
 
-            this.db = new BetterSqlite3(DB_PATH);
-            this.db.pragma('journal_mode = WAL');
-            this.db.pragma('foreign_keys = ON');
+            this.db = new DatabaseSync(DB_PATH);
+            this.db.exec('PRAGMA journal_mode = WAL');
+            this.db.exec('PRAGMA foreign_keys = ON');
             this.initSchema();
             console.log('[DB] SQLite database initialized at', DB_PATH);
         }
@@ -117,23 +118,26 @@ class DatabaseManager {
             CREATE INDEX IF NOT EXISTS idx_saved_games_status ON saved_games(status);
             CREATE INDEX IF NOT EXISTS idx_game_results_player ON game_results(player_token);
         `);
+        // Older databases: saved games did not record who played them
+        const cols = (db.prepare('PRAGMA table_info(saved_games)').all() as any[]).map(c => c.name);
+        if (!cols.includes('player_tokens')) db.exec("ALTER TABLE saved_games ADD COLUMN player_tokens TEXT NOT NULL DEFAULT '[]'");
     }
 
     // ========================================================================
     // Game Save/Resume
     // ========================================================================
 
-    saveGame(gameId: string, roomId: string, stateJson: string, kingdom: string[], playerNames: string[], turnNumber: number): void {
+    saveGame(gameId: string, roomId: string, stateJson: string, kingdom: string[], playerNames: string[], turnNumber: number, playerTokens: string[] = []): void {
         const db = this.getDb();
         const stmt = db.prepare(`
-            INSERT INTO saved_games (id, room_id, state_json, kingdom, player_names, turn_number, status, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, 'in_progress', datetime('now'))
+            INSERT INTO saved_games (id, room_id, state_json, kingdom, player_names, turn_number, player_tokens, status, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'in_progress', datetime('now'))
             ON CONFLICT(id) DO UPDATE SET
                 state_json = excluded.state_json,
                 turn_number = excluded.turn_number,
                 updated_at = datetime('now')
         `);
-        stmt.run(gameId, roomId, stateJson, JSON.stringify(kingdom), JSON.stringify(playerNames), turnNumber);
+        stmt.run(gameId, roomId, stateJson, JSON.stringify(kingdom), JSON.stringify(playerNames), turnNumber, JSON.stringify(playerTokens));
     }
 
     loadGame(gameId: string): SavedGame | null {
@@ -174,7 +178,7 @@ class DatabaseManager {
             const stmt = db.prepare(`
                 SELECT * FROM saved_games 
                 WHERE status = 'in_progress' 
-                AND player_names LIKE ?
+                AND player_tokens LIKE ?
                 ORDER BY updated_at DESC
                 LIMIT 20
             `);
