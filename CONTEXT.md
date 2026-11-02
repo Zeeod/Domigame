@@ -14,7 +14,7 @@
 - **Backend** : Node.js + Express 5 + Socket.IO (WebSockets temps-réel)
 - **Moteur de jeu** : TypeScript pur dans `shared/`, 100% déterministe et sans effets de bord
 - **Tests** : Vitest — 458 tests dans `tests/` (401 OK, 57 en échec au 20/10/2026)
-- **Déploiement** : Docker multi-stage, port 3005, servi sur `dominion.example.com`
+- **Déploiement** : Docker multi-stage, port 3005, servi derrière un reverse proxy
 - **Langage** : Interface et logs en **français**
 
 ### Extensions implémentées (22 au total)
