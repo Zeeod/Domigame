@@ -2,6 +2,7 @@ import express from 'express';
 import { createServer } from "http";
 import { Server } from "socket.io";
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { setupSocketHandlers } from "./SocketHandler.js";
 
@@ -28,6 +29,11 @@ const io = new Server(httpServer, {
 });
 
 setupSocketHandlers(io);
+
+// Card images added on the server (data/card-images, the Docker volume) win over the ones built into the game
+const userImagesPath = path.join(__dirname, '../data/card-images');
+try { fs.mkdirSync(userImagesPath, { recursive: true }); } catch { /* read-only disk: built-in images only */ }
+app.use('/card-images', express.static(userImagesPath));
 
 // Serve static files from 'dist' directory
 const distPath = path.join(__dirname, '../dist');

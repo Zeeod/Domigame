@@ -23,3 +23,5 @@ logs/*
 Thumbs.db
 .vscode/
 .idea/
+data/card-images/*
+!data/card-images/.gitkeep
